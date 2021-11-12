@@ -65,7 +65,8 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(point_of_blessing)
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
                             <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Weekly <?= $siswa2['name']; ?></h1>
-                            <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Exhibition</a>
+                            <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Pesonal Goal</a>
+                            <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning active mt-2">Exhibition</a>
                             <a href="homemeeting.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
 
                         </div>

@@ -156,10 +156,12 @@ $catatan = query("SELECT * FROM tb_catatan WHERE nis='$id' ORDER BY date DESC");
                     <div class="modal-body">
                         <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
                         <div class="form-group">
+                            <label for="title">Title :</label>
                             <input type="text" class="form-control" id="jd_diary" name="jd_diary" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="isi_diary" name="isi_diary" placeholder="Description">
+                            <label for="descrition">Description :</label>
+                            <textarea rows="5" type="text" class="form-control" id="isi_diary" name="isi_diary" placeholder="Description"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

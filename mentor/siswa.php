@@ -94,10 +94,10 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
                                                 <td><?= $row["status"]; ?></td>
                                                 <td>
 
-                                                    <a href="personalgoal.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-primary btn-sm  form-group">
+                                                    <a href="revivalnote.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-primary btn-sm  form-group">
                                                         Daily
                                                     </a>
-                                                    <a href="exhibition.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
+                                                    <a href="personalgoal.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         Weekly
                                                     </a>
                                                     <a href="blessings.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
@@ -171,7 +171,8 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
                 scrollY: 500,
                 scrollX: true,
                 scrollCollapse: true,
-                paging: true
+                paging: true,
+
             });
         });
 

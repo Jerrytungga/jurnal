@@ -1,6 +1,6 @@
  <?php
     // menampilkan data jurnal 
-    $conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
+    $conn = mysqli_connect("127.0.0.1", "root", "", "jurnal");
     function query($query)
     {
         global $conn;

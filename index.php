@@ -112,7 +112,7 @@ if (!isset($_SESSION['role'])) {
                   position: 'topRight'
                 });
                 setTimeout(function() {
-                  window.location.href = "mentor/index.php";
+                  window.location.href = "mentor/profile.php";
                 }, 3000);
 
                 // Jika ia sebagai siswa 

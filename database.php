@@ -1,7 +1,7 @@
 <?php
 
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal")  or die("Gagal");
+$conn = mysqli_connect("127.0.0.1", "root", "", "jurnal")  or die("Gagal");
 
 
 

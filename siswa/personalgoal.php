@@ -190,7 +190,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DE
                             </textarea>
                     </div>
                     <div class="form-group">
-                        <label for="neutron-text" class="col-form-label font-weight-bold">Neutron :</label>
+                        <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
                         <textarea rows="5" type="text" class="form-control" id="neutron" readonly>
                             </textarea>
                     </div>
@@ -231,7 +231,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DE
                             <textarea rows="5" type="text" class="form-control" id="prayer" name="prayer"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="neutron-text" class="col-form-label font-weight-bold">Neutron :</label>
+                            <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
                             <textarea rows="5" type="text" class="form-control" id="neutron" name="neutron"></textarea>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
+$conn = mysqli_connect("127.0.0.1", "root", "", "jurnal");
 // menampilkan data siswa
 function query($query)
 {
@@ -174,4 +174,25 @@ if (isset($_POST['btn_virtue'])) {
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
     mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+}
+
+
+
+
+if (isset($_POST['input'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $name = htmlspecialchars($_POST['name']);
+    $presensi = htmlspecialchars($_POST['presensi']);
+    $jurnaldaily = htmlspecialchars($_POST['jurnaldaily']);
+    $jurnalweekly = htmlspecialchars($_POST['jurnalweekly']);
+    $jurnalMonthly = htmlspecialchars($_POST['jurnalMonthly']);
+    $virtue = htmlspecialchars($_POST['virtue']);
+    $lemari = htmlspecialchars($_POST['lemari']);
+    $sepatu = htmlspecialchars($_POST['sepatu']);
+    $ranjang = htmlspecialchars($_POST['ranjang']);
+    $total = htmlspecialchars($_POST['total']);
+    $status = htmlspecialchars($_POST['status']);
+    $Keterangan = htmlspecialchars($_POST['Keterangan']);
+    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata')");
 }

@@ -90,7 +90,7 @@ $report = query("SELECT * FROM tb_reportweekly WHERE nis='$id' ORDER BY date DES
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                        <thead class="text-center">
                                             <tr class="table-secondary">
                                                 <th width="10">No</th>
                                                 <th>Name</th>
@@ -105,12 +105,12 @@ $report = query("SELECT * FROM tb_reportweekly WHERE nis='$id' ORDER BY date DES
                                                 <th>Total</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
-                                                <th>Date</th>
+                                                <th width="200">Date</th>
 
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody class="text-center">
                                             <?php $i = 1; ?>
                                             <?php foreach ($report as $row) : ?>
                                                 <tr>

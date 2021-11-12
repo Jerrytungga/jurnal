@@ -37,7 +37,6 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 </head>
 
 <body id=" page-top">
@@ -283,8 +282,6 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
@@ -293,8 +290,6 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
                 scrollCollapse: true,
                 paging: true
             });
-
-
 
         });
 

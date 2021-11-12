@@ -35,7 +35,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Jurnal Daily </title>
+    <title>Jurnal Weekly </title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -66,15 +66,27 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Daily <?= $siswa2['name']; ?></h1>
+                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Weekly <?= $siswa2['name']; ?></h1>
                             <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Pesonal Goal</a>
-                            <a href="revivalnote.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-success">Revival Note</a>
-                            <a href="prayernote.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-warning">Prayer Note</a>
-                            <a href="biblereading.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-danger">Bible Reading</a>
+                            <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Exhibition</a>
+                            <a href="homemeeting.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
+
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
+                        <!-- <div class="card-header py-3">
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> -->
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -170,10 +182,15 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 400,
+                scrollY: 600,
                 scrollX: true,
                 scrollCollapse: true,
-                paging: true
+                paging: true,
+                lengthMenu: [
+                    [7, 10, 25, 50, -1],
+                    [7, 10, 25, 50, "All"]
+                ],
+
             });
         });
 
