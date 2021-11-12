@@ -6,6 +6,7 @@ $mpdf = new \Mpdf\Mpdf();
 
 <h3>Laporan Final jurnal PKA</h3>
 <hr>
+<h1 class="text-danger">Mohon Maaf, Halaman ini masih dalam proses pengembangan</h1>
 
 
 
