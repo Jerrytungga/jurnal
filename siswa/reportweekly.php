@@ -79,7 +79,7 @@ $report = query("SELECT * FROM tb_reportweekly WHERE nis='$id' ORDER BY date DES
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <div class="group">
                                 <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Jurnal Report</h1>
-                                <a href="" class="btn btn-primary mt-2" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a>
+                                <!-- <a href="" class="btn btn-primary mt-2" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a> -->
                             </div>
                         </div>
                         <!-- DataTales Example -->
