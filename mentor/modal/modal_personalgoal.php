@@ -72,3 +72,45 @@
          </div>
      </div>
  </div>
+
+
+ <!-- view -->
+ <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     <div class="modal-dialog" id="modal-detail">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="staticBackdropLabel">Personal goal Detail </h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body table-responsive">
+
+                 <div class="form-group">
+                     <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                     <input type="text" class="form-control" id="date" name="date" readonly></input>
+                 </div>
+                 <div class="form-group">
+                     <label for="Character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
+                     <textarea rows="5" type="text" class="form-control" id="karakter" readonly>
+                            </textarea>
+                 </div>
+                 <div class="form-group">
+                     <label for="doa-text" class="col-form-label font-weight-bold">Prayer :</label>
+                     <textarea rows="5" type="text" class="form-control" id="doa" readonly>
+                            </textarea>
+                 </div>
+                 <div class="form-group">
+                     <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
+                     <textarea rows="5" type="text" class="form-control" id="neutron" readonly>
+                            </textarea>
+                 </div>
+                 <div class="form-group">
+                     <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                     <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
+                            </textarea>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>

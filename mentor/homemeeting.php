@@ -19,8 +19,6 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$nis' ORDER BY date DESC");
-$point = mysqli_fetch_array(mysqli_query($conn, "SELECT what_i_get_and_lern, count(what_i_get_and_lern) as point from tb_home_meeting GROUP BY what_i_get_and_lern"));
-$total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(what_i_get_and_lern) as total from tb_home_meeting WHERE nis='$nis'"));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +63,7 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(what_i_get_and_ler
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
                             <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Weekly <?= $siswa2['name']; ?></h1>
-                            <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Pesonal Goal</a>
+                            <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Personal Goal</a>
                             <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Exhibition</a>
                             <a href="homemeeting.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success active mt-2">Home Meeting</a>
 
@@ -91,32 +89,42 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(what_i_get_and_ler
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
                                                 <td>
-                                                    <!-- <span class="d-inline-block text-truncate text-justify" style="max-width: 600px;"> -->
-                                                    <?= $row['what_i_get_and_lern']; ?>
-                                                    <!-- </span> -->
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_i_get_and_lern']; ?>
+                                                    </span>
                                                 </td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $point['point']; ?></a></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td>
-                                                    <a class="font-weight-bold text-primary font-italic text-overflow-ellipsis"><?= $row['catatan_mentor']; ?></a>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <a class="font-weight-bold text-primary font-italic text-overflow-ellipsis"><?= $row['catatan_mentor']; ?></a>
+                                                    </span>
                                                 </td>
                                                 <td>
+                                                    <!-- Button trigger modal view -->
+                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-learn="<?= $row['what_i_get_and_lern']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
                                                     <!-- Get data personal siswa -->
-                                                    <a id="homemeeting" data-toggle="modal" data-target="#home_meeting" data-berkat="<?= $row["what_i_get_and_lern"]; ?>" data-nis="<?= $row["nis"]; ?>" data-date="<?= $row["date"]; ?>" data-catatan8="<?= $row["catatan_mentor"]; ?>">
+                                                    <a id="homemeeting" data-toggle="modal" data-target="#home_meeting" data-berkat="<?= $row["what_i_get_and_lern"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point="<?= $row["point"]; ?>" data-date=" <?= $row["date"]; ?>" data-catatan8="<?= $row["catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['point']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                         <th class="bg-warning text-right" colspan="5"> Total Point : </th>
-                                        <th class="text-center"><?= $total['total']; ?></th>
+                                        <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
                             </div>
@@ -170,11 +178,25 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(what_i_get_and_ler
             let nis = $(this).data('nis');
             let berkat = $(this).data('berkat');
             let catatan8 = $(this).data('catatan8');
+            let point = $(this).data('point');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #berkat").val(berkat);
+            $(" #modal-edit #point").val(point);
             $(" #modal-edit #catatan8").val(catatan8);
             $(" #modal-edit #date").val(date);
+
+        });
+
+        $(document).on("click", "#detail", function() {
+            let nis = $(this).data('nis');
+            let learn = $(this).data('learn');
+            let mentor = $(this).data('mentor');
+            let date = $(this).data('date');
+            $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #learn").val(learn);
+            $(" #modal-detail #mentor").val(mentor);
+            $(" #modal-detail #date").val(date);
 
         });
     </script>

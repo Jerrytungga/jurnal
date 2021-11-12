@@ -80,6 +80,16 @@
                       </div>
 
                       <div class="form-group">
+                          <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                          <select class="form-control" aria-label="Default select example" name="point" id="point">
+                              <option selected>Select</option>
+                              <option value="1">1</option>
+                              <option value="0">0</option>
+                              <option value="-1">-1</option>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
                           <label class="text-reset font-weight-bold" for="mentor">Date :</label>
                           <input type="text" class="form-control" id="date" name="date" placeholder="date">
                       </div>

@@ -52,8 +52,10 @@ if (isset($_POST['btn_revivalnote'])) {
     $verse = htmlspecialchars($_POST['verse']);
     $blessing = htmlspecialchars($_POST['blessings']);
     $date = htmlspecialchars($_POST['date']);
+    $point1 = htmlspecialchars($_POST['point1']);
+    $point2 = htmlspecialchars($_POST['point2']);
     $catatan_mentor = htmlspecialchars($_POST['mentor']);
-    mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`date`='$date',`catatan_mentor`='$catatan_mentor' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`point1`='$point1',`point2`='$point2',`date`='$date',`catatan_mentor`='$catatan_mentor' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date` ='$date'");
 }
 
 
@@ -62,9 +64,10 @@ if (isset($_POST['btn_prayernote'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $judul = htmlspecialchars($_POST['judul']);
     $beban = htmlspecialchars($_POST['beban']);
+    $point = htmlspecialchars($_POST['point']);
     $date = htmlspecialchars($_POST['date']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
 }
 
 // sistem edit bible
@@ -74,8 +77,9 @@ if (isset($_POST['btn_bible'])) {
     $ot = htmlspecialchars($_POST['ot']);
     $nt = htmlspecialchars($_POST['nt']);
     $date = htmlspecialchars($_POST['date']);
+    $point_bible = htmlspecialchars($_POST['point']);
     $catatan4 = htmlspecialchars($_POST['catatan4']);
-    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
 }
 
 
@@ -83,10 +87,11 @@ if (isset($_POST['btn_bible'])) {
 if (isset($_POST['btn_exhibition'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $verse2 = htmlspecialchars($_POST['verse2']);
-    $point = htmlspecialchars($_POST['point']);
+    $point = htmlspecialchars($_POST['pointblessing']);
     $catatan2 = htmlspecialchars($_POST['catatan2']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+    $point_exhibition = htmlspecialchars($_POST['point']);
+    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
 }
 
 
@@ -95,8 +100,9 @@ if (isset($_POST['btn_homemeeting'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $berkat = htmlspecialchars($_POST['berkat']);
     $catatan8 = htmlspecialchars($_POST['catatan8']);
+    $point_homemeeting = htmlspecialchars($_POST['point']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis'");
+    mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
 }
 
 // sistem edit blessings
@@ -119,7 +125,7 @@ if (isset($_POST['btn_blessings'])) {
     $berkat = htmlspecialchars($_POST['berkat']);
     $cttn8 = htmlspecialchars($_POST['cttn8']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis'");
+    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
 }
 
 if (isset($_POST['btn_presensi'])) {

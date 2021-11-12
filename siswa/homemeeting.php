@@ -204,7 +204,7 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
         <div class="modal-dialog" id="modal-detail">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Exhibition Detail </h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Home Meeting Detail </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

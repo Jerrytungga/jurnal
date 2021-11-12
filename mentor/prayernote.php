@@ -19,8 +19,7 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
-$total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(*) as total from tb_prayer_note WHERE nis='$nis'"));
-$point = mysqli_fetch_array(mysqli_query($conn, "SELECT kategori, count(kategori) as point from tb_prayer_note GROUP BY kategori"));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +88,7 @@ $point = mysqli_fetch_array(mysqli_query($conn, "SELECT kategori, count(kategori
                                     </thead>
                                     <tbody>
                                         <?php $i = 1;
+                                        $total = 0;
                                         function categori($doa)
                                         {
                                             global $conn;
@@ -99,23 +99,37 @@ $point = mysqli_fetch_array(mysqli_query($conn, "SELECT kategori, count(kategori
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= categori($row['kategori']); ?></td>
-                                                <td><?= $row['burden_inward_sense']; ?></td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $point['point']; ?></a></td>
-                                                <td><?= $row['date']; ?></td>
-                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a></td>
                                                 <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['burden_inward_sense']; ?>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
+                                                <td><?= $row['date']; ?></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" id="detail" class="btn btn-dark" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-category="<?= $row['kategori']; ?>" data-inward="<?= $row['burden_inward_sense']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
+                                                    <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-point="<?= $row['point']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
-
+                                            <?php
+                                            $total = $total + $row['point']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                         <th class="bg-warning text-right" colspan="6"> Total Point : </th>
-                                        <th class="text-center"><?= $total['total']; ?></th>
+                                        <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
                             </div>
@@ -161,18 +175,33 @@ $point = mysqli_fetch_array(mysqli_query($conn, "SELECT kategori, count(kategori
             });
         });
 
+        $(document).on("click", "#detail", function() {
+            let nis = $(this).data('nis');
+            let category = $(this).data('category');
+            let inward = $(this).data('inward');
+            let mentor = $(this).data('mentor');
+            let date = $(this).data('date');
+            $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #category").text(category);
+            $(" #modal-detail #inward").val(inward);
+            $(" #modal-detail #mentor").val(mentor);
+            $(" #modal-detail #date").text(date);
+
+        });
         $(document).on("click", "#edit_prayer_note", function() {
 
             let nis = $(this).data('nis');
             let judul = $(this).data('judul');
             let beban = $(this).data('beban');
             let catatan = $(this).data('catatan');
+            let point = $(this).data('point');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #judul").val(judul);
             $(" #modal-edit #beban").val(beban);
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #point").val(point);
 
         });
     </script>

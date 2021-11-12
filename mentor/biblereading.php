@@ -20,8 +20,7 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date DESC");
-$point = mysqli_fetch_array(mysqli_query($conn, "SELECT bible, count(bible) as point from tb_bible_reading GROUP BY bible"));
-$total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(*) as total from tb_bible_reading WHERE nis='$nis'"));
+
 
 ?>
 <!DOCTYPE html>
@@ -89,28 +88,32 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(*) as total from t
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
                                                 <td><?= $row['bible']; ?></td>
                                                 <td><?= $row['total_ot']; ?></td>
                                                 <td><?= $row['total_nt']; ?></td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $point['point']; ?></a></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a></td>
                                                 <td>
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
+                                                    <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['point']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                         <th class="bg-warning text-right" colspan="5"> Total Point: </th>
-                                        <th class="text-center"><?= $total['total']; ?></th>
+                                        <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
                             </div>
@@ -166,12 +169,14 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(*) as total from t
             let bible = $(this).data('bible');
             let ot = $(this).data('ot');
             let nt = $(this).data('nt');
+            let point = $(this).data('point');
             let date = $(this).data('date');
             let catatan4 = $(this).data('catatan');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #bible").val(bible);
             $(" #modal-edit #ot").val(ot);
             $(" #modal-edit #nt").val(nt);
+            $(" #modal-edit #point").val(point);
             $(" #modal-edit #catatan4").val(catatan4);
             $(" #modal-edit #date").val(date);
 

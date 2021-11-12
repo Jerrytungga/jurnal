@@ -76,28 +76,20 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" cellspacing="0">
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>What I Gain On God</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I Learn On Education</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I learn On Character & Virtue</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I Appreciate Toward Brother & Sister</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What l Appreciate Toward My Trainers/Mentors</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I Appreciate Toward Saints</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I Want To Ask</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>What I Learn the most This Month</th>
-                                            <th class="bg-warning">Point</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th width="150">What I Gain On God</th>
+                                            <th width="100">What I Learn On Education</th>
+                                            <th width="100">What I learn On Character & Virtue</th>
+                                            <th width="100">What I Appreciate Toward Brother & Sister</th>
+                                            <th width="100">What l Appreciate Toward My Trainers/Mentors</th>
+                                            <th width="100">What I Appreciate Toward Saints</th>
+                                            <th width="100">What I Want To Ask</th>
+                                            <th width="100">What I Learn the most This Month</th>
+                                            <th width="100">Date</th>
+                                            <th width="100">Option</th>
                                         </tr>
                                     </thead>
 
@@ -107,38 +99,96 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
                                             <tr>
 
                                                 <td><?= $i; ?></td>
-                                                <td><?= $row['what_i_gain_on_god']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn1']; ?></a>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_i_gain_on_god']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn1']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point1']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-whatigod="<?= $row['what_i_gain_on_god']; ?>" data-cttn="<?= $row['cttn1']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_gain_on_god">
+
+                                                        </a>
+                                                    </span>
+
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_i_learn_on_education']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn2']; ?></a>
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_i_learn_on_education']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn2']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point2']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-whateducation="<?= $row['what_i_learn_on_education']; ?>" data-cttn="<?= $row['cttn2']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_on_education">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_i_learn_on_character_and_virtue']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn3']; ?></a>
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_i_learn_on_character_and_virtue']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn3']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point3']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-learn="<?= $row['what_i_learn_on_character_and_virtue']; ?>" data-cttn="<?= $row['cttn3']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_on_character_and_virtue">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_l_appreciate_toward_brother_sister']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn4']; ?></a>
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_l_appreciate_toward_brother_sister']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn4']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point4']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-appreciate="<?= $row['what_l_appreciate_toward_brother_sister']; ?>" data-cttn="<?= $row['cttn4']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_l_appreciate_toward_brother_sister">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_l_appreciate_toward_my_trainers']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn5']; ?></a>
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_l_appreciate_toward_my_trainers']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn5']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point5']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-appreciate1="<?= $row['what_l_appreciate_toward_my_trainers']; ?>" data-cttn="<?= $row['cttn5']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIAppreciateTowardMyTrainers">
+                                                        </a>
+                                                    </span>
+
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_l_appreciate_toward_saints']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn6']; ?></a>
+
+
+
+
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_l_appreciate_toward_saints']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn6']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point6']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-appreciate2="<?= $row['what_l_appreciate_toward_saints']; ?>" data-cttn="<?= $row['cttn6']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIAppreciateTowardSaints">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_I_want_to_ask']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn7']; ?></a>
+
+
+
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_I_want_to_ask']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn7']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point7']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-ask="<?= $row['what_I_want_to_ask']; ?>" data-cttn="<?= $row['cttn7']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIWantToAsk">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
-                                                <td><?= $row['what_i_learn_the_most_this_month']; ?><br><br>
-                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['cttn8']; ?></a>
+
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['what_i_learn_the_most_this_month']; ?><br>
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['cttn8']; ?></a><br>
+                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point8']; ?></a>
+                                                        <a type="button" class="fas fa-eye" id="detail" data-whatlearnthismonht="<?= $row['what_i_learn_the_most_this_month']; ?>" data-cttn="<?= $row['cttn8']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_the_most_this_month">
+                                                        </a>
+                                                    </span>
                                                 </td>
-                                                <td></td>
+
                                                 <td><?= $row['date']; ?></td>
 
                                                 <td>
@@ -241,6 +291,32 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
             $(" #modal-edit #cttn7").val(cttn7);
             $(" #modal-edit #berkat").val(berkat);
             $(" #modal-edit #cttn8").val(cttn8);
+            $(" #modal-edit #date").val(date);
+        });
+
+        $(document).on("click", "#detail", function() {
+
+            let nis = $(this).data('nis');
+            let god = $(this).data('whatigod');
+            let edu = $(this).data('whateducation');
+            let learnoncharacter = $(this).data('learn');
+            let appreciate = $(this).data('appreciate');
+            let appreciate1 = $(this).data('appreciate1');
+            let appreciate2 = $(this).data('appreciate2');
+            let ask = $(this).data('ask');
+            let whatlearnthismonht = $(this).data('whatlearnthismonht');
+            let catatan = $(this).data('cttn');
+            let date = $(this).data('date');
+            $(" #modal-edit #nis").val(nis);
+            $(" #modal-edit #god").val(god);
+            $(" #modal-edit #edu").val(edu);
+            $(" #modal-edit #learnoncharacter").val(learnoncharacter);
+            $(" #modal-edit #appreciate").val(appreciate);
+            $(" #modal-edit #appreciate1").val(appreciate1);
+            $(" #modal-edit #appreciate2").val(appreciate2);
+            $(" #modal-edit #ask").val(ask);
+            $(" #modal-edit #whatlearnthismonht").val(whatlearnthismonht);
+            $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
         });
     </script>

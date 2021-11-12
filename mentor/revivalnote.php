@@ -19,11 +19,6 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $jurnal = query("SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
-$point = mysqli_fetch_array(mysqli_query($conn, "SELECT verse, count(verse) as point from tb_revival_note GROUP BY verse"));
-$point1 = mysqli_fetch_array(mysqli_query($conn, "SELECT blessing, count(blessing) as point1 from tb_revival_note WHERE blessing!='' GROUP BY blessing"));
-$total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(verse) as total from tb_revival_note WHERE nis='$nis'"));
-$total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(blessing) as total from tb_revival_note WHERE nis='$nis'"));
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,28 +86,50 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(blessing) as total
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= $row['verse']; ?></td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $point['point']; ?></a></td>
-                                                <td><?= $row['blessing']; ?></td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $point1['point1']; ?></a></td>
-                                                <td><?= $row['date']; ?></td>
-                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a></td>
                                                 <td>
-                                                    <!-- Get data personal siswa -->
-                                                    <a id="edit_revival_note" data-toggle="modal" data-target="#revival_note" data-vrs="<?= $row["verse"]; ?>" data-nis="<?= $row["nis"]; ?>" data-date="<?= $row["date"]; ?>" data-blgs="<?= $row["blessing"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['verse']; ?>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point1']; ?></a></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['blessing']; ?>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point2']; ?></a></td>
+                                                <td><?= $row['date']; ?></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <!-- Button view detail revival note -->
+                                                    <button type="button" id="detail" class="btn btn-dark" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-blessings="<?= $row['blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+
+
+                                                    <!-- Get data revival note  siswa -->
+                                                    <a id="edit_revival_note" data-toggle="modal" data-target="#revival_note" data-vrs="<?= $row["verse"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-date="<?= $row["date"]; ?>" data-blgs="<?= $row["blessing"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['point1'] + $row['point2']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                         <th class="bg-warning text-right" colspan="5"> Total Point : </th>
-                                        <th class="text-center"><?= $total['total'] + $total['total']; ?></th>
+                                        <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
                             </div>
@@ -146,7 +163,7 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(blessing) as total
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 400,
+                scrollY: 600,
                 scrollX: true,
                 scrollCollapse: true,
                 paging: true
@@ -159,12 +176,28 @@ $total = mysqli_fetch_array(mysqli_query($conn, "SELECT count(blessing) as total
             let verse = $(this).data('vrs');
             let blessings = $(this).data('blgs');
             let mentor = $(this).data('catatan');
+            let point1 = $(this).data('point1');
+            let point2 = $(this).data('point2');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #verse").val(verse);
             $(" #modal-edit #blessings").val(blessings);
-            $(" #modal-edit #mentor").val(mentor);
+            $(" #modal-edit #point1").val(point1);
+            $(" #modal-edit #point2").val(point2);
             $(" #modal-edit #date").val(date);
+
+        });
+        $(document).on("click", "#detail", function() {
+            let nis = $(this).data('nis');
+            let verse = $(this).data('verse');
+            let blessings = $(this).data('blessings');
+            let mentor = $(this).data('mentor');
+            let date = $(this).data('date');
+            $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #verse").val(verse);
+            $(" #modal-detail #blessings").val(blessings);
+            $(" #modal-detail #mentor").val(mentor);
+            $(" #modal-detail #date").text(date);
 
         });
     </script>

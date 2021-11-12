@@ -67,7 +67,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
                             <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Weekly <?= $siswa2['name']; ?></h1>
-                            <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Pesonal Goal</a>
+                            <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Personal Goal</a>
                             <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Exhibition</a>
                             <a href="homemeeting.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
 
@@ -89,7 +89,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" cellspacing="0">
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
@@ -97,11 +97,11 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                                             <th class="bg-warning">Point</th>
                                             <th width="250">Prayer</th>
                                             <th class="bg-warning">Point</th>
-                                            <th width="250">Neutron</th>
+                                            <th width="250">Bimbel</th>
                                             <th class="bg-warning">Point</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
-                                            <th width="100">Options</th>
+                                            <th width="100px">Options</th>
 
                                         </tr>
                                     </thead>
@@ -113,18 +113,37 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
 
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= $row['character_virtue']; ?></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['character_virtue']; ?>
+                                                    </span>
+                                                </td>
                                                 <td class="text-center text-lg"><a class="font-weight-bold text-danger font-italic"><?= $row['point1']; ?></a></td>
-                                                <td><?= $row['prayer']; ?></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['prayer']; ?>
+                                                    </span>
+                                                </td>
                                                 <td class="text-center text-lg"><a class="font-weight-bold text-danger font-italic"><?= $row['point2']; ?></a></td>
-                                                <td><?= $row['neutron']; ?></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <?= $row['neutron']; ?>
+                                                    </span>
+                                                </td>
                                                 <td class="text-center text-lg"><a class="font-weight-bold text-danger font-italic"><?= $row['point3']; ?></a></td>
                                                 <td><?= $row['date']; ?></td>
-                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['Catatan_mentor']; ?></a></td>
+                                                <td>
+                                                    <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
+                                                        <a class="font-weight-bold text-primary font-italic"><?= $row['Catatan_mentor']; ?></a>
+                                                    </span>
+                                                </td>
 
                                                 <td>
+                                                    <button type="button" id="detail" class="btn btn-dark btn-inline " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-karakter="<?= $row['character_virtue']; ?>" data-doa="<?= $row['prayer']; ?>" data-neutron="<?= $row['neutron']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['Catatan_mentor']; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>" data-catatan="<?= $row["Catatan_mentor"]; ?>">
+                                                    <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-point3="<?= $row["point3"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>" data-catatan="<?= $row["Catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
                                                     <!-- penilaian -->
@@ -214,6 +233,22 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
             $(" #modal-edit #neutron").val(neutron);
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
+        });
+
+        $(document).on("click", "#detail", function() {
+            let nis = $(this).data('nis');
+            let karakter = $(this).data('karakter');
+            let doa = $(this).data('doa');
+            let neutron = $(this).data('neutron');
+            let mentor = $(this).data('mentor');
+            let date = $(this).data('date');
+            $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #karakter").val(karakter);
+            $(" #modal-detail #doa").val(doa);
+            $(" #modal-detail #neutron").val(neutron);
+            $(" #modal-detail #mentor").val(mentor);
+            $(" #modal-detail #date").val(date);
+
         });
     </script>
 
