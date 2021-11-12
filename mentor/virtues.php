@@ -95,7 +95,9 @@ $penilaian = query("SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($penilaian as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
@@ -113,10 +115,15 @@ $penilaian = query("SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC
                                                 </td>
 
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['sikapramahsopan'] + $row['sikapberkordinasi'] + $row['sikaptolongmenolong'] + $row['sikapseedo']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
-
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

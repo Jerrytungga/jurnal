@@ -1,7 +1,7 @@
 <?php
 include '../database.php';
 include 'models/function.php';
-$angkatan = query("SELECT * FROM tb_angkatan ORDER BY date DESC");
+$angkatan = query("SELECT * FROM tb_angkatan");
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -73,7 +73,7 @@ if (!isset($_SESSION['role'])) {
                     <tr>
                       <th width="10">No</th>
                       <th>Angkatan</th>
-                      <th>Date</th>
+
                       <th>Option</th>
                     </tr>
                   </thead>
@@ -83,10 +83,9 @@ if (!isset($_SESSION['role'])) {
                       <tr>
                         <td><?= $i; ?></td>
                         <td><?= $row["angkatan"]; ?></td>
-                        <td><?= $row["date"]; ?></td>
                         <td width="50">
                           <!-- Get data jurusan -->
-                          <a id="edit_angkatan" data-toggle="modal" data-target="#edit" data-angkatan="<?= $row["angkatan"]; ?>" data-id="<?= $row["waktu"]; ?>">
+                          <a id="edit_angkatan" data-toggle="modal" data-target="#edit" data-angkatan="<?= $row["angkatan"]; ?>" data-id="<?= $row["id"]; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>

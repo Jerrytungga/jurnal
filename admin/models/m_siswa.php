@@ -30,7 +30,7 @@
                <?php
                 // looping data ankatan
                 while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                  echo '<option value="' . $data_angkatan['id'] . '">' . $data_angkatan['angkatan'] . '</option>';
                 }
                 ?>
              </select>
@@ -137,7 +137,7 @@
                <?php
                 $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan");
                 while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                  echo '<option value="' . $data_angkatan['id'] . '">' . $data_angkatan['angkatan'] . '</option>';
                 }
                 ?>
              </select>

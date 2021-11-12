@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "", "jurnal");
+$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
 // menampilkan data siswa
 function query($query)
 {
@@ -128,14 +128,6 @@ if (isset($_POST['btn_blessings'])) {
     mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
 }
 
-if (isset($_POST['btn_presensi'])) {
-    $efata = htmlspecialchars($_POST['efata']);
-    $nis = htmlspecialchars($_POST['nis']);
-    $total = htmlspecialchars($_POST['total']);
-    $keterangan = htmlspecialchars($_POST['keterangan']);
-    $addtotable = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `total_presensi`, `keterangan`, `efata`, `date`) VALUES ('$nis','$total','$keterangan','$efata')");
-}
-
 // sistem penilaian my virtues & character
 if (isset($_POST['btn_myvirtues'])) {
     $nis = htmlspecialchars($_POST['nis']);
@@ -184,7 +176,7 @@ if (isset($_POST['btn_virtue'])) {
 
 
 
-
+// input dat6a report weekly
 if (isset($_POST['input'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $efata = htmlspecialchars($_POST['efata']);
@@ -201,4 +193,26 @@ if (isset($_POST['input'])) {
     $status = htmlspecialchars($_POST['status']);
     $Keterangan = htmlspecialchars($_POST['Keterangan']);
     mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata')");
+}
+
+
+if (isset($_POST['btnpenilaian'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $benar = htmlspecialchars($_POST['benar']);
+    $tepat = htmlspecialchars($_POST['tepat']);
+    $ketat = htmlspecialchars($_POST['ketat']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes')");
+}
+
+if (isset($_POST['editcharacter'])) {
+    $no_efata = htmlspecialchars($_POST['efata']);
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $benar = htmlspecialchars($_POST['benar']);
+    $tepat = htmlspecialchars($_POST['tepat']);
+    $ketat = htmlspecialchars($_POST['ketat']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date' ");
 }

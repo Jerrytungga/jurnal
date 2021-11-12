@@ -99,13 +99,13 @@ if (!isset($_SESSION['role'])) {
                     function jurusan($jurusan)
                     {
                       global $conn;
-                      $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_jurusan WHERE jurusan='$jurusan'"));
+                      $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_jurusan WHERE id='$jurusan'"));
                       return $sqly2['jurusan'];
                     }
                     function angkatan($angkatan)
                     {
                       global $conn;
-                      $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE waktu='$angkatan'"));
+                      $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$angkatan'"));
                       return $sqly3['angkatan'];
                     }
                     ?>

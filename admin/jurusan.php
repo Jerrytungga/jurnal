@@ -1,7 +1,7 @@
 <?php
 include '../database.php';
 include 'models/function.php';
-$jurusan = query("SELECT * FROM tb_jurusan ORDER BY date DESC");
+$jurusan = query("SELECT * FROM tb_jurusan ORDER BY id DESC");
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -72,7 +72,6 @@ if (!isset($_SESSION['role'])) {
                     <tr>
                       <th width="10">No</th>
                       <th>Jurusan</th>
-                      <th>Date</th>
                       <th>Option</th>
                     </tr>
                   </thead>
@@ -82,10 +81,9 @@ if (!isset($_SESSION['role'])) {
                       <tr>
                         <td><?= $i; ?></td>
                         <td><?= $row["jurusan"]; ?></td>
-                        <td><?= $row["date"]; ?></td>
                         <td width="50">
                           <!-- Get data jurusan -->
-                          <a id="edit_jurusan" data-toggle="modal" data-target="#edit" data-jurusan="<?= $row["jurusan"]; ?>" data-kode="<?= $row["waktu"]; ?>">
+                          <a id="edit_jurusan" data-toggle="modal" data-target="#edit" data-jurusan="<?= $row["jurusan"]; ?>" data-kode="<?= $row["id"]; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>

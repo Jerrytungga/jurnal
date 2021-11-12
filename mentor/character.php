@@ -93,7 +93,9 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($penilaian as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
@@ -101,22 +103,24 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
                                                 <td><?= $row['tepat']; ?></td>
                                                 <td><?= $row['ketat']; ?></td>
                                                 <td><?= $row['date']; ?></td>
-                                                <td><?= $row['catatan']; ?></td>
-
+                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
-
-                                                    <button type="button" class="btn btn-success form-group">
-                                                        Edit
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger form-group">
-                                                        Delete
-                                                    </button>
+                                                    <!-- Button trigger modal -->
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-bnr="<?= $row['benar']; ?>" data-date="<?= $row['date']; ?>" data-tpt="<?= $row['tepat']; ?>" data-ketat="<?= $row['ketat']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
+                                                    </a>
                                                 </td>
 
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['benar'] + $row['tepat'] + $row['ketat']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="6"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -134,98 +138,14 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
             include 'template/footer_menu.php';
             ?>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
-
-
-
-    <!-- Modal CHARACTER -->
-    <div class="modal fade" id="CHARACTER" tabindex="-1" aria-labelledby="Character" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label class="modal-title font-weight-bold" id="Character">Character</label>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                </div>
-
-
-                <!-- bungkus untuk form inputan -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <label class="font-weight-bold">Benar :</label>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example" name="benar" id="benar">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="0">0</option>
-                                <option value="-1">-1</option>
-                            </select>
-                        </div>
-
-                        <label class="font-weight-bold">Tepat :</label>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example" name="tepat" id="tepat">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="0">0</option>
-                                <option value="-1">-1</option>
-                            </select>
-                        </div>
-
-                        <label class="font-weight-bold">Ketat :</label>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="0">0</option>
-                                <option value="-1">-1</option>
-                            </select>
-                        </div>
-
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning">Submit</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../../logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <?php
+    include 'modal/modal_logout.php';
+    include './modal/modal_penilaiancharacter.php';
+    ?>
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -244,6 +164,25 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
                 scrollCollapse: true,
                 paging: true
             });
+        });
+
+
+        $(document).on("click", "#editpenilaian", function() {
+            let nis = $(this).data('nis');
+            let efata = $(this).data('efata');
+            let benar = $(this).data('bnr');
+            let ketat = $(this).data('ketat');
+            let tepat = $(this).data('tpt');
+            let catatan = $(this).data('cttn');
+            let date = $(this).data('date');
+            $(" #modal-edit #nis").val(nis);
+            $(" #modal-edit #efata").val(efata);
+            $(" #modal-edit #benar").val(benar);
+            $(" #modal-edit #ketat").val(ketat);
+            $(" #modal-edit #tepat").val(tepat);
+            $(" #modal-edit #date").val(date);
+            $(" #modal-edit #catatan").val(catatan);
+
         });
     </script>
 

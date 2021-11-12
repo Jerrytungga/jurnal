@@ -106,23 +106,21 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
                                                     <a href="reportweekly.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
                                                         Report Weekly
                                                     </a>
+                                                    <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
+                                                        Dairy Siswa
+                                                    </a>
 
                                                 </td>
 
                                                 <td>
 
-                                                    <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
-                                                        Dairy Siswa
-                                                    </a>
-
-
                                                     <a href="virtues & Character.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
                                                         VIRTUES & CHARACTER
                                                     </a>
-
-                                                    <a href="presensi.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
-                                                        isi Presensi
+                                                    <a href="livinglemari.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
+                                                        LIVING LEMARI
                                                     </a>
+
 
                                                 </td>
 
@@ -168,7 +166,7 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 500,
+                scrollY: 400,
                 scrollX: true,
                 scrollCollapse: true,
                 paging: true,

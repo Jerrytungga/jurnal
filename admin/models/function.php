@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "", "jurnal");
+$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
 // menampilkan data
 function query($query)
 {
@@ -126,29 +126,45 @@ if (isset($_POST['btn_edit_siswa'])) {
 //input data jurusan
 if (isset($_POST['btn_tambah_jurusan'])) {
     $jurusan = htmlspecialchars($_POST['jurusan']);
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_jurusan`"));
+    $idbr = $max['id'] + 1;
     $datajurusan = mysqli_query($conn, "INSERT INTO `tb_jurusan`(`jurusan`) VALUES ('$jurusan')");
+    if ($datajurusan) {
+        echo "<script>alert('Jurusan Berhasil ditambahkan!');</script>";
+    } else {
+        echo "<script>alert('Jurusan gagal ditambahkan');</script>";
+    }
 }
 
 //edit data jurusan
 if (isset($_POST['btn_edit_jurusan'])) {
     $jurusan = htmlspecialchars($_POST['jurusan']);
     $kode = htmlspecialchars($_POST['kode']);
-    $datajurusan = mysqli_query($conn, "UPDATE `tb_jurusan` SET `jurusan`='$jurusan',`waktu`='$kode' WHERE `tb_jurusan`.`waktu` = '$kode'");
+    $datajurusan = mysqli_query($conn, "UPDATE `tb_jurusan` SET `jurusan`='$jurusan',`id`='$kode' WHERE `tb_jurusan`.`id` = '$kode'");
     header('location:../jurusan.php');
 }
 
 //input data angkatan
 if (isset($_POST['btn_tambah_angkatan'])) {
     $angkatan = htmlspecialchars($_POST['angkatan']);
-    $t = mysqli_query($conn, "INSERT INTO `tb_angkatan`(`angkatan`) VALUES ('$angkatan')");
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_angkatan`"));
+    $idbr = $max['id'] + 1;
+    $t = mysqli_query($conn, "INSERT INTO `tb_angkatan`(`angkatan`, `id`) VALUES ('$angkatan',$idbr)");
+    if ($t) {
+        echo "<script>alert('Angkatan Berhasil ditambahkan!');</script>";
+    } else {
+        echo "<script>alert('Angkatan gagal ditambahkan');</script>";
+    }
 }
 
 //edit data angkatan
 if (isset($_POST['btn_edit_angkatan'])) {
     $angkatan = htmlspecialchars($_POST['angkatan']);
     $id = htmlspecialchars($_POST['id']);
-    $editangkatan = mysqli_query($conn, "UPDATE `tb_angkatan` SET `angkatan`='$angkatan' WHERE `tb_angkatan`.`waktu` = '$id'");
-    header('location:../angkatan.php');
+    $editangkatan = mysqli_query($conn, "UPDATE `tb_angkatan` SET `angkatan`='$angkatan' WHERE `tb_angkatan`.`id` = '$id'");
+    if ($editangkatan) {
+        header('location:../angkatan.php');
+    }
 }
 
 

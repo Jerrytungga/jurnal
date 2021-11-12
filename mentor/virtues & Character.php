@@ -101,7 +101,9 @@ $penilaian = query("SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($penilaian as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
@@ -119,12 +121,16 @@ $penilaian = query("SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY
                                                 </td>
 
                                             </tr>
-
+                                            <?php
+                                            $total = $total + $row['perhatian_berbagi'] + $row['salam_sapa'] + $row['bersyukur_berterimakasih'] + $row['hormat_taat']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
 
                                     </tbody>
-
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
