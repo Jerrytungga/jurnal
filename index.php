@@ -124,7 +124,7 @@ if (!isset($_SESSION['role'])) {
                   position: 'topRight'
                 });
                 setTimeout(function() {
-                  window.location.href = "siswa/index.php";
+                  window.location.href = "siswa/profile.php";
                 }, 3000);
 
                 // Jika ia sebagai owner 
