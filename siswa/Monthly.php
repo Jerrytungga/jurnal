@@ -106,7 +106,7 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$id' ORDER BY date DESC")
                                             <th width="150">What I Appreciate Toward Saints</th>
                                             <th width="150">What I Want To Ask</th>
                                             <th width="150">What I Learn the most This Month</th>
-                                            <th width="650">Date</th>
+                                            <th width="150">Date</th>
                                             <th width="150">Options</th>
                                         </tr>
                                     </thead>
