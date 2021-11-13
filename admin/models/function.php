@@ -16,7 +16,7 @@ function query($query)
 // menambahkan data mentor
 if (isset($_POST['btn_tambah_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/foto_mentor/';
+    $target = '../../img/fotomentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
@@ -42,7 +42,7 @@ if (isset($_POST['btn_tambah_mentor'])) {
 // mengedit data mentor
 if (isset($_POST['btn_edit_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/foto_mentor/';
+    $target = '/img/fotomentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
