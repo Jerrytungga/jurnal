@@ -166,7 +166,7 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 400,
+                scrollY: 800,
                 scrollX: true,
                 scrollCollapse: true,
                 paging: true,
