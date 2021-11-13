@@ -16,7 +16,7 @@ function query($query)
 // menambahkan data mentor
 if (isset($_POST['btn_tambah_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/fotomentor/';
+    $target = '/img/fotomentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
