@@ -97,7 +97,7 @@ if (isset($_POST['btn_tambah_siswa'])) {
 // mengedit data siswa
 if (isset($_POST['btn_edit_siswa'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../../img/foto_siswa/';
+    $target = '../img/foto_siswa/';
     $nama_gambar = $_FILES['image']['name'];
     $nis = htmlspecialchars($_POST['nis']);
     $name = htmlspecialchars($_POST['name']);
