@@ -30,7 +30,7 @@
                <?php
                 // looping data ankatan
                 while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['id'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
                 }
                 ?>
              </select>
@@ -50,7 +50,7 @@
                <?php
                 // looping data jurusan
                 while ($data_jurusan = mysqli_fetch_array($sql_jurusan)) {
-                  echo '<option value="' . $data_jurusan['id'] . '">' . $data_jurusan['jurusan'] . '</option>';
+                  echo '<option value="' . $data_jurusan['angkatan'] . '">' . $data_jurusan['jurusan'] . '</option>';
                 }
                 ?>
              </select>
