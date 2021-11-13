@@ -114,7 +114,7 @@ if (!isset($_SESSION['role'])) {
                       <tr>
                         <td><?= $i; ?></td>
                         <td>
-                          <img src="../img/foto_siswa/<?= $row["image"]; ?>" width="90">
+                          <img src="../img/fotosiswa/<?= $row["image"]; ?>" width="90">
                         </td>
                         <td><?= $row["nis"]; ?></td>
                         <td witdh="50"><?= $row["name"]; ?></td>
@@ -207,7 +207,7 @@ if (!isset($_SESSION['role'])) {
       $(" #modal-edit #username").val(username);
       $(" #modal-edit #password").val(password);
       $(" #modal-edit #status").val(status);
-      $(" #modal-edit #image").attr("src", "../img/foto_siswa/" + image);
+      $(" #modal-edit #image").attr("src", "../img/fotosiswa/" + image);
     });
   </script>
 </body>

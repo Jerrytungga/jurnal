@@ -84,7 +84,7 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td>
-                                                    <img src="../img/foto_siswa/<?= $row["image"]; ?>" width="90">
+                                                    <img src="../img/fotosiswa/<?= $row["image"]; ?>" width="90">
                                                 </td>
                                                 <td><?= $row["nis"]; ?></td>
                                                 <td><?= $row["name"]; ?></td>

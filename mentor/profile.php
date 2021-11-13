@@ -16,6 +16,7 @@ if (!isset($_SESSION['role'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,13 +60,13 @@ if (!isset($_SESSION['role'])) {
                         <!-- Content Column -->
                         <div class="card mb-4 shadow-lg p-3 bg-body rounded" style="max-width: 700px;">
                             <div class="card" style="width: 18rem;">
-                                <img src="../img/foto_mentor/<?= $data['image']; ?>" class="card-img-top" alt="...">
+                                <img src="../img/fotomentor/<?= $data['image']; ?>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h6 class="card-title">Name : <?= $data['name']; ?></h6>
                                     <h6 class="card-title">Username : <?= $data['username']; ?></h6>
                                     <h6 class="card-title">Password : <?= $data['password']; ?></h6>
-                                    <a id="edit_mentor" data-toggle="modal" data-target="#edit" data-efata="<?= $data['efata']; ?>"data-password="<?= $data["password"]; ?>">
-                                    <button class="btn btn-info btn-warning">Ganti Password</button></a>
+                                    <a id="edit_mentor" data-toggle="modal" data-target="#edit" data-efata="<?= $data['efata']; ?>" data-password="<?= $data["password"]; ?>">
+                                        <button class="btn btn-info btn-warning">Ganti Password</button></a>
 
                                 </div>
                             </div>

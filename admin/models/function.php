@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
+$conn = mysqli_connect("localhost", "root", "", "jurnal");
 // menampilkan data
 function query($query)
 {
@@ -16,7 +16,7 @@ function query($query)
 // menambahkan data mentor
 if (isset($_POST['btn_tambah_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '/img/fotomentor/';
+    $target = '../img/fotomentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
@@ -42,7 +42,7 @@ if (isset($_POST['btn_tambah_mentor'])) {
 // mengedit data mentor
 if (isset($_POST['btn_edit_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '/img/fotomentor/';
+    $target = '../../img/fotomentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
@@ -51,12 +51,15 @@ if (isset($_POST['btn_edit_mentor'])) {
     $status = htmlspecialchars($_POST['status']);
     $efata = htmlspecialchars($_POST['efata']);
     if ($nama_gambar != '') {
-        // if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-        $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
-        // }
+
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+
+            $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
+        }
         header('location:../mentor.php');
     } else {
         // jika tidak mengganti gambar profile
+
         $update = mysqli_query($conn, "UPDATE `mentor` SET `efata`='$efata',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
 
         header('location:../mentor.php');
@@ -68,7 +71,7 @@ if (isset($_POST['btn_edit_mentor'])) {
 // menambahkan data siswa
 if (isset($_POST['btn_tambah_siswa'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/foto_siswa/';
+    $target = '../img/fotosiswa/';
     $nama_gambar = $_FILES['image']['name'];
     $nis = htmlspecialchars($_POST['nis']);
     $name = htmlspecialchars($_POST['name']);
@@ -97,7 +100,7 @@ if (isset($_POST['btn_tambah_siswa'])) {
 // mengedit data siswa
 if (isset($_POST['btn_edit_siswa'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/foto_siswa/';
+    $target = '../../img/fotosiswa/';
     $nama_gambar = $_FILES['image']['name'];
     $nis = htmlspecialchars($_POST['nis']);
     $name = htmlspecialchars($_POST['name']);
@@ -111,6 +114,7 @@ if (isset($_POST['btn_edit_siswa'])) {
     $status = htmlspecialchars($_POST['status']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+
             // jika ingin mengganti gambar profile
             $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `image`='$nama_gambar',`nis`='$nis',`name`='$name',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`mentor`='$mentor',`username`='$username',`password`='$password',`status`='$status',`date`= current_timestamp WHERE `siswa`.`nis` = '$nis'");
         }
