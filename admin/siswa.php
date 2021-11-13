@@ -118,7 +118,7 @@ if (!isset($_SESSION['role'])) {
                         </td>
                         <td><?= $row["nis"]; ?></td>
                         <td witdh="50"><?= $row["name"]; ?></td>
-                        <td><?= angkatan($row["angkatan"]); ?></td>
+                        <td><?= $row["angkatan"]; ?></td>
                         <td><?= $row["gender"]; ?></td>
                         <td><?= jurusan($row["jurusan"]); ?></td>
                         <td><?= $row["bimbel"]; ?></td>
