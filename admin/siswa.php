@@ -90,12 +90,12 @@ if (!isset($_SESSION['role'])) {
                   </thead>
                   <tbody class=" text-md-center">
                     <?php $i = 1;
-                    // function mentor($mentor)
-                    // {
-                    //   global $conn;
-                    //   $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$mentor'"));
-                    //   return $sqly['name'];
-                    // }
+                    function mentor($mentor)
+                    {
+                      global $conn;
+                      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$mentor'"));
+                      return $sqly['name'];
+                    }
                     // function jurusan($jurusan)
                     // {
                     //   global $conn;
@@ -122,7 +122,7 @@ if (!isset($_SESSION['role'])) {
                         <td><?= $row["gender"]; ?></td>
                         <td><?= $row["jurusan"]; ?></td>
                         <td><?= $row["bimbel"]; ?></td>
-                        <td><?= $row["mentor"]; ?></td>
+                        <td><?= mentor($row["mentor"]); ?></td>
                         <td><?= $row["username"]; ?></td>
                         <td><?= $row["password"]; ?></td>
                         <td><?= $row["status"]; ?></td>
