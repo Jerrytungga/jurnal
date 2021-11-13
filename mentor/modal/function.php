@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("127.0.0.1", "root", "", "jurnal");
+$conn = mysqli_connect("127.0.0.1", "root", "#dbabsensipka#", "jurnal");
 // menampilkan data siswa
 function query($query)
 {
