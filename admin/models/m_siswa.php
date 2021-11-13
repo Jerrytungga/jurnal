@@ -38,7 +38,7 @@
            <div class="form-group">
              <h7 class="text-reset" for="gender">Gender :</h7>
              <select class="form-control" name="gender" id="gender" aria-label="Default select example">
-               <option holder>Select</option>
+               <option selected>Select</option>
                <option value="L">L</option>
                <option value="P">P</option>
              </select>
@@ -137,7 +137,7 @@
                <?php
                 $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan");
                 while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['id'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
                 }
                 ?>
              </select>
@@ -157,7 +157,7 @@
                <?php
                 $sql_jurusan = mysqli_query($conn, "SELECT * FROM tb_jurusan");
                 while ($data_jurusan = mysqli_fetch_array($sql_jurusan)) {
-                  echo '<option value="' . $data_jurusan['id'] . '">' . $data_jurusan['jurusan'] . '</option>';
+                  echo '<option value="' . $data_jurusan['jurusan'] . '">' . $data_jurusan['jurusan'] . '</option>';
                 }
                 ?>
              </select>
