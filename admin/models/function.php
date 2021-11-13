@@ -29,9 +29,9 @@ if (isset($_POST['btn_tambah_mentor'])) {
         echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
     } else {
         if ($nama_gambar != '') {
-            if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-                $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
-            }
+            // if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
+            // }
         } else {
             $addmentor = mysqli_query($conn, "INSERT INTO mentor (name,gender,username,password,status,efata) value ('$name','$gender','$username','$password','$status','$efata')");
         }
@@ -51,9 +51,9 @@ if (isset($_POST['btn_edit_mentor'])) {
     $status = htmlspecialchars($_POST['status']);
     $efata = htmlspecialchars($_POST['efata']);
     if ($nama_gambar != '') {
-        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
-        }
+        // if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+        $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
+        // }
         header('location:../mentor.php');
     } else {
         // jika tidak mengganti gambar profile
