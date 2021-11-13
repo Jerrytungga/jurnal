@@ -50,7 +50,7 @@
                <?php
                 // looping data jurusan
                 while ($data_jurusan = mysqli_fetch_array($sql_jurusan)) {
-                  echo '<option value="' . $data_jurusan['jurusan'] . '">' . $data_jurusan['jurusan'] . '</option>';
+                  echo '<option value="' . $data_jurusan['id'] . '">' . $data_jurusan['jurusan'] . '</option>';
                 }
                 ?>
              </select>
