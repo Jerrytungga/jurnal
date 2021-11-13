@@ -90,24 +90,24 @@ if (!isset($_SESSION['role'])) {
                   </thead>
                   <tbody class=" text-md-center">
                     <?php $i = 1;
-                    function mentor($mentor)
-                    {
-                      global $conn;
-                      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$mentor'"));
-                      return $sqly['name'];
-                    }
-                    function jurusan($jurusan)
-                    {
-                      global $conn;
-                      $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_jurusan WHERE id='$jurusan'"));
-                      return $sqly2['jurusan'];
-                    }
-                    function angkatan($angkatan)
-                    {
-                      global $conn;
-                      $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$angkatan'"));
-                      return $sqly3['angkatan'];
-                    }
+                    // function mentor($mentor)
+                    // {
+                    //   global $conn;
+                    //   $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$mentor'"));
+                    //   return $sqly['name'];
+                    // }
+                    // function jurusan($jurusan)
+                    // {
+                    //   global $conn;
+                    //   $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_jurusan WHERE id='$jurusan'"));
+                    //   return $sqly2['jurusan'];
+                    // }
+                    // function angkatan($angkatan)
+                    // {
+                    //   global $conn;
+                    //   $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$angkatan'"));
+                    //   return $sqly3['angkatan'];
+                    // }
                     ?>
                     <?php foreach ($siswa as $row) : ?>
 
@@ -120,9 +120,9 @@ if (!isset($_SESSION['role'])) {
                         <td witdh="50"><?= $row["name"]; ?></td>
                         <td><?= $row["angkatan"]; ?></td>
                         <td><?= $row["gender"]; ?></td>
-                        <td><?= jurusan($row["jurusan"]); ?></td>
+                        <td><?= $row["jurusan"]; ?></td>
                         <td><?= $row["bimbel"]; ?></td>
-                        <td><?= mentor($row["mentor"]); ?></td>
+                        <td><?= $row["mentor"]; ?></td>
                         <td><?= $row["username"]; ?></td>
                         <td><?= $row["password"]; ?></td>
                         <td><?= $row["status"]; ?></td>
