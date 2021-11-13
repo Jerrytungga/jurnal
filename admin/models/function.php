@@ -16,7 +16,7 @@ function query($query)
 // menambahkan data mentor
 if (isset($_POST['btn_tambah_mentor'])) {
     $sumber = $_FILES['image']['tmp_name'];
-    $target = '../img/foto_mentor/';
+    $target = '../../img/foto_mentor/';
     $nama_gambar = $_FILES['image']['name'];
     $name = htmlspecialchars($_POST['name']);
     $gender = htmlspecialchars($_POST['gender']);
@@ -29,9 +29,9 @@ if (isset($_POST['btn_tambah_mentor'])) {
         echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
     } else {
         if ($nama_gambar != '') {
-            // if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
-            // }
+            if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+                $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
+            }
         } else {
             $addmentor = mysqli_query($conn, "INSERT INTO mentor (name,gender,username,password,status,efata) value ('$name','$gender','$username','$password','$status','$efata')");
         }
