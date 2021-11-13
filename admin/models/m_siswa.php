@@ -38,7 +38,7 @@
            <div class="form-group">
              <h7 class="text-reset" for="gender">Gender :</h7>
              <select class="form-control" name="gender" id="gender" aria-label="Default select example">
-               <option selected>Select</option>
+               <option holder>Select</option>
                <option value="L">L</option>
                <option value="P">P</option>
              </select>
@@ -46,7 +46,7 @@
            <div class="form-group">
              <h7 class="text-reset" for="jurusan">Jurusan :</h7>
              <select class="form-control" name="jurusan" id="jurusan" aria-label="Default select example">
-               <option selected>Select</option>
+               <option holder>Select</option>
                <?php
                 // looping data jurusan
                 while ($data_jurusan = mysqli_fetch_array($sql_jurusan)) {
