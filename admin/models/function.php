@@ -128,7 +128,7 @@ if (isset($_POST['btn_tambah_jurusan'])) {
     $jurusan = htmlspecialchars($_POST['jurusan']);
     $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_jurusan`"));
     $idbr = $max['id'] + 1;
-    $datajurusan = mysqli_query($conn, "INSERT INTO `tb_jurusan`(`jurusan`) VALUES ('$jurusan',$idbr)");
+    $datajurusan = mysqli_query($conn, "INSERT INTO `tb_jurusan`(`jurusan`,`id`) VALUES ('$jurusan',$idbr)");
     if ($datajurusan) {
         echo "<script>alert('Jurusan Berhasil ditambahkan!');</script>";
     } else {
