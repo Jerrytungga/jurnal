@@ -86,7 +86,7 @@ if (!isset($_SESSION['role'])) {
                                             <tr>
                                                 <td width="10"><?= $i; ?></td>
                                                 <td>
-                                                    <img src="../img/foto_mentor/<?= $data["image"]; ?>" width="90">
+                                                    <img src="/img/fotomentor/<?= $data["image"]; ?>" width="90">
                                                 </td>
                                                 <td><?= $data["efata"]; ?></td>
                                                 <td width="150"><?= $data["name"]; ?></td>
