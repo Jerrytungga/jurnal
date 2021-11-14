@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-$conn = mysqli_connect("localhost", "root", "", "jurnal");
+include '../database.php';
 // menampilkan data siswa
 function query($query)
 {

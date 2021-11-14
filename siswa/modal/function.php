@@ -1,6 +1,6 @@
  <?php
     // menampilkan data jurnal 
-    $conn = mysqli_connect("localhost", "root", "", "jurnal");
+    include '../database.php';
     function query($query)
     {
         global $conn;

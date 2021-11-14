@@ -13,7 +13,21 @@ if (!isset($_SESSION['role'])) {
     $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
     $data = mysqli_fetch_array($get_data);
 }
-
+// bar cart siswa
+$angkatan  = mysqli_query($conn, "SELECT angkatan FROM siswa order by nis asc");
+$name      = mysqli_query($conn, "SELECT name FROM siswa order by nis asc");
+// menghitung jumlah siswa aktif
+$get1 = mysqli_query($conn, "SELECT * FROM siswa WHERE status='Aktif' ");
+$count1 = mysqli_num_rows($get1);
+// menghitung total siswa
+$get2 = mysqli_query($conn, "SELECT * FROM siswa ");
+$count2 = mysqli_num_rows($get2);
+// menghitung jumlah mentor
+$get3 = mysqli_query($conn, "SELECT * FROM mentor WHERE status='Aktif'");
+$count3 = mysqli_num_rows($get3);
+// menghitung jumlah mentor
+$get4 = mysqli_query($conn, "SELECT * FROM mentor");
+$count4 = mysqli_num_rows($get4);
 ?>
 <!DOCTYPE html>
 <html lang="en">
