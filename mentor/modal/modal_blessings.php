@@ -207,7 +207,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="text" class="form-control" id="nis" name="nis" value="w">
+            <!-- <input type="text" class="form-control" id="nis" name="nis" value="w"> -->
             <div class=" modal-body">
                 <div class="form-group">
                     <label for="god-text" class="col-form-label font-weight-bold">What I learn on Education :</label>
