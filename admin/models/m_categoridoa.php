@@ -14,7 +14,7 @@
            <div class="form-group">
              <input type="hidden" class="form-control" id="kode" name="kode">
              <label for="categori-text" class="col-form-label font-weight-bold">Categori :</label>
-             <input type="text" class="form-control" id="categori" name="categori" required>
+             <textarea rows="2" type="text" class="form-control" id="categori" name="categori" required></textarea>
            </div>
          </div>
          <div class="modal-footer">
@@ -42,7 +42,7 @@
            <input type="hidden" class="form-control" id="kode" name="kode">
            <div class="form-group">
              <label for="categori-text" class="col-form-label font-weight-bold">Categori :</label>
-             <input type="text" class="form-control" id="categori" name="categori">
+             <textarea rows="2" type="text" class="form-control" id="categori" name="categori"> </textarea>
            </div>
          </div>
          <div class="modal-footer">
