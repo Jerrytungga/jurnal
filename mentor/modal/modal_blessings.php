@@ -8,8 +8,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <!-- bungkus untuk form inputan personal goal-->
-            <form action="" method="POST">
+            <form method="POST">
 
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="nis" name="nis">
@@ -22,6 +23,15 @@
                         <label class="text-reset" for="god">What I Gain On God :</label>
                         <textarea rows="5" type="text" class="form-control" id="god" name="god" placeholder="What I Gain On God"></textarea>
                     </div>
+                    <label class=" font-weight-bold">Point1 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point1" id="point1">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn1">Cttn1 :</label>
                         <textarea rows="5" type="text" class="form-control" id="cttn1" name="cttn1" placeholder="cttn1"></textarea>
@@ -29,6 +39,15 @@
                     <div class="form-group">
                         <label class="text-reset" for="edu">What I Learn On Education :</label>
                         <textarea rows="5" type="text" class="form-control" id="edu" name="edu" placeholder="What I Learn On Education"></textarea>
+                    </div>
+                    <label class=" font-weight-bold">Point2 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point2" id="point2">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn2">Cttn2 :</label>
@@ -39,6 +58,15 @@
                         <label class="text-reset" for="chracter">What L learn On Character & Virtue :</label>
                         <textarea rows="5" type="text" class="form-control" id="chracter" name="chracter" placeholder="What L learn On Character & Virtue"></textarea>
                     </div>
+                    <label class=" font-weight-bold">Point3 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point3" id="point3">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn3">Cttn3 :</label>
                         <textarea rows="5" type="text" class="form-control" id="cttn3" name="cttn3" placeholder="cttn3"></textarea>
@@ -48,6 +76,15 @@
                         <label class="text-reset" for="apresiasi1">What L Appreciate Toward Brother & Sister :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi1" name="apresiasi1" placeholder="What L Appreciate Toward Brother & Sister"></textarea>
                     </div>
+                    <label class=" font-weight-bold">Point4 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point4" id="point4">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn4">Cttn4 :</label>
                         <textarea rows="5" type="text" class="form-control" id="cttn4" name="cttn4" placeholder="cttn4"></textarea>
@@ -55,6 +92,15 @@
                     <div class="form-group">
                         <label class="text-reset" for="apresiasi2">What l Appreciate Toward My Trainers/Mentors :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi2" name="apresiasi2" placeholder="What l Appreciate Toward My Trainers/Mentors"></textarea>
+                    </div>
+                    <label class=" font-weight-bold">Point5 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point5" id="point5">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn5">Cttn5 :</label>
@@ -64,6 +110,15 @@
                         <label class="text-reset" for="apresiasi3">What I Appreciate Toward Saints :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi3" name="apresiasi3" placeholder="What I Appreciate Toward Saints"></textarea>
                     </div>
+                    <label class=" font-weight-bold">Point6 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point6" id="point6">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn6">Cttn6 :</label>
                         <textarea rows="5" type="text" class="form-control" id="cttn6" name="cttn6" placeholder="cttn6"></textarea>
@@ -72,6 +127,15 @@
                         <label class="text-reset" for="ask">What I Want To Ask :</label>
                         <textarea rows="5" type="text" class="form-control" id="ask" name="ask" placeholder="What I Want To Ask"></textarea>
                     </div>
+                    <label class=" font-weight-bold">Point7 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point7" id="point7">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn7">Cttn7 :</label>
                         <textarea rows="5" type="text" class="form-control" id="cttn7" name="cttn7" placeholder="cttn7"></textarea>
@@ -79,6 +143,15 @@
                     <div class="form-group">
                         <label class="text-reset" for="berkat">What I Learn the most This Month :</label>
                         <textarea rows="5" type="text" class="form-control" id="berkat" name="berkat" placeholder="What I Learn the most This Month"></textarea>
+                    </div>
+                    <label class=" font-weight-bold">Point8 :</label>
+                    <div class="form-group">
+                        <select class="form-control" aria-label="Default select example" name="point8" id="point8">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="text-reset" for="cttn8">Cttn8 :</label>
@@ -108,10 +181,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
             <div class="modal-body">
+                <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I gain on God :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">What I gain on God : </label>
                     <textarea rows="5" type="text" class="form-control" id="god" name="god" disabled></textarea>
                 </div>
                 <div class="form-group">

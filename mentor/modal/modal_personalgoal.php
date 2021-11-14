@@ -42,7 +42,7 @@
                      </div>
 
                      <div class="form-group">
-                         <label for="neutron-text" class="col-form-label font-weight-bold">Neutron :</label>
+                         <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
                          <textarea rows="5" type="text" class="form-control" id="neutron" name="neutron"></textarea>
                      </div>
                      <div class="form-group">
@@ -66,7 +66,7 @@
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="submit" name="update" class="btn btn-primary">Save</button>
+                     <button type="submit" onclick="fireSweetAlert()" name="update" class="btn btn-primary">Save</button>
                  </div>
              </form>
          </div>

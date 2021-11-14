@@ -1,6 +1,23 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem update/edit goal seeting
+if (isset($_POST['update'])) {
+    $efata = htmlspecialchars($_POST['efata']);
+    $nis = htmlspecialchars($_POST['nis']);
+    $character = htmlspecialchars($_POST['character']);
+    $prayer = htmlspecialchars($_POST['prayer']);
+    $Neutron = htmlspecialchars($_POST['neutron']);
+    $date = htmlspecialchars($_POST['date']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    $point1 = htmlspecialchars($_POST['point1']);
+    $point2 = htmlspecialchars($_POST['point2']);
+    $point3 = htmlspecialchars($_POST['point3']);
+    $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`point1`='$point1',`point2`='$point2',`point3`='$point3',`efata`='$efata',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`Catatan_mentor`='$catatan' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    if ($goal) {
+        echo '<?= success ?>';
+    }
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,14 +35,21 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+// function quaeri
+function query($query)
+{
+    global $conn;
+    $result = mysqli_query($conn, $query);
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+    return $rows;
+}
 $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date DESC");
-// $point = mysqli_fetch_array(mysqli_query($conn, "SELECT character_virtue, count(character_virtue) as point from tb_personal_goal GROUP BY character_virtue"));
-// $point1 = mysqli_fetch_array(mysqli_query($conn, "SELECT prayer, count(prayer) as point1 fr"));
-// $point2 = mysqli_fetch_array(mysqli_query($conn, "SELECT neutron, count(neutron) as point from tb_personal_goal WHERE nis='$nis' AND neutron!='' GROUP BY neutron;"));
-// $total1 = mysqli_fetch_array(mysqli_query($conn, "SELECT count(character_virtue) as total1 from tb_personal_goal WHERE nis='$nis'"));
-// $total2 = mysqli_fetch_array(mysqli_query($conn, "SELECT count(prayer) as total2 from tb_personal_goal WHERE nis='$nis'"));
-// $total3 = mysqli_fetch_array(mysqli_query($conn, "SELECT count(neutron) as total3 from tb_personal_goal WHERE nis='$nis'"));
 ?>
+
+<!-- Html Goal Setting -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +67,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -70,7 +95,6 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                             <a href="personalgoal.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Personal Goal</a>
                             <a href="exhibition.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Exhibition</a>
                             <a href="homemeeting.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
-
                         </div>
                     </div>
                     <!-- DataTales Example -->
@@ -198,6 +222,8 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
@@ -234,24 +260,33 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
         });
-
-        $(document).on("click", "#detail", function() {
-            let nis = $(this).data('nis');
-            let karakter = $(this).data('karakter');
-            let doa = $(this).data('doa');
-            let neutron = $(this).data('neutron');
-            let mentor = $(this).data('mentor');
-            let date = $(this).data('date');
-            $(" #modal-detail #nis").val(nis);
-            $(" #modal-detail #karakter").val(karakter);
-            $(" #modal-detail #doa").val(doa);
-            $(" #modal-detail #neutron").val(neutron);
-            $(" #modal-detail #mentor").val(mentor);
-            $(" #modal-detail #date").val(date);
-
-        });
     </script>
 
+    <script script>
+        swal({
+            title: "Add Note",
+            input: "textarea",
+            showCancelButton: true,
+            confirmButtonColor: "#1FAB45",
+            confirmButtonText: "Save",
+            cancelButtonText: "Cancel",
+            buttonsStyling: true
+        }).then(function(success) {
+            swal(
+                "Sccess!",
+                "Your note has been saved!",
+                "success"
+            )
+        }, function(dismiss) {
+            if (dismiss === "cancel") {
+                swal(
+                    "Cancelled",
+                    "Canceled Note",
+                    "error"
+                )
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,35 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit blessings method Post
+if (isset($_POST['btn_blessings'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $god = htmlspecialchars($_POST['god']);
+    $cttn1 = htmlspecialchars($_POST['cttn1']);
+    $edu = htmlspecialchars($_POST['edu']);
+    $cttn2 = htmlspecialchars($_POST['cttn2']);
+    $chracter = htmlspecialchars($_POST['chracter']);
+    $cttn3 = htmlspecialchars($_POST['cttn3']);
+    $apresiasi1 = htmlspecialchars($_POST['apresiasi1']);
+    $cttn4 = htmlspecialchars($_POST['cttn4']);
+    $apresiasi2 = htmlspecialchars($_POST['apresiasi2']);
+    $cttn5 = htmlspecialchars($_POST['cttn5']);
+    $apresiasi3 = htmlspecialchars($_POST['apresiasi3']);
+    $cttn6 = htmlspecialchars($_POST['cttn6']);
+    $ask = htmlspecialchars($_POST['ask']);
+    $cttn7 = htmlspecialchars($_POST['cttn7']);
+    $berkat = htmlspecialchars($_POST['berkat']);
+    $cttn8 = htmlspecialchars($_POST['cttn8']);
+    $date = htmlspecialchars($_POST['date']);
+    $point1 = htmlspecialchars($_POST['point1']);
+    $point2 = htmlspecialchars($_POST['point2']);
+    $point3 = htmlspecialchars($_POST['point3']);
+    $point4 = htmlspecialchars($_POST['point4']);
+    $point5 = htmlspecialchars($_POST['point5']);
+    $point6 = htmlspecialchars($_POST['point6']);
+    $point7 = htmlspecialchars($_POST['point7']);
+    $point8 = htmlspecialchars($_POST['point8']);
+    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,8 +47,25 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Function query
+function query($query)
+{
+    global $conn;
+    $result = mysqli_query($conn, $query);
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+    return $rows;
+}
 $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
 ?>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,19 +94,15 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
         include 'template/sidebar_menu.php';
         ?>
         <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <?php
                 include 'template/topbar_menu.php';
                 ?>
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -152,10 +194,6 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
 
                                                 </td>
 
-
-
-
-
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_l_appreciate_toward_saints']; ?><br>
@@ -165,9 +203,6 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
                                                         </a>
                                                     </span>
                                                 </td>
-
-
-
 
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
@@ -193,27 +228,20 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
 
                                                 <td>
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_blessings" data-toggle="modal" data-target="#blessings" data-god="<?= $row["what_i_gain_on_god"]; ?>" data-nis="<?= $row["nis"]; ?>" data-cttn1="<?= $row["cttn1"]; ?>" data-edu="<?= $row["what_i_learn_on_education"]; ?>" data-cttn2="<?= $row["cttn2"]; ?>" data-chracter="<?= $row["what_i_learn_on_character_and_virtue"]; ?>" data-cttn3="<?= $row["cttn3"]; ?>" data-date="<?= $row["date"]; ?>" data-apresiasi1="<?= $row["what_l_appreciate_toward_brother_sister"]; ?>" data-cttn4="<?= $row["cttn4"]; ?>" data-apresiasi2="<?= $row["what_l_appreciate_toward_my_trainers"]; ?>" data-cttn5="<?= $row["cttn5"]; ?>" data-apresiasi3="<?= $row["what_l_appreciate_toward_saints"]; ?>" data-cttn6="<?= $row["cttn6"]; ?>" data-ask="<?= $row["what_I_want_to_ask"]; ?>" data-cttn7="<?= $row["cttn7"]; ?>" data-berkat="<?= $row["what_i_learn_the_most_this_month"]; ?>" data-cttn8="<?= $row["cttn8"]; ?>">
+                                                    <a id="edit_blessings" data-toggle="modal" data-target="#blessings" data-god="<?= $row["what_i_gain_on_god"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-point3="<?= $row["point3"]; ?>" data-point4="<?= $row["point4"]; ?>" data-point5="<?= $row["point5"]; ?>" data-point6="<?= $row["point6"]; ?>" data-point7="<?= $row["point7"]; ?>" data-point8="<?= $row["point8"]; ?>" data-nis="<?= $row["nis"]; ?>" data-cttn1="<?= $row["cttn1"]; ?>" data-edu="<?= $row["what_i_learn_on_education"]; ?>" data-cttn2="<?= $row["cttn2"]; ?>" data-chracter="<?= $row["what_i_learn_on_character_and_virtue"]; ?>" data-cttn3="<?= $row["cttn3"]; ?>" data-date="<?= $row["date"]; ?>" data-apresiasi1="<?= $row["what_l_appreciate_toward_brother_sister"]; ?>" data-cttn4="<?= $row["cttn4"]; ?>" data-apresiasi2="<?= $row["what_l_appreciate_toward_my_trainers"]; ?>" data-cttn5="<?= $row["cttn5"]; ?>" data-apresiasi3="<?= $row["what_l_appreciate_toward_saints"]; ?>" data-cttn6="<?= $row["cttn6"]; ?>" data-ask="<?= $row["what_I_want_to_ask"]; ?>" data-cttn7="<?= $row["cttn7"]; ?>" data-berkat="<?= $row["what_i_learn_the_most_this_month"]; ?>" data-cttn8="<?= $row["cttn8"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
 
                                             </tr>
-
-
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
-
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
@@ -235,10 +263,8 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <!-- Page level plugins -->
@@ -274,6 +300,14 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
             let berkat = $(this).data('berkat');
             let cttn8 = $(this).data('cttn8');
             let date = $(this).data('date');
+            let point1 = $(this).data('point1');
+            let point2 = $(this).data('point2');
+            let point3 = $(this).data('point3');
+            let point4 = $(this).data('point4');
+            let point5 = $(this).data('point5');
+            let point6 = $(this).data('point6');
+            let point7 = $(this).data('point7');
+            let point8 = $(this).data('point8');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #god").val(god);
             $(" #modal-edit #cttn1").val(cttn1);
@@ -292,6 +326,14 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
             $(" #modal-edit #berkat").val(berkat);
             $(" #modal-edit #cttn8").val(cttn8);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #point1").val(point1);
+            $(" #modal-edit #point2").val(point2);
+            $(" #modal-edit #point3").val(point3);
+            $(" #modal-edit #point4").val(point4);
+            $(" #modal-edit #point5").val(point5);
+            $(" #modal-edit #point6").val(point6);
+            $(" #modal-edit #point7").val(point7);
+            $(" #modal-edit #point8").val(point8);
         });
 
         $(document).on("click", "#detail", function() {

@@ -21,20 +21,6 @@ if (isset($_POST['edit_profile'])) {
     header('location:../profile.php');
 }
 
-// sistem submit/post di bagian jurnal personal goal
-if (isset($_POST['update'])) {
-    $efata = htmlspecialchars($_POST['efata']);
-    $nis = htmlspecialchars($_POST['nis']);
-    $character = htmlspecialchars($_POST['character']);
-    $prayer = htmlspecialchars($_POST['prayer']);
-    $Neutron = htmlspecialchars($_POST['neutron']);
-    $date = htmlspecialchars($_POST['date']);
-    $catatan = htmlspecialchars($_POST['catatan']);
-    $point1 = htmlspecialchars($_POST['point1']);
-    $point2 = htmlspecialchars($_POST['point2']);
-    $point3 = htmlspecialchars($_POST['point3']);
-    $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`point1`='$point1',`point2`='$point2',`point3`='$point3',`efata`='$efata',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`Catatan_mentor`='$catatan' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
-}
 
 
 // sistem edit catatan siswa
@@ -105,28 +91,6 @@ if (isset($_POST['btn_homemeeting'])) {
     mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
 }
 
-// sistem edit blessings
-if (isset($_POST['btn_blessings'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $god = htmlspecialchars($_POST['god']);
-    $cttn1 = htmlspecialchars($_POST['cttn1']);
-    $edu = htmlspecialchars($_POST['edu']);
-    $cttn2 = htmlspecialchars($_POST['cttn2']);
-    $chracter = htmlspecialchars($_POST['chracter']);
-    $cttn3 = htmlspecialchars($_POST['cttn3']);
-    $apresiasi1 = htmlspecialchars($_POST['apresiasi1']);
-    $cttn4 = htmlspecialchars($_POST['cttn4']);
-    $apresiasi2 = htmlspecialchars($_POST['apresiasi2']);
-    $cttn5 = htmlspecialchars($_POST['cttn5']);
-    $apresiasi3 = htmlspecialchars($_POST['apresiasi3']);
-    $cttn6 = htmlspecialchars($_POST['cttn6']);
-    $ask = htmlspecialchars($_POST['ask']);
-    $cttn7 = htmlspecialchars($_POST['cttn7']);
-    $berkat = htmlspecialchars($_POST['berkat']);
-    $cttn8 = htmlspecialchars($_POST['cttn8']);
-    $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
-}
 
 // sistem penilaian my virtues & character
 if (isset($_POST['btn_myvirtues'])) {

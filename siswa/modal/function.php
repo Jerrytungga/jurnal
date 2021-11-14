@@ -21,7 +21,7 @@
         $Neutron = htmlspecialchars($_POST['Neutron']);
         $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`Catatan_mentor`) VALUES ('$nis','$Character','$prayer','$Neutron',NULL)");
         if ($goal) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -47,7 +47,7 @@
         $blessing = htmlspecialchars($_POST['blessing1']);
         $revival = mysqli_query($conn, "INSERT INTO `tb_revival_note`(`nis`, `verse`, `blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
         if ($revival) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -71,7 +71,7 @@
         $burden_inward_sense = htmlspecialchars($_POST['burden_inward_sense']);
         $praye = mysqli_query($conn, "INSERT INTO `tb_prayer_note`(`nis`, `kategori`, `burden_inward_sense`, `catatan_mentor`) VALUES ('$nis','$kategori','$burden_inward_sense',NULL)");
         if ($praye) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -97,7 +97,7 @@
         $NT = htmlspecialchars($_POST['NT']);
         $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`, `catatan_mentor`) VALUES ('$nis','$kitab','$OT','$NT',NULL)");
         if ($bible) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -121,7 +121,7 @@
         $blessing = htmlspecialchars($_POST['blessing_exhibition']);
         $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
         if ($exhibition) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -144,7 +144,7 @@
         $getandlern = htmlspecialchars($_POST['getandlern']);
         $homemeeting = mysqli_query($conn, "INSERT INTO `tb_home_meeting`(`nis`, `what_i_get_and_lern`, `catatan_mentor`) VALUES ('$nis','$getandlern',NULL)");
         if ($homemeeting) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
@@ -171,7 +171,7 @@
         $thismonth = htmlspecialchars($_POST['thismonth']);
         $blessings1 = mysqli_query($conn, "INSERT INTO `tb_blessings`(`nis`, `what_i_gain_on_god`, `cttn1`, `what_i_learn_on_education`, `cttn2`, `what_i_learn_on_character_and_virtue`, `cttn3`, `what_l_appreciate_toward_brother_sister`, `cttn4`, `what_l_appreciate_toward_my_trainers`, `cttn5`, `what_l_appreciate_toward_saints`, `cttn6`, `what_I_want_to_ask`, `cttn7`, `what_i_learn_the_most_this_month`, `cttn8`, `catatan_mentor`) VALUES ('$nis','$god',NULL,'$education',NULL,'$character',NULL,'$appreciate1',NULL,'$appreciate2',NULL,'$appreciate3',NULL,'$ask',NULL,'$thismonth',NULL,NULL)");
         if ($blessings1) {
-            echo '<script>alert("Terimakasih, jurnal anda berhasil di isi")</script>';
+            echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
         } else {
             echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
         }
