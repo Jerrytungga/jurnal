@@ -181,9 +181,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                <div class="form-group">
+            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
+            <div class=" modal-body">
+                <div class=" form-group">
                     <label for="god-text" class="col-form-label font-weight-bold">What I gain on God : </label>
                     <textarea rows="5" type="text" class="form-control" id="god" name="god" disabled></textarea>
                 </div>
@@ -207,19 +207,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I learn on Education :</label>
-                    <textarea rows="5" type="text" class="form-control" id="edu" name="edu" disabled></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                    <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
-                </div>
+            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>
+            <div class=" modal-body">
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">What I learn on Education :</label>
+                <textarea rows="5" type="text" class="form-control" id="edu" name="edu" disabled></textarea>
+            </div>
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- detail learn on character & Virtue-->
@@ -232,19 +232,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I learn on character & Virtue :</label>
-                    <textarea rows="5" type="text" class="form-control" id="learnoncharacter" name="learnoncharacter" disabled></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                    <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
-                </div>
+            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>
+            <div class=" modal-body">
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">What I learn on character & Virtue :</label>
+                <textarea rows="5" type="text" class="form-control" id="learnoncharacter" name="learnoncharacter" disabled></textarea>
+            </div>
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -258,19 +258,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward Brother & Sisters :</label>
-                    <textarea rows="5" type="text" class="form-control" id="appreciate" name="appreciate" disabled></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                    <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
-                </div>
+            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>
+            <div class=" modal-body">
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward Brother & Sisters :</label>
+                <textarea rows="5" type="text" class="form-control" id="appreciate" name="appreciate" disabled></textarea>
+            </div>
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- detail What I Appreciate Toward My Trainers/Mentors -->
@@ -283,19 +283,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward My Trainers/Mentors :</label>
-                    <textarea rows="5" type="text" class="form-control" id="appreciate1" name="appreciate1" disabled></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                    <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
-                </div>
+            <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>
+            <div class=" modal-body">
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward My Trainers/Mentors :</label>
+                <textarea rows="5" type="text" class="form-control" id="appreciate1" name="appreciate1" disabled></textarea>
+            </div>
+            <div class="form-group">
+                <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- detail What I Appreciate Toward My Trainers/Mentors -->
@@ -309,7 +309,7 @@
                 </button>
             </div>
             <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-            <div class="modal-body">
+            <div class=" modal-body">
                 <div class="form-group">
                     <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward Saints :</label>
                     <textarea rows="5" type="text" class="form-control" id="appreciate2" name="appreciate2" disabled></textarea>
