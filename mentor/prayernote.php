@@ -84,7 +84,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
                                             <th class="bg-warning">Point</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
-                                            <th width="100">Options</th>
+                                            <th width="150">Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,7 +100,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= categori($row['kategori']); ?></td>
-                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point1']; ?></a></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['burden_inward_sense']; ?>
@@ -120,17 +120,17 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
                                                     </button>
 
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-point="<?= $row['point']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
+                                                    <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-point="<?= $row['point']; ?>" data-point1="<?= $row['point1']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
                                             <?php
-                                            $total = $total + $row['point']; ?>
+                                            $total = $total + $row['point'] + $row['point1']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="6"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -197,6 +197,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
             let beban = $(this).data('beban');
             let catatan = $(this).data('catatan');
             let point = $(this).data('point');
+            let point1 = $(this).data('point1');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #judul").val(judul);
@@ -204,6 +205,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
             $(" #modal-edit #point").val(point);
+            $(" #modal-edit #point1").val(point1);
 
         });
     </script>

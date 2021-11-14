@@ -51,9 +51,10 @@ if (isset($_POST['btn_prayernote'])) {
     $judul = htmlspecialchars($_POST['judul']);
     $beban = htmlspecialchars($_POST['beban']);
     $point = htmlspecialchars($_POST['point']);
+    $point1 = htmlspecialchars($_POST['point1']);
     $date = htmlspecialchars($_POST['date']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
 }
 
 // sistem edit bible
@@ -64,8 +65,10 @@ if (isset($_POST['btn_bible'])) {
     $nt = htmlspecialchars($_POST['nt']);
     $date = htmlspecialchars($_POST['date']);
     $point_bible = htmlspecialchars($_POST['point']);
+    $point_bible1 = htmlspecialchars($_POST['point1']);
+    $point_bible2 = htmlspecialchars($_POST['point2']);
     $catatan4 = htmlspecialchars($_POST['catatan4']);
-    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
 }
 
 

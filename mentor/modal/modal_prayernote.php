@@ -25,6 +25,16 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                        <select class="form-control" aria-label="Default select example" name="point1" id="point1">
+                            <option selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label class="text-reset font-weight-bold" for="beban">Burden & Inward Sense :</label>
                         <textarea rows="5" type="text" class="form-control" id="beban" name="beban" placeholder="Burden & inward sense"></textarea>
                     </div>

@@ -78,7 +78,9 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date D
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th>Bible</th>
+                                            <th class="bg-warning">Point</th>
                                             <th>Total OT Chapter(s)</th>
+                                            <th class="bg-warning">Point</th>
                                             <th>Total NT Chapter(s)</th>
                                             <th class="bg-warning">Point</th>
                                             <th width="100">Date</th>
@@ -95,24 +97,26 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date D
                                             <tr>
                                                 <td> <?= $i; ?></td>
                                                 <td><?= $row['bible']; ?></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point1']; ?></a></td>
                                                 <td><?= $row['total_ot']; ?></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point2']; ?></a></td>
                                                 <td><?= $row['total_nt']; ?></td>
                                                 <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a></td>
                                                 <td>
                                                     <!-- Get data personal siswa -->
-                                                    <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
+                                                    <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
                                             </tr>
                                             <?php
-                                            $total = $total + $row['point']; ?>
+                                            $total = $total + $row['point'] + $row['point1'] + $row['point2']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="5"> Total Point: </th>
+                                        <th class="bg-warning text-right" colspan="7"> Total Point: </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -170,6 +174,8 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date D
             let ot = $(this).data('ot');
             let nt = $(this).data('nt');
             let point = $(this).data('point');
+            let point1 = $(this).data('point1');
+            let point2 = $(this).data('point2');
             let date = $(this).data('date');
             let catatan4 = $(this).data('catatan');
             $(" #modal-edit #nis").val(nis);
@@ -177,6 +183,8 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date D
             $(" #modal-edit #ot").val(ot);
             $(" #modal-edit #nt").val(nt);
             $(" #modal-edit #point").val(point);
+            $(" #modal-edit #point1").val(point1);
+            $(" #modal-edit #point2").val(point2);
             $(" #modal-edit #catatan4").val(catatan4);
             $(" #modal-edit #date").val(date);
 
