@@ -1,6 +1,24 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+
+// sistem submit/post di bagian jurnal homemeeting
+if (isset($_POST['home_meeting'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $getandlern = htmlspecialchars($_POST['getandlern']);
+    $homemeeting = mysqli_query($conn, "INSERT INTO `tb_home_meeting`(`nis`, `what_i_get_and_lern`, `catatan_mentor`) VALUES ('$nis','$getandlern',NULL)");
+    if ($homemeeting) {
+        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+    } else {
+        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+    }
+}
+// proses Edit home meeting
+if (isset($_POST['btn_update_hommeeting'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $learn = htmlspecialchars($_POST['learn']);
+    $date = htmlspecialchars($_POST['date']);
+    $edithomemeeting = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`what_i_get_and_lern`='$learn' WHERE `tb_home_meeting`.`nis`='$nis' AND `tb_home_meeting`.`date`='$date' ");
+}
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -18,8 +36,12 @@ if (!isset($_SESSION['role'])) {
     $data = mysqli_fetch_array($get_data);
     // echo "else";
 }
-$jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DESC");
+$jurnal = mysqli_query($conn, "SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DESC");
+$home_meeting = mysqli_fetch_array($jurnal);
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,49 +62,38 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <?php
         include 'template/sidebar_menu.php';
         ?>
         <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <!-- Topbar Navbar -->
                     <?php
                     include 'template/topbar_menu.php';
                     ?>
-
                 </nav>
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
                         <div class="group">
                             <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Weekly</h1>
                             <p class=" mt embed-responsive">adalah jurnal mingguan. Setiap item dapat diisi >1x dalam seminggu sesuai permintaan minimalnya. <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
                             <a href="Weekly.php" type="button" class="btn btn-outline-primary mt-2">Exhibition</a>
-                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning mt-2">Pesonal Goal</a>
+                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning mt-2">Personal Goal</a>
                             <a href="homemeeting.php" type="button" class="btn btn-outline-success active mt-2">Home Meeting</a>
                         </div>
                     </div>
@@ -92,7 +103,6 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
                             <a href="" class="btn btn-success float-right" data-toggle="modal" data-target="#homemeeting">Isi Jurnal</a>
                             <h5 class=" font-weight-bold text-success">Home Meeting</h5>
                             <p>adalah catatan berkat-berkat yang didapat sewaktu bersekutu atau konseling dengan mentor atau pelatih. Diisi minimal 1x/minggu</p>
-
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -106,7 +116,6 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
                                             <th>Options</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         <?php $i = 1; ?>
                                         <?php foreach ($jurnal as $row) : ?>
@@ -133,15 +142,11 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
                                                     <?php
                                                     $tanggal = date('Y-m-d');
                                                     if ($tanggal == $row['date']) { ?>
-
                                                         <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#modal_edit" data-nis="<?= $row['nis']; ?>" data-learn="<?= $row['what_i_get_and_lern']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
-
-
                                                     <?php }
                                                     ?>
-
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>
@@ -165,101 +170,9 @@ $jurnal = query("SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DES
         </div>
         <!-- End of Content Wrapper -->
     </div>
-
-    <!-- modal edit exhibition -->
-    <div class="modal fade" id="modal_edit" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-edit">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Change Home meeting </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body table-responsive">
-                        <input type="hidden" class="form-control" id="nis" name="nis">
-                        <div class="form-group">
-                            <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                            <input type="text" class="form-control" id="date" name="date" readonly></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="learn-text" class="col-form-label font-weight-bold">What I get and learn :</label>
-                            <textarea rows="5" type="text" class="form-control" id="learn" name="learn">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_update_hommeeting" class="btn btn-success">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- modal view exhibition -->
-    <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-detail">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Home Meeting Detail </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body table-responsive">
-
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                        <input type="text" class="form-control" id="date" name="date" readonly></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="learn-text" class="col-form-label font-weight-bold">What I get and learn :</label>
-                        <textarea rows="5" type="text" class="form-control" id="learn" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                        <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
-                            </textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Modal Home Meeting-->
-    <div class="modal fade" id="homemeeting" tabindex="-1" aria-labelledby="homemeeting" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="homemeeting">Home Meeting</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                        <div class="form-group">
-                            <label for="learn-text" class="col-form-label font-weight-bold">What I get and learn :</label>
-                            <textarea rows="5" type="text" class="form-control" id="getandlern" name="getandlern" required></textarea>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="home_meeting" class="btn btn-success">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <!-- modal Log out -->
     <?php
+    include 'modal/modal_homemeeting.php';
     include 'modal/modal_logout.php';
     ?>
     <!-- Bootstrap core JavaScript-->

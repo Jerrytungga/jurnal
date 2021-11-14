@@ -1,6 +1,28 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem submit/post di bagian jurnal bible reading
+if (isset($_POST['bible_reading'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $kitab = htmlspecialchars($_POST['kitab']);
+    $OT = htmlspecialchars($_POST['OT']);
+    $NT = htmlspecialchars($_POST['NT']);
+    $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`, `catatan_mentor`) VALUES ('$nis','$kitab','$OT','$NT',NULL)");
+    if ($bible) {
+        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+    } else {
+        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+    }
+}
+// sistem edit bible
+if (isset($_POST['btn_editbible'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $bible = htmlspecialchars($_POST['bible']);
+    $ot = htmlspecialchars($_POST['ot']);
+    $nt = htmlspecialchars($_POST['nt']);
+    $date = htmlspecialchars($_POST['date']);
+    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `bible`='$bible',`total_ot`='$ot',`total_nt`='$nt' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+}
+
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -18,7 +40,8 @@ if (!isset($_SESSION['role'])) {
     $data = mysqli_fetch_array($get_data);
     // echo "else";
 }
-$jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
+$jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
+$biblereading = mysqli_fetch_array($jurnal);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -143,7 +166,6 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DE
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <?php
@@ -151,246 +173,13 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DE
                 ?>
             </footer>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-    <!-- Modal bible reading-->
-    <div class="modal fade" id="biblereading" tabindex="-1" aria-labelledby="biblereading" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="biblereading">Bible Reading</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                        <div class="form-group">
-
-                            <select class="form-control" name="kitab" id="kitab" aria-label="Default select example" required>
-                                <option value="">Select Bible</option>
-                                <option value="OTNT">OTNT</option>
-                                <option value="OT">OT</option>
-                                <option value="NT">NT</option>
-
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="OT" id="OT" aria-label="Default select example" required>
-                                <option value="">Select Total OT Chapter(s)</option>
-                                <option value="Tidak Baca">Tidak Baca</option>
-                                <option value="1 Pasal">1 Pasal</option>
-                                <option value="2 Pasal">2 Pasal</option>
-                                <option value="3 Pasal">3 Pasal</option>
-                                <option value="4 Pasal">4 Pasal</option>
-                                <option value="5 Pasal">5 Pasal</option>
-                                <option value="6 Pasal">6 Pasal</option>
-                                <option value="7 Pasal">7 Pasal</option>
-                                <option value="8 Pasal">8 Pasal</option>
-                                <option value="9 Pasal">9 Pasal</option>
-                                <option value="10 Pasal">10 Pasal</option>
-                                <option value="11 Pasal">11 Pasal</option>
-                                <option value="12 Pasal">12 Pasal</option>
-                                <option value="13 Pasal">13 Pasal</option>
-                                <option value="14 Pasal">14 Pasal</option>
-                                <option value="15 Pasal">15 Pasal</option>
-                                <option value="16 Pasal">16 Pasal</option>
-                                <option value="17 Pasal">17 Pasal</option>
-                                <option value="18 Pasal">18 Pasal</option>
-                                <option value="19 Pasal">19 Pasal</option>
-                                <option value="20 Pasal">20 Pasal</option>
-                            </select>
-
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" name="NT" id="NT" aria-label="Default select example" required>
-                                <option value="">Select Total NT Chapter(s)</option>
-                                <option value="Tidak Baca">Tidak Baca</option>
-                                <option value="1 Pasal">1 Pasal</option>
-                                <option value="2 Pasal">2 Pasal</option>
-                                <option value="3 Pasal">3 Pasal</option>
-                                <option value="4 Pasal">4 Pasal</option>
-                                <option value="5 Pasal">5 Pasal</option>
-                                <option value="6 Pasal">6 Pasal</option>
-                                <option value="7 Pasal">7 Pasal</option>
-                                <option value="8 Pasal">8 Pasal</option>
-                                <option value="9 Pasal">9 Pasal</option>
-                                <option value="10 Pasal">10 Pasal</option>
-                                <option value="11 Pasal">11 Pasal</option>
-                                <option value="12 Pasal">12 Pasal</option>
-                                <option value="13 Pasal">13 Pasal</option>
-                                <option value="14 Pasal">14 Pasal</option>
-                                <option value="15 Pasal">15 Pasal</option>
-                                <option value="16 Pasal">16 Pasal</option>
-                                <option value="17 Pasal">17 Pasal</option>
-                                <option value="18 Pasal">18 Pasal</option>
-                                <option value="19 Pasal">19 Pasal</option>
-                                <option value="20 Pasal">20 Pasal</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="bible_reading" class="btn btn-danger">Submit</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
- -->
-    <!-- Modal edit bible reading-->
-    <div class="modal fade" id="editbiblereading" tabindex="-1" aria-labelledby="biblereading" aria-hidden="true">
-        <div class="modal-dialog" id="modal-edit">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="biblereading">Change Bible Reading</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis">
-                        <div class="form-group">
-                            <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                            <input type="text" class="form-control" id="date" name="date" readonly></input>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="bible" id="bible" aria-label="Default select example" required>
-                                <option value="">Select Bible</option>
-                                <option value="OTNT">OTNT</option>
-                                <option value="OT">OT</option>
-                                <option value="NT">NT</option>
-
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <select class="form-control" name="ot" id="ot" aria-label="Default select example" required>
-                                <option value="">Select Total OT Chapter(s)</option>
-                                <option value="Tidak Baca">Tidak Baca</option>
-                                <option value="1 Pasal">1 Pasal</option>
-                                <option value="2 Pasal">2 Pasal</option>
-                                <option value="3 Pasal">3 Pasal</option>
-                                <option value="4 Pasal">4 Pasal</option>
-                                <option value="5 Pasal">5 Pasal</option>
-                                <option value="6 Pasal">6 Pasal</option>
-                                <option value="7 Pasal">7 Pasal</option>
-                                <option value="8 Pasal">8 Pasal</option>
-                                <option value="9 Pasal">9 Pasal</option>
-                                <option value="10 Pasal">10 Pasal</option>
-                                <option value="11 Pasal">11 Pasal</option>
-                                <option value="12 Pasal">12 Pasal</option>
-                                <option value="13 Pasal">13 Pasal</option>
-                                <option value="14 Pasal">14 Pasal</option>
-                                <option value="15 Pasal">15 Pasal</option>
-                                <option value="16 Pasal">16 Pasal</option>
-                                <option value="17 Pasal">17 Pasal</option>
-                                <option value="18 Pasal">18 Pasal</option>
-                                <option value="19 Pasal">19 Pasal</option>
-                                <option value="20 Pasal">20 Pasal</option>
-                            </select>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            <select class="form-control" name="nt" id="nt" aria-label="Default select example" required>
-                                <option value="">Select Total NT Chapter(s)</option>
-                                <option value="Tidak Baca">Tidak Baca</option>
-                                <option value="1 Pasal">1 Pasal</option>
-                                <option value="2 Pasal">2 Pasal</option>
-                                <option value="3 Pasal">3 Pasal</option>
-                                <option value="4 Pasal">4 Pasal</option>
-                                <option value="5 Pasal">5 Pasal</option>
-                                <option value="6 Pasal">6 Pasal</option>
-                                <option value="7 Pasal">7 Pasal</option>
-                                <option value="8 Pasal">8 Pasal</option>
-                                <option value="9 Pasal">9 Pasal</option>
-                                <option value="10 Pasal">10 Pasal</option>
-                                <option value="11 Pasal">11 Pasal</option>
-                                <option value="12 Pasal">12 Pasal</option>
-                                <option value="13 Pasal">13 Pasal</option>
-                                <option value="14 Pasal">14 Pasal</option>
-                                <option value="15 Pasal">15 Pasal</option>
-                                <option value="16 Pasal">16 Pasal</option>
-                                <option value="17 Pasal">17 Pasal</option>
-                                <option value="18 Pasal">18 Pasal</option>
-                                <option value="19 Pasal">19 Pasal</option>
-                                <option value="20 Pasal">20 Pasal</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_editbible" class="btn btn-danger">Save</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- view -->
-    <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-detail">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Bible Reading Detail </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body table-responsive">
-
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                        <p type="text" class="form-control" id="date" readonly></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Bible :</label>
-                        <p type="text" class="form-control" id="bible" readonly></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Total OT Chapter(s) :</label>
-                        <p type="text" class="form-control" id="ot" readonly></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Total NT Chapter(s) :</label>
-                        <p type="text" class="form-control" id="nt" readonly></p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                        <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
-                            </textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- modal Log out -->
     <?php
+    include 'modal/modal_biblereading.php';
     include 'modal/modal_logout.php';
     ?>
     <!-- Bootstrap core JavaScript-->

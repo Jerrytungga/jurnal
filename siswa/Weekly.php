@@ -1,8 +1,26 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
-// cek apakah yang mengakses halaman ini sudah login
 session_start();
+// sistem submit/post di bagian jurnal exhibition
+if (isset($_POST['exhibition'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $verse = htmlspecialchars($_POST['verse_exhibition']);
+    $blessing = htmlspecialchars($_POST['blessing_exhibition']);
+    $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
+    if ($exhibition) {
+        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+    } else {
+        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+    }
+}
+if (isset($_POST['btn_editexhibition'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $verse = htmlspecialchars($_POST['verse']);
+    $pointblessings = htmlspecialchars($_POST['pointblessings']);
+    $date = htmlspecialchars($_POST['date']);
+    $exhibition = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
+}
+// cek apakah yang mengakses halaman ini sudah login
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
     echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');
@@ -18,7 +36,8 @@ if (!isset($_SESSION['role'])) {
     $data = mysqli_fetch_array($get_data);
     // echo "else";
 }
-$jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC");
+$jurnal = mysqli_query($conn, "SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC");
+$exhibition = mysqli_fetch_array($jurnal);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,11 +90,10 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
                             <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Weekly</h1>
                             <p class=" mt embed-responsive">adalah jurnal mingguan. Setiap item dapat diisi >1x dalam seminggu sesuai permintaan minimalnya. <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
                             <a href="Weekly.php" type="button" class="btn btn-outline-primary active mt-2">Exhibition</a>
-                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning mt-2">Pesonal Goal</a>
+                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning mt-2">Personal Goal</a>
                             <a href="homemeeting.php" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
                         </div>
                     </div>
-
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
@@ -158,118 +176,8 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
-    <!-- edit exhibition -->
-    <div class="modal fade" id="edit_exhibition" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-edit">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Change Exhibition </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body table-responsive">
-                        <input type="hidden" class="form-control" id="nis" name="nis">
-                        <div class="form-group">
-                            <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                            <input type="text" class="form-control" id="date" name="date" readonly></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="verse-text" class="col-form-label font-weight-bold">Verse :</label>
-                            <textarea rows="5" type="text" class="form-control" id="verse" name="verse">
-                            </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="doa-text" class="col-form-label font-weight-bold">Point of Blessing :</label>
-                            <textarea rows="5" type="text" class="form-control" id="pointblessings" name="pointblessings">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_editexhibition" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- view -->
-    <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-detail">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Exhibition Detail </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body table-responsive">
-
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                        <p type="text" class="form-control" id="date" readonly></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="verse-text" class="col-form-label font-weight-bold">Verse :</label>
-                        <textarea rows="5" type="text" class="form-control" id="verse" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="doa-text" class="col-form-label font-weight-bold">Point of Blessing :</label>
-                        <textarea rows="5" type="text" class="form-control" id="pointblessings" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                        <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
-                            </textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Modal tambah exhibition -->
-    <div class="modal fade" id="Exhibition" tabindex="-1" aria-labelledby="Exhibition" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Exhibition">Exhibition</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                        <div class="form-group">
-                            <label for="verse-text" class="col-form-label font-weight-bold">Verse :</label>
-                            <textarea rows="5" type="text" class="form-control" id="verse_exhibition" name="verse_exhibition"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="poin-text" class="col-form-label font-weight-bold">Point of Blessing :</label>
-                            <textarea rows="5" type="text" class="form-control" id="blessing_exhibition" name="blessing_exhibition"></textarea>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="exhibition" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- modal Log out -->
     <?php
+    include 'modal/modal_exhibition.php';
     include 'modal/modal_logout.php';
     ?>
     <!-- Bootstrap core JavaScript-->
@@ -292,8 +200,6 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC"
             });
 
         });
-
-
 
         $(document).on("click", "#detail", function() {
             let nis = $(this).data('nis');

@@ -1,6 +1,5 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -18,7 +17,8 @@ if (!isset($_SESSION['role'])) {
     $data = mysqli_fetch_array($get_data);
     // echo "else";
 }
-$report = query("SELECT * FROM tb_reportweekly WHERE nis='$id' ORDER BY date DESC");
+$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$id' ORDER BY date DESC");
+$weekl = mysqli_fetch_array($report);
 ?>
 <!DOCTYPE html>
 <html lang="en">

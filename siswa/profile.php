@@ -1,6 +1,13 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem ganti password siswa
+if (isset($_POST['edit_profile'])) {
+  $nis = htmlspecialchars($_POST['nis']);
+  $password = htmlspecialchars($_POST['password']);
+  $addtotable = mysqli_query($conn, "UPDATE `siswa` SET `password`='$password' WHERE `siswa`.`nis` = '$nis'");
+  header('location:profile.php');
+}
+
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -16,7 +23,6 @@ if (!isset($_SESSION['role'])) {
   $id = $_SESSION['id_Siswa'];
   $get_data = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
   $data = mysqli_fetch_array($get_data);
-  // echo "else";
 }
 ?>
 <!DOCTYPE html>
@@ -77,7 +83,6 @@ if (!isset($_SESSION['role'])) {
                   <h6 class="card-title">Password : <?= $data['password']; ?></h6>
                   <a id="edit_siswa" data-toggle="modal" data-target="#edit" data-foto="<?= $data["image"]; ?>" data-nis="<?= $data["nis"]; ?>" data-nama="<?= $data["name"]; ?>" data-username="<?= $data["username"]; ?>" data-password="<?= $data["password"]; ?>">
                     <button class="btn btn-info btn-warning">Ganti Password</button></a>
-
                 </div>
               </div>
             </div>
@@ -100,38 +105,8 @@ if (!isset($_SESSION['role'])) {
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
-  <!-- Logout Modal-->
-  <!-- profile Modal -->
-  <div class="modal fade" id="edit">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="edit_siswa">Ganti Password</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <!-- bungkus untuk form -->
-        <form action="modal/function.php" method="POST" enctype="multipart/form-data">
-          <div class="modal-body" id="modal-edit">
-            <input type="hidden" class="form-control" id="nis" name="nis">
-            <div class="form-group">
-              <h7 class="text-reset" for="password">Masukan Password Baru :</h7>
-              <input type="text" class="form-control" id="password" name="password">
-            </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="edit_profile" id="edit_profile" class="btn btn-warning">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- modal log out -->
   <?php
+  include 'modal/modal_profile.php';
   include 'modal/modal_logout.php';
   ?>
   <!-- Bootstrap core JavaScript-->

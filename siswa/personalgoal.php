@@ -1,7 +1,30 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
-// cek apakah yang mengakses halaman ini sudah login
+// sistem submit/post di bagian jurnal personal goal
+if (isset($_POST['submit'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = date('Y-m-d');
+    $Character = htmlspecialchars($_POST['Character']);
+    $prayer = htmlspecialchars($_POST['prayer']);
+    $Neutron = htmlspecialchars($_POST['Neutron']);
+    $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`Catatan_mentor`) VALUES ('$nis','$Character','$prayer','$Neutron',NULL)");
+    if ($goal) {
+        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+    } else {
+        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+    }
+}
+
+// proses edit goals seeting
+if (isset($_POST['btn_update_personalgoal'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $character = htmlspecialchars($_POST['character']);
+    $prayer = htmlspecialchars($_POST['prayer']);
+    $Neutron = htmlspecialchars($_POST['neutron']);
+    $date = htmlspecialchars($_POST['date']);
+    $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -17,7 +40,8 @@ if (!isset($_SESSION['role'])) {
     $get_data = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
     $data = mysqli_fetch_array($get_data);
 }
-$jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DESC");
+$jurnal = mysqli_query($conn, "SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DESC");
+$goals_seeting = mysqli_fetch_array($jurnal);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +97,7 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DE
                             <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Weekly</h1>
                             <p class=" mt embed-responsive">adalah jurnal mingguan. Setiap item dapat diisi >1x dalam seminggu sesuai permintaan minimalnya. <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
                             <a href="Weekly.php" type="button" class="btn btn-outline-primary mt-2">Exhibition</a>
-                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning active mt-2">Pesonal Goal</a>
+                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning active mt-2">Personal Goal</a>
                             <a href="homemeeting.php" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
                         </div>
                     </div>
@@ -162,131 +186,8 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$id' ORDER BY date DE
     </div>
     <!-- End of Page Wrapper -->
 
-
-    <!-- view -->
-    <div class="modal fade" id="modal_detail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" id="modal-detail">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Personal goal Detail </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body table-responsive">
-
-                    <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                        <input type="text" class="form-control" id="date" name="date" readonly></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="Character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
-                        <textarea rows="5" type="text" class="form-control" id="karakter" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="doa-text" class="col-form-label font-weight-bold">Prayer :</label>
-                        <textarea rows="5" type="text" class="form-control" id="doa" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
-                        <textarea rows="5" type="text" class="form-control" id="neutron" readonly>
-                            </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
-                        <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
-                            </textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <!-- Modal edit -->
-    <div class="modal fade" id="personalgoal" tabindex="-1" aria-labelledby="personalgoal" aria-hidden="true">
-        <div class="modal-dialog" id="modal-edit">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="personalgoal">Change Personal Goal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis">
-                        <div class="form-group">
-                            <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
-                            <input type="text" class="form-control" id="date" name="date" readonly></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
-                            <textarea type="text" rows="5" class="form-control" id="character" name="character"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="prayer-text" class="col-form-label font-weight-bold">Prayer :</label>
-                            <textarea rows="5" type="text" class="form-control" id="prayer" name="prayer"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
-                            <textarea rows="5" type="text" class="form-control" id="neutron" name="neutron"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_update_personalgoal" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Modal tambah data  -->
-    <div class="modal fade" id="PGSJ" tabindex="-1" aria-labelledby="PGSJ" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="PGSJ">Personal Goal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                        <div class="form-group">
-                            <label for="Character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
-                            <textarea rows="5" type="text" class="form-control" id="Character" name="Character">
-                            </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="prayer-text" class="col-form-label font-weight-bold">Prayer :</label>
-                            <textarea rows="5" type="text" class="form-control" id="prayer" name="prayer">
-                            </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="prayer-text" class="col-form-label font-weight-bold">Neutron :</label>
-                            <textarea rows="5" type="text" class="form-control" id="Neutron" name="Neutron">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- Logout Modal-->
     <?php
+    include 'modal/modal_goalseeting.php';
     include 'modal/modal_logout.php';
     ?>
     <!-- Bootstrap core JavaScript-->

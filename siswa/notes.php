@@ -1,6 +1,20 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem submit/post di bagian catatan siswa
+if (isset($_POST['catatan'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $jd_diary = htmlspecialchars($_POST['jd_diary']);
+    $isi_diary = htmlspecialchars($_POST['isi_diary']);
+    mysqli_query($conn, "INSERT INTO `tb_catatan`(`nis`, `judul`, `deskripsi`) VALUES ('$nis','$jd_diary','$isi_diary')");
+}
+
+// sistem edit di bagian catatan siswa
+if (isset($_POST['perubahan'])) {
+    $judul = htmlspecialchars($_POST['judul']);
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $id = htmlspecialchars($_POST['id']);
+    mysqli_query($conn, "UPDATE `tb_catatan` SET `judul`='$judul',`deskripsi`='$deskripsi' WHERE `tb_catatan`.`id_catatan`='$id'");
+}
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -18,7 +32,8 @@ if (!isset($_SESSION['role'])) {
     $data = mysqli_fetch_array($get_data);
     // echo "else";
 }
-$catatan = query("SELECT * FROM tb_catatan WHERE nis='$id' ORDER BY date DESC");
+$catatan = mysqli_query($conn, "SELECT * FROM tb_catatan WHERE nis='$id' ORDER BY date DESC");
+$catatanharian = mysqli_fetch_array($catatan);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,74 +155,10 @@ $catatan = query("SELECT * FROM tb_catatan WHERE nis='$id' ORDER BY date DESC");
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-    <div class="modal fade" id="notes" tabindex="-1" aria-labelledby="notes" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="notes">New Diary </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- bungkus untuk form -->
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
-                        <div class="form-group">
-                            <label for="title">Title :</label>
-                            <input type="text" class="form-control" id="jd_diary" name="jd_diary" placeholder="Title">
-                        </div>
-                        <div class="form-group">
-                            <label for="descrition">Description :</label>
-                            <textarea rows="5" type="text" class="form-control" id="isi_diary" name="isi_diary" placeholder="Description"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="catatan" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- -->
-
-    <div class="modal fade" id="edit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="notes">Edit Diary </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="" method="POST">
-                    <div class="modal-body" id="modal-edit">
-                        <input type="hidden" class="form-control" id="id" name="id">
-                        <div class="form-group">
-                            <label for="judul-text" class="col-form-label font-weight-bold">Title :</label>
-                            <textarea rows="5" type="text" class="form-control" id="judul" name="judul"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="deskripsi-text" class="col-form-label font-weight-bold">Description :</label>
-                            <textarea rows="5" type="text" class="form-control" id="deskripsi" name="deskripsi"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="perubahan" id="perubahan" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <!-- Modal Log Out -->
     <?php
+    include 'modal/modal_notes.php';
     include 'modal/modal_logout.php';
     ?>
     <!-- Bootstrap core JavaScript-->
