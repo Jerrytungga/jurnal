@@ -1,7 +1,7 @@
 <?php
 include '../database.php';
-include 'models/function.php';
-$categori_doa = query("SELECT * FROM tb_categori_doa ORDER BY id DESC");
+$categori_doa = mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE nis='$id' ORDER BY date DESC");
+$kategori = mysqli_fetch_array($categori_doa);
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
