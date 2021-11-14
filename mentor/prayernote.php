@@ -79,6 +79,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th width="250">Kategori</th>
+                                            <th class="bg-warning">Point</th>
                                             <th>Burden & Inward Sense</th>
                                             <th class="bg-warning">Point</th>
                                             <th width="100">Date</th>
@@ -99,6 +100,7 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= categori($row['kategori']); ?></td>
+                                                <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point']; ?></a></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['burden_inward_sense']; ?>

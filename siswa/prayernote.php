@@ -40,7 +40,7 @@ if (!isset($_SESSION['role'])) {
     // echo "else";
 }
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$id' ORDER BY date DESC");
-$prayernote = mysqli_fetch_array($jurnal);
+$doa = mysqli_fetch_array($jurnal);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,24 +123,25 @@ $prayernote = mysqli_fetch_array($jurnal);
                                     </thead>
                                     <tbody>
                                         <?php $i = 1;
-                                        // function categori($doa)
-                                        // {
-                                        //     global $conn;
-                                        //     $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE categori_doa='$doa'"));
-                                        //     return $sqly['categori_doa'];
-                                        // }
+                                        function categori($doa)
+                                        {
+                                            global $conn;
+                                            $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE categori_doa='$doa'"));
+                                            return $sqly['categori_doa'];
+                                        }
+
 
                                         ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= $row['kategori']; ?></td>
+                                                <td><?= categori($row['kategori']); ?></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['burden_inward_sense']; ?>
                                                     </span>
                                                 </td>
-                                                <td><?= $row['date']; ?></td>
+                                                <td><?= ($row['date']); ?></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a>
