@@ -113,7 +113,7 @@
          </button>
        </div>
        <!-- bungkus untuk form -->
-       <form action="models/function.php" method="POST" enctype="multipart/form-data">
+       <form action="" method="POST" enctype="multipart/form-data">
          <div class="modal-body" id="modal-edit">
            <div class="form-group">
              <label for="image">Foto</label>

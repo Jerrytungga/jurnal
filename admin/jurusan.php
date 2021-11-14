@@ -1,7 +1,33 @@
 <?php
 include '../database.php';
-include 'models/function.php';
-$jurusan = query("SELECT * FROM tb_jurusan ORDER BY id DESC");
+
+//input data jurusan
+if (isset($_POST['btn_tambah_jurusan'])) {
+  $jurusan = htmlspecialchars($_POST['jurusan']);
+  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_jurusan`"));
+  $idbr = $max['id'] + 1;
+  $datajurusan = mysqli_query($conn, "INSERT INTO `tb_jurusan`(`jurusan`,`id`) VALUES ('$jurusan',$idbr)");
+  if ($datajurusan) {
+    echo "<script>alert('Jurusan Berhasil ditambahkan!');</script>";
+  } else {
+    echo "<script>alert('Jurusan gagal ditambahkan');</script>";
+  }
+}
+
+//edit data jurusan
+if (isset($_POST['btn_edit_jurusan'])) {
+  $jurusan = htmlspecialchars($_POST['jurusan']);
+  $kode = htmlspecialchars($_POST['kode']);
+  $datajurusan = mysqli_query($conn, "UPDATE `tb_jurusan` SET `jurusan`='$jurusan',`id`='$kode' WHERE `tb_jurusan`.`id` = '$kode'");
+  if ($datajurusan) {
+    echo "<script>alert('Jurusan Berhasil di Edit!');</script>";
+  } else {
+    echo "<script>alert('Jurusan gagal di Edit!');</script>";
+  }
+}
+
+$jurusan = mysqli_query($conn, "SELECT * FROM tb_jurusan ORDER BY id DESC");
+$j = mysqli_fetch_array($jurusan);
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {

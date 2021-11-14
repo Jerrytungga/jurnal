@@ -1,9 +1,62 @@
 <?php
 include '../database.php';
-include 'models/function.php';
+
+// menambahkan data mentor
+if (isset($_POST['btn_tambah_mentor'])) {
+    $sumber = $_FILES['image']['tmp_name'];
+    $target = '../img/fotomentor/';
+    $nama_gambar = $_FILES['image']['name'];
+    $name = htmlspecialchars($_POST['name']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+    $status = htmlspecialchars($_POST['status']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $cek_username = mysqli_query($conn, "SELECT * FROM mentor WHERE efata = '$efata'") or die($conn->error);
+    if (mysqli_num_rows($cek_username) > 0) {
+        echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
+    } else {
+        if ($nama_gambar != '') {
+            if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+                $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
+                echo "<script>alert('Data berhasil ditambahkan!');</script>";
+            }
+        } else {
+            $addmentor = mysqli_query($conn, "INSERT INTO mentor (name,gender,username,password,status,efata) value ('$name','$gender','$username','$password','$status','$efata')");
+            echo "<script>alert('Data berhasil ditambahkan!');</script>";
+        }
+    }
+}
+
+
+// mengedit data mentor
+if (isset($_POST['btn_edit_mentor'])) {
+    $sumber = $_FILES['image']['tmp_name'];
+    $target = '../img/fotomentor/';
+    $nama_gambar = $_FILES['image']['name'];
+    $name = htmlspecialchars($_POST['name']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+    $status = htmlspecialchars($_POST['status']);
+    $efata = htmlspecialchars($_POST['efata']);
+    if ($nama_gambar != '') {
+
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
+            echo "<script>alert('Data berhasil di Edit!');</script>";
+        }
+    } else {
+        // jika tidak mengganti gambar profile
+        $update = mysqli_query($conn, "UPDATE `mentor` SET `efata`='$efata',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
+        echo "<script>alert('Data berhasil di Edit!');</script>";
+    }
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
-$mentor = query("SELECT * FROM mentor ORDER BY date DESC");
+$mentor = mysqli_query($conn, "SELECT * FROM mentor ORDER BY date DESC");
+$m = mysqli_fetch_array($mentor);
 if (!isset($_SESSION['role'])) {
     echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../index.php'</script>";
 } else if ($_SESSION['role'] == "Siswa") {

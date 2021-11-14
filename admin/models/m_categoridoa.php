@@ -37,7 +37,7 @@
          </button>
        </div>
        <!-- bungkus untuk form -->
-       <form method="POST" action="models/function.php">
+       <form method="POST" action="">
          <div class="modal-body" id="modal-edit">
            <input type="hidden" class="form-control" id="kode" name="kode">
            <div class="form-group">

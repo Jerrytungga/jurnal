@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <!-- bungkus untuk form -->
-                <form id="form" method="POST" enctype="multipart/form-data" action="models/function.php">
+                <form id="form" method="POST" enctype="multipart/form-data" action="">
                     <div class="modal-body" id="modal-edit">
 
                         <div class="form-group">

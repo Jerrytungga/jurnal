@@ -1,7 +1,62 @@
 <?php
 include '../database.php';
-include 'models/function.php';
-$siswa = query("SELECT * FROM siswa ORDER BY date DESC");
+// menambahkan data siswa
+if (isset($_POST['btn_tambah_siswa'])) {
+  $sumber = $_FILES['image']['tmp_name'];
+  $target = '../img/fotosiswa/';
+  $nama_gambar = $_FILES['image']['name'];
+  $nis = htmlspecialchars($_POST['nis']);
+  $name = htmlspecialchars($_POST['name']);
+  $angkatan = htmlspecialchars($_POST['angkatan']);
+  $gender = htmlspecialchars($_POST['gender']);
+  $jurusan = htmlspecialchars($_POST['jurusan']);
+  $bimbel = htmlspecialchars($_POST['bimbel']);
+  $mentor = htmlspecialchars($_POST['mentor']);
+  $username = htmlspecialchars($_POST['username']);
+  $password = htmlspecialchars($_POST['password']);
+  $status = htmlspecialchars($_POST['status']);
+  $cek_username = mysqli_query($conn, "SELECT * FROM siswa WHERE username = '$username'") or die($conn->error);
+  if (mysqli_num_rows($cek_username) > 0) {
+    echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
+  } else {
+    if ($nama_gambar != '') {
+      if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+        $addtotable = mysqli_query($conn, "INSERT INTO `siswa`(`image`, `nis`, `name`, `angkatan`, `gender`, `jurusan`, `bimbel`, `mentor`, `username`, `password`, `status`) VALUES ('$nama_gambar','$nis','$name','$angkatan','$gender','$jurusan','$bimbel','$mentor','$username','$password','$status')");
+      }
+    } else {
+      $addtotable = mysqli_query($conn, "INSERT INTO `siswa`(`nis`, `name`, `angkatan`, `gender`, `jurusan`, `bimbel`, `mentor`, `username`, `password`, `status`) VALUES ('$nis','$name','$angkatan','$gender','$jurusan','$bimbel','$mentor','$username','$password','$status')");
+    }
+  }
+}
+
+// mengedit data siswa
+if (isset($_POST['btn_edit_siswa'])) {
+  $sumber = $_FILES['image']['tmp_name'];
+  $target = '../img/fotosiswa/';
+  $nama_gambar = $_FILES['image']['name'];
+  $nis = htmlspecialchars($_POST['nis']);
+  $name = htmlspecialchars($_POST['name']);
+  $angkatan = htmlspecialchars($_POST['angkatan']);
+  $gender = htmlspecialchars($_POST['gender']);
+  $jurusan = htmlspecialchars($_POST['jurusan']);
+  $bimbel = htmlspecialchars($_POST['bimbel']);
+  $mentor = htmlspecialchars($_POST['mentor']);
+  $username = htmlspecialchars($_POST['username']);
+  $password = htmlspecialchars($_POST['password']);
+  $status = htmlspecialchars($_POST['status']);
+  if ($nama_gambar != '') {
+    if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+
+      // jika ingin mengganti gambar profile
+      $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `image`='$nama_gambar',`nis`='$nis',`name`='$name',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`mentor`='$mentor',`username`='$username',`password`='$password',`status`='$status' WHERE `siswa`.`nis` = '$nis'");
+    }
+  } else {
+    // jika tidak mengganti gambar profile
+    $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `nis`='$nis',`name`='$name',`mentor`='$mentor',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`username`='$username',`password`='$password',`status`='$status' WHERE `siswa`.`nis` = '$nis'");
+  }
+}
+$siswa = mysqli_query($conn, "SELECT * FROM siswa ORDER BY date DESC");
+$s = mysqli_fetch_array($siswa);
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -15,7 +70,15 @@ if (!isset($_SESSION['role'])) {
   $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
   $data = mysqli_fetch_array($get_data);
 }
+
+// code untuk select option data mentor
+$sql_mentor = mysqli_query($conn, "SELECT * FROM mentor WHERE status= 'Aktif'") or die(mysqli_error($conn));
+//code untuk select option data jurusan
+$sql_jurusan = mysqli_query($conn, "SELECT * FROM tb_jurusan") or die(mysqli_error($conn));
+//code untuk select option data angkatan
+$sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

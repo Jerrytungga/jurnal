@@ -1,7 +1,29 @@
 <?php
 include '../database.php';
-include 'models/function.php';
-$angkatan = query("SELECT * FROM tb_angkatan");
+//input data angkatan
+if (isset($_POST['btn_tambah_angkatan'])) {
+  $angkatan = htmlspecialchars($_POST['angkatan']);
+  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_angkatan`"));
+  $idbr = $max['id'] + 1;
+  $t = mysqli_query($conn, "INSERT INTO `tb_angkatan`(`angkatan`, `id`) VALUES ('$angkatan',$idbr)");
+  if ($t) {
+    echo "<script>alert('Angkatan Berhasil ditambahkan!');</script>";
+  } else {
+    echo "<script>alert('Angkatan gagal ditambahkan');</script>";
+  }
+}
+//edit data angkatan
+if (isset($_POST['btn_edit_angkatan'])) {
+  $angkatan = htmlspecialchars($_POST['angkatan']);
+  $id = htmlspecialchars($_POST['id']);
+  $editangkatan = mysqli_query($conn, "UPDATE `tb_angkatan` SET `angkatan`='$angkatan' WHERE `tb_angkatan`.`id` = '$id'");
+  if ($editangkatan) {
+    echo "<script>alert('Angkatan Berhasil di Edit!');</script>";
+  }
+}
+
+$angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan ORDER BY id DESC");
+$a = mysqli_fetch_array($angkatan);
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {

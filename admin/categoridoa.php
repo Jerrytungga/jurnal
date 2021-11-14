@@ -1,7 +1,21 @@
 <?php
 include '../database.php';
-$categori_doa = mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE nis='$id' ORDER BY date DESC");
-$kategori = mysqli_fetch_array($categori_doa);
+if (isset($_POST['btn_tbh_categori_doa'])) {
+  $categori = htmlspecialchars($_POST['categori']);
+  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_categori_doa`"));
+  $idbr = $max['id'] + 1;
+  $categoridoa = mysqli_query($conn, "INSERT INTO `tb_categori_doa`(`categori_doa`, `id`) VALUES ('$categori',$idbr)");
+}
+
+if (isset($_POST['btn_edit_categori'])) {
+  $categori = htmlspecialchars($_POST['categori']);
+  $kode = htmlspecialchars($_POST['kode']);
+  $editangkatan = mysqli_query($conn, "UPDATE `tb_categori_doa` SET `categori_doa`=' $categori' WHERE `tb_categori_doa`.`id`='$kode'");
+  header('location:categoridoa.php');
+}
+
+$categori_doa = mysqli_query($conn, "SELECT * FROM tb_categori_doa ORDER BY id");
+$doa = mysqli_fetch_array($categori_doa);
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
