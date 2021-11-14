@@ -1,6 +1,6 @@
 <?php
 // menghubungkan ke database
-include '../database.php';
+include '../../database.php';
 // menampilkan data
 function query($query)
 {
