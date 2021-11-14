@@ -110,7 +110,7 @@
                         <label class="text-reset" for="apresiasi3">What I Appreciate Toward Saints :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi3" name="apresiasi3" placeholder="What I Appreciate Toward Saints"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point6 :</label>
+                    <label class="font-weight-bold">Point6 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point6" id="point6">
                             <option selected>Select</option>
