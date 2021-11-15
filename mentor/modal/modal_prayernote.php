@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label for="kategori-text" class="col-form-label font-weight-bold">Category :</label>
                         <select class="form-control" name="judul" id="judul" aria-label="Default select example">
-                            <option selected>Select</option>
+                            <option value="">Select</option>
                             <?php
                             $sql_categoridoa = mysqli_query($conn, "SELECT * FROM tb_categori_doa");
                             while ($categoridoa = mysqli_fetch_array($sql_categoridoa)) {

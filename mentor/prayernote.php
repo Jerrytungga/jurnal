@@ -131,16 +131,17 @@ if (isset($_POST['filter_tanggal'])) {
                                     <tbody>
                                         <?php $i = 1;
                                         $total = 0;
-                                        function categori($doa)
-                                        {
-                                            global $conn;
-                                            $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE categori_doa='$doa'"));
-                                            return $sqly['categori_doa'];
-                                        } ?>
+                                        // function categori($doa)
+                                        // {
+                                        //     global $conn;
+                                        //     $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE id='$doa'"));
+                                        //     return $sqly['categori_doa'];
+                                        // } 
+                                        ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= categori($row['kategori']); ?></td>
+                                                <td><?= $row['kategori']; ?></td>
                                                 <td class="text-center"><a class="font-weight-bold text-danger font-italic"><?= $row['point1']; ?></a></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
