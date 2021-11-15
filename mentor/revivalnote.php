@@ -228,6 +228,7 @@ if (isset($_POST['filter_tanggal'])) {
             $(" #modal-edit #point1").val(point1);
             $(" #modal-edit #point2").val(point2);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #mentor").val(mentor);
 
         });
         $(document).on("click", "#detail", function() {
