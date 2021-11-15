@@ -1,6 +1,16 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit prayer note
+if (isset($_POST['btn_prayernote'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $judul = htmlspecialchars($_POST['judul']);
+    $beban = htmlspecialchars($_POST['beban']);
+    $point = htmlspecialchars($_POST['point']);
+    $point1 = htmlspecialchars($_POST['point1']);
+    $date = htmlspecialchars($_POST['date']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +28,27 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
+
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
+        $prayernote = mysqli_fetch_array($jurnal);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
+    $prayernote = mysqli_fetch_array($jurnal);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -70,7 +100,18 @@ $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORD
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
 
                             <div class="table-responsive">

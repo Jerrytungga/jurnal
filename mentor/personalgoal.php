@@ -13,9 +13,6 @@ if (isset($_POST['update'])) {
     $point2 = htmlspecialchars($_POST['point2']);
     $point3 = htmlspecialchars($_POST['point3']);
     $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`point1`='$point1',`point2`='$point2',`point3`='$point3',`efata`='$efata',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`Catatan_mentor`='$catatan' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
-    if ($goal) {
-        echo '<?= success ?>';
-    }
 }
 
 session_start();
@@ -35,18 +32,27 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-// function quaeri
-function query($query)
-{
-    global $conn;
-    $result = mysqli_query($conn, $query);
-    $rows = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
+
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date DESC");
+        $goalseeting = mysqli_fetch_array($jurnal);
     }
-    return $rows;
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date DESC");
+    $goalseeting = mysqli_fetch_array($jurnal);
 }
-$jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date DESC");
+
 ?>
 
 <!-- Html Goal Setting -->
@@ -99,17 +105,18 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-                        <!-- <div class="card-header py-3">
+                        <div class="card-header py-3">
                             <div class="row mt-4">
                                 <div class="col">
                                     <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
                                         <input type="date" name="tanggal_mulai" class="form-control">
                                         <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                         <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
                                     </form>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
@@ -163,9 +170,10 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
                                                 </td>
 
                                                 <td>
-                                                    <button type="button" id="detail" class="btn btn-dark btn-inline " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-karakter="<?= $row['character_virtue']; ?>" data-doa="<?= $row['prayer']; ?>" data-neutron="<?= $row['neutron']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['Catatan_mentor']; ?>">
+                                                    <button type="button" id="detail" class="btn btn-dark" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-karakter="<?= $row['character_virtue']; ?>" data-doa="<?= $row['prayer']; ?>" data-bimbel="<?= $row['neutron']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['Catatan_mentor']; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
+
                                                     <!-- Get data personal siswa -->
                                                     <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-point3="<?= $row["point3"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>" data-catatan="<?= $row["Catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
@@ -260,33 +268,26 @@ $jurnal = query("SELECT * FROM tb_personal_goal WHERE nis='$nis' ORDER BY date D
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #date").val(date);
         });
+
+        $(document).on("click", "#detail", function() {
+
+            let date = $(this).data('date');
+            let nis = $(this).data('nis');
+            let doa = $(this).data('doa');
+            let bimbel = $(this).data('bimbel');
+            let karakter = $(this).data('karakter');
+            let mentor = $(this).data('mentor');
+            $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #karakter").val(karakter);
+            $(" #modal-detail #date").val(date);
+            $(" #modal-detail #doa").val(doa);
+            $(" #modal-detail #bimbel").val(bimbel);
+            $(" #modal-detail #mentor").val(mentor);
+
+        });
     </script>
 
-    <script script>
-        swal({
-            title: "Add Note",
-            input: "textarea",
-            showCancelButton: true,
-            confirmButtonColor: "#1FAB45",
-            confirmButtonText: "Save",
-            cancelButtonText: "Cancel",
-            buttonsStyling: true
-        }).then(function(success) {
-            swal(
-                "Sccess!",
-                "Your note has been saved!",
-                "success"
-            )
-        }, function(dismiss) {
-            if (dismiss === "cancel") {
-                swal(
-                    "Cancelled",
-                    "Canceled Note",
-                    "error"
-                )
-            }
-        })
-    </script>
+
 </body>
 
 </html>

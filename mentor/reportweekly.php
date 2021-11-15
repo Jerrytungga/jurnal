@@ -1,6 +1,24 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// input dat6a report weekly
+if (isset($_POST['input'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $name = htmlspecialchars($_POST['name']);
+    $presensi = htmlspecialchars($_POST['presensi']);
+    $jurnaldaily = htmlspecialchars($_POST['jurnaldaily']);
+    $jurnalweekly = htmlspecialchars($_POST['jurnalweekly']);
+    $jurnalMonthly = htmlspecialchars($_POST['jurnalMonthly']);
+    $virtue = htmlspecialchars($_POST['virtue']);
+    $lemari = htmlspecialchars($_POST['lemari']);
+    $sepatu = htmlspecialchars($_POST['sepatu']);
+    $ranjang = htmlspecialchars($_POST['ranjang']);
+    $total = htmlspecialchars($_POST['total']);
+    $status = htmlspecialchars($_POST['status']);
+    $Keterangan = htmlspecialchars($_POST['Keterangan']);
+    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata')");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -19,6 +37,7 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' ORDER BY date DESC");
+$homemeeting = mysqli_fetch_array($report);
 
 ?>
 <!DOCTYPE html>
@@ -93,7 +112,9 @@ $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' OR
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($report as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
@@ -112,9 +133,11 @@ $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' OR
                                                 <td><?= $row['date']; ?></td>
 
                                             </tr>
-
+                                            <?php
+                                            $total = $total + $row['presensi'] + $row['jurnal_daily'] + $row['jurnal_weekly']  + $row['jurnal_monthly'] + $row['virtue'] + $row['living_buku'] + $row['living_sepatu_handuk'] + $row['living_ranjang']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
+
                                     </tbody>
                                 </table>
                             </div>

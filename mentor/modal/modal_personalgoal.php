@@ -102,7 +102,7 @@
                  </div>
                  <div class="form-group">
                      <label for="neutron-text" class="col-form-label font-weight-bold">Bimbel :</label>
-                     <textarea rows="5" type="text" class="form-control" id="neutron" readonly>
+                     <textarea rows="5" type="text" class="form-control" id="bimbel" readonly>
                             </textarea>
                  </div>
                  <div class="form-group">

@@ -47,19 +47,25 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Function query
-function query($query)
-{
-    global $conn;
-    $result = mysqli_query($conn, $query);
-    $rows = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_blessings WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
+        $exhibition = mysqli_fetch_array($jurnal);
     }
-    return $rows;
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
+    $exhibition = mysqli_fetch_array($jurnal);
 }
-$jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
 ?>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +121,18 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" cellspacing="0">
@@ -136,7 +153,9 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
 
@@ -233,9 +252,15 @@ $jurnal = query("SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC"
                                                 </td>
 
                                             </tr>
+                                            <?php
+                                            $total = $total + $row['point1'] + $row['point2'] + $row['point3']  + $row['point4'] + $row['point5'] + $row['point6'] + $row['point7'] + $row['point8']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="10"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

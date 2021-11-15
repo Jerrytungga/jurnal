@@ -1,6 +1,17 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit revival note
+if (isset($_POST['btn_revivalnote'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $verse = htmlspecialchars($_POST['verse']);
+    $blessing = htmlspecialchars($_POST['blessings']);
+    $date = htmlspecialchars($_POST['date']);
+    $point1 = htmlspecialchars($_POST['point1']);
+    $point2 = htmlspecialchars($_POST['point2']);
+    $catatan_mentor = htmlspecialchars($_POST['mentor']);
+    mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`point1`='$point1',`point2`='$point2',`date`='$date',`catatan_mentor`='$catatan_mentor' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date` ='$date'");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +29,28 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$jurnal = query("SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
+
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_revival_note WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
+        $revivalnote = mysqli_fetch_array($jurnal);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
+    $revivalnote = mysqli_fetch_array($jurnal);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +101,18 @@ $jurnal = query("SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DE
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -80,7 +123,7 @@ $jurnal = query("SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DE
                                             <th class="bg-warning">Point</th>
                                             <th>Blessing</th>
                                             <th class="bg-warning">Point</th>
-                                            <th width="100">Date</th>
+                                            <th width="120">Date</th>
                                             <th width="250">Mentor Notes</th>
                                             <th width="100">Options</th>
                                         </tr>

@@ -1,6 +1,15 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit exhibition
+if (isset($_POST['btn_exhibition'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $verse2 = htmlspecialchars($_POST['verse2']);
+    $point = htmlspecialchars($_POST['pointblessing']);
+    $catatan2 = htmlspecialchars($_POST['catatan2']);
+    $date = htmlspecialchars($_POST['date']);
+    $point_exhibition = htmlspecialchars($_POST['point']);
+    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +27,25 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$nis' ORDER BY date DESC");
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_exhibition WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_exhibition WHERE nis='$nis' ORDER BY date DESC");
+        $exhibition = mysqli_fetch_array($jurnal);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_exhibition WHERE nis='$nis' ORDER BY date DESC");
+    $exhibition = mysqli_fetch_array($jurnal);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +99,18 @@ $jurnal = query("SELECT * FROM tb_exhibition WHERE nis='$nis' ORDER BY date DESC
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

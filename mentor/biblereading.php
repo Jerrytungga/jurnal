@@ -1,6 +1,18 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit bible
+if (isset($_POST['btn_bible'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $bible = htmlspecialchars($_POST['bible']);
+    $ot = htmlspecialchars($_POST['ot']);
+    $nt = htmlspecialchars($_POST['nt']);
+    $date = htmlspecialchars($_POST['date']);
+    $point_bible = htmlspecialchars($_POST['point']);
+    $point_bible1 = htmlspecialchars($_POST['point1']);
+    $point_bible2 = htmlspecialchars($_POST['point2']);
+    $catatan4 = htmlspecialchars($_POST['catatan4']);
+    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -19,8 +31,26 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date DESC");
 
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date DESC");
+        $exhibition = mysqli_fetch_array($jurnal);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date DESC");
+    $exhibition = mysqli_fetch_array($jurnal);
+}
 
 ?>
 <!DOCTYPE html>
@@ -71,6 +101,18 @@ $jurnal = query("SELECT * FROM tb_bible_reading WHERE nis='$nis' ORDER BY date D
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
+                                        <input type="date" name="tanggal_mulai" class="form-control">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
