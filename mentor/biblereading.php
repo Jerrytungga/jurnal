@@ -39,7 +39,7 @@ if (isset($_POST['filter_tanggal'])) {
 
     if ($mulai != null || $selesai != null) {
 
-        $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$mulai' AND  DATE_ADD('$selesai',INTERVAL 1 DAY) ORDER BY date DESC;");
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
     } else {
 
         $nis = $_GET['nis'];
