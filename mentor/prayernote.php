@@ -48,7 +48,11 @@ if (isset($_POST['filter_tanggal'])) {
     $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
     $prayernote = mysqli_fetch_array($jurnal);
 }
-
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_prayer_note WHERE nis='$nis' ORDER BY date DESC");
+    $revivalnote = mysqli_fetch_array($jurnal);
+}
 
 ?>
 <!DOCTYPE html>
@@ -104,10 +108,21 @@ if (isset($_POST['filter_tanggal'])) {
                             <div class="row mt-2">
                                 <div class="col">
                                     <form action="" method="POST" class="form-inline">
-                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
-                                        <input type="date" name="tanggal_mulai" class="form-control">
-                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
                                         <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                     </form>
                                 </div>
                             </div>

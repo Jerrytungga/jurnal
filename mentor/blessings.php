@@ -66,11 +66,15 @@ if (isset($_POST['filter_tanggal'])) {
     $jurnal = mysqli_query($conn, "SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
     $exhibition = mysqli_fetch_array($jurnal);
 }
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_blessings WHERE nis='$nis' ORDER BY date DESC");
+    $exhibition = mysqli_fetch_array($jurnal);
+}
+
 ?>
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
 <!-- Html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +116,7 @@ if (isset($_POST['filter_tanggal'])) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Monthly</h1>
+                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Monthly <?= $siswa2['name']; ?></h1>
                     </div>
 
                     <div class="btn-group mb-4" role="group" aria-label="Basic outlined example">
@@ -125,10 +129,21 @@ if (isset($_POST['filter_tanggal'])) {
                             <div class="row mt-2">
                                 <div class="col">
                                     <form action="" method="POST" class="form-inline">
-                                        <!-- <input type="hidden" name="nis" id="$nis" class="form-control"> -->
-                                        <input type="date" name="tanggal_mulai" class="form-control">
-                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
                                         <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                     </form>
                                 </div>
                             </div>

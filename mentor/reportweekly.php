@@ -1,5 +1,6 @@
 <?php
 include '../database.php';
+
 // input dat6a report weekly
 if (isset($_POST['input'])) {
     $nis = htmlspecialchars($_POST['nis']);
@@ -37,7 +38,9 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' ORDER BY date DESC");
-$homemeeting = mysqli_fetch_array($report);
+$r = mysqli_fetch_array($report);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -112,9 +115,9 @@ $homemeeting = mysqli_fetch_array($report);
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1;
-                                        $total = 0;
+                                        <?php
                                         ?>
+                                        <?php $i = 1; ?>
                                         <?php foreach ($report as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
@@ -133,11 +136,9 @@ $homemeeting = mysqli_fetch_array($report);
                                                 <td><?= $row['date']; ?></td>
 
                                             </tr>
-                                            <?php
-                                            $total = $total + $row['presensi'] + $row['jurnal_daily'] + $row['jurnal_weekly']  + $row['jurnal_monthly'] + $row['virtue'] + $row['living_buku'] + $row['living_sepatu_handuk'] + $row['living_ranjang']; ?>
+
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
-
                                     </tbody>
                                 </table>
                             </div>
