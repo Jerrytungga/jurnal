@@ -135,9 +135,9 @@ if (isset($_POST['reset'])) {
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th width="250">Kategori</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th>Burden & Inward Sense</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
                                             <th width="150">Options</th>

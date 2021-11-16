@@ -137,11 +137,11 @@ if (isset($_POST['reset'])) {
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th>Bible</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th>Total OT Chapter(s)</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th>Total NT Chapter(s)</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
                                             <th width="100">Options</th>

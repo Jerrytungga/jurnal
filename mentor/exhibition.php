@@ -134,9 +134,10 @@ if (isset($_POST['reset'])) {
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
+                                            <th>Category</th>
                                             <th>Verse</th>
                                             <th>Point of Blessing</th>
-                                            <th class="bg-warning">Point</th>
+                                            <th width="10" class="bg-warning">Point</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
                                             <th width="100">Options</th>
@@ -150,6 +151,7 @@ if (isset($_POST['reset'])) {
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
+                                                <td></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['verse']; ?>

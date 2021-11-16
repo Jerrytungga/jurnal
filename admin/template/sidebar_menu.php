@@ -42,37 +42,49 @@
              <span>Data Mentor</span></a>
      </li>
 
-     <!-- Data Jurusan -->
+     <!-- Data Jurusan
      <li class="nav-item active">
          <a class="nav-link" href="jurusan.php">
              <i class="fas fa-plus-square"></i>
              <span>Tambah Jurusan</span></a>
-     </li>
+     </li> -->
 
 
-     <!-- Data Angkatan -->
+     <!-- Data Angkatan
      <li class="nav-item active">
          <a class="nav-link" href="angkatan.php">
              <i class="fas fa-plus-square"></i>
              <span>Tambah Angkatan</span></a>
-     </li>
+     </li> -->
 
-     <!-- Data Categori doa -->
+     <!-- Data Categori doa
      <li class="nav-item active">
          <a class="nav-link" href="categoridoa.php">
              <i class="fas fa-plus-square"></i>
              <span>Tambah Categori Doa</span></a>
+     </li> -->
+
+
+
+
+
+     <li class="nav-item active">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kategori" aria-expanded="true" aria-controls="collapseTwo">
+             <i class="fas fa-plus-square"></i>
+             <span>kategori</span>
+         </a>
+         <div id="kategori" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="categoridoa.php">Doa</a>
+                 <a class="collapse-item" href="categori_exhibition.php">Exhibition</a>
+             </div>
+         </div>
      </li>
 
 
 
 
 
-
-
-
-
-     <!-- 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-plus-square"></i>
@@ -85,7 +97,7 @@
                  <a class="collapse-item" href="angkatan.php">Angkatan</a>
              </div>
          </div>
-     </li> -->
+     </li>
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
