@@ -13,6 +13,18 @@
                  <div class="modal-body">
                      <input type="hidden" class="form-control" id="nis" name="nis">
                      <div class="form-group">
+                         <label for="date-text" class="col-form-label font-weight-bold">Categori :</label>
+                         <select class="form-control" name="category" id="category" aria-label="Default select example">
+                             <option value="">Select</option>
+                             <?php
+                                $sql_category_exhibition = mysqli_query($conn, "SELECT * FROM tb_categori_exhibition");
+                                while ($categori = mysqli_fetch_array($sql_category_exhibition)) {
+                                    echo '<option value="' . $categori['category'] . '">' . $categori['category'] . '</option>';
+                                }
+                                ?>
+                         </select>
+                     </div>
+                     <div class="form-group">
                          <label class="text-reset  font-weight-bold" for="verse2">Verse :</label>
                          <textarea rows="5" type="text" class="form-control" id="verse2" name="verse2"></textarea>
 
@@ -66,6 +78,10 @@
                  <div class="form-group">
                      <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
                      <p type="text" class="form-control" id="date" readonly></p>
+                 </div>
+                 <div class="form-group">
+                     <label for="date-text" class="col-form-label font-weight-bold">Categori :</label>
+                     <p type="text" class="form-control" id="category" readonly></p>
                  </div>
                  <div class="form-group">
                      <label for="verse-text" class="col-form-label font-weight-bold">Verse :</label>

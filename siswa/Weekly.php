@@ -5,8 +5,9 @@ session_start();
 if (isset($_POST['exhibition'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $verse = htmlspecialchars($_POST['verse_exhibition']);
+    $category = htmlspecialchars($_POST['category']);
     $blessing = htmlspecialchars($_POST['blessing_exhibition']);
-    $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
+    $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`,`category`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$category','$verse','$blessing',NULL)");
     if ($exhibition) {
         echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
     } else {
@@ -15,10 +16,11 @@ if (isset($_POST['exhibition'])) {
 }
 if (isset($_POST['btn_editexhibition'])) {
     $nis = htmlspecialchars($_POST['nis']);
+    $category = htmlspecialchars($_POST['category']);
     $verse = htmlspecialchars($_POST['verse']);
     $pointblessings = htmlspecialchars($_POST['pointblessings']);
     $date = htmlspecialchars($_POST['date']);
-    $exhibition = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
+    $exhibition = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
 }
 // cek apakah yang mengakses halaman ini sudah login
 // // cek apakah yang mengakses halaman ini sudah login
@@ -107,6 +109,7 @@ $exhibition = mysqli_fetch_array($jurnal);
                                     <thead>
                                         <tr class="table-secondary">
                                             <th width="10">No</th>
+                                            <th>Category</th>
                                             <th>Verse</th>
                                             <th>Point of Blessing</th>
                                             <th width="100">Date</th>
@@ -119,6 +122,7 @@ $exhibition = mysqli_fetch_array($jurnal);
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
+                                                <td><?= $row['category']; ?></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['verse']; ?>
@@ -137,7 +141,7 @@ $exhibition = mysqli_fetch_array($jurnal);
                                                 </td>
                                                 <td>
                                                     <!-- Button trigger modal view -->
-                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-category="<?= $row['category']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
 
@@ -146,7 +150,7 @@ $exhibition = mysqli_fetch_array($jurnal);
                                                     $tanggal = date('Y-m-d');
                                                     if ($tanggal == $row['date']) { ?>
 
-                                                        <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#edit_exhibition" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                        <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#edit_exhibition" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>" data-ctg="<?= $row['category']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
 
@@ -203,11 +207,13 @@ $exhibition = mysqli_fetch_array($jurnal);
 
         $(document).on("click", "#detail", function() {
             let nis = $(this).data('nis');
+            let category = $(this).data('category');
             let verse = $(this).data('verse');
             let pointblessings = $(this).data('pointblessings');
             let mentor = $(this).data('mentor');
             let date = $(this).data('date');
             $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #category").text(category);
             $(" #modal-detail #verse").val(verse);
             $(" #modal-detail #pointblessings").val(pointblessings);
             $(" #modal-detail #mentor").val(mentor);
@@ -220,9 +226,11 @@ $exhibition = mysqli_fetch_array($jurnal);
             let verse = $(this).data('verse');
             let pointblessings = $(this).data('pointblessings');
             let mentor = $(this).data('mentor');
+            let category = $(this).data('ctg');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #verse").val(verse);
+            $(" #modal-edit #category").val(category);
             $(" #modal-edit #pointblessings").val(pointblessings);
             $(" #modal-edit #mentor").val(mentor);
             $(" #modal-edit #date").val(date);

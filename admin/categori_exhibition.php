@@ -1,6 +1,6 @@
 <?php
 include '../database.php';
-if (isset($_POST['btn_tbh_categori_doa'])) {
+if (isset($_POST['btn_tbh_categori'])) {
   $categori = htmlspecialchars($_POST['categori']);
   $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_categori_exhibition`"));
   $idbr = $max['id'] + 1;
@@ -11,7 +11,6 @@ if (isset($_POST['btn_edit_categori'])) {
   $categori = htmlspecialchars($_POST['categori']);
   $kode = htmlspecialchars($_POST['kode']);
   $editangkatan = mysqli_query($conn, "UPDATE `tb_categori_exhibition` SET `category`=' $categori' WHERE `tb_categori_exhibition`.`id`='$kode'");
-  header('location:categoridoa.php');
 }
 
 $categori_exhibition = mysqli_query($conn, "SELECT * FROM tb_categori_exhibition ORDER BY id");
@@ -77,7 +76,7 @@ if (!isset($_SESSION['role'])) {
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#categorydoa"><i class="fas fa-plus-square"></i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#category_exhibition"><i class="fas fa-plus-square"></i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -94,10 +93,10 @@ if (!isset($_SESSION['role'])) {
                     <?php foreach ($categori_exhibition as $row) : ?>
                       <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row["categori_doa"]; ?></td>
+                        <td><?= $row["category"]; ?></td>
                         <td width="50">
                           <!-- Get data categori doa -->
-                          <a id="edit_categori" data-toggle="modal" data-target="#edit" data-ctg="<?= $row["categori_doa"]; ?>" data-kode="<?= $row["id"]; ?>">
+                          <a id="edit_categori" data-toggle="modal" data-target="#edit" data-ctg="<?= $row["category"]; ?>" data-kode="<?= $row["id"]; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>
@@ -130,7 +129,7 @@ if (!isset($_SESSION['role'])) {
 
   <?php
   include 'models/m_logout.php';
-  include 'models/m_categoridoa.php';
+  include 'models/m_categori_exhibition.php';
   ?>
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>

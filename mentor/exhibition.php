@@ -3,12 +3,13 @@ include '../database.php';
 // sistem edit exhibition
 if (isset($_POST['btn_exhibition'])) {
     $nis = htmlspecialchars($_POST['nis']);
+    $category = htmlspecialchars($_POST['category']);
     $verse2 = htmlspecialchars($_POST['verse2']);
     $point = htmlspecialchars($_POST['pointblessing']);
     $catatan2 = htmlspecialchars($_POST['catatan2']);
     $date = htmlspecialchars($_POST['date']);
     $point_exhibition = htmlspecialchars($_POST['point']);
-    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
 }
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -151,7 +152,7 @@ if (isset($_POST['reset'])) {
                                         <?php foreach ($jurnal as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td></td>
+                                                <td><?= $row['category']; ?></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['verse']; ?>
@@ -171,11 +172,11 @@ if (isset($_POST['reset'])) {
                                                 </td>
                                                 <td>
                                                     <!-- Button trigger modal view -->
-                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>" data-ctg="<?= $row['category']; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <!-- Get data jurnal weekly-->
-                                                    <a id="edit_exhibition" data-toggle="modal" data-target="#exhibition" data-verse1="<?= $row["verse"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-pointblessing="<?= $row["point_of_blessing"]; ?>" data-catatan3="<?= $row["catatan_mentor"]; ?>">
+                                                    <a id="edit_exhibition" data-toggle="modal" data-target="#exhibition" data-verse1="<?= $row["verse"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-pointblessing="<?= $row["point_of_blessing"]; ?>" data-category="<?= $row["category"]; ?>" data-catatan3="<?= $row["catatan_mentor"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
                                                 </td>
@@ -236,11 +237,13 @@ if (isset($_POST['reset'])) {
 
         $(document).on("click", "#detail", function() {
             let nis = $(this).data('nis');
+            let category = $(this).data('ctg');
             let verse = $(this).data('verse');
             let pointblessings = $(this).data('pointblessings');
             let mentor = $(this).data('mentor');
             let date = $(this).data('date');
             $(" #modal-detail #nis").val(nis);
+            $(" #modal-detail #category").text(category);
             $(" #modal-detail #verse").val(verse);
             $(" #modal-detail #pointblessings").val(pointblessings);
             $(" #modal-detail #mentor").val(mentor);
@@ -251,12 +254,14 @@ if (isset($_POST['reset'])) {
         $(document).on("click", "#edit_exhibition", function() {
 
             let nis = $(this).data('nis');
+            let category = $(this).data('category');
             let verse2 = $(this).data('verse1');
             let pointblessing = $(this).data('pointblessing');
             let point = $(this).data('point');
             let catatan2 = $(this).data('catatan3');
             let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
+            $(" #modal-edit #category").val(category);
             $(" #modal-edit #verse2").val(verse2);
             $(" #modal-edit #pointblessing").val(pointblessing);
             $(" #modal-edit #point").val(point);
