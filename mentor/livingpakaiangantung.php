@@ -12,13 +12,15 @@ if (isset($_POST['btn_input'])) {
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $bnt = htmlspecialchars($_POST['bentuk']);
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
+            mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
         }
     } else {
-        mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$notes','$efata')");
+        mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$notes','$efata')");
     }
 }
 // proses update penilaian Pakaian gantung
@@ -35,12 +37,14 @@ if (isset($_POST['btn_update'])) {
     $rb = htmlspecialchars($_POST['raib']);
     $date = htmlspecialchars($_POST['date']);
     $notes = htmlspecialchars($_POST['catatan']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $bnt = htmlspecialchars($_POST['bentuk']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+            mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
         }
     } else {
-        mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+        mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
     }
 }
 session_start();
@@ -60,8 +64,30 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaiangantung WHERE nis='$nis' ORDER BY date DESC");
-$nilai = mysqli_fetch_array($penilaian);
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaiangantung WHERE nis='$nis' AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaiangantung WHERE nis='$nis' ORDER BY date DESC");
+        $nilai = mysqli_fetch_array($penilaian);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaiangantung WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaiangantung WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,6 +155,27 @@ $nilai = mysqli_fetch_array($penilaian);
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <a href="" class="btn btn-warning" data-toggle="modal" data-target="#pakaiangantung">Input</a>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -136,7 +183,9 @@ $nilai = mysqli_fetch_array($penilaian);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
+                                            <th width="50">jarak</th>
                                             <th width="50">Posisi</th>
+                                            <th width="50">Bentuk</th>
                                             <th width="50">Tinggi/ Rendah</th>
                                             <th width="50">Rapi</th>
                                             <th width="50">Bersih</th>
@@ -156,7 +205,9 @@ $nilai = mysqli_fetch_array($penilaian);
                                         <?php foreach ($penilaian as $row) : ?>
                                             <tr>
                                                 <td> <?= $i; ?></td>
+                                                <td><?= $row['jarak']; ?></td>
                                                 <td><?= $row['posisi']; ?></td>
+                                                <td><?= $row['bentuk']; ?></td>
                                                 <td><?= $row['tinggi/rendah']; ?></td>
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
@@ -166,19 +217,19 @@ $nilai = mysqli_fetch_array($penilaian);
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>" data-jarak="<?= $row['jarak']; ?>" data-bentuk="<?= $row['bentuk']; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                 </td>
 
                                             </tr>
                                             <?php
-                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib']; ?>
+                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib'] + $row['jarak'] + $row['bentuk']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="11"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -232,6 +283,8 @@ $nilai = mysqli_fetch_array($penilaian);
             let raib = $(this).data('raib');
             let foto = $(this).data('foto');
             let date = $(this).data('date');
+            let jarak = $(this).data('jarak');
+            let bentuk = $(this).data('bentuk');
             let catatan = $(this).data('cttn');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
@@ -240,7 +293,9 @@ $nilai = mysqli_fetch_array($penilaian);
             $(" #modal-edit #rapi").val(rapi);
             $(" #modal-edit #bersih").val(bersih);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #jarak").val(jarak);
             $(" #modal-edit #raib").val(raib);
+            $(" #modal-edit #bentuk").val(bentuk);
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
 

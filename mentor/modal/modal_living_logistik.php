@@ -1,9 +1,9 @@
-<!-- Modal livingpakain-->
-<div class="modal fade" id="pakaiangantung" tabindex="-1">
+<!-- Modal Buku-->
+<div class="modal fade" id="livinglogistik" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="Buku">Living Pakaian Gantung</h5>
+        <h5 class="modal-title font-weight-bold" id="Buku">Living Logistik</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -27,16 +27,6 @@
           <label class="font-weight-bold">Posisi :</label>
           <div class="form-group">
             <select class="form-control" name="posisi" aria-label="Default select example">
-              <option selected>Select</option>
-              <option value="1">1</option>
-              <option value="0">0</option>
-              <option value="-1">-1</option>
-            </select>
-          </div>
-
-          <label class="font-weight-bold">Bentuk :</label>
-          <div class="form-group">
-            <select class="form-control" name="bentuk" aria-label="Default select example">
               <option selected>Select</option>
               <option value="1">1</option>
               <option value="0">0</option>
@@ -100,7 +90,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="btn_input" class="btn btn-warning">Submit</button>
+          <button type="submit" name="btn_input" class="btn btn-primary">Submit</button>
         </div>
       </form>
 
@@ -109,14 +99,12 @@
 </div>
 
 
-
-
-<!-- Modal edit penilaian Pakaian Gantung-->
-<div class="modal fade" id="edit" tabindex="-1">
+<!-- Modal edit penilaian Logistik-->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="Buku" aria-hidden="true">
   <div class="modal-dialog" id="modal-edit">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold">Living Pakaian Gantung</h5>
+        <h5 class="modal-title font-weight-bold" id="Buku">Change Living Logistik</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -140,6 +128,7 @@
             </select>
           </div>
 
+
           <label class="font-weight-bold">Posisi :</label>
           <div class="form-group">
             <select class="form-control" name="posisi" id="posisi" aria-label="Default select example">
@@ -150,15 +139,6 @@
             </select>
           </div>
 
-          <label class="font-weight-bold">Bentuk :</label>
-          <div class="form-group">
-            <select class="form-control" name="bentuk" id="bentuk" aria-label="Default select example">
-              <option selected>Select</option>
-              <option value="1">1</option>
-              <option value="0">0</option>
-              <option value="-1">-1</option>
-            </select>
-          </div>
 
           <label class="font-weight-bold">Tinggi/Rendah :</label>
           <div class="form-group">
@@ -225,5 +205,4 @@
 
     </div>
   </div>
-</div>
 </div>
