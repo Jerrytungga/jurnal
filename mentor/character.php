@@ -1,6 +1,27 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// proses input nilai
+if (isset($_POST['btnpenilaian'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $benar = htmlspecialchars($_POST['benar']);
+    $tepat = htmlspecialchars($_POST['tepat']);
+    $ketat = htmlspecialchars($_POST['ketat']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes')");
+}
+// proses edit inputan nilai
+if (isset($_POST['editcharacter'])) {
+    $no_efata = htmlspecialchars($_POST['efata']);
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $benar = htmlspecialchars($_POST['benar']);
+    $tepat = htmlspecialchars($_POST['tepat']);
+    $ketat = htmlspecialchars($_POST['ketat']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date' ");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +39,32 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DESC");
+// flter tanggal 
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_character WHERE nis='$nis' AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DESC");
+        $nilai = mysqli_fetch_array($penilaian);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +120,28 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-warning" data-toggle="modal" data-target="#CHARACTER">Input</a>
+                            <a href="" class="btn btn-warning mt-2" data-toggle="modal" data-target="#CHARACTER">Input</a>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -82,12 +149,12 @@ $penilaian = query("SELECT * FROM tb_character WHERE nis='$nis' ORDER BY date DE
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Benar</th>
-                                            <th>Tepat</th>
-                                            <th>Ketat</th>
-                                            <th>Date</th>
-                                            <th>Mentor Notes</th>
-                                            <th>Options</th>
+                                            <th width="50">Benar</th>
+                                            <th width="50">Tepat</th>
+                                            <th width="50">Ketat</th>
+                                            <th width="100">Date</th>
+                                            <th width="250">Mentor Notes</th>
+                                            <th width="200">Options</th>
 
                                         </tr>
                                     </thead>

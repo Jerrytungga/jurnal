@@ -1,6 +1,13 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem edit catatan siswa
+if (isset($_POST['btn_catatan'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $title = htmlspecialchars($_POST['title']);
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_catatan` SET `nis`='$nis',`judul`='$title',`deskripsi`='$deskripsi',`cttn_mentor`='$catatan'WHERE `tb_catatan`.`nis` ='$nis'");
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +25,8 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$notes = query("SELECT * FROM tb_catatan WHERE nis='$nis' ORDER BY date DESC");
+$notes = mysqli_query($conn, "SELECT * FROM tb_catatan WHERE nis='$nis' ORDER BY date DESC");
+$catatan = mysqli_fetch_array($notes);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,8 +150,8 @@ $notes = query("SELECT * FROM tb_catatan WHERE nis='$nis' ORDER BY date DESC");
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <!-- Page level plugins -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

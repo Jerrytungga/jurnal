@@ -1,6 +1,28 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+//sistem input penilaian virtues
+if (isset($_POST['btn_submit_virtues'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
+    $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
+    $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
+    $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan')");
+}
+//sistem edit penilaian virtues
+if (isset($_POST['btn_virtue'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
+    $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
+    $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
+    $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -14,11 +36,36 @@ if (!isset($_SESSION['role'])) {
     $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
     $data = mysqli_fetch_array($get_data);
 }
-//menampilkan data siswa dan jurnal
+//menampilkan data siswa
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$penilaian = query("SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC");
+// flter tanggal 
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC");
+        $nilai = mysqli_fetch_array($penilaian);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,22 +122,43 @@ $penilaian = query("SELECT * FROM tb_virtues WHERE nis='$nis' ORDER BY date DESC
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#virtues">Input</a>
+                            <a href="" class="btn btn-success mt-2" data-toggle="modal" data-target="#virtues">Input</a>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Ramah & Sopan</th>
-                                            <th>Berkordinasi</th>
-                                            <th>Tolong Menolong</th>
-                                            <th>See & Do</th>
-                                            <th>Date</th>
-                                            <th>Mentor Notes</th>
-                                            <th>Options</th>
-
+                                            <th width="50">Ramah & Sopan</th>
+                                            <th width="50">Berkordinasi</th>
+                                            <th width="50">Tolong Menolong</th>
+                                            <th width="50">See & Do</th>
+                                            <th width="100">Date</th>
+                                            <th width="250">Mentor Notes</th>
+                                            <th width="200">Options</th>
                                         </tr>
                                     </thead>
 

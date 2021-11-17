@@ -187,7 +187,7 @@ if (isset($_POST['reset'])) {
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="6"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

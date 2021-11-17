@@ -1,6 +1,29 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
+// sistem penilaian my virtues & character
+if (isset($_POST['btn_myvirtues'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $berbagi = htmlspecialchars($_POST['berbagi']);
+    $salam = htmlspecialchars($_POST['salam']);
+    $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
+    $hormat = htmlspecialchars($_POST['hormat']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
+}
+// sistem edit penilaian my virtues & character
+if (isset($_POST['btn_virtue_character'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $berbagi = htmlspecialchars($_POST['berbagi']);
+    $salam = htmlspecialchars($_POST['salam']);
+    $ucapan = htmlspecialchars($_POST['ucapan']);
+    $hormat = htmlspecialchars($_POST['hormat']);
+    $catatan = htmlspecialchars($_POST['catatan']);
+    mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+}
+
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -18,7 +41,32 @@ if (!isset($_SESSION['role'])) {
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$penilaian = query("SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY date DESC");
+
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+    $nis = $_GET['nis'];
+
+    if ($mulai != null || $selesai != null) {
+
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
+    } else {
+
+        $nis = $_GET['nis'];
+        $penilaian = mysqli_query($conn, "SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY date DESC");
+        $nilai = mysqli_fetch_array($penilaian);
+    }
+} else {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $penilaian = mysqli_query($conn, "SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY date DESC");
+    $nilai = mysqli_fetch_array($penilaian);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +128,28 @@ $penilaian = query("SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#virtuesdancharacter">Input</a>
+                            <a href="" class="btn btn-primary text-right mt-2" data-toggle="modal" data-target="#virtuesdancharacter">Input</a>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -88,15 +157,13 @@ $penilaian = query("SELECT * FROM tb_vrtues_caharacter WHERE nis='$nis' ORDER BY
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Perhatian & berbagi</th>
-                                            <th>Tegor sapa / Salam</th>
-                                            <th>Bersyukur / Berterima kasih</th>
-                                            <th>Hormat & Taat</th>
-                                            <th>Date</th>
-                                            <th>Mentor Notes</th>
-                                            <th>Options</th>
-
-
+                                            <th width="50">Perhatian & berbagi</th>
+                                            <th width="50">Tegor sapa / Salam</th>
+                                            <th width="50">Bersyukur / Berterima kasih</th>
+                                            <th width="50">Hormat & Taat</th>
+                                            <th width="100">Date</th>
+                                            <th width="250">Mentor Notes</th>
+                                            <th width="200">Options</th>
                                         </tr>
                                     </thead>
 
