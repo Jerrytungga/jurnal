@@ -1,6 +1,49 @@
 <?php
 include '../database.php';
+// proses input penilaian Pakaian Lipat
+if (isset($_POST['btn_input'])) {
+    $sumber = $_FILES['image']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['image']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $tr = htmlspecialchars($_POST['tinggi/rendah']);
+    $rp = htmlspecialchars($_POST['rapi']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $rb = htmlspecialchars($_POST['raib']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
+        }
+    } else {
+        mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$notes','$efata')");
+    }
+}
 
+// proses update penilaian pakaian lipat
+if (isset($_POST['btn_update'])) {
+    $sumber = $_FILES['foto']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['foto']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $tr = htmlspecialchars($_POST['tinggirendah']);
+    $rp = htmlspecialchars($_POST['rapi']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $rb = htmlspecialchars($_POST['raib']);
+    $date = htmlspecialchars($_POST['date']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+        }
+    } else {
+        mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+    }
+}
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
@@ -14,24 +57,22 @@ if (!isset($_SESSION['role'])) {
     $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
     $data = mysqli_fetch_array($get_data);
 }
-//menampilkan data siswa dan jurnal
+//menampilkan data siswa
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
-$penilaian = mysqli_query($conn, "SELECT * FROM tb_living_buku WHERE nis='$nis' ORDER BY date DESC");
+$penilaian = mysqli_query($conn, "SELECT * FROM tb_living_pakaianlipat WHERE nis='$nis' ORDER BY date DESC");
 $nilai = mysqli_fetch_array($penilaian);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Penilaian</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,14 +81,12 @@ $nilai = mysqli_fetch_array($penilaian);
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
 
         <!-- Sidebar -->
         <?php
@@ -85,7 +124,7 @@ $nilai = mysqli_fetch_array($penilaian);
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#bajulipat">Input</a>
+                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#pakaianlipat">Input</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -93,159 +132,79 @@ $nilai = mysqli_fetch_array($penilaian);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Posisi</th>
-                                            <th>Tinggi/Rendah</th>
-                                            <th>Rapi</th>
-                                            <th>Bersih</th>
-                                            <th>Raib</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th width="50">Posisi</th>
+                                            <th width="50">Tinggi/Rendah</th>
+                                            <th width="50">Rapi</th>
+                                            <th width="50">Bersih</th>
+                                            <th width="50">Raib</th>
+                                            <th width="150">Foto</th>
+                                            <th width="100">Date</th>
+                                            <th width="250">Mentor Notes</th>
+                                            <th width="200">Option</th>
 
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
+                                        <?php foreach ($penilaian as $row) : ?>
+                                            <tr>
+                                                <td> <?= $i; ?></td>
+                                                <td><?= $row['posisi']; ?></td>
+                                                <td><?= $row['tinggi/rendah']; ?></td>
+                                                <td><?= $row['rapi']; ?></td>
+                                                <td><?= $row['bersih']; ?></td>
+                                                <td><?= $row['raib']; ?></td>
+                                                <td><img src="../img/penilaian/<?= $row["image"]; ?>" width="100"></td>
+                                                <td><?= $row['date']; ?></td>
+                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
+                                                <td>
+                                                    <!-- Button trigger modal -->
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
+                                                    </a>
+                                                </td>
 
-
-                                            <td>
-
-                                                <button type="button" class="btn btn-success form-group">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger form-group">
-                                                    Delete
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
+                                            </tr>
+                                            <?php
+                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib']; ?>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
-
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
-
             <!-- Footer -->
             <?php
             include 'template/footer_menu.php';
             ?>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
-
-
-
-    <!-- Modal pakaian lipat-->
-    <div class="modal fade" id="bajulipat" tabindex="-1" aria-labelledby="bajulipat" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold" id="bajulipat">Baju Lipat</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                </div>
-
-
-                <!-- bungkus untuk form inputan -->
-                <form action="post" method="POST">
-                    <div class="modal-body">
-                        <h5 class="text-reset">Posisi</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <h5 class="text-reset">Tinggi/ Rendah</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <h5 class="text-reset">Rapi</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <h5 class="text-reset">Bersih</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <h5 class="text-reset">Raib</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success ">Submit</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
     <?php
     include 'modal/modal_logout.php';
+    include 'modal/modal_living_pakaianlipat.php';
     ?>
     <!-- Bootstrap core JavaScript-->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
-    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="../../js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
@@ -258,30 +217,30 @@ $nilai = mysqli_fetch_array($penilaian);
             });
         });
 
-        // $(document).on("click", "#editpenilaian", function() {
+        $(document).on("click", "#editpenilaian", function() {
 
-        //     let nis = $(this).data('nis');
-        //     let efata = $(this).data('efata');
-        //     let posisi = $(this).data('posisi');
-        //     let tinggirendah = $(this).data('tinggirendah');
-        //     let rapi = $(this).data('rapi');
-        //     let bersih = $(this).data('bersih');
-        //     let raib = $(this).data('raib');
-        //     let foto = $(this).data('foto');
-        //     let date = $(this).data('date');
-        //     let catatan = $(this).data('cttn');
-        //     $(" #modal-edit #nis").val(nis);
-        //     $(" #modal-edit #efata").val(efata);
-        //     $(" #modal-edit #posisi").val(posisi);
-        //     $(" #modal-edit #tinggirendah").val(tinggirendah);
-        //     $(" #modal-edit #rapi").val(rapi);
-        //     $(" #modal-edit #bersih").val(bersih);
-        //     $(" #modal-edit #date").val(date);
-        //     $(" #modal-edit #raib").val(raib);
-        //     $(" #modal-edit #catatan").val(catatan);
-        //     $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
+            let nis = $(this).data('nis');
+            let efata = $(this).data('efata');
+            let posisi = $(this).data('posisi');
+            let tinggirendah = $(this).data('tinggirendah');
+            let rapi = $(this).data('rapi');
+            let bersih = $(this).data('bersih');
+            let raib = $(this).data('raib');
+            let foto = $(this).data('foto');
+            let date = $(this).data('date');
+            let catatan = $(this).data('cttn');
+            $(" #modal-edit #nis").val(nis);
+            $(" #modal-edit #efata").val(efata);
+            $(" #modal-edit #posisi").val(posisi);
+            $(" #modal-edit #tinggirendah").val(tinggirendah);
+            $(" #modal-edit #rapi").val(rapi);
+            $(" #modal-edit #bersih").val(bersih);
+            $(" #modal-edit #date").val(date);
+            $(" #modal-edit #raib").val(raib);
+            $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
 
-        // });
+        });
     </script>
 </body>
 
