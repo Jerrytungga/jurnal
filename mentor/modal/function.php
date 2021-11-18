@@ -95,51 +95,51 @@ if (isset($_POST['btn_homemeeting'])) {
 }
 
 
-// sistem penilaian my virtues & character
-if (isset($_POST['btn_myvirtues'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $berbagi = htmlspecialchars($_POST['berbagi']);
-    $salam = htmlspecialchars($_POST['salam']);
-    $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
-    $hormat = htmlspecialchars($_POST['hormat']);
-    $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
-}
-// sistem edit penilaian my virtues & character
-if (isset($_POST['btn_virtue_character'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $berbagi = htmlspecialchars($_POST['berbagi']);
-    $salam = htmlspecialchars($_POST['salam']);
-    $ucapan = htmlspecialchars($_POST['ucapan']);
-    $hormat = htmlspecialchars($_POST['hormat']);
-    $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
-}
+// // sistem penilaian my virtues & character
+// if (isset($_POST['btn_myvirtues'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $berbagi = htmlspecialchars($_POST['berbagi']);
+//     $salam = htmlspecialchars($_POST['salam']);
+//     $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
+//     $hormat = htmlspecialchars($_POST['hormat']);
+//     $catatan = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
+// }
+// // sistem edit penilaian my virtues & character
+// if (isset($_POST['btn_virtue_character'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $berbagi = htmlspecialchars($_POST['berbagi']);
+//     $salam = htmlspecialchars($_POST['salam']);
+//     $ucapan = htmlspecialchars($_POST['ucapan']);
+//     $hormat = htmlspecialchars($_POST['hormat']);
+//     $catatan = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+// }
 
-//sistem input penilaian virtues
-if (isset($_POST['btn_submit_virtues'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
-    $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
-    $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
-    $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
-    $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan')");
-}
-//sistem edit penilaian virtues
-if (isset($_POST['btn_virtue'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
-    $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
-    $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
-    $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
-    $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
-}
+// //sistem input penilaian virtues
+// if (isset($_POST['btn_submit_virtues'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
+//     $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
+//     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
+//     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
+//     $catatan = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan')");
+// }
+// //sistem edit penilaian virtues
+// if (isset($_POST['btn_virtue'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $sikapramahsopan = htmlspecialchars($_POST['sikapramahsopan']);
+//     $sikapberkordinasi = htmlspecialchars($_POST['sikapberkordinasi']);
+//     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
+//     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
+//     $catatan = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+// }
 
 
 
@@ -163,23 +163,23 @@ if (isset($_POST['input'])) {
 }
 
 
-if (isset($_POST['btnpenilaian'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $benar = htmlspecialchars($_POST['benar']);
-    $tepat = htmlspecialchars($_POST['tepat']);
-    $ketat = htmlspecialchars($_POST['ketat']);
-    $notes = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes')");
-}
+// if (isset($_POST['btnpenilaian'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $benar = htmlspecialchars($_POST['benar']);
+//     $tepat = htmlspecialchars($_POST['tepat']);
+//     $ketat = htmlspecialchars($_POST['ketat']);
+//     $notes = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes')");
+// }
 
-if (isset($_POST['editcharacter'])) {
-    $no_efata = htmlspecialchars($_POST['efata']);
-    $nis = htmlspecialchars($_POST['nis']);
-    $date = htmlspecialchars($_POST['date']);
-    $benar = htmlspecialchars($_POST['benar']);
-    $tepat = htmlspecialchars($_POST['tepat']);
-    $ketat = htmlspecialchars($_POST['ketat']);
-    $notes = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date' ");
-}
+// if (isset($_POST['editcharacter'])) {
+//     $no_efata = htmlspecialchars($_POST['efata']);
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $date = htmlspecialchars($_POST['date']);
+//     $benar = htmlspecialchars($_POST['benar']);
+//     $tepat = htmlspecialchars($_POST['tepat']);
+//     $ketat = htmlspecialchars($_POST['ketat']);
+//     $notes = htmlspecialchars($_POST['catatan']);
+//     mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date' ");
+// }

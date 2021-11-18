@@ -218,15 +218,17 @@ $blessings = mysqli_fetch_array($jurnal);
                                                 </td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td>
-                                                    <?php
-                                                    $tanggal = date('Y-m-d');
-                                                    if ($tanggal == $row['date']) { ?>
 
+
+                                                    <?php
+                                                    $tanggal = date('Y-m-d', strtotime('+12 days'));
+
+                                                    if ($tanggal >= $row['date']) { ?>
                                                         <a id="edit_blessings" data-toggle="modal" data-target="#blessings" data-god="<?= $row["what_i_gain_on_god"]; ?>" data-nis="<?= $row["nis"]; ?>" data-date="<?= $row["date"]; ?>" data-edu="<?= $row["what_i_learn_on_education"]; ?>" data-chracter="<?= $row["what_i_learn_on_character_and_virtue"]; ?>" data-apresiasi1="<?= $row["what_l_appreciate_toward_brother_sister"]; ?>" data-apresiasi2="<?= $row["what_l_appreciate_toward_my_trainers"]; ?>" data-apresiasi3="<?= $row["what_l_appreciate_toward_saints"]; ?>" data-ask="<?= $row["what_I_want_to_ask"]; ?>" data-berkat="<?= $row["what_i_learn_the_most_this_month"]; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
-
                                                     <?php }
                                                     ?>
+
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>

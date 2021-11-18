@@ -41,7 +41,7 @@ if (!isset($_SESSION['role'])) {
     // echo "else";
 }
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
-$biblereading = mysqli_fetch_array($jurnal);
+$bible = mysqli_fetch_array($jurnal);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,11 +144,10 @@ $biblereading = mysqli_fetch_array($jurnal);
                                                         <i class="fas fa-eye"></i>
                                                     </button>
 
-
                                                     <?php
                                                     $tanggal = date('Y-m-d');
                                                     if ($tanggal == $row['date']) { ?>
-                                                        <!-- Edit Prayer Note -->
+
                                                         <a id="edit_bible" data-toggle="modal" data-target="#editbiblereading" data-bible="<?= $row["bible"]; ?>" data-nis="<?= $row["nis"]; ?>" data-date="<?= $row["date"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     <?php }

@@ -140,13 +140,15 @@ $home_meeting = mysqli_fetch_array($jurnal);
 
 
                                                     <?php
-                                                    $tanggal = date('Y-m-d');
-                                                    if ($tanggal == $row['date']) { ?>
+                                                    $tanggal = date('Y-m-d', strtotime('+3 days'));
+
+                                                    if ($tanggal >= $row['date']) { ?>
                                                         <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#modal_edit" data-nis="<?= $row['nis']; ?>" data-learn="<?= $row['what_i_get_and_lern']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                     <?php }
                                                     ?>
+
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>

@@ -147,15 +147,16 @@ $exhibition = mysqli_fetch_array($jurnal);
 
 
                                                     <?php
-                                                    $tanggal = date('Y-m-d');
-                                                    if ($tanggal == $row['date']) { ?>
+                                                    $tanggal = date('Y-m-d', strtotime('+3 days'));
 
+                                                    if ($tanggal >= $row['date']) { ?>
+                                                        <!-- Edit Prayer Note -->
                                                         <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#edit_exhibition" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>" data-ctg="<?= $row['category']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
-
                                                     <?php }
                                                     ?>
+
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>
