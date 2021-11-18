@@ -1,5 +1,12 @@
 <?php
 include '../database.php';
+// sistem ganti password 
+if (isset($_POST['edit_profile'])) {
+    $efata = htmlspecialchars($_POST['efata']);
+    $password = htmlspecialchars($_POST['password']);
+    $addtotable = mysqli_query($conn, "UPDATE `mentor` SET `efata`='$efata',`password`='$password' WHERE `mentor`.`efata`='$efata'");
+}
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 if (!isset($_SESSION['role'])) {
