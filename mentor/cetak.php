@@ -100,6 +100,7 @@ $weekl = mysqli_fetch_array($report);
         <th width="100">Status</th>
         <th width="100">Keterangan</th>
         <th width="370">Date</th>
+        <th width="470">Sanksi</th>
       </tr>
       <?php $i = 1; ?>
       <?php foreach ($report as $row) : ?>
@@ -118,6 +119,7 @@ $weekl = mysqli_fetch_array($report);
           <td><?= $row['status']; ?></td>
           <td><?= $row['keterangan']; ?></td>
           <td><?= $row['date']; ?></td>
+          <td><?= $row['sanksi']; ?></td>
         </tr>
         <?php $i++; ?>
       <?php endforeach; ?>

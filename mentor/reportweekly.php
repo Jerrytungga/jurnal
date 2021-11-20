@@ -17,7 +17,8 @@ if (isset($_POST['input'])) {
     $total = htmlspecialchars($_POST['total']);
     $status = htmlspecialchars($_POST['status']);
     $Keterangan = htmlspecialchars($_POST['Keterangan']);
-    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata')");
+    $grace = htmlspecialchars($_POST['grace']);
+    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace')");
 }
 
 session_start();
@@ -39,6 +40,7 @@ $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE ment
 $nama = $siswa2['name'];
 $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' ORDER BY date DESC");
 $r = mysqli_fetch_array($report);
+
 
 
 
@@ -110,6 +112,7 @@ $r = mysqli_fetch_array($report);
                                             <th>Status</th>
                                             <th>Keterangan</th>
                                             <th>Date</th>
+                                            <th width="400">Sanksi</th>
 
                                         </tr>
                                     </thead>
@@ -134,6 +137,7 @@ $r = mysqli_fetch_array($report);
                                                 <td><?= $row['status']; ?></td>
                                                 <td><?= $row['keterangan']; ?></td>
                                                 <td><?= $row['date']; ?></td>
+                                                <td><?= $row['sanksi']; ?></td>
 
                                             </tr>
 
@@ -287,6 +291,30 @@ $r = mysqli_fetch_array($report);
                                 <option value="Week 46">Week 46</option>
                                 <option value="Week 47">Week 47</option>
                                 <option value="Week 48">Week 48</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h7 class="text-reset">Grace :</h7>
+                            <select class="form-control" name="grace" id="grace">
+                                <option selected>Select</option>
+                                <?php
+                                $grace = mysqli_query($conn, "SELECT * FROM tb_grace");
+                                while ($datagrace = mysqli_fetch_array($grace)) {
+                                    echo '<option value="' . $datagrace['grace'] . '">' . $datagrace['grace'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h7 class="text-reset">Punishment :</h7>
+                            <select class="form-control" name="grace" id="grace">
+                                <option selected>Select</option>
+                                <?php
+                                $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
+                                while ($dataPunishment = mysqli_fetch_array($Punishment)) {
+                                    echo '<option value="' . $dataPunishment['Punishment'] . '">' . $dataPunishment['Punishment'] . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
