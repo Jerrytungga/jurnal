@@ -141,9 +141,9 @@ $goals_seeting = mysqli_fetch_array($jurnal);
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <?php
-                                                    $tanggal = date('Y-m-d', strtotime('+3 days'));
+                                                    $tanggal = date('Y-m-d', strtotime('-6 days'));
 
-                                                    if ($tanggal >= $row['date']) { ?>
+                                                    if ($tanggal <= $row['date']) { ?>
                                                         <!-- Edit Prayer Note -->
                                                         <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
