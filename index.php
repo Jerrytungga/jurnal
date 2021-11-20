@@ -3,9 +3,9 @@ session_start();
 // jika sudah login ke mentor maka akan di teruskan ke halaman mentor
 if (!isset($_SESSION['role'])) {
 } else if ($_SESSION['role'] == "Siswa") {
-  header("location:siswa/index.php");
+  header("location:siswa/profile.php");
 } else if ($_SESSION['role'] == "Mentor") {
-  header("location:mentor/index.php");
+  header("location:mentor/profile.php");
 } else if ($_SESSION['role'] == "Admin") {
   header("location:admin/index.php");
 }

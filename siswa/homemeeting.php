@@ -22,25 +22,10 @@ if (isset($_POST['btn_update_hommeeting'])) {
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');
-    window.location='../index.php'</script>";
-    //echo "tanpa role";
-} else if ($_SESSION['role'] == "Mentor") {
-    header("location:../mentor/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Siswa'];
-    $get_data = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
-    $data = mysqli_fetch_array($get_data);
-    // echo "else";
-}
+include 'template/session.php';
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_home_meeting WHERE nis='$id' ORDER BY date DESC");
 $home_meeting = mysqli_fetch_array($jurnal);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -140,9 +125,9 @@ $home_meeting = mysqli_fetch_array($jurnal);
 
 
                                                     <?php
-                                                    $tanggal = date('Y-m-d', strtotime('+3 days'));
 
-                                                    if ($tanggal >= $row['date']) { ?>
+                                                    $tanggal = date('Y-m-d', strtotime('-3'));
+                                                    if ($tanggal <= $row['date']) { ?>
                                                         <button type="button" id="edit" class="btn btn-warning " data-toggle="modal" data-target="#modal_edit" data-nis="<?= $row['nis']; ?>" data-learn="<?= $row['what_i_get_and_lern']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </button>

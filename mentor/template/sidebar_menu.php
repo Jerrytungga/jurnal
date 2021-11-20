@@ -34,7 +34,7 @@
     </li>
     <!-- Nav Item - final report -->
     <li class="nav-item active">
-        <a class="nav-link" href="reportweekly.php">
+        <a class="nav-link" href="reportsiswamentor.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Report Weekly</span></a>
     </li>

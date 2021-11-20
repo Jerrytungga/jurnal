@@ -23,21 +23,7 @@ if (isset($_POST['btn_editexhibition'])) {
     $exhibition = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
 }
 // cek apakah yang mengakses halaman ini sudah login
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');
-    window.location='../index.php'</script>";
-    //echo "tanpa role";
-} else if ($_SESSION['role'] == "Mentor") {
-    header("location:../mentor/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Siswa'];
-    $get_data = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
-    $data = mysqli_fetch_array($get_data);
-    // echo "else";
-}
+include 'template/session.php';
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_exhibition WHERE nis='$id' ORDER BY date DESC");
 $exhibition = mysqli_fetch_array($jurnal);
 ?>

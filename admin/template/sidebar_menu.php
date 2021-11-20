@@ -77,6 +77,8 @@
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="categoridoa.php">Doa</a>
                  <a class="collapse-item" href="categori_exhibition.php">Exhibition</a>
+                 <a class="collapse-item" href="Punishment.php">Punishment</a>
+                 <a class="collapse-item" href="grace.php">Grace</a>
              </div>
          </div>
      </li>

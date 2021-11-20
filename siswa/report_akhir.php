@@ -1,17 +1,7 @@
 <?php
 include '../database.php';
 session_start();
-// cek apakah yang mengakses halaman ini sudah login
-if ($_SESSION['role'] == "Mentor") {
-    header("location:../mentor/index.php");
-}
-if ($_SESSION['role'] == "Admin") {
-    header("location:../mentor/index.php");
-}
-if ($_SESSION['role'] == "") {
-    header("location:../index.php");
-}
-
+include 'template/session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

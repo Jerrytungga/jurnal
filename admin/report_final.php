@@ -1,19 +1,7 @@
 <?php
 include '../database.php';
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Mentor") {
-    header("location:../mentor/index.php");
-} else {
-    $id = $_SESSION['id_Admin'];
-    $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
-
+include 'template/Session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,19 +85,18 @@ if (!isset($_SESSION['role'])) {
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <!-- script dataTable  -->
-  <script>
-    $(document).ready(function() {
-      $('#dataTable').DataTable({
-        scrollY: 500,
-        scrollX: true,
-        scrollCollapse: true,
-        paging: true
-      });
-    });
-
-  </script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- script dataTable  -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                scrollY: 500,
+                scrollX: true,
+                scrollCollapse: true,
+                paging: true
+            });
+        });
+    </script>
 
 </body>
 

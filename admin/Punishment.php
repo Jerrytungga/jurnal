@@ -1,20 +1,33 @@
 <?php
 include '../database.php';
-if (isset($_POST['btn_tbh_categori'])) {
-  $categori = htmlspecialchars($_POST['categori']);
-  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_categori_exhibition`"));
+
+//input data jurusan
+if (isset($_POST['btn_tambah_punishment'])) {
+  $punishment = htmlspecialchars($_POST['punishment']);
+  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_punishment`"));
   $idbr = $max['id'] + 1;
-  $categoridoa = mysqli_query($conn, "INSERT INTO `tb_categori_exhibition`(`category`, `id`) VALUES ('$categori',$idbr)");
+  $datapunishment = mysqli_query($conn, "INSERT INTO `tb_punishment`(`punishment`,`id`) VALUES ('$punishment',$idbr)");
+  if ($datapunishment) {
+    echo "<script>alert('punishment Berhasil ditambahkan!');</script>";
+  } else {
+    echo "<script>alert('punishment gagal ditambahkan');</script>";
+  }
 }
 
-if (isset($_POST['btn_edit_categori'])) {
-  $categori = htmlspecialchars($_POST['categori']);
+//edit data jurusan
+if (isset($_POST['btn_edit_punishment'])) {
+  $punishment = htmlspecialchars($_POST['ctg']);
   $kode = htmlspecialchars($_POST['kode']);
-  $editangkatan = mysqli_query($conn, "UPDATE `tb_categori_exhibition` SET `category`=' $categori' WHERE `tb_categori_exhibition`.`id`='$kode'");
+  $data_punishment = mysqli_query($conn, "UPDATE `tb_punishment` SET `punishment`='$punishment',`id`='$kode' WHERE `tb_punishment`.`id` = '$kode'");
+  if ($data_punishment) {
+    echo "<script>alert('punishment Berhasil di Edit!');</script>";
+  } else {
+    echo "<script>alert('punishment gagal di Edit!');</script>";
+  }
 }
 
-$categori_exhibition = mysqli_query($conn, "SELECT * FROM tb_categori_exhibition ORDER BY id");
-$exhibition = mysqli_fetch_array($categori_exhibition);
+$punishment = mysqli_query($conn, "SELECT * FROM tb_punishment ORDER BY id DESC");
+$p = mysqli_fetch_array($punishment);
 session_start();
 include 'template/Session.php';
 ?>
@@ -59,13 +72,13 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800">Categori Exhibition</h1>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Categori Punishment</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#category_exhibition"><i class="fas fa-plus-square"></i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#punishment"><i class="fas fa-plus-square"></i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -73,19 +86,19 @@ include 'template/Session.php';
                   <thead class=" text-md-center">
                     <tr>
                       <th width="10">No</th>
-                      <th>Categori </th>
+                      <th>Punishment</th>
                       <th>Option</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
                     <?php $i = 1; ?>
-                    <?php foreach ($categori_exhibition as $row) : ?>
+                    <?php foreach ($punishment as $row) : ?>
                       <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row["category"]; ?></td>
+                        <td><?= $row["Punishment"]; ?></td>
                         <td width="50">
-                          <!-- Get data categori doa -->
-                          <a id="edit_categori" data-toggle="modal" data-target="#edit" data-ctg="<?= $row["category"]; ?>" data-kode="<?= $row["id"]; ?>">
+                          <!-- Get data Punishment -->
+                          <a id="edit_punishment" data-toggle="modal" data-target="#edit" data-ctg="<?= $row["Punishment"]; ?>" data-kode="<?= $row["id"]; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>
@@ -118,7 +131,7 @@ include 'template/Session.php';
 
   <?php
   include 'models/m_logout.php';
-  include 'models/m_categori_exhibition.php';
+  include 'models/m_punishment.php';
   ?>
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
@@ -141,10 +154,10 @@ include 'template/Session.php';
     });
 
 
-    $(document).on("click", "#edit_categori", function() {
-      let categori = $(this).data('ctg');
+    $(document).on("click", "#edit_punishment", function() {
       let kode = $(this).data('kode');
-      $(" #modal-edit #categori").val(categori);
+      let ctg = $(this).data('ctg');
+      $(" #modal-edit #ctg").val(ctg);
       $(" #modal-edit #kode").val(kode);
 
     });

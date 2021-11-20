@@ -25,18 +25,7 @@ if (isset($_POST['btn_edit_angkatan'])) {
 $angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan ORDER BY id DESC");
 $a = mysqli_fetch_array($angkatan);
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-  echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-  header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Mentor") {
-  header("location:../mentor/index.php");
-} else {
-  $id = $_SESSION['id_Admin'];
-  $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
-  $data = mysqli_fetch_array($get_data);
-}
+include 'template/Session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
