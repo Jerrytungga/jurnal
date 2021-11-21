@@ -231,7 +231,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <label for="text">Status :</label>
                             <select class="form-control" name="status" id="status" aria-label="Default select example" required>
-                                <option value="">Keterangan</option>
+                                <option value="Complate">Complate</option>
                                 <option value="Punishment">Punishment</option>
                                 <option value="Grace">Grace</option>
                                 <option value="Reward">Reward</option>
@@ -242,7 +242,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <label for="text">Keterangan :</label>
                             <select type="text" class="form-control" id="Keterangan" name="Keterangan">
-                                <option selected>Select</option>
+                                <option value="">Select</option>
                                 <option value="Week 1">Week 1</option>
                                 <option value="Week 2">Week 2</option>
                                 <option value="Week 3">Week 3</option>

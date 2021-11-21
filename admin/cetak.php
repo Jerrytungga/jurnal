@@ -19,12 +19,9 @@ $weekl = mysqli_fetch_array($report);
       color: #191A19;
     }
 
-    i {
-      font-weight: bold;
-      font-size: 17pt;
-      text-align: right;
+    a {
+      font-size: 14pt;
       color: red;
-
     }
 
 
@@ -84,7 +81,7 @@ $weekl = mysqli_fetch_array($report);
         <th width="150">Total</th>
         <th width="100">Status</th>
         <th width="100">Keterangan</th>
-        <th width="100">Sanksi</th>
+        <th width="700">Sanksi</th>
         <th width="370">Date</th>
       </tr>
       <?php $i = 1; ?>
@@ -103,16 +100,13 @@ $weekl = mysqli_fetch_array($report);
           <td><?= $row['total']; ?></td>
           <td><?= $row['status']; ?></td>
           <td><?= $row['keterangan']; ?></td>
-          <td> <a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?></a>
+          <td><a><?= $row['sanksi']; ?></a>
           </td>
           <td><?= $row['date']; ?></td>
         </tr>
         <?php $i++; ?>
       <?php endforeach; ?>
     </table>
-    <br>
-
-    <i>* Sanksi :</i>
   </div>
   <script>
     window.print()
