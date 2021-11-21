@@ -296,7 +296,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <h7 class="text-reset">Grace :</h7>
                             <select class="form-control" name="grace" id="grace">
-                                <option selected>Select</option>
+                                <option>Select</option>
                                 <?php
                                 $grace = mysqli_query($conn, "SELECT * FROM tb_grace");
                                 while ($datagrace = mysqli_fetch_array($grace)) {
@@ -308,7 +308,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <h7 class="text-reset">Punishment :</h7>
                             <select class="form-control" name="grace" id="grace">
-                                <option selected>Select</option>
+                                <option>Select</option>
                                 <?php
                                 $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
                                 while ($dataPunishment = mysqli_fetch_array($Punishment)) {
