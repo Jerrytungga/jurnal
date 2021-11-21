@@ -84,6 +84,7 @@ $weekl = mysqli_fetch_array($report);
         <th width="150">Total</th>
         <th width="100">Status</th>
         <th width="100">Keterangan</th>
+        <th width="100">Sanksi</th>
         <th width="370">Date</th>
       </tr>
       <?php $i = 1; ?>
@@ -102,6 +103,8 @@ $weekl = mysqli_fetch_array($report);
           <td><?= $row['total']; ?></td>
           <td><?= $row['status']; ?></td>
           <td><?= $row['keterangan']; ?></td>
+          <td> <a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?></a>
+          </td>
           <td><?= $row['date']; ?></td>
         </tr>
         <?php $i++; ?>
