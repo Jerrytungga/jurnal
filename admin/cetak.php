@@ -3,7 +3,7 @@ include '../database.php';
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 include 'template/Session.php';
-$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE keterangan = 'Week 2'  ORDER BY date DESC");
 $weekl = mysqli_fetch_array($report);
 ?>
 <!DOCTYPE html>
