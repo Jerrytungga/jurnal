@@ -16,6 +16,30 @@ if (!isset($_SESSION['role'])) {
 }
 $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
 $weekl = mysqli_fetch_array($report);
+
+
+if (isset($_POST['week'])) {
+    $week2 = $_POST['week'];
+    if ($week2 != null) {
+        $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE keterangan='$week2' ORDER BY date DESC");
+    } else {
+
+        $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+        $weekl = mysqli_fetch_array($report);
+    }
+} else {
+
+    $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+    $weekl = mysqli_fetch_array($report);
+}
+
+if (isset($_POST['reset'])) {
+    $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+    $weekl = mysqli_fetch_array($report);
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +93,7 @@ $weekl = mysqli_fetch_array($report);
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
                             <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Jurnal Report</h1>
-                            <a href="cetak.php" class="btn btn-primary mt-2" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a>
+                            <a href="cetak.php" class="btn btn-primary" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a>
 
                         </div>
                     </div>
@@ -77,6 +101,119 @@ $weekl = mysqli_fetch_array($report);
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <h6 class=" font-weight-bold text-primary">Report Weekly</h6>
+                            <form action="" method="POST" id="form_id" class="form-inline">
+                                <?php
+                                if (isset($_POST['Keterangan'])) {
+                                    $week2 = $_POST['week'];
+                                ?>
+                                    <select type="text" class="form-control col-md-2" id="week" name="week" onChange="document.getElementById('form_id').submit();">
+                                        <option>Silahkan Pilih Minggu</option>
+                                        <option value="Week 1" <?= ($week2 == 1) ?>> Week 1</option>
+                                        <option value="Week 2">Week 2</option>
+                                        <option value="Week 3">Week 3</option>
+                                        <option value="week 4">Week 4</option>
+                                        <option value="Week 5">Week 5</option>
+                                        <option value="Week 6">Week 6</option>
+                                        <option value="Week 7">Week 7</option>
+                                        <option value="Week 8">Week 8</option>
+                                        <option value="Week 9">Week 9</option>
+                                        <option value="Week 10">Week 10</option>
+                                        <option value="Week 11">Week 11</option>
+                                        <option value="Week 12">Week 12</option>
+                                        <option value="Week 13">Week 13</option>
+                                        <option value="Week 14">Week 14</option>
+                                        <option value="Week 15">Week 15</option>
+                                        <option value="Week 16">Week 16</option>
+                                        <option value="Week 17">Week 17</option>
+                                        <option value="Week 18">Week 18</option>
+                                        <option value="Week 19">Week 19</option>
+                                        <option value="Week 20">Week 20</option>
+                                        <option value="Week 21">Week 21</option>
+                                        <option value="Week 22">Week 22</option>
+                                        <option value="Week 23">Week 23</option>
+                                        <option value="Week 24">Week 24</option>
+                                        <option value="Week 25">Week 25</option>
+                                        <option value="Week 26">Week 26</option>
+                                        <option value="Week 27">Week 27</option>
+                                        <option value="Week 28">Week 28</option>
+                                        <option value="Week 29">Week 29</option>
+                                        <option value="Week 30">Week 30</option>
+                                        <option value="Week 31">Week 31</option>
+                                        <option value="Week 32">Week 32</option>
+                                        <option value="Week 33">Week 33</option>
+                                        <option value="Week 34">Week 34</option>
+                                        <option value="Week 35">Week 35</option>
+                                        <option value="Week 36">Week 36</option>
+                                        <option value="Week 37">Week 37</option>
+                                        <option value="Week 38">Week 38</option>
+                                        <option value="Week 39">Week 39</option>
+                                        <option value="Week 40">Week 40</option>
+                                        <option value="Week 41">Week 41</option>
+                                        <option value="Week 42">Week 42</option>
+                                        <option value="Week 43">Week 43</option>
+                                        <option value="Week 44">Week 44</option>
+                                        <option value="Week 45">Week 45</option>
+                                        <option value="Week 46">Week 46</option>
+                                        <option value="Week 47">Week 47</option>
+                                        <option value="Week 48">Week 48</option>
+                                    </select>
+                                <?php
+                                } else {
+                                ?>
+                                    <select type="text" class="form-control col-md-2" id="week" name="week" onChange="document.getElementById('form_id').submit();">
+                                        <option>Silahkan Pilih Minggu</option>
+                                        <option value="Week 1">Week 1</option>
+                                        <option value="Week 2">Week 2</option>
+                                        <option value="Week 3">Week 3</option>
+                                        <option value="week 4">Week 4</option>
+                                        <option value="Week 5">Week 5</option>
+                                        <option value="Week 6">Week 6</option>
+                                        <option value="Week 7">Week 7</option>
+                                        <option value="Week 8">Week 8</option>
+                                        <option value="Week 9">Week 9</option>
+                                        <option value="Week 10">Week 10</option>
+                                        <option value="Week 11">Week 11</option>
+                                        <option value="Week 12">Week 12</option>
+                                        <option value="Week 13">Week 13</option>
+                                        <option value="Week 14">Week 14</option>
+                                        <option value="Week 15">Week 15</option>
+                                        <option value="Week 16">Week 16</option>
+                                        <option value="Week 17">Week 17</option>
+                                        <option value="Week 18">Week 18</option>
+                                        <option value="Week 19">Week 19</option>
+                                        <option value="Week 20">Week 20</option>
+                                        <option value="Week 21">Week 21</option>
+                                        <option value="Week 22">Week 22</option>
+                                        <option value="Week 23">Week 23</option>
+                                        <option value="Week 24">Week 24</option>
+                                        <option value="Week 25">Week 25</option>
+                                        <option value="Week 26">Week 26</option>
+                                        <option value="Week 27">Week 27</option>
+                                        <option value="Week 28">Week 28</option>
+                                        <option value="Week 29">Week 29</option>
+                                        <option value="Week 30">Week 30</option>
+                                        <option value="Week 31">Week 31</option>
+                                        <option value="Week 32">Week 32</option>
+                                        <option value="Week 33">Week 33</option>
+                                        <option value="Week 34">Week 34</option>
+                                        <option value="Week 35">Week 35</option>
+                                        <option value="Week 36">Week 36</option>
+                                        <option value="Week 37">Week 37</option>
+                                        <option value="Week 38">Week 38</option>
+                                        <option value="Week 39">Week 39</option>
+                                        <option value="Week 40">Week 40</option>
+                                        <option value="Week 41">Week 41</option>
+                                        <option value="Week 42">Week 42</option>
+                                        <option value="Week 43">Week 43</option>
+                                        <option value="Week 44">Week 44</option>
+                                        <option value="Week 45">Week 45</option>
+                                        <option value="Week 46">Week 46</option>
+                                        <option value="Week 47">Week 47</option>
+                                        <option value="Week 48">Week 48</option>
+                                    </select>
+                                <?php } ?>
+                                <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                            </form>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
