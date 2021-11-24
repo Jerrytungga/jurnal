@@ -105,6 +105,7 @@ if (isset($_POST['reset'])) {
                                 <?php
                                 if (isset($_POST['Keterangan'])) {
                                     $week2 = $_POST['week'];
+
                                 ?>
                                     <select type="text" class="form-control col-md-2" id="week" name="week" onChange="document.getElementById('form_id').submit();">
                                         <option>Silahkan Pilih Minggu</option>
@@ -258,7 +259,10 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['keterangan']; ?></td>
                                                 <td> <a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?></a>
                                                 </td>
-                                                <td><?= $row['date']; ?></td>
+                                                <td><?= $row['date']; ?>
+
+
+                                                </td>
 
                                             </tr>
 
