@@ -4,7 +4,7 @@ include '../database.php';
 session_start();
 include 'template/Session.php';
 
-$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly Where keterangan='$_POST['keterangan']' ORDER BY date DESC");
+$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
 $weekl = mysqli_fetch_array($report);
 ?>
 <!DOCTYPE html>
