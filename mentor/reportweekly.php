@@ -20,6 +20,27 @@ if (isset($_POST['input'])) {
     $grace = htmlspecialchars($_POST['grace']);
     mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace')");
 }
+// input dat6a report weekly
+if (isset($_POST['edit'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $name = htmlspecialchars($_POST['name']);
+    $absensi = htmlspecialchars($_POST['absen']);
+    $jurnaldaily = htmlspecialchars($_POST['jurnaldaily']);
+    $jurnalweekly = htmlspecialchars($_POST['jurnalweekly']);
+    $jurnalMonthly = htmlspecialchars($_POST['jurnalbulanan']);
+    $virtue = htmlspecialchars($_POST['virtue']);
+    $lemari = htmlspecialchars($_POST['livingbuku']);
+    $sepatu = htmlspecialchars($_POST['livingsepatu']);
+    $ranjang = htmlspecialchars($_POST['livingranjang']);
+    $total = htmlspecialchars($_POST['total']);
+    $status = htmlspecialchars($_POST['status']);
+    $Keterangan = htmlspecialchars($_POST['keterangan']);
+    $grace = htmlspecialchars($_POST['sanksi']);
+    $Punishment = htmlspecialchars($_POST['Punishment']);
+    $date = htmlspecialchars($_POST['date']);
+    mysqli_query($conn, "UPDATE `tb_reportweekly` SET `nis`='$nis',`name`='$name',`presensi`='$absensi',`jurnal_daily`='$jurnaldaily',`jurnal_weekly`='$jurnalweekly',`jurnal_monthly`='$jurnalMonthly',`virtue`='$virtue',`living_buku`='$lemari',`living_sepatu_handuk`='$sepatu',`living_ranjang`='$ranjang',`total`='$total',`status`='$status',`keterangan`='$Keterangan',`date`='$date',`efata`='$efata',`sanksi`='$grace',`sanksi`='$Punishment' WHERE `tb_reportweekly`.`efata`='$efata' AND `tb_reportweekly`.`date`='$date' AND `tb_reportweekly`.`nis`='$nis' ");
+}
 
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
@@ -84,9 +105,6 @@ $r = mysqli_fetch_array($report);
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $siswa2['name']; ?></h1>
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a>
-                        </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -99,7 +117,7 @@ $r = mysqli_fetch_array($report);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Name</th>
+                                            <th width="200">Name</th>
                                             <th>Presensi</th>
                                             <th>Jurnal Daily</th>
                                             <th>Jurnal Weekly</th>
@@ -111,8 +129,9 @@ $r = mysqli_fetch_array($report);
                                             <th>Total</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
-                                            <th>Date</th>
+                                            <th width="200">Date</th>
                                             <th width="400">Sanksi</th>
+                                            <th width="200">Option</th>
 
                                         </tr>
                                     </thead>
@@ -138,6 +157,10 @@ $r = mysqli_fetch_array($report);
                                                 <td><?= $row['keterangan']; ?></td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><?= $row['sanksi']; ?></td>
+                                                <td>
+                                                    <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                </td>
 
                                             </tr>
 
@@ -179,7 +202,7 @@ $r = mysqli_fetch_array($report);
 
                         <div class="form-group">
                             <label for="text">Name :</label>
-                            <input type="text" class="form-control" id="name" name="name" value="<?= $siswa2['name']; ?>">
+                            <input type="text" class="form-control" id="name" readonly name="name" value="<?= $siswa2['name']; ?>">
                         </div>
 
                         <div class="form-group">
@@ -296,7 +319,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <h7 class="text-reset">Grace :</h7>
                             <select class="form-control" name="grace" id="grace">
-                                <option>Select</option>
+                                <option value="">Select</option>
                                 <?php
                                 $grace = mysqli_query($conn, "SELECT * FROM tb_grace");
                                 while ($datagrace = mysqli_fetch_array($grace)) {
@@ -308,7 +331,7 @@ $r = mysqli_fetch_array($report);
                         <div class="form-group">
                             <h7 class="text-reset">Punishment :</h7>
                             <select class="form-control" name="grace" id="grace">
-                                <option>Select</option>
+                                <option value="">Select</option>
                                 <?php
                                 $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
                                 while ($dataPunishment = mysqli_fetch_array($Punishment)) {
@@ -321,6 +344,183 @@ $r = mysqli_fetch_array($report);
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" name="input">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!--edit Modal -->
+    <div class="modal fade" id="editreport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modal-edit">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Report Penilaian</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="">
+
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
+                        <input type="hidden" class="form-control" id="date" name="date">
+
+                        <div class="form-group">
+                            <label for="text">Name :</label>
+                            <input type="text" class="form-control" id="name" readonly name="name" value="<?= $siswa2['name']; ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Presensi :</label>
+                            <input type="text" class="form-control" id="absen" name="absen">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Jurnal Daily :</label>
+                            <input type="text" class="form-control" id="jurnaldaily" name="jurnaldaily">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Jurnal Weekly :</label>
+                            <input type="text" class="form-control" id="jurnalweekly" name="jurnalweekly">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Jurnal Monthly :</label>
+                            <input type="text" class="form-control" id="jurnalbulanan" name="jurnalbulanan">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Virtue :</label>
+                            <input type="text" class="form-control" id="virtue" name="virtue">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Living Lemari Buku :</label>
+                            <input type="text" class="form-control" id="livingbuku" name="livingbuku">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Living Lemari Rak Sepatu & Handuk :</label>
+                            <input type="text" class="form-control" id="livingsepatu" name="livingsepatu">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Living Ranjang :</label>
+                            <input type="text" class="form-control" id="livingranjang" name="livingranjang">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Total :</label>
+                            <input type="text" class="form-control" id="total" name="total">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="text">Status :</label>
+                            <select class="form-control" name="status" id="status" aria-label="Default select example" required>
+                                <option value="Complate">Complate</option>
+                                <option value="Punishment">Punishment</option>
+                                <option value="Grace">Grace</option>
+                                <option value="Reward">Reward</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Keterangan :</label>
+                            <select type="text" class="form-control" id="keterangan" name="keterangan">
+                                <option value="">Select</option>
+                                <option value="Week 1">Week 1</option>
+                                <option value="Week 2">Week 2</option>
+                                <option value="Week 3">Week 3</option>
+                                <option value="week 4">Week 4</option>
+                                <option value="Week 5">Week 5</option>
+                                <option value="Week 6">Week 6</option>
+                                <option value="Week 7">Week 7</option>
+                                <option value="Week 8">Week 8</option>
+                                <option value="Week 9">Week 9</option>
+                                <option value="Week 10">Week 10</option>
+                                <option value="Week 11">Week 11</option>
+                                <option value="Week 12">Week 12</option>
+                                <option value="Week 13">Week 13</option>
+                                <option value="Week 14">Week 14</option>
+                                <option value="Week 15">Week 15</option>
+                                <option value="Week 16">Week 16</option>
+                                <option value="Week 17">Week 17</option>
+                                <option value="Week 18">Week 18</option>
+                                <option value="Week 19">Week 19</option>
+                                <option value="Week 20">Week 20</option>
+                                <option value="Week 21">Week 21</option>
+                                <option value="Week 22">Week 22</option>
+                                <option value="Week 23">Week 23</option>
+                                <option value="Week 24">Week 24</option>
+                                <option value="Week 25">Week 25</option>
+                                <option value="Week 26">Week 26</option>
+                                <option value="Week 27">Week 27</option>
+                                <option value="Week 28">Week 28</option>
+                                <option value="Week 29">Week 29</option>
+                                <option value="Week 30">Week 30</option>
+                                <option value="Week 31">Week 31</option>
+                                <option value="Week 32">Week 32</option>
+                                <option value="Week 33">Week 33</option>
+                                <option value="Week 34">Week 34</option>
+                                <option value="Week 35">Week 35</option>
+                                <option value="Week 36">Week 36</option>
+                                <option value="Week 37">Week 37</option>
+                                <option value="Week 38">Week 38</option>
+                                <option value="Week 39">Week 39</option>
+                                <option value="Week 40">Week 40</option>
+                                <option value="Week 41">Week 41</option>
+                                <option value="Week 42">Week 42</option>
+                                <option value="Week 43">Week 43</option>
+                                <option value="Week 44">Week 44</option>
+                                <option value="Week 45">Week 45</option>
+                                <option value="Week 46">Week 46</option>
+                                <option value="Week 47">Week 47</option>
+                                <option value="Week 48">Week 48</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h7 class="text-reset">Grace :</h7>
+                            <select class="form-control" id="sanksi" name="sanksi" id="sanksi">
+                                <option value="">Select</option>
+                                <?php
+                                $grace = mysqli_query($conn, "SELECT * FROM tb_grace");
+                                while ($datagrace = mysqli_fetch_array($grace)) {
+                                    echo '<option value="' . $datagrace['grace'] . '">' . $datagrace['grace'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h7 class="text-reset">Punishment :</h7>
+                            <select class="form-control" name="Punishment" id="Punishment">
+                                <option value="">Select</option>
+                                <?php
+                                $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
+                                while ($dataPunishment = mysqli_fetch_array($Punishment)) {
+                                    echo '<option value="' . $dataPunishment['Punishment'] . '">' . $dataPunishment['Punishment'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="edit" name="edit">Save</button>
                     </div>
                 </form>
             </div>
@@ -352,6 +552,38 @@ $r = mysqli_fetch_array($report);
                 scrollCollapse: true,
                 paging: true
             });
+        });
+
+        $(document).on("click", "#edit_penilaian", function() {
+            let absen = $(this).data('absen');
+            let jurnaldaily = $(this).data('jurnaldaily');
+            let jurnalweekly = $(this).data('jurnalweekly');
+            let jurnalbulanan = $(this).data('jurnalbulanan');
+            let virtue = $(this).data('virtue');
+            let livingbuku = $(this).data('livingbuku');
+            let livingsepatu = $(this).data('livingsepatu');
+            let livingranjang = $(this).data('livingsepatu');
+            let total = $(this).data('total');
+            let status = $(this).data('status');
+            let keterangan = $(this).data('keterangan');
+            let sanksi = $(this).data('sanksi');
+            let date = $(this).data('date');
+
+
+            $(" #modal-edit #absen").val(absen);
+            $(" #modal-edit #jurnaldaily").val(jurnaldaily);
+            $(" #modal-edit #jurnalweekly").val(jurnalweekly);
+            $(" #modal-edit #jurnalbulanan").val(jurnalbulanan);
+            $(" #modal-edit #virtue").val(virtue);
+            $(" #modal-edit #livingbuku").val(livingbuku);
+            $(" #modal-edit #livingsepatu").val(livingsepatu);
+            $(" #modal-edit #livingranjang").val(livingranjang);
+            $(" #modal-edit #total").val(total);
+            $(" #modal-edit #status").val(status);
+            $(" #modal-edit #keterangan").val(keterangan);
+            $(" #modal-edit #sanksi").val(sanksi);
+            $(" #modal-edit #date").val(date);
+
         });
     </script>
 </body>

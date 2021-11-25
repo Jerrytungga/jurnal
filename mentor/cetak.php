@@ -14,8 +14,14 @@ if (!isset($_SESSION['role'])) {
   $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
   $data = mysqli_fetch_array($get_data);
 }
-$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE efata='$id' ORDER BY date DESC");
+$week = $_GET['week'];
+$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE keterangan='$week' ORDER BY date DESC");
 $weekl = mysqli_fetch_array($report);
+
+if ($week == "%") {
+  $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+  $weekl = mysqli_fetch_array($report);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,13 +47,24 @@ $weekl = mysqli_fetch_array($report);
 
     p {
       font-size: 18pt;
+      padding: auto;
+      margin: 30px;
+
+    }
+
+    #img {
+      width: 128px;
+      height: 128px;
+      padding: auto;
+      margin: 30px;
     }
 
     #customers {
       font-family: Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      width: 97%;
       padding: auto;
+      margin: 20px;
     }
 
     #customers td,
@@ -55,6 +72,7 @@ $weekl = mysqli_fetch_array($report);
       border: 1px solid #ddd;
       padding: 8px;
       text-align: center;
+
     }
 
     #customers tr:nth-child(even) {
@@ -77,7 +95,7 @@ $weekl = mysqli_fetch_array($report);
 
 <body>
 
-  <img align="right" width="90pt" src="../img/logo/Edit Logo PKA-DP.png">
+  <img align="right" id="img" src="../img/logo/Edit Logo PKA-DP.png">
   <h1>Report Weekly</h1>
   <p>Name : <?= $data['name']; ?></p>
   <p>Efata : <?= $data['efata']; ?></p>

@@ -189,6 +189,8 @@ include 'template/head.php'
 
 
                                                     <?php
+
+
                                                     $tanggal = date('Y-m-d', strtotime('+12 days'));
 
                                                     if ($tanggal >= $row['date']) { ?>

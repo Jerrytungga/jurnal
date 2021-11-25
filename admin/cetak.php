@@ -3,9 +3,14 @@ include '../database.php';
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 include 'template/Session.php';
-
-$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+$week = $_GET['week'];
+$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE keterangan='$week' ORDER BY date DESC");
 $weekl = mysqli_fetch_array($report);
+
+if ($week == "%") {
+  $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly ORDER BY date DESC");
+  $weekl = mysqli_fetch_array($report);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,17 +30,35 @@ $weekl = mysqli_fetch_array($report);
       color: red;
     }
 
+    img {
+      width: 90pt;
+    }
+
 
     p {
       font-size: 18pt;
     }
 
+    #img {
+      width: 128px;
+      height: 128px;
+      padding: auto;
+      margin: 30px;
+    }
+
     #customers {
       font-family: Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      margin: 20px 20px 20px 20px;
+      border: 0px solid #000;
       padding: auto;
+      width: 97%;
     }
+
+    /* #margin {
+      margin: 5px 5px 5px 5px;
+      border: 0px solid #000;
+    } */
 
     #customers td,
     #customers th {
@@ -64,8 +87,8 @@ $weekl = mysqli_fetch_array($report);
 
 <body>
 
-  <img align="right" width="90pt" src="../img/logo/Edit Logo PKA-DP.png">
   <h1>Report Weekly</h1>
+  <img align="right" id="img" src="../img/logo/Edit Logo PKA-DP.png">
   <div class=" border-primary">
     <table id="customers">
       <tr>
