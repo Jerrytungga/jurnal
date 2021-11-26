@@ -139,17 +139,9 @@ if (isset($_POST['reset'])) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING LEMARI <?= $siswa2['name']; ?></h1>
-                            <a href="livinglemari.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Buku</a>
-                            <a href="livingpakaian.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Pakaian Lipat</a>
-                            <a href="livingpakaiangantung.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning active mt-2">Pakaian Gantung</a>
-                            <a href="livingcelana.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-danger mt-2">Celana Lipat & Dll</a>
-                            <a href="livinglogistik.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Logistik & Make Up</a>
-                            <a href="livingdalaman.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Pakaian Dalam</a>
-                            <a href="livinglocker.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Locker</a>
-                        </div>
+                        <?php
+                        include 'template/menu_livinglemari.php';
+                        ?>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -212,7 +204,20 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
                                                 <td><?= $row['raib']; ?></td>
-                                                <td><img src="../img/penilaian/<?= $row["image"]; ?>" width="100"></td>
+                                                <td>
+                                                    <?php
+                                                    $gambar = $row["image"];
+                                                    if ($gambar) { ?>
+
+                                                        <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
+                                                        </button>
+
+                                                    <?php }
+
+                                                    ?>
+
+                                                </td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
@@ -252,6 +257,7 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_living_pakaiangantung.php';
+    include 'modal/modal_foto.php';
     ?>
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

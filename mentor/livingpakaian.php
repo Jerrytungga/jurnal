@@ -8,17 +8,16 @@ if (isset($_POST['btn_input'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $efata = htmlspecialchars($_POST['efata']);
     $pss = htmlspecialchars($_POST['posisi']);
-    $tr = htmlspecialchars($_POST['tinggi/rendah']);
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
+            mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
         }
     } else {
-        mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$notes','$efata')");
+        mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$pss','$rp','$br','$rb','$notes','$efata')");
     }
 }
 
@@ -30,7 +29,6 @@ if (isset($_POST['btn_update'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $efata = htmlspecialchars($_POST['efata']);
     $pss = htmlspecialchars($_POST['posisi']);
-    $tr = htmlspecialchars($_POST['tinggirendah']);
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
@@ -38,10 +36,10 @@ if (isset($_POST['btn_update'])) {
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+            mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
         }
     } else {
-        mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+        mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
     }
 }
 session_start();
@@ -131,17 +129,9 @@ if (isset($_POST['reset'])) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING LEMARI <?= $siswa2['name']; ?></h1>
-                            <a href="livinglemari.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Buku</a>
-                            <a href="livingpakaian.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success active mt-2">Pakaian Lipat</a>
-                            <a href="livingpakaiangantung.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Pakaian Gantung</a>
-                            <a href="livingcelana.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-danger mt-2">Celana Lipat & Dll</a>
-                            <a href="livinglogistik.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Logistik & Make Up</a>
-                            <a href="livingdalaman.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Pakaian Dalam</a>
-                            <a href="livinglocker.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Locker</a>
-                        </div>
+                        <?php
+                        include 'template/menu_livinglemari.php';
+                        ?>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -175,15 +165,15 @@ if (isset($_POST['reset'])) {
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="50">Posisi</th>
-                                            <th width="50">Tinggi/Rendah</th>
-                                            <th width="50">Rapi</th>
-                                            <th width="50">Bersih</th>
-                                            <th width="50">Raib</th>
-                                            <th width="150">Foto</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th width="200">Option</th>
+                                            <th>Posisi</th>
+                                            <th>Rapi</th>
+                                            <th>Bersih</th>
+                                            <th>Raib</th>
+                                            <th>Foto</th>
+                                            <th>Date</th>
+                                            <th>Mentor Notes</th>
+                                            <th>Option</th>
+
 
                                         </tr>
                                     </thead>
@@ -196,28 +186,39 @@ if (isset($_POST['reset'])) {
                                             <tr>
                                                 <td> <?= $i; ?></td>
                                                 <td><?= $row['posisi']; ?></td>
-                                                <td><?= $row['tinggi/rendah']; ?></td>
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
                                                 <td><?= $row['raib']; ?></td>
-                                                <td><img src="../img/penilaian/<?= $row["image"]; ?>" width="100"></td>
+                                                <td>
+                                                    <?php
+                                                    $gambar = $row["image"];
+                                                    if ($gambar) { ?>
+
+                                                        <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
+                                                        </button>
+
+                                                    <?php }
+
+                                                    ?>
+                                                </td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                 </td>
 
                                             </tr>
                                             <?php
-                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib']; ?>
+                                            $total = $total + $row['posisi'] + $row['rapi'] + $row['bersih'] + $row['raib']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="8"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -240,6 +241,7 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_living_pakaianlipat.php';
+    include 'modal/modal_foto.php';
     ?>
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -265,7 +267,6 @@ if (isset($_POST['reset'])) {
             let nis = $(this).data('nis');
             let efata = $(this).data('efata');
             let posisi = $(this).data('posisi');
-            let tinggirendah = $(this).data('tinggirendah');
             let rapi = $(this).data('rapi');
             let bersih = $(this).data('bersih');
             let raib = $(this).data('raib');
@@ -275,7 +276,6 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
             $(" #modal-edit #posisi").val(posisi);
-            $(" #modal-edit #tinggirendah").val(tinggirendah);
             $(" #modal-edit #rapi").val(rapi);
             $(" #modal-edit #bersih").val(bersih);
             $(" #modal-edit #date").val(date);

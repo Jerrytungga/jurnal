@@ -89,6 +89,53 @@ if (isset($_POST['reset'])) {
 <html lang="en">
 
 <head>
+    <style>
+        /* styles unrelated to zoom */
+        * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            position: absolute;
+            top: 3px;
+            right: 28px;
+            color: #555;
+            font: bold 13px/1 sans-serif;
+        }
+
+        /* these styles are for the demo, but are not required for the plugin */
+        .zoom {
+            display: inline-block;
+            position: relative;
+        }
+
+        /* magnifying glass icon */
+        .zoom:after {
+            content: '';
+            display: block;
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: url(icon.png);
+        }
+
+        .zoom img {
+            display: block;
+        }
+
+        .zoom img::selection {
+            background-color: transparent;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+        }
+    </style>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,6 +153,9 @@ if (isset($_POST['reset'])) {
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+
 
 </head>
 
@@ -135,17 +185,9 @@ if (isset($_POST['reset'])) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING LEMARI <?= $siswa2['name']; ?></h1>
-                            <a href="livinglemari.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">Buku</a>
-                            <a href="livingpakaian.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Pakaian Lipat</a>
-                            <a href="livingpakaiangantung.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Pakaian Gantung</a>
-                            <a href="livingcelana.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-danger mt-2">Celana Lipat & Dll</a>
-                            <a href="livinglogistik.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Logistik & Make Up</a>
-                            <a href="livingdalaman.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Pakaian Dalam</a>
-                            <a href="livinglocker.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Locker</a>
-                        </div>
+                        <?php
+                        include 'template/menu_livinglemari.php';
+                        ?>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -204,7 +246,19 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
                                                 <td><?= $row['raib']; ?></td>
-                                                <td><img src="../img/penilaian/<?= $row["image"]; ?>" width="100"></td>
+                                                <td>
+                                                    <?php
+                                                    $gambar = $row["image"];
+                                                    if ($gambar) { ?>
+
+                                                        <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
+                                                        </button>
+
+                                                    <?php }
+
+                                                    ?>
+                                                </td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
@@ -238,12 +292,15 @@ if (isset($_POST['reset'])) {
             ?>
             <!-- End of Footer -->
         </div>
+
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
+
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_living_buku.php';
+    include 'modal/modal_foto.php';
     ?>
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -254,6 +311,8 @@ if (isset($_POST['reset'])) {
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
@@ -289,7 +348,6 @@ if (isset($_POST['reset'])) {
 
         });
     </script>
-
 </body>
 
 </html>

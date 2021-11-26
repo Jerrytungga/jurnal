@@ -25,16 +25,6 @@
           </div>
 
 
-          <label class="font-weight-bold">Tinggi/Rendah :</label>
-          <div class="form-group">
-            <select class="form-control" name="tinggi/rendah" aria-label="Default select example">
-              <option selected>Select</option>
-              <option value="1">1</option>
-              <option value="0">0</option>
-              <option value="-1">-1</option>
-            </select>
-          </div>
-
 
           <label class="font-weight-bold">Rapi :</label>
           <div class="form-group">
@@ -121,16 +111,6 @@
             </select>
           </div>
 
-
-          <label class="font-weight-bold">Tinggi/Rendah :</label>
-          <div class="form-group">
-            <select class="form-control" name="tinggirendah" id="tinggirendah" aria-label="Default select example">
-              <option selected>Select</option>
-              <option value="1">1</option>
-              <option value="0">0</option>
-              <option value="-1">-1</option>
-            </select>
-          </div>
 
 
           <label class="font-weight-bold">Rapi :</label>
