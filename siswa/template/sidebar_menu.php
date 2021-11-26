@@ -52,6 +52,22 @@
         </div>
     </li>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#living" aria-expanded="true" aria-controls="living">
+            <i class="far fa-clipboard"></i>
+            <span>Living</span>
+        </a>
+        <div id="living" class="collapse" aria-labelledby="living" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">kategori:</h6>
+                <a class="collapse-item" href="living_buku.php">Lemari</a>
+                <!-- <a class="collapse-item" href="living_pakaianlipat.php">Rak Sepatu & Handuk</a>
+                <a class="collapse-item" href="#">Ranjang</a> -->
+
+            </div>
+        </div>
+    </li>
 
     <!-- Nav Item - final report -->
     <li class="nav-item active">

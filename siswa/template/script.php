@@ -11,7 +11,7 @@
     <script>
       $(document).ready(function() {
         $('#dataTable').DataTable({
-          scrollY: 600,
+          scrollY: 700,
           scrollX: true,
           scrollCollapse: true,
           paging: true

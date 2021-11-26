@@ -89,53 +89,6 @@ if (isset($_POST['reset'])) {
 <html lang="en">
 
 <head>
-    <style>
-        /* styles unrelated to zoom */
-        * {
-            border: 0;
-            margin: 0;
-            padding: 0;
-        }
-
-        p {
-            position: absolute;
-            top: 3px;
-            right: 28px;
-            color: #555;
-            font: bold 13px/1 sans-serif;
-        }
-
-        /* these styles are for the demo, but are not required for the plugin */
-        .zoom {
-            display: inline-block;
-            position: relative;
-        }
-
-        /* magnifying glass icon */
-        .zoom:after {
-            content: '';
-            display: block;
-            width: 33px;
-            height: 33px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: url(icon.png);
-        }
-
-        .zoom img {
-            display: block;
-        }
-
-        .zoom img::selection {
-            background-color: transparent;
-        }
-
-        .container {
-            width: 500px;
-            margin: auto;
-        }
-    </style>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
