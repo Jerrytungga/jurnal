@@ -93,6 +93,7 @@ include 'template/session.php';
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
   <?php
   include 'modal/modal_profile.php';
   include 'modal/modal_logout.php';
