@@ -2,19 +2,9 @@
 include '../database.php';
 include 'modal/function.php';
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
-$siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER BY date DESC");
+include 'template/session.php';
+$siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER BY date DESC");
+$s = mysqli_fetch_array($siswa);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +110,16 @@ $siswa = query("SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER
                                                     <a href="livinglemari.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         LIVING LEMARI
                                                     </a>
-
+                                                    <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
+                                                        RAK SEPATU & HANDUK
+                                                    </a>
+                                                    <!-- <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
+                                                        RAK SEPATU & HANDUK
+                                                    </a>
+                                                    <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
+                                                        RAK SEPATU & HANDUK
+                                                    </a>
+ -->
 
                                                 </td>
 

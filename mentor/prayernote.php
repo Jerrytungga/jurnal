@@ -12,18 +12,7 @@ if (isset($_POST['btn_prayernote'])) {
     mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
 }
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));

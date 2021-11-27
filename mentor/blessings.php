@@ -31,18 +31,7 @@ if (isset($_POST['btn_blessings'])) {
     mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
 }
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));

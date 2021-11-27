@@ -14,18 +14,7 @@ if (isset($_POST['btn_bible'])) {
     mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
 }
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
 
 //menampilkan data siswa dan jurnal
 $nis = $_GET['nis'];

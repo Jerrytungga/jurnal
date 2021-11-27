@@ -43,28 +43,13 @@ if (isset($_POST['edit'])) {
 }
 
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' ORDER BY date DESC");
 $r = mysqli_fetch_array($report);
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

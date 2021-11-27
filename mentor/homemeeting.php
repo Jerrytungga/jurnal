@@ -11,18 +11,7 @@ if (isset($_POST['btn_homemeeting'])) {
     mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
 }
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if (!isset($_SESSION['role'])) {
-    echo "<script type='text/javascript'>alert('Anda harus login terlebih dahulu!');window.location='../../index.php'</script>";
-} else if ($_SESSION['role'] == "Siswa") {
-    header("location:../siswa/index.php");
-} else if ($_SESSION['role'] == "Admin") {
-    header("location:../admin/index.php");
-} else {
-    $id = $_SESSION['id_Mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
