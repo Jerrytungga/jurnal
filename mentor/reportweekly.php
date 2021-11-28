@@ -18,7 +18,8 @@ if (isset($_POST['input'])) {
     $status = htmlspecialchars($_POST['status']);
     $Keterangan = htmlspecialchars($_POST['Keterangan']);
     $grace = htmlspecialchars($_POST['grace']);
-    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace')");
+    $punisment = htmlspecialchars($_POST['punisment']);
+    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`,`punisment`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace','$punisment')");
 }
 // input dat6a report weekly
 if (isset($_POST['edit'])) {
@@ -39,7 +40,7 @@ if (isset($_POST['edit'])) {
     $grace = htmlspecialchars($_POST['sanksi']);
     $Punishment = htmlspecialchars($_POST['Punishment']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_reportweekly` SET `nis`='$nis',`name`='$name',`presensi`='$absensi',`jurnal_daily`='$jurnaldaily',`jurnal_weekly`='$jurnalweekly',`jurnal_monthly`='$jurnalMonthly',`virtue`='$virtue',`living_buku`='$lemari',`living_sepatu_handuk`='$sepatu',`living_ranjang`='$ranjang',`total`='$total',`status`='$status',`keterangan`='$Keterangan',`date`='$date',`efata`='$efata',`sanksi`='$grace',`sanksi`='$Punishment' WHERE `tb_reportweekly`.`efata`='$efata' AND `tb_reportweekly`.`date`='$date' AND `tb_reportweekly`.`nis`='$nis' ");
+    mysqli_query($conn, "UPDATE `tb_reportweekly` SET `nis`='$nis',`name`='$name',`presensi`='$absensi',`jurnal_daily`='$jurnaldaily',`jurnal_weekly`='$jurnalweekly',`jurnal_monthly`='$jurnalMonthly',`virtue`='$virtue',`living_buku`='$lemari',`living_sepatu_handuk`='$sepatu',`living_ranjang`='$ranjang',`total`='$total',`status`='$status',`keterangan`='$Keterangan',`date`='$date',`efata`='$efata',`sanksi`='$grace',`punisment`='$Punishment' WHERE `tb_reportweekly`.`efata`='$efata' AND `tb_reportweekly`.`date`='$date' AND `tb_reportweekly`.`nis`='$nis' ");
 }
 
 session_start();
@@ -141,9 +142,11 @@ $r = mysqli_fetch_array($report);
                                                 <td><?= $row['status']; ?></td>
                                                 <td><?= $row['keterangan']; ?></td>
                                                 <td><?= $row['date']; ?></td>
-                                                <td><?= $row['sanksi']; ?></td>
+                                                <td><?= $row['sanksi']; ?>
+                                                    <?= $row['punisment']; ?>
+                                                </td>
                                                 <td>
-                                                    <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
+                                                    <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-ps="<?= $row['punisment']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                 </td>
 
@@ -315,7 +318,7 @@ $r = mysqli_fetch_array($report);
                         </div>
                         <div class="form-group">
                             <h7 class="text-reset">Punishment :</h7>
-                            <select class="form-control" name="grace" id="grace">
+                            <select class="form-control" name="punisment" id="punisment">
                                 <option value="">Select</option>
                                 <?php
                                 $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
@@ -553,6 +556,7 @@ $r = mysqli_fetch_array($report);
             let keterangan = $(this).data('keterangan');
             let sanksi = $(this).data('sanksi');
             let date = $(this).data('date');
+            let ps = $(this).data('ps');
 
 
             $(" #modal-edit #absen").val(absen);
@@ -568,6 +572,7 @@ $r = mysqli_fetch_array($report);
             $(" #modal-edit #keterangan").val(keterangan);
             $(" #modal-edit #sanksi").val(sanksi);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #ps").val(ps);
 
         });
     </script>
