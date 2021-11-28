@@ -109,7 +109,7 @@ $r = mysqli_fetch_array($report);
                                             <th>Jurnal Weekly</th>
                                             <th>Jurnal Monthly</th>
                                             <th>Virtue</th>
-                                            <th>Living Lemari Buku</th>
+                                            <th>Living Lemari</th>
                                             <th>Living Rak Sepatu dan Handuk</th>
                                             <th>Living Ranjang</th>
                                             <th>Total</th>
@@ -219,7 +219,7 @@ $r = mysqli_fetch_array($report);
                         </div>
 
                         <div class="form-group">
-                            <label for="text">Living Lemari Buku :</label>
+                            <label for="text">Living Lemari :</label>
                             <input type="text" class="form-control" id="lemari" name="lemari">
                         </div>
 
@@ -396,7 +396,7 @@ $r = mysqli_fetch_array($report);
                         </div>
 
                         <div class="form-group">
-                            <label for="text">Living Lemari Buku :</label>
+                            <label for="text">Living Lemari :</label>
                             <input type="text" class="form-control" id="livingbuku" name="livingbuku">
                         </div>
 

@@ -99,7 +99,7 @@ if ($week == "%") {
         <th width="200">Jurnal Weekly</th>
         <th width="200">Jurnal Monthly</th>
         <th width="150">Virtue</th>
-        <th width="300">Living Lemari Buku</th>
+        <th width="300">Living Lemari</th>
         <th width="360">Living Rak Sepatu dan Handuk</th>
         <th width="150">Living Ranjang</th>
         <th width="150">Total</th>

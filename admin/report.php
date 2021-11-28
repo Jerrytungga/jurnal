@@ -232,7 +232,7 @@ if (isset($_POST['week'])) {
                                             <th>Jurnal Weekly</th>
                                             <th>Jurnal Monthly</th>
                                             <th>Virtue</th>
-                                            <th>Living Lemari Buku</th>
+                                            <th>Living Lemari</th>
                                             <th>Living Rak Sepatu dan Handuk</th>
                                             <th>Living Ranjang</th>
                                             <th>Total</th>
