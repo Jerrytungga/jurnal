@@ -30,6 +30,17 @@ if (isset($_POST['btn_blessings'])) {
     $point8 = htmlspecialchars($_POST['point8']);
     mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_blessings`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        echo 'berhasil';
+    } else {
+        echo 'gagal';
+    }
+}
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
@@ -139,7 +150,7 @@ if (isset($_POST['reset'])) {
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
@@ -152,7 +163,7 @@ if (isset($_POST['reset'])) {
                                             <th width="100">What I Want To Ask</th>
                                             <th width="100">What I Learn the most This Month</th>
                                             <th width="100">Date</th>
-                                            <th width="100">Option</th>
+                                            <th width="200">Option</th>
                                         </tr>
                                     </thead>
 
@@ -252,8 +263,14 @@ if (isset($_POST['reset'])) {
                                                 <td>
                                                     <!-- Get data personal siswa -->
                                                     <a id="edit_blessings" data-toggle="modal" data-target="#blessings" data-god="<?= $row["what_i_gain_on_god"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-point3="<?= $row["point3"]; ?>" data-point4="<?= $row["point4"]; ?>" data-point5="<?= $row["point5"]; ?>" data-point6="<?= $row["point6"]; ?>" data-point7="<?= $row["point7"]; ?>" data-point8="<?= $row["point8"]; ?>" data-nis="<?= $row["nis"]; ?>" data-cttn1="<?= $row["cttn1"]; ?>" data-edu="<?= $row["what_i_learn_on_education"]; ?>" data-cttn2="<?= $row["cttn2"]; ?>" data-chracter="<?= $row["what_i_learn_on_character_and_virtue"]; ?>" data-cttn3="<?= $row["cttn3"]; ?>" data-date="<?= $row["date"]; ?>" data-apresiasi1="<?= $row["what_l_appreciate_toward_brother_sister"]; ?>" data-cttn4="<?= $row["cttn4"]; ?>" data-apresiasi2="<?= $row["what_l_appreciate_toward_my_trainers"]; ?>" data-cttn5="<?= $row["cttn5"]; ?>" data-apresiasi3="<?= $row["what_l_appreciate_toward_saints"]; ?>" data-cttn6="<?= $row["cttn6"]; ?>" data-ask="<?= $row["what_I_want_to_ask"]; ?>" data-cttn7="<?= $row["cttn7"]; ?>" data-berkat="<?= $row["what_i_learn_the_most_this_month"]; ?>" data-cttn8="<?= $row["cttn8"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                        <button class="btn btn-warning m-lg-2"><i class="fa fa-edit"></i></button></a>
+                                                    <!-- btn hapus data -->
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+
                                                 </td>
+
 
                                             </tr>
                                             <?php
