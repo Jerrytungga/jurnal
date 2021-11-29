@@ -134,7 +134,7 @@ include 'template/Session.php';
   <script>
     $(document).ready(function() {
       $('#dataTable').DataTable({
-        scrollY: 500,
+        scrollY: 800,
         scrollX: true,
         scrollCollapse: true,
         paging: true

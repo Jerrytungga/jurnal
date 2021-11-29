@@ -537,7 +537,7 @@ $r = mysqli_fetch_array($report);
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 400,
+                scrollY: 800,
                 scrollX: true,
                 scrollCollapse: true,
                 paging: true

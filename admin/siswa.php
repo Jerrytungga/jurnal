@@ -228,7 +228,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   <script>
     $(document).ready(function() {
       $('#dataTable').DataTable({
-        scrollY: 500,
+        scrollY: 800,
         scrollX: true,
         scrollCollapse: true,
         paging: true
