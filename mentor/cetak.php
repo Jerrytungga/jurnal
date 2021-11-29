@@ -27,7 +27,7 @@ if ($week == "%") {
 
     a {
       font-weight: bold;
-      font-size: 17pt;
+      font-size: 15pt;
       text-align: right;
       color: red;
 
@@ -126,7 +126,7 @@ if ($week == "%") {
           <td><?= $row['status']; ?></td>
           <td><?= $row['keterangan']; ?></td>
           <td><?= $row['date']; ?></td>
-          <td> <a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?> <?= $row['punisment']; ?></a>
+          <td> <a><?= $row['sanksi']; ?> <?= $row['punisment']; ?></a>
           </td>
         </tr>
         <?php $i++; ?>
