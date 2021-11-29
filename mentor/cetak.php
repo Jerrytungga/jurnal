@@ -25,7 +25,7 @@ if ($week == "%") {
       color: #191A19;
     }
 
-    i {
+    a {
       font-weight: bold;
       font-size: 17pt;
       text-align: right;
