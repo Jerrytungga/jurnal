@@ -7,9 +7,9 @@ if (isset($_POST['home_meeting'])) {
     $getandlern = htmlspecialchars($_POST['getandlern']);
     $homemeeting = mysqli_query($conn, "INSERT INTO `tb_home_meeting`(`nis`, `what_i_get_and_lern`, `catatan_mentor`) VALUES ('$nis','$getandlern',NULL)");
     if ($homemeeting) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 // proses Edit home meeting
@@ -17,7 +17,12 @@ if (isset($_POST['btn_update_hommeeting'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $learn = htmlspecialchars($_POST['learn']);
     $date = htmlspecialchars($_POST['date']);
-    $edithomemeeting = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`what_i_get_and_lern`='$learn' WHERE `tb_home_meeting`.`nis`='$nis' AND `tb_home_meeting`.`date`='$date' ");
+    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`what_i_get_and_lern`='$learn' WHERE `tb_home_meeting`.`nis`='$nis' AND `tb_home_meeting`.`date`='$date' ");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
@@ -149,6 +154,7 @@ include 'template/head.php'
     include 'modal/modal_homemeeting.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
     <script>
         $(document).on("click", "#detail", function() {

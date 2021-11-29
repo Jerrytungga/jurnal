@@ -13,9 +13,9 @@ if (isset($_POST['blessing'])) {
     $thismonth = htmlspecialchars($_POST['thismonth']);
     $blessings1 = mysqli_query($conn, "INSERT INTO `tb_blessings`(`nis`, `what_i_gain_on_god`, `cttn1`, `what_i_learn_on_education`, `cttn2`, `what_i_learn_on_character_and_virtue`, `cttn3`, `what_l_appreciate_toward_brother_sister`, `cttn4`, `what_l_appreciate_toward_my_trainers`, `cttn5`, `what_l_appreciate_toward_saints`, `cttn6`, `what_I_want_to_ask`, `cttn7`, `what_i_learn_the_most_this_month`, `cttn8`, `catatan_mentor`) VALUES ('$nis','$god',NULL,'$education',NULL,'$character',NULL,'$appreciate1',NULL,'$appreciate2',NULL,'$appreciate3',NULL,'$ask',NULL,'$thismonth',NULL,NULL)");
     if ($blessings1) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 
@@ -31,7 +31,12 @@ if (isset($_POST['btn_blessings'])) {
     $ask = htmlspecialchars($_POST['ask']);
     $berkat = htmlspecialchars($_POST['berkat']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 
 // cek apakah yang mengakses halaman ini sudah login
@@ -229,6 +234,7 @@ include 'template/head.php'
     include 'modal/modal_blessings.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
 
     <script>

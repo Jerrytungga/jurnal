@@ -9,9 +9,9 @@ if (isset($_POST['exhibition'])) {
     $blessing = htmlspecialchars($_POST['blessing_exhibition']);
     $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`,`category`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$category','$verse','$blessing',NULL)");
     if ($exhibition) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 if (isset($_POST['btn_editexhibition'])) {
@@ -20,7 +20,12 @@ if (isset($_POST['btn_editexhibition'])) {
     $verse = htmlspecialchars($_POST['verse']);
     $pointblessings = htmlspecialchars($_POST['pointblessings']);
     $date = htmlspecialchars($_POST['date']);
-    $exhibition = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 // cek apakah yang mengakses halaman ini sudah login
 include 'template/session.php';
@@ -157,6 +162,7 @@ include 'template/head.php'
     include 'modal/modal_exhibition.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
     <script>
         $(document).on("click", "#detail", function() {

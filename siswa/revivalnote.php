@@ -7,9 +7,9 @@ if (isset($_POST['revival_note'])) {
     $blessing = htmlspecialchars($_POST['blessing1']);
     $revival = mysqli_query($conn, "INSERT INTO `tb_revival_note`(`nis`, `verse`, `blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
     if ($revival) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 // sistem edit revival note
@@ -18,7 +18,12 @@ if (isset($_POST['btn_editrevivalnote'])) {
     $verse = htmlspecialchars($_POST['verse']);
     $blessing = htmlspecialchars($_POST['blessings']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
@@ -172,6 +177,7 @@ include 'template/head.php'
     include 'modal/modal_revival_note.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
 
     <script>

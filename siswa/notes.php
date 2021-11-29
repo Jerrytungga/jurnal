@@ -5,7 +5,12 @@ if (isset($_POST['catatan'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $jd_diary = htmlspecialchars($_POST['jd_diary']);
     $isi_diary = htmlspecialchars($_POST['isi_diary']);
-    mysqli_query($conn, "INSERT INTO `tb_catatan`(`nis`, `judul`, `deskripsi`) VALUES ('$nis','$jd_diary','$isi_diary')");
+    $catatan = mysqli_query($conn, "INSERT INTO `tb_catatan`(`nis`, `judul`, `deskripsi`) VALUES ('$nis','$jd_diary','$isi_diary')");
+    if ($catatan) {
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+    } else {
+        $notifgagal = $_SESSION['gagal'] = 'Gagal Disimpan';
+    }
 }
 
 // sistem edit di bagian catatan siswa
@@ -13,7 +18,12 @@ if (isset($_POST['perubahan'])) {
     $judul = htmlspecialchars($_POST['judul']);
     $deskripsi = htmlspecialchars($_POST['deskripsi']);
     $id = htmlspecialchars($_POST['id']);
-    mysqli_query($conn, "UPDATE `tb_catatan` SET `judul`='$judul',`deskripsi`='$deskripsi' WHERE `tb_catatan`.`id_catatan`='$id'");
+    $edit =  mysqli_query($conn, "UPDATE `tb_catatan` SET `judul`='$judul',`deskripsi`='$deskripsi' WHERE `tb_catatan`.`id_catatan`='$id'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
@@ -132,6 +142,7 @@ include 'template/head.php'
     include 'modal/modal_notes.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
     <script>
         // edit catatan

@@ -1,5 +1,8 @@
 <?php
 include '../database.php';
+session_start();
+include 'template/Session.php';
+
 
 //input data jurusan
 if (isset($_POST['btn_tambah_jurusan'])) {
@@ -8,11 +11,12 @@ if (isset($_POST['btn_tambah_jurusan'])) {
   $idbr = $max['id'] + 1;
   $datajurusan = mysqli_query($conn, "INSERT INTO `tb_jurusan`(`jurusan`,`id`) VALUES ('$jurusan',$idbr)");
   if ($datajurusan) {
-    echo "<script>alert('Jurusan Berhasil ditambahkan!');</script>";
+    $notif = $_SESSION['sukses'] = 'Jurusan Berhasil Disimpan';
   } else {
-    echo "<script>alert('Jurusan gagal ditambahkan');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Jurusan Gagal Disimpan';
   }
 }
+
 
 //edit data jurusan
 if (isset($_POST['btn_edit_jurusan'])) {
@@ -28,8 +32,6 @@ if (isset($_POST['btn_edit_jurusan'])) {
 
 $jurusan = mysqli_query($conn, "SELECT * FROM tb_jurusan ORDER BY id DESC");
 $j = mysqli_fetch_array($jurusan);
-session_start();
-include 'template/Session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +51,10 @@ include 'template/Session.php';
   <!-- Custom styles for this page -->
   <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
+
+
 
 <body id="page-top">
   <!-- Page Wrapper -->
@@ -142,6 +147,9 @@ include 'template/Session.php';
   <script src="../js/sb-admin-2.min.js"></script>
   <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
   <!-- script dataTable jurusan -->
   <script>
     $(document).ready(function() {
@@ -153,6 +161,12 @@ include 'template/Session.php';
       });
     });
 
+    // Swal.fire(
+    //   'Good job!',
+    //   '',
+    //   'success'
+    // )
+
 
     $(document).on("click", "#edit_jurusan", function() {
       let jurusan = $(this).data('jurusan');
@@ -162,6 +176,38 @@ include 'template/Session.php';
 
     });
   </script>
+
+  <?php if (isset($notif)) { ?>
+    <script>
+      Swal.fire({
+        position: 'top-end',
+        size: '20px',
+        icon: 'success',
+        title: '<?php echo $notif; ?>',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    </script>
+
+    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
+  <?php unset($notif);
+  } else if (isset($notifgagal)) { ?>
+
+    <script>
+      Swal.fire({
+        position: 'top-end',
+        size: '20px',
+        icon: 'error',
+        title: '<?php echo $notifgagal; ?>',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    </script>
+
+  <?php session_destroy();
+  } ?>
+
+
 </body>
 
 </html>

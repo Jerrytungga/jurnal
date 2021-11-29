@@ -8,9 +8,9 @@ if (isset($_POST['bible_reading'])) {
     $NT = htmlspecialchars($_POST['NT']);
     $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`, `catatan_mentor`) VALUES ('$nis','$kitab','$OT','$NT',NULL)");
     if ($bible) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 // sistem edit bible
@@ -20,7 +20,14 @@ if (isset($_POST['btn_editbible'])) {
     $ot = htmlspecialchars($_POST['ot']);
     $nt = htmlspecialchars($_POST['nt']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `bible`='$bible',`total_ot`='$ot',`total_nt`='$nt' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    $editbible = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `bible`='$bible',`total_ot`='$ot',`total_nt`='$nt' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+
+    if ($editbible) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        // echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 
 // cek apakah yang mengakses halaman ini sudah login
@@ -153,6 +160,7 @@ include 'template/head.php'
     include 'modal/modal_biblereading.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
     <script>
         $(document).on("click", "#edit_bible", function() {

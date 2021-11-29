@@ -7,9 +7,9 @@ if (isset($_POST['prayer_note'])) {
     $burden_inward_sense = htmlspecialchars($_POST['burden_inward_sense']);
     $praye = mysqli_query($conn, "INSERT INTO `tb_prayer_note`(`nis`, `kategori`, `burden_inward_sense`, `catatan_mentor`) VALUES ('$nis','$kategori','$burden_inward_sense',NULL)");
     if ($praye) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 
@@ -19,7 +19,12 @@ if (isset($_POST['btn_edit_prayernote'])) {
     $judul = htmlspecialchars($_POST['judul']);
     $beban = htmlspecialchars($_POST['beban']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_prayer_note` SET `kategori`='$judul',`burden_inward_sense`='$beban' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `kategori`='$judul',`burden_inward_sense`='$beban' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 
 // cek apakah yang mengakses halaman ini sudah login
@@ -161,6 +166,7 @@ include 'template/head.php'
     include 'modal/modal_prayer_note.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
 
     <script>

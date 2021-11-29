@@ -9,9 +9,9 @@ if (isset($_POST['submit'])) {
     $Neutron = htmlspecialchars($_POST['Neutron']);
     $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`Catatan_mentor`) VALUES ('$nis','$Character','$prayer','$Neutron',NULL)");
     if ($goal) {
-        echo '<script>alert("Terima kasih telah mengisi jurnal hari ini.")</script>';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-        echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
     }
 }
 
@@ -22,7 +22,12 @@ if (isset($_POST['btn_update_personalgoal'])) {
     $prayer = htmlspecialchars($_POST['prayer']);
     $Neutron = htmlspecialchars($_POST['neutron']);
     $date = htmlspecialchars($_POST['date']);
-    $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+    }
 }
 
 session_start();
@@ -167,6 +172,7 @@ include 'template/head.php'
     include 'modal/modal_goalseeting.php';
     include 'modal/modal_logout.php';
     include 'template/script.php';
+    include 'template/alert.php';
     ?>
     <script>
         $(document).on("click", "#detail", function() {
