@@ -13,6 +13,7 @@
             <form method="POST">
 
                 <div class="modal-body">
+                    <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <div class="form-group">
                         <h7 class="text-reset" for="date">Date :</h7>

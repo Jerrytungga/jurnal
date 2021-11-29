@@ -11,6 +11,7 @@
             <!-- bungkus untuk form -->
             <form action="" method="POST">
                 <div class="modal-body">
+                    <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <div class="form-group">
                         <label for="kategori-text" class="col-form-label font-weight-bold">Category :</label>

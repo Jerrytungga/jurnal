@@ -4,12 +4,13 @@ include '../database.php';
 if (isset($_POST['btn_prayernote'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $judul = htmlspecialchars($_POST['judul']);
+    $efata = htmlspecialchars($_POST['efata']);
     $beban = htmlspecialchars($_POST['beban']);
     $point = htmlspecialchars($_POST['point']);
     $point1 = htmlspecialchars($_POST['point1']);
     $date = htmlspecialchars($_POST['date']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`efata`='$efata',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

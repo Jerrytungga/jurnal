@@ -10,6 +10,7 @@
                 </div>
                 <form action="" method="POST">
                     <div class="modal-body">
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="nis" name="nis">
                         <div class="form-group">
                             <label class="message-text font-weight-bold" for="berkat">What I get and learn</label> <br>

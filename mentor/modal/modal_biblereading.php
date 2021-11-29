@@ -11,6 +11,7 @@
               <!-- bungkus untuk form -->
               <form action="" method="POST">
                   <div class="modal-body">
+                      <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                       <input type="hidden" class="form-control" id="nis" name="nis">
                       <div class="form-group">
                           <select class="form-control" name="bible" id="bible" aria-label="Default select example" required>
