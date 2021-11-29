@@ -9,7 +9,12 @@ if (isset($_POST['btn_myvirtues'])) {
     $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
+    $input = mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
+    if ($input) {
+        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+    } else {
+        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+    }
 }
 // sistem edit penilaian my virtues & character
 if (isset($_POST['btn_virtue_character'])) {
@@ -20,7 +25,12 @@ if (isset($_POST['btn_virtue_character'])) {
     $ucapan = htmlspecialchars($_POST['ucapan']);
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+    $edit = mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 
 
@@ -207,16 +217,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_virtues_character.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

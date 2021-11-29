@@ -11,7 +11,12 @@ if (isset($_POST['btn_bible'])) {
     $point_bible1 = htmlspecialchars($_POST['point1']);
     $point_bible2 = htmlspecialchars($_POST['point2']);
     $catatan4 = htmlspecialchars($_POST['catatan4']);
-    mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 session_start();
 include 'template/session.php';
@@ -192,19 +197,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_biblereading.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

@@ -6,7 +6,12 @@ if (isset($_POST['btn_catatan'])) {
     $title = htmlspecialchars($_POST['title']);
     $deskripsi = htmlspecialchars($_POST['deskripsi']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_catatan` SET `nis`='$nis',`judul`='$title',`deskripsi`='$deskripsi',`cttn_mentor`='$catatan'WHERE `tb_catatan`.`nis` ='$nis'");
+    $edit =  mysqli_query($conn, "UPDATE `tb_catatan` SET `nis`='$nis',`judul`='$title',`deskripsi`='$deskripsi',`cttn_mentor`='$catatan'WHERE `tb_catatan`.`nis` ='$nis'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 session_start();
 include 'template/session.php';
@@ -130,17 +135,10 @@ $catatan = mysqli_fetch_array($notes);
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_catatan.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

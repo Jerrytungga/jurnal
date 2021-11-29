@@ -9,7 +9,12 @@ if (isset($_POST['btn_submit_virtues'])) {
     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan')");
+    $input = mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan')");
+    if ($input) {
+        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+    } else {
+        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+    }
 }
 //sistem edit penilaian virtues
 if (isset($_POST['btn_virtue'])) {
@@ -20,7 +25,12 @@ if (isset($_POST['btn_virtue'])) {
     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+    }
 }
 
 session_start();
@@ -203,17 +213,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_virtues.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

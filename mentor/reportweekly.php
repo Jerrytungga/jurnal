@@ -19,7 +19,12 @@ if (isset($_POST['input'])) {
     $Keterangan = htmlspecialchars($_POST['Keterangan']);
     $grace = htmlspecialchars($_POST['grace']);
     $punisment = htmlspecialchars($_POST['punisment']);
-    mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`,`punisment`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace','$punisment')");
+    $input = mysqli_query($conn, "INSERT INTO `tb_reportweekly`(`nis`, `name`, `presensi`, `jurnal_daily`, `jurnal_weekly`, `jurnal_monthly`, `virtue`, `living_buku`, `living_sepatu_handuk`, `living_ranjang`, `total`, `status`, `keterangan`, `efata`, `sanksi`,`punisment`) VALUES ('$nis','$name','$presensi','$jurnaldaily','$jurnalweekly','$jurnalMonthly','$virtue','$lemari','$sepatu','$ranjang','$total','$status','$Keterangan','$efata','$grace','$punisment')");
+    if ($input) {
+        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+    } else {
+        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+    }
 }
 // input dat6a report weekly
 if (isset($_POST['edit'])) {
@@ -40,7 +45,12 @@ if (isset($_POST['edit'])) {
     $grace = htmlspecialchars($_POST['sanksi']);
     $Punishment = htmlspecialchars($_POST['Punishment']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_reportweekly` SET `nis`='$nis',`name`='$name',`presensi`='$absensi',`jurnal_daily`='$jurnaldaily',`jurnal_weekly`='$jurnalweekly',`jurnal_monthly`='$jurnalMonthly',`virtue`='$virtue',`living_buku`='$lemari',`living_sepatu_handuk`='$sepatu',`living_ranjang`='$ranjang',`total`='$total',`status`='$status',`keterangan`='$Keterangan',`date`='$date',`efata`='$efata',`sanksi`='$grace',`punisment`='$Punishment' WHERE `tb_reportweekly`.`efata`='$efata' AND `tb_reportweekly`.`date`='$date' AND `tb_reportweekly`.`nis`='$nis' ");
+    $edit =  mysqli_query($conn, "UPDATE `tb_reportweekly` SET `nis`='$nis',`name`='$name',`presensi`='$absensi',`jurnal_daily`='$jurnaldaily',`jurnal_weekly`='$jurnalweekly',`jurnal_monthly`='$jurnalMonthly',`virtue`='$virtue',`living_buku`='$lemari',`living_sepatu_handuk`='$sepatu',`living_ranjang`='$ranjang',`total`='$total',`status`='$status',`keterangan`='$Keterangan',`date`='$date',`efata`='$efata',`sanksi`='$grace',`punisment`='$Punishment' WHERE `tb_reportweekly`.`efata`='$efata' AND `tb_reportweekly`.`date`='$date' AND `tb_reportweekly`.`nis`='$nis' ");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 
 session_start();
@@ -521,17 +531,10 @@ $r = mysqli_fetch_array($report);
     <!-- Logout Modal-->
     <?php
     include 'modal/modal_logout.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

@@ -28,7 +28,12 @@ if (isset($_POST['btn_blessings'])) {
     $point6 = htmlspecialchars($_POST['point6']);
     $point7 = htmlspecialchars($_POST['point7']);
     $point8 = htmlspecialchars($_POST['point8']);
-    mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 
 if (isset($_POST['hapus'])) {
@@ -36,9 +41,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_blessings`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        echo '<script>alert("Data Successfully Delete")</script>';
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
     } else {
-        echo '<script>alert("Unsuccessfully Delete Data")</script>';
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
     }
 }
 session_start();
@@ -305,17 +310,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_blessings.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

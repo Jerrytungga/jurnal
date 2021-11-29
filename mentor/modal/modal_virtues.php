@@ -59,7 +59,7 @@
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" name="btn_virtue">Save changes</button>
+                      <button type="submit" class="btn btn-warning" name="btn_virtue">Save changes</button>
                   </div>
               </form>
           </div>

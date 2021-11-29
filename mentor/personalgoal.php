@@ -12,7 +12,12 @@ if (isset($_POST['update'])) {
     $point1 = htmlspecialchars($_POST['point1']);
     $point2 = htmlspecialchars($_POST['point2']);
     $point3 = htmlspecialchars($_POST['point3']);
-    $goal = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`point1`='$point1',`point2`='$point2',`point3`='$point3',`efata`='$efata',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`Catatan_mentor`='$catatan' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`point1`='$point1',`point2`='$point2',`point3`='$point3',`efata`='$efata',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`Catatan_mentor`='$catatan' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 
 session_start();
@@ -125,7 +130,7 @@ if (isset($_POST['reset'])) {
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
@@ -224,23 +229,14 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_personalgoal.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-                scrollY: 600,
+                scrollY: 700,
                 scrollX: true,
                 scrollCollapse: true,
                 paging: true,

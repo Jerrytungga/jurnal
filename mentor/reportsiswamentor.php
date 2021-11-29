@@ -233,7 +233,9 @@ if (isset($_POST['week'])) {
                                                 <td><?= $row['total']; ?></td>
                                                 <td><?= $row['status']; ?></td>
                                                 <td><?= $row['keterangan']; ?></td>
-                                                <td><?= $row['sanksi']; ?></td>
+                                                <td><?= $row['sanksi']; ?>
+                                                    <?= $row['punisment']; ?>
+                                                </td>
                                                 <td><?= $row['date']; ?></td>
 
                                             </tr>

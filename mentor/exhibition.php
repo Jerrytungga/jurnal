@@ -9,7 +9,12 @@ if (isset($_POST['btn_exhibition'])) {
     $catatan2 = htmlspecialchars($_POST['catatan2']);
     $date = htmlspecialchars($_POST['date']);
     $point_exhibition = htmlspecialchars($_POST['point']);
-    mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse2',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 session_start();
 include 'template/session.php';
@@ -203,17 +208,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_exhibition.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

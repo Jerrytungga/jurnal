@@ -9,7 +9,12 @@ if (isset($_POST['btn_revivalnote'])) {
     $point1 = htmlspecialchars($_POST['point1']);
     $point2 = htmlspecialchars($_POST['point2']);
     $catatan_mentor = htmlspecialchars($_POST['mentor']);
-    mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`point1`='$point1',`point2`='$point2',`date`='$date',`catatan_mentor`='$catatan_mentor' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`point1`='$point1',`point2`='$point2',`date`='$date',`catatan_mentor`='$catatan_mentor' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date` ='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 
 session_start();
@@ -199,16 +204,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_revivalnote.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

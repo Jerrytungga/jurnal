@@ -8,7 +8,12 @@ if (isset($_POST['btn_homemeeting'])) {
     $catatan8 = htmlspecialchars($_POST['catatan8']);
     $point_homemeeting = htmlspecialchars($_POST['point']);
     $date = htmlspecialchars($_POST['date']);
-    mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
 }
 session_start();
 include 'template/session.php';
@@ -196,17 +201,10 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_homemeeting.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
