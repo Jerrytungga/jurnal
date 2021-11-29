@@ -124,7 +124,7 @@ if ($week == "%") {
           <td><?= $row['total']; ?></td>
           <td><?= $row['status']; ?></td>
           <td><?= $row['keterangan']; ?></td>
-          <td><a><?= $row['sanksi']; ?></a>
+          <td><a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?> <?= $row['punisment']; ?></a>
           </td>
           <td><?= $row['date']; ?></td>
         </tr>
