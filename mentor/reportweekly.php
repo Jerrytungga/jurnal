@@ -136,7 +136,7 @@ $data = mysqli_fetch_array($siswa);
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
-                                        $dari = "2021-11-14"; // tanggal mulai
+                                        $dari = "2021-11-15"; // tanggal mulai
                                         $sampai = date('Y-m-d'); // tanggal akhir
 
                                         while (strtotime($dari) <= strtotime($sampai)) {

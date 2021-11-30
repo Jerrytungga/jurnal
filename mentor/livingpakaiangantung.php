@@ -14,13 +14,24 @@ if (isset($_POST['btn_input'])) {
     $rb = htmlspecialchars($_POST['raib']);
     $jrk = htmlspecialchars($_POST['jarak']);
     $bnt = htmlspecialchars($_POST['bentuk']);
+    $brs = htmlspecialchars($_POST['barangasing']);
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
+            $input =   mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata')");
+            if ($input) {
+                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            } else {
+                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            }
         }
     } else {
-        mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$notes','$efata')");
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_pakaiangantung`(`nis`,`jarak`, `posisi`, `bentuk`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bnt','$tr','$rp','$br','$rb','$brs','$notes','$efata')");
+        if ($input) {
+            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+        } else {
+            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+        }
     }
 }
 // proses update penilaian Pakaian gantung
@@ -147,13 +158,14 @@ include 'template/head.php';
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="50">jarak</th>
+                                            <th width="50">Jarak</th>
                                             <th width="50">Posisi</th>
                                             <th width="50">Bentuk</th>
                                             <th width="50">Tinggi/ Rendah</th>
                                             <th width="50">Rapi</th>
                                             <th width="50">Bersih</th>
                                             <th width="50">Raib</th>
+                                            <th width="150">Benda Asing</th>
                                             <th width="150">Foto</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
@@ -176,6 +188,7 @@ include 'template/head.php';
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
                                                 <td><?= $row['raib']; ?></td>
+                                                <td><?= $row['barang_asing']; ?></td>
                                                 <td>
                                                     <?php
                                                     $gambar = $row["image"];
@@ -201,7 +214,7 @@ include 'template/head.php';
 
                                             </tr>
                                             <?php
-                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib'] + $row['jarak'] + $row['bentuk']; ?>
+                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib'] + $row['jarak'] + $row['bentuk'] + $row['barang_asing']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -230,16 +243,10 @@ include 'template/head.php';
     include 'modal/modal_logout.php';
     include 'modal/modal_living_pakaiangantung.php';
     include 'modal/modal_foto.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

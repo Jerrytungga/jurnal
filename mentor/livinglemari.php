@@ -12,13 +12,24 @@ if (isset($_POST['btn_input'])) {
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
+    $brs = htmlspecialchars($_POST['barangasing']);
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$nama_gambar','$notes','$efata')");
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata')");
+            if ($input) {
+                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            } else {
+                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            }
         }
     } else {
-        mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$notes','$efata')");
+        $input = mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$notes','$efata')");
+        if ($input) {
+            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+        } else {
+            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+        }
     }
 }
 // proses update penilaian buku
@@ -33,14 +44,27 @@ if (isset($_POST['btn_update'])) {
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
+    $barangasing = htmlspecialchars($_POST['brngasing']);
     $date = htmlspecialchars($_POST['date']);
     $notes = htmlspecialchars($_POST['catatan']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "UPDATE `tb_living_buku` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_buku`.`nis`='$nis' AND `tb_living_buku`.`date`='$date'");
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_buku` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`barang_asing`='$barangasing',`catatan`='$notes',`date`='$date' WHERE `tb_living_buku`.`nis`='$nis' AND `tb_living_buku`.`date`='$date'");
+
+            if ($edit) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            } else {
+                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            }
         }
     } else {
-        mysqli_query($conn, "UPDATE `tb_living_buku` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_buku`.`nis`='$nis' AND `tb_living_buku`.`date`='$date'");
+        $edit = mysqli_query($conn, "UPDATE `tb_living_buku` SET `nis`='$nis',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`barang_asing`='$barangasing',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_buku`.`nis`='$nis' AND `tb_living_buku`.`date`='$date'");
+
+        if ($edit) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        }
     }
 }
 session_start();
@@ -148,6 +172,7 @@ include 'template/head.php';
                                             <th width="50">Rapi</th>
                                             <th width="50">Bersih</th>
                                             <th width="50">Raib</th>
+                                            <th width="150">Benda Asing</th>
                                             <th width="150">Foto</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
@@ -168,6 +193,7 @@ include 'template/head.php';
                                                 <td><?= $row['rapi']; ?></td>
                                                 <td><?= $row['bersih']; ?></td>
                                                 <td><?= $row['raib']; ?></td>
+                                                <td><?= $row['barang_asing']; ?></td>
                                                 <td>
                                                     <?php
                                                     $gambar = $row["image"];
@@ -185,19 +211,19 @@ include 'template/head.php';
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-brngasing="<?= $row['barang_asing']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                 </td>
 
                                             </tr>
                                             <?php
-                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib']; ?>
+                                            $total = $total + $row['posisi'] + $row['tinggi/rendah'] + $row['rapi'] + $row['bersih'] + $row['raib'] + $row['barang_asing']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="10"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -223,16 +249,9 @@ include 'template/head.php';
     include 'modal/modal_logout.php';
     include 'modal/modal_living_buku.php';
     include 'modal/modal_foto.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 
     <script>
@@ -256,6 +275,7 @@ include 'template/head.php';
             let raib = $(this).data('raib');
             let foto = $(this).data('foto');
             let date = $(this).data('date');
+            let brngasing = $(this).data('brngasing');
             let catatan = $(this).data('cttn');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
@@ -264,6 +284,7 @@ include 'template/head.php';
             $(" #modal-edit #rapi").val(rapi);
             $(" #modal-edit #bersih").val(bersih);
             $(" #modal-edit #date").val(date);
+            $(" #modal-edit #brngasing").val(brngasing);
             $(" #modal-edit #raib").val(raib);
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
