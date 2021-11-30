@@ -153,25 +153,25 @@ $data = mysqli_fetch_array($siswa);
 
 
                                             // personal goal
-                                            $goalsetting = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $goalsetting = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // exhibition
-                                            $exhibition = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_exhibition WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $exhibition = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_exhibition WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // home metting
-                                            $homemetting = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $homemetting = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // Blessings
-                                            $Blessings = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3)+SUM(point4)+SUM(point5)+SUM(point6)+SUM(point7)+SUM(point8) as jumlah FROM tb_blessings WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $Blessings = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3)+SUM(point4)+SUM(point5)+SUM(point6)+SUM(point7)+SUM(point8) as jumlah FROM tb_blessings WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // virtue dan character
-                                            $vc = mysqli_query($conn, "SELECT SUM(perhatian_berbagi)+SUM(salam_sapa)+SUM(bersyukur_berterimakasih)+SUM(hormat_taat) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $vc = mysqli_query($conn, "SELECT SUM(perhatian_berbagi)+SUM(salam_sapa)+SUM(bersyukur_berterimakasih)+SUM(hormat_taat) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // virtue
-                                            $virtue = mysqli_query($conn, "SELECT SUM(sikapramahsopan)+SUM(sikapberkordinasi)+SUM(sikaptolongmenolong)+SUM(sikapseedo) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $virtue = mysqli_query($conn, "SELECT SUM(sikapramahsopan)+SUM(sikapberkordinasi)+SUM(sikaptolongmenolong)+SUM(sikapseedo) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // character
-                                            $character = mysqli_query($conn, "SELECT SUM(benar)+SUM(tepat)+SUM(ketat) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $character = mysqli_query($conn, "SELECT SUM(benar)+SUM(tepat)+SUM(ketat) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
 
