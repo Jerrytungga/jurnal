@@ -52,15 +52,14 @@ if (isset($_POST['edit'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
+$nis = $_GET['nis'];
+
 
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
-$nis = $_GET['nis'];
-$siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
-$nama = $siswa2['name'];
-$report = mysqli_query($conn, "SELECT * FROM tb_reportweekly WHERE nis='$nis' ORDER BY date DESC");
-$r = mysqli_fetch_array($report);
+$siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
+$data = mysqli_fetch_array($siswa);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +99,7 @@ $r = mysqli_fetch_array($report);
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $siswa2['name']; ?></h1>
+                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $data['name']; ?></h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -133,36 +132,105 @@ $r = mysqli_fetch_array($report);
                                     </thead>
 
                                     <tbody>
-                                        <?php
-                                        ?>
                                         <?php $i = 1; ?>
-                                        <?php foreach ($report as $row) : ?>
-                                            <tr>
-                                                <td><?= $i; ?></td>
-                                                <td><?= $row['name']; ?></td>
-                                                <td><?= $row['presensi']; ?></td>
-                                                <td><?= $row['jurnal_daily']; ?></td>
-                                                <td><?= $row['jurnal_weekly']; ?></td>
-                                                <td><?= $row['jurnal_monthly']; ?></td>
-                                                <td><?= $row['virtue']; ?></td>
-                                                <td><?= $row['living_buku']; ?></td>
-                                                <td><?= $row['living_sepatu_handuk']; ?></td>
-                                                <td><?= $row['living_ranjang']; ?></td>
-                                                <td><?= $row['total']; ?></td>
-                                                <td><?= $row['status']; ?></td>
-                                                <td><?= $row['keterangan']; ?></td>
-                                                <td><?= $row['date']; ?></td>
-                                                <td><a class="font-weight-bold text-danger font-italic"><?= $row['sanksi']; ?> <?= $row['punisment']; ?></a>
-                                                </td>
-                                                <td>
-                                                    <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-ps="<?= $row['punisment']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
-                                                </td>
+                                        <?php
+                                        date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                                        //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                                        $dari = "2021-11-14"; // tanggal mulai
+                                        $sampai = date('Y-m-d'); // tanggal akhir
 
-                                            </tr>
+                                        while (strtotime($dari) <= strtotime($sampai)) {
+                                            // echo "$dari<br/>";
 
-                                            <?php $i++; ?>
-                                        <?php endforeach; ?>
+                                            // pembacaan alkitab
+                                            $alkitab = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // doa
+                                            $doa = mysqli_query($conn, "SELECT SUM(point1)+SUM(point) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // penyegaran pagi
+                                            $pp = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2) as jumlah FROM tb_revival_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+
+                                            // personal goal
+                                            $goalsetting = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // exhibition
+                                            $exhibition = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_exhibition WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // home metting
+                                            $homemetting = mysqli_query($conn, "SELECT SUM(point) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // Blessings
+                                            $Blessings = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point3)+SUM(point4)+SUM(point5)+SUM(point6)+SUM(point7)+SUM(point8) as jumlah FROM tb_blessings WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // virtue dan character
+                                            $vc = mysqli_query($conn, "SELECT SUM(perhatian_berbagi)+SUM(salam_sapa)+SUM(bersyukur_berterimakasih)+SUM(hormat_taat) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // virtue
+                                            $virtue = mysqli_query($conn, "SELECT SUM(sikapramahsopan)+SUM(sikapberkordinasi)+SUM(sikaptolongmenolong)+SUM(sikapseedo) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            // character
+                                            $character = mysqli_query($conn, "SELECT SUM(benar)+SUM(tepat)+SUM(ketat) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+
+
+                                            $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+
+                                        ?>
+                                            <?php foreach ($siswa as $row) :
+                                                $hari = $dari;
+                                                $prayernote = mysqli_fetch_array($doa);
+                                                $biblereading = mysqli_fetch_array($alkitab);
+                                                $revivalnote = mysqli_fetch_array($pp);
+                                                $personalgoal = mysqli_fetch_array($goalsetting);
+                                                $pameran = mysqli_fetch_array($exhibition);
+                                                $persekutuan = mysqli_fetch_array($homemetting);
+                                                $blessings = mysqli_fetch_array($Blessings);
+                                                $sikap = mysqli_fetch_array($vc);
+                                                $virtues = mysqli_fetch_array($virtue);
+                                                $karakter = mysqli_fetch_array($character);
+
+
+
+
+
+
+
+                                                $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
+                                                $total_2 = $blessings['jumlah'];
+                                                $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
+                                                $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
+
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap
+                                            ?>
+                                                <tr>
+                                                    <td><?= $i; ?></td>
+                                                    <td><?= $row['name']; ?></td>
+                                                    <td></td>
+                                                    <td><?= $total; ?></td>
+                                                    <td><?= $total_1; ?></td>
+                                                    <td><?= $total_2; ?></td>
+                                                    <td><?= $totalpeniliansikap; ?></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><?= $totalsemua; ?></td>
+                                                    <td></td>
+                                                    <td>Week <?= $i; ?></td>
+                                                    <td><?= $dari; ?></td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-ps="<?= $row['punisment']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
+                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                    </td>
+
+                                                </tr>
+
+                                                <?php $i++; ?>
+                                        <?php endforeach;
+                                        } ?>
                                     </tbody>
                                 </table>
                             </div>
