@@ -222,8 +222,8 @@ $data = mysqli_fetch_array($siswa);
                                                     <td>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-ps="<?= $row['punisment']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
-                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                        <!-- <a id="edit_penilaian" data-toggle="modal" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-jurnaldaily="<?= $row['jurnal_daily']; ?>" data-jurnalweekly="<?= $row['jurnal_weekly']; ?>" data-jurnalbulanan="<?= $row['jurnal_monthly']; ?>" data-virtue="<?= $row['virtue']; ?>" data-livingbuku="<?= $row['living_buku']; ?>" data-livingsepatu="<?= $row['living_sepatu_handuk']; ?>" data-livingranjang="<?= $row['living_ranjang']; ?>" data-total="<?= $row['total']; ?>" data-status="<?= $row['status']; ?>" data-keterangan="<?= $row['keterangan']; ?>" data-sanksi="<?= $row['sanksi']; ?>" data-ps="<?= $row['punisment']; ?>" data-date="<?= $row['date']; ?>" data-Punishment="<?= $row['sanksi']; ?>">
+                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a> -->
                                                     </td>
 
                                                 </tr>
