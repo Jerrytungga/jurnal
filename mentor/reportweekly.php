@@ -143,13 +143,13 @@ $data = mysqli_fetch_array($siswa);
                                             // echo "$dari<br/>";
 
                                             // pembacaan alkitab
-                                            $alkitab = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $alkitab = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2)+SUM(point) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // doa
-                                            $doa = mysqli_query($conn, "SELECT SUM(point1)+SUM(point) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $doa = mysqli_query($conn, "SELECT SUM(point1)+SUM(point) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             // penyegaran pagi
-                                            $pp = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2) as jumlah FROM tb_revival_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+7 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $pp = mysqli_query($conn, "SELECT SUM(point1)+SUM(point2) as jumlah FROM tb_revival_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
                                             // personal goal
