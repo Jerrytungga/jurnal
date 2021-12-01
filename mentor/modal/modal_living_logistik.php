@@ -77,6 +77,24 @@
             </select>
           </div>
 
+          <label class="font-weight-bold">Benda Asing :</label>
+          <div class="form-group">
+            <select class="form-control" name="barangasing" aria-label="Default select example">
+              <option selected>Select</option>
+              <option value="0">0</option>
+              <option value="-2">-2</option>
+              <option value="-3">-3</option>
+              <option value="-4">-4</option>
+              <option value="-5">-5</option>
+              <option value="-6">-6</option>
+              <option value="-7">-7</option>
+              <option value="-8">-8</option>
+              <option value="-9">-9</option>
+              <option value="-10">-10</option>
+            </select>
+          </div>
+
+
           <div class="form-group">
             <label class="font-weight-bold" for="image">Foto</label>
             <input type="file" name="image" class="form-control-file" id="image">
@@ -182,6 +200,25 @@
               <option value="-1">-1</option>
             </select>
           </div>
+
+          <label class="font-weight-bold">Benda Asing :</label>
+          <div class="form-group">
+            <select class="form-control" id="brngasing" name="brngasing" aria-label="Default select example">
+              <option selected>Select</option>
+              <option value="0">0</option>
+              <option value="-1">-1</option>
+              <option value="-2">-2</option>
+              <option value="-3">-3</option>
+              <option value="-4">-4</option>
+              <option value="-5">-5</option>
+              <option value="-6">-6</option>
+              <option value="-7">-7</option>
+              <option value="-8">-8</option>
+              <option value="-9">-9</option>
+              <option value="-10">-10</option>
+            </select>
+          </div>
+
 
           <div class="form-group">
             <label for="image">Foto</label>

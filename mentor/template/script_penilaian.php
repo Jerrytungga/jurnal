@@ -6,6 +6,9 @@
   <script src="../js/sb-admin-2.min.js"></script>
   <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
   <script>
     $(document).ready(function() {
       $('#dataTable').DataTable({
@@ -28,6 +31,7 @@
       let raib = $(this).data('raib');
       let foto = $(this).data('foto');
       let date = $(this).data('date');
+      let brngasing = $(this).data('brngasing');
       let catatan = $(this).data('cttn');
       $(" #modal-edit #nis").val(nis);
       $(" #modal-edit #efata").val(efata);
@@ -35,6 +39,7 @@
       $(" #modal-edit #posisi").val(posisi);
       $(" #modal-edit #tinggirendah").val(tinggirendah);
       $(" #modal-edit #rapi").val(rapi);
+      $(" #modal-edit #brngasing").val(brngasing);
       $(" #modal-edit #bersih").val(bersih);
       $(" #modal-edit #date").val(date);
       $(" #modal-edit #raib").val(raib);

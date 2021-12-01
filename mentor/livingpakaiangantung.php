@@ -46,16 +46,27 @@ if (isset($_POST['btn_update'])) {
     $rp = htmlspecialchars($_POST['rapi']);
     $br = htmlspecialchars($_POST['bersih']);
     $rb = htmlspecialchars($_POST['raib']);
+    $barangasing = htmlspecialchars($_POST['brngasing']);
     $date = htmlspecialchars($_POST['date']);
     $notes = htmlspecialchars($_POST['catatan']);
     $jrk = htmlspecialchars($_POST['jarak']);
     $bnt = htmlspecialchars($_POST['bentuk']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`image`='$nama_gambar',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+            if ($edit) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            } else {
+                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            }
         }
     } else {
-        mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_pakaiangantung` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bnt',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaiangantung`.`nis`='$nis' AND `tb_living_pakaiangantung`.`date`='$date'");
+        if ($edit) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        }
     }
 }
 session_start();
@@ -207,7 +218,7 @@ include 'template/head.php';
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>" data-jarak="<?= $row['jarak']; ?>" data-bentuk="<?= $row['bentuk']; ?>">
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-tinggirendah="<?= $row['tinggi/rendah']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>" data-brngasing="<?= $row['barang_asing']; ?>" data-jarak="<?= $row['jarak']; ?>" data-bentuk="<?= $row['bentuk']; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                 </td>
@@ -219,7 +230,7 @@ include 'template/head.php';
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="11"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="12"> Total Point : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -271,6 +282,7 @@ include 'template/head.php';
             let jarak = $(this).data('jarak');
             let bentuk = $(this).data('bentuk');
             let catatan = $(this).data('cttn');
+            let brngasing = $(this).data('brngasing');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
             $(" #modal-edit #posisi").val(posisi);
@@ -279,6 +291,7 @@ include 'template/head.php';
             $(" #modal-edit #bersih").val(bersih);
             $(" #modal-edit #date").val(date);
             $(" #modal-edit #jarak").val(jarak);
+            $(" #modal-edit #brngasing").val(brngasing);
             $(" #modal-edit #raib").val(raib);
             $(" #modal-edit #bentuk").val(bentuk);
             $(" #modal-edit #catatan").val(catatan);

@@ -22,17 +22,17 @@ if (isset($_POST['btn_input'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $input = mysqli_query($conn, "INSERT INTO `tb_living_sepatu_sidang`(`nis`, `jarak`, `posisi`, `rapi`, `bersih`, `raib`, `image`, `efata`, `catatan`) VALUES ('$nis','$jrk','$pss','$rp','$br','$rb','$nama_gambar','$efata','$notes')");
             if ($input) {
-                echo '<script>alert("Data Berhasil di Masukan!")</script>';
+                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
             } else {
-                echo '<script>alert("Data Gagal di Masukan!")</script>';
+                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
             }
         }
     } else {
         $input = mysqli_query($conn, "INSERT INTO `tb_living_sepatu_sidang`(`nis`, `jarak`, `posisi`, `rapi`, `bersih`, `raib`, `efata`, `catatan`) VALUES ('$nis','$jrk','$pss','$rp','$br','$rb','$efata','$notes')");
         if ($input) {
-            echo '<script>alert("Data Berhasil di Masukan!")</script>';
+            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
         } else {
-            echo '<script>alert("Data Gagal di Masukan!")</script>';
+            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
         }
     }
 }
@@ -53,19 +53,19 @@ if (isset($_POST['btn_update'])) {
     $date = htmlspecialchars($_POST['date']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $input = mysqli_query($conn, "UPDATE `tb_living_sepatu_sidang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`date`='$date',`efata`='$efata',`catatan`='$notes' WHERE `tb_living_sepatu_sidang`.`nis`='$nis' AND `tb_living_sepatu_sidang`.`date`='$date'");
-            if ($input) {
-                echo '<script>alert("Data Berhasil di Edit!")</script>';
+            $edit = mysqli_query($conn, "UPDATE `tb_living_sepatu_sidang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`date`='$date',`efata`='$efata',`catatan`='$notes' WHERE `tb_living_sepatu_sidang`.`nis`='$nis' AND `tb_living_sepatu_sidang`.`date`='$date'");
+            if ($edit) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
             } else {
-                echo '<script>alert("Data Gagal di Edit!")</script>';
+                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
             }
         }
     } else {
-        $input =  mysqli_query($conn, "UPDATE `tb_living_sepatu_sidang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`date`='$date',`efata`='$efata',`catatan`='$notes' WHERE `tb_living_sepatu_sidang`.`nis`='$nis' AND `tb_living_sepatu_sidang`.`date`='$date'");
-        if ($input) {
-            echo '<script>alert("Data Berhasil di Edit!")</script>';
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_sepatu_sidang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`date`='$date',`efata`='$efata',`catatan`='$notes' WHERE `tb_living_sepatu_sidang`.`nis`='$nis' AND `tb_living_sepatu_sidang`.`date`='$date'");
+        if ($edit) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         } else {
-            echo '<script>alert("Data Gagal di Edit!")</script>';
+            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
         }
     }
 }
@@ -216,6 +216,7 @@ include 'template/head.php';
     include 'modal/modal_living_sepatu_sidang.php';
     include 'modal/modal_foto.php';
     include 'template/script_penilaian.php';
+    include 'template/alert.php';
     ?>
 
 
