@@ -1,8 +1,19 @@
 <?php
 include '../database.php';
-include 'modal/function.php';
 session_start();
 include 'template/session.php';
+if (isset($_POST['input'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $presensi = htmlspecialchars($_POST['presensi']);
+    $nama = htmlspecialchars($_POST['name']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`) VALUES ('$nis','$nama','$presensi','$efata')");
+    if ($input) {
+        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+    } else {
+        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+    }
+}
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER BY date DESC");
 $s = mysqli_fetch_array($siswa);
 ?>
@@ -100,6 +111,10 @@ $s = mysqli_fetch_array($siswa);
                                                         Dairy Siswa
                                                     </a>
 
+                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
+                                                        Presensi
+                                                    </a>
+
                                                 </td>
 
                                                 <td>
@@ -149,19 +164,11 @@ $s = mysqli_fetch_array($siswa);
 
     <?php
     include 'modal/modal_logout.php';
-    include 'modal/modal_jurnal.php';
-    include 'modal/modal_penilain.php';
+    include 'modal/modal_absensi.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
@@ -173,9 +180,11 @@ $s = mysqli_fetch_array($siswa);
             });
         });
 
-        $(document).on("click", "#jurnal", function() {
+        $(document).on("click", "#pre", function() {
             var nis = $(this).data('nis');
-            $(" #modal-edit #nis").val(nis);
+            var name = $(this).data('name');
+            $(" #modal-presensi #nis").val(nis);
+            $(" #modal-presensi #name").val(name);
 
         });
     </script>
