@@ -235,7 +235,7 @@ $murid = mysqli_fetch_array($siswa);
                                                         <?= $row['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
+                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     </td>
 
