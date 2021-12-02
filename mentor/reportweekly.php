@@ -194,7 +194,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $living_handuk = mysqli_fetch_array($handuk);
 
 
-                                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                                $presensiWeekly = mysqli_fetch_assoc($presensi);
 
 
                                                 $totalpresensi = $presensiWeekly['presensi'];
