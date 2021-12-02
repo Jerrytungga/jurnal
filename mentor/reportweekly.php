@@ -22,6 +22,8 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $data = mysqli_fetch_array($siswa);
+$presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis' ORDER BY date DESC");
+$presensiWeekly = mysqli_fetch_array($presensi);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -160,7 +162,7 @@ $data = mysqli_fetch_array($siswa);
 
                                             $handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-                                            $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
 
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
@@ -194,7 +196,7 @@ $data = mysqli_fetch_array($siswa);
                                                 $living_handuk = mysqli_fetch_array($handuk);
 
 
-                                                $presensiWeekly = mysqli_fetch_array($presensi);
+
 
 
                                                 $totalpresensi = $presensiWeekly['presensi'];
