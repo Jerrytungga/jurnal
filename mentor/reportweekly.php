@@ -199,7 +199,7 @@ $presensiWeekly = mysqli_fetch_array($presensi);
 
 
 
-                                                $totalpresensi = $presensiWeekly['presensi'];
+
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                 $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
@@ -207,7 +207,7 @@ $presensiWeekly = mysqli_fetch_array($presensi);
                                                 $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
-                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $totalpresensi
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $presensiWeekly['presensi'];
 
                                             ?>
                                                 <tr>
