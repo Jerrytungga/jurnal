@@ -206,7 +206,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
                                                 $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk +
-                                                    $presensiWeekly['presensi'];
+                                                    isset($presensiWeekly['presensi']);
 
                                             ?>
                                                 <tr>
