@@ -22,8 +22,6 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $murid = mysqli_fetch_array($siswa);
-$absensi_1 = mysqli_query($conn, "SELECT * FROM absensi WHERE nis ='$nis' ORDER BY date DESC");
-$absen_2 = mysqli_fetch_array($absensi_1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +160,7 @@ $absen_2 = mysqli_fetch_array($absensi_1);
 
                                             $handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-                                            $presensi = mysqli_query($conn, "SELECT `presensi`, `nis` FROM `tb_presensi` WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $presensi = @mysqli_query($conn, "SELECT `presensi`, `nis` FROM `tb_presensi` WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
@@ -213,7 +211,7 @@ $absen_2 = mysqli_fetch_array($absensi_1);
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td><?= $row['name']; ?></td>
-                                                    <td><?= $absen_2['presensi']; ?></td>
+                                                    <td><?= $presensiWeekly['presensi']; ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
