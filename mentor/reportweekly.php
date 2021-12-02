@@ -22,8 +22,6 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $data = mysqli_fetch_array($siswa);
-$presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis' ORDER BY date DESC");
-$presensiWeekly = mysqli_fetch_array($presensi);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +160,7 @@ $presensiWeekly = mysqli_fetch_array($presensi);
 
                                             $handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-
+                                            $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
@@ -196,10 +194,10 @@ $presensiWeekly = mysqli_fetch_array($presensi);
                                                 $living_handuk = mysqli_fetch_array($handuk);
 
 
+                                                $presensiWeekly = mysqli_fetch_array($presensi);
 
 
-
-
+                                                $totalpresensi = $presensiWeekly['presensi'];
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                 $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
@@ -207,7 +205,7 @@ $presensiWeekly = mysqli_fetch_array($presensi);
                                                 $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
-                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $presensiWeekly['presensi'];
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $totalpresensi
 
                                             ?>
                                                 <tr>
