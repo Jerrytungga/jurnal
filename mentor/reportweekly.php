@@ -162,7 +162,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                             $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-                                            $dari = date("Y-m-d", strtotime("+6 day", strtotime($dari))); //looping tambah 7 date
+                                            $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
                                         ?>
                                             <?php foreach ($presensi as $row) :
