@@ -228,17 +228,17 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td><?= $totalsemua; ?></td>
                                                     <td>
 
-                                                        <!-- <?= $presensiWeekly['status']; ?> -->
+                                                        <?= $row['status']; ?>
 
                                                     </td>
                                                     <td>Week <?= $i; ?></td>
                                                     <td><?= $dari; ?></td>
                                                     <td>
-                                                        <!-- <?= $presensiWeekly['grace']; ?> -->
-                                                        <!-- <?= $presensiWeekly['punisment']; ?> -->
+                                                        <?= $row['grace']; ?>
+                                                        <?= $row['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= $presensiWeekly['presensi']; ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
+                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     </td>
 
