@@ -22,6 +22,8 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $murid = mysqli_fetch_array($siswa);
+$absensi_1 = mysqli_query($conn, "SELECT * FROM absensi WHERE nis ='$nis' ORDER BY date DESC");
+$absen_2 = mysqli_fetch_array($absensi_1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -211,7 +213,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td><?= $row['name']; ?></td>
-                                                    <td><?= $presensiWeekly['presensi']; ?></td>
+                                                    <td><?= $absen_2['presensi']; ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
