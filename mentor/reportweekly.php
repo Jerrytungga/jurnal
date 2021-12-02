@@ -1,20 +1,20 @@
 <?php
 include '../database.php';
-if (isset($_POST['edit'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $presensi = htmlspecialchars($_POST['absen']);
-    $status = htmlspecialchars($_POST['status']);
-    $grace = htmlspecialchars($_POST['graces']);
-    $punisment = htmlspecialchars($_POST['ps']);
-    $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
-    if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
-    } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
-    }
-}
+// if (isset($_POST['edit'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $presensi = htmlspecialchars($_POST['absen']);
+//     $status = htmlspecialchars($_POST['status']);
+//     $grace = htmlspecialchars($_POST['graces']);
+//     $punisment = htmlspecialchars($_POST['ps']);
+//     $date = htmlspecialchars($_POST['date']);
+//     $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
+//     if ($edit) {
+//         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+//     } else {
+//         $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+//     }
+// }
 
 $nis = $_GET['nis'];
 session_start();
@@ -228,8 +228,8 @@ $murid = mysqli_fetch_array($siswa);
                                                         <?= $presensiWeekly['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= $presensiWeekly['presensi']; ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
-                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                        <!-- <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= $presensiWeekly['presensi']; ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
+                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a> -->
                                                     </td>
 
                                                 </tr>
@@ -349,20 +349,20 @@ $murid = mysqli_fetch_array($siswa);
             });
         });
 
-        $(document).on("click", "#edit_penilaian", function() {
-            let absen = $(this).data('absen');
-            let status = $(this).data('status');
-            let graces = $(this).data('graces');
-            let date = $(this).data('date');
-            let ps = $(this).data('ps');
+        // $(document).on("click", "#edit_penilaian", function() {
+        //     let absen = $(this).data('absen');
+        //     let status = $(this).data('status');
+        //     let graces = $(this).data('graces');
+        //     let date = $(this).data('date');
+        //     let ps = $(this).data('ps');
 
-            $(" #modal-edit #absen").val(absen);
-            $(" #modal-edit #status").val(status);
-            $(" #modal-edit #graces").val(graces);
-            $(" #modal-edit #date").val(date);
-            $(" #modal-edit #ps").val(ps);
+        //     $(" #modal-edit #absen").val(absen);
+        //     $(" #modal-edit #status").val(status);
+        //     $(" #modal-edit #graces").val(graces);
+        //     $(" #modal-edit #date").val(date);
+        //     $(" #modal-edit #ps").val(ps);
 
-        });
+        // });
     </script>
 </body>
 
