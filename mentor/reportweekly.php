@@ -197,7 +197,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $presensiWeekly = mysqli_fetch_array($presensi);
 
 
-                                                $totalpresensi = isset($presensiWeekly['presensi']);
+                                                $totalpresensi = $presensiWeekly['presensi'];
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                 $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
@@ -211,7 +211,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td><?= $row['name']; ?></td>
-                                                    <td><?= isset($presensiWeekly['presensi']) ? $presensiWeekly['presensi'] : ''; ?></td>
+                                                    <td><?= $presensiWeekly['presensi']; ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
@@ -221,14 +221,14 @@ $murid = mysqli_fetch_array($siswa);
 
                                                     <td></td>
                                                     <td><?= $totalsemua; ?></td>
-                                                    <td><?= isset($presensiWeekly['status']) ? $presensiWeekly['status'] : ''; ?></td>
+                                                    <td><?= $presensiWeekly['status']; ?></td>
                                                     <td>Week <?= $i; ?></td>
                                                     <td><?= $dari; ?></td>
-                                                    <td><?= isset($presensiWeekly['grace']) ? $presensiWeekly['grace'] : ''; ?>
-                                                        <?= isset($presensiWeekly['punisment']) ? $presensiWeekly['punisment'] : ''; ?>
+                                                    <td><?= $presensiWeekly['grace']; ?>
+                                                        <?= $presensiWeekly['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= !isset($presensiWeekly['presensi']); ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
+                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= $presensiWeekly['presensi']; ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     </td>
 
