@@ -229,7 +229,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                                     </td>
                                                     <td>Week <?= $i; ?></td>
-                                                    <td><?= $dari; ?></td>
+                                                    <td><?= $row['date']; ?></td>
                                                     <td>
                                                         <?= $row['grace']; ?>
                                                         <?= $row['punisment']; ?>
