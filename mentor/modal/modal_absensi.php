@@ -15,9 +15,10 @@
                      <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
 
                      <div class="form-group">
-                         <label for="text">Name :</label>
-                         <input type="text" class="form-control" id="name" readonly name="name">
+                         <label for="text">Date :</label>
+                         <input type="date" class="form-control" id="date" name="date">
                      </div>
+
                      <div class="form-group">
                          <label for="text">Presensi :</label>
                          <input type="text" class="form-control" id="presensi" name="presensi">

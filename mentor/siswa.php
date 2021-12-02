@@ -6,8 +6,8 @@ if (isset($_POST['input'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $efata = htmlspecialchars($_POST['efata']);
     $presensi = htmlspecialchars($_POST['presensi']);
-    $nama = htmlspecialchars($_POST['name']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`) VALUES ('$nis','$nama','$presensi','$efata')");
+    $date = htmlspecialchars($_POST['date']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `date`, `presensi`, `efata`) VALUES ('$nis','$date','$presensi','$efata')");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {
