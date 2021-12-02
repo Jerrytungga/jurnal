@@ -194,10 +194,10 @@ $murid = mysqli_fetch_array($siswa);
                                                 $living_handuk = mysqli_fetch_array($handuk);
 
 
-                                                $presensiWeekly = mysqli_fetch_assoc($presensi);
+                                                $presensiWeekly = mysqli_fetch_array($presensi);
 
 
-                                                $totalpresensi = $presensiWeekly['presensi'];
+                                                $totalpresensi = isset($presensiWeekly['presensi']) ? count($presensiWeekly['presensi']) : 0;
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                 $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
