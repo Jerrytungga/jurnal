@@ -214,8 +214,8 @@ $data = mysqli_fetch_array($siswa);
                                                     <td><?php
 
                                                         $Ab = $presensiWeekly['presensi'];
-                                                        if (isset($Ab)) {
-                                                            echo '$Ab';
+                                                        if ($Ab) {
+                                                            echo "$Ab";
                                                         }
 
                                                         //var_dump('$Ab');
