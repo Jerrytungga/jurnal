@@ -107,7 +107,7 @@ include 'template/head.php';
                     <!-- DataTales Rak sepatu -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <h6 class=" font-weight-bold text-danger ">Sepatu Or</h6>
+                            <h6 class=" font-weight-bold text-danger ">Sandal</h6>
                             <a href="" class="btn btn-danger" data-toggle="modal" data-target="#livingsendal">Input</a>
                         </div>
                         <div class="card-body">
