@@ -211,7 +211,16 @@ $data = mysqli_fetch_array($siswa);
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td><?= $row['name']; ?></td>
-                                                    <td><?= $presensiWeekly['presensi']; ?></td>
+                                                    <td><?php
+
+                                                        $Ab = $presensiWeekly['presensi'];
+                                                        if (isset($Ab)) {
+                                                            echo '$Ab';
+                                                        }
+
+                                                        //var_dump('$Ab');
+
+                                                        ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
