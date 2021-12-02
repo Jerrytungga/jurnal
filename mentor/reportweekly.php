@@ -22,9 +22,6 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $murid = mysqli_fetch_array($siswa);
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
