@@ -224,7 +224,7 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td><?= isset($presensiWeekly['status']); ?></td>
                                                     <td>Week <?= $i; ?></td>
                                                     <td><?= $dari; ?></td>
-                                                    <td><?= isset($presensiWeekly['grace']); ?>
+                                                    <td><?= isset($presensiWeekly['grace']) ? $presensiWeekly['grace'] : ''; ?>
                                                         <?= isset($presensiWeekly['punisment']); ?>
                                                     </td>
                                                     <td>
