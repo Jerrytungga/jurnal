@@ -72,7 +72,7 @@ $murid = mysqli_fetch_array($siswa);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="200">Name</th>
+                                            <th width="250">Name</th>
                                             <th>Presensi</th>
                                             <th>Jurnal Daily</th>
                                             <th>Jurnal Weekly</th>

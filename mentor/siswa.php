@@ -129,13 +129,12 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
                                                         RAK SEPATU & HANDUK
                                                     </a>
-                                                    <!-- <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
-                                                        RAK SEPATU & HANDUK
+
+                                                    <a href="livingranjang.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
+                                                        RANJANG
                                                     </a>
-                                                    <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
-                                                        RAK SEPATU & HANDUK
-                                                    </a>
- -->
+
+
 
                                                 </td>
 
