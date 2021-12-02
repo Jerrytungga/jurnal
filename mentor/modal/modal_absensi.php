@@ -16,7 +16,7 @@
 
                      <div class="form-group">
                          <label for="text">Name :</label>
-                         <input type="text" class="form-control" id="name" name="name">
+                         <input type="text" class="form-control" readonly id="name" name="name">
                      </div>
                      <div class="form-group">
                          <label for="text">Date :</label>

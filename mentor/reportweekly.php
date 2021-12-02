@@ -292,7 +292,7 @@ $murid = mysqli_fetch_array($siswa);
 
                         <div class="form-group">
                             <label for="text">Status :</label>
-                            <select class="form-control" name="status" id="status" aria-label="Default select example" required>
+                            <select class="form-control" name="status" id="status" aria-label="Default select example">
                                 <option value="">Select</option>
                                 <option value="Complate">Complate</option>
                                 <option value="Punishment">Punishment</option>
