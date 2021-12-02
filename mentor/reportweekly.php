@@ -21,7 +21,7 @@ session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
-$data = mysqli_fetch_array($siswa);
+$murid = mysqli_fetch_array($siswa);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +61,7 @@ $data = mysqli_fetch_array($siswa);
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $data['name']; ?></h1>
+                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $murid['name']; ?></h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
