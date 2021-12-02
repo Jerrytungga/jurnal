@@ -197,7 +197,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $presensiWeekly = mysqli_fetch_array($presensi);
 
 
-                                                $totalpresensi = isset($presensiWeekly['presensi']);
+                                                $totalpresensi = isset($presensiWeekly['presensi']) ? $presensiWeekly['presensi'] : '';
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                 $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
