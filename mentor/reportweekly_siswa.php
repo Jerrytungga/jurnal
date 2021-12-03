@@ -2,7 +2,7 @@
 include '../database.php';
 
 
-$nis = $_GET['nis'];
+
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
