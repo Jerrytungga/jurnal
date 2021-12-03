@@ -211,7 +211,7 @@ $tgl = $murida['tgl'];
                                                         <td>
                                                             <?= $row['name']; ?>
                                                         </td>
-                                                        <td><?= $presensi['presensi']; ?></td>
+                                                        <td><?= isset($presensi['presensi']); ?></td>
                                                         <td><?= $total; ?></td>
                                                         <td><?= $total_1; ?></td>
                                                         <td><?= $total_2; ?></td>
@@ -227,10 +227,10 @@ $tgl = $murida['tgl'];
 
                                                         </td>
                                                         <td>Week <?= $s; ?></td>
-                                                        <td><?= $presensi['date']; ?></td>
+                                                        <td><?= isset($presensi['date']); ?></td>
                                                         <td>
-                                                            <?= $presensi['grace']; ?>
-                                                            <?= $presensi['punisment']; ?>
+                                                            <?= isset($presensi['grace']); ?>
+                                                            <?= isset($presensi['punisment']); ?>
                                                         </td>
 
                                                     </tr>
