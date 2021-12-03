@@ -20,9 +20,8 @@ $nis = $_GET['nis'];
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
-$siswa = mysqli_query($conn, "SELECT * FROM siswa  a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
+$siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC");
 $murid = mysqli_fetch_array($siswa);
-$tgl = $murid['tgl'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +97,7 @@ $tgl = $murid['tgl'];
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
-                                        $dari = $tgl; // tanggal mulai
+                                        $dari = "2021-11-15"; // tanggal mulai
                                         $sampai = date('Y-m-d'); // tanggal akhir
 
                                         while (strtotime($dari) <= strtotime($sampai)) {
