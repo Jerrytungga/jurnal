@@ -223,7 +223,7 @@ $tgl = $murida['tgl'];
                                                         <td><?= $totalsemua; ?></td>
                                                         <td>
 
-                                                            <?= $presensi['status']; ?>
+                                                            <?= isset($presensi['status']); ?>
 
                                                         </td>
                                                         <td>Week <?= $s; ?></td>
