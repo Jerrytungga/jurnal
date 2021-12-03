@@ -92,7 +92,8 @@ $murid = mysqli_fetch_array($siswa);
                                     </thead>
 
                                     <tbody>
-                                        <?php $i = 1; ?>
+                                        <?php $i = 1;
+                                        $s = 1; ?>
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
@@ -162,6 +163,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                             $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
+                                            echo $s;
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
                                         ?>
@@ -228,7 +230,7 @@ $murid = mysqli_fetch_array($siswa);
                                                         <?= $row['status']; ?>
 
                                                     </td>
-                                                    <td>Week <?= $i; ?></td>
+                                                    <td>Week <?= $s; ?></td>
                                                     <td><?= $row['date']; ?></td>
                                                     <td>
                                                         <?= $row['grace']; ?>
@@ -243,6 +245,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                                 <?php $i++; ?>
                                         <?php endforeach;
+                                            $s++;
                                         } ?>
                                     </tbody>
                                 </table>
