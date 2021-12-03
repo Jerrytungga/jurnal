@@ -162,7 +162,7 @@ $tgl = $murida['tgl'];
                                                 $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
                                         ?>
-                                                <?php foreach ($siswa as $row) :
+                                                <?php foreach ($presensia as $row) :
                                                     $hari = $dari;
                                                     $presensi = mysqli_fetch_array($presensia);
                                                     $prayernote = mysqli_fetch_array($doa);
@@ -195,7 +195,7 @@ $tgl = $murida['tgl'];
 
 
 
-                                                    $totalpresensi = $presensi['presensi'];
+                                                    $totalpresensi = $row['presensi'];
                                                     $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                     $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
                                                     $totalpeniliansikap = $sikap['jumlah'] + $virtues['jumlah'] + $karakter['jumlah'];
@@ -209,9 +209,9 @@ $tgl = $murida['tgl'];
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $row['name']; ?>
+                                                            <?= $murid['name']; ?>
                                                         </td>
-                                                        <td><?= isset($presensi['presensi']); ?></td>
+                                                        <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
                                                         <td><?= $total_1; ?></td>
                                                         <td><?= $total_2; ?></td>
@@ -223,14 +223,14 @@ $tgl = $murida['tgl'];
                                                         <td><?= $totalsemua; ?></td>
                                                         <td>
 
-                                                            <?= isset($presensi['status']); ?>
+                                                            <?= $row['status']; ?>
 
                                                         </td>
                                                         <td>Week <?= $s; ?></td>
-                                                        <td><?= isset($presensi['date']); ?></td>
+                                                        <td><?= $row['date']; ?></td>
                                                         <td>
-                                                            <?= isset($presensi['grace']); ?>
-                                                            <?= isset($presensi['punisment']); ?>
+                                                            <?= $row['grace']; ?>
+                                                            <?= $row['punisment']; ?>
                                                         </td>
 
                                                     </tr>
