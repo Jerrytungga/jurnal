@@ -20,5 +20,12 @@
           paging: true
         });
 
+
+      });
+
+      $(document).on("click", "#editpenilaian", function() {
+        let foto = $(this).data('foto');
+        $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
+
       });
     </script>
