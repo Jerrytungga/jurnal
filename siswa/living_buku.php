@@ -86,9 +86,7 @@ include 'template/head.php'
                                                     $gambar = $row["image"];
                                                     if ($gambar) { ?>
 
-                                                        <!-- <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
-                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
-                                                        </button> -->
+
 
                                                         <a id="editpenilaian" type="button" data-foto="<?= $row['image']; ?>" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
                                                             <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
