@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body modal-responsive">
         <center>
-          <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-thumbnail" alt="Cinque Terre" width="604px" height="536px">
+          <img src="../img/penilaian/<?= $row["image"]; ?>" id="foto" class="img-thumbnail" alt="Cinque Terre" width="604px" height="536px">
         </center>
       </div>
       <div class="modal-footer">
