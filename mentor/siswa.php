@@ -130,7 +130,7 @@ $s = mysqli_fetch_array($siswa);
                                                         RAK SEPATU & HANDUK
                                                     </a>
 
-                                                    <a href="livingranjang.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
+                                                    <a href="living_ranjang.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
                                                         RANJANG
                                                     </a>
 

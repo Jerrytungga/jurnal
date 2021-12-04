@@ -1,42 +1,21 @@
 <?php
-include '../../database.php';
+include '../database.php';
+
 session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if ($_SESSION['role'] !== "Mentor") {
-    echo "<script type='text/javascript'>
-    alert('Anda harus login terlebih dahulu!');
-    window.location = '../../index.php'
-</script>";
-} else {
-    $id = $_SESSION['id_mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
-}
+include 'template/session.php';
+//menampilkan data siswa
+$nis = $_GET['nis'];
+$siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
+$nama = $siswa2['name'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<?php
+include 'template/head.php';
+?>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Penilaian</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-</head>
 
 <body id="page-top">
 
@@ -44,76 +23,9 @@ if ($_SESSION['role'] !== "Mentor") {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-bible"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Jurnal PKA</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="../index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface Mentor
-            </div>
-
-            <!-- Nav Item - Profile -->
-            <li class="nav-item">
-                <a class="nav-link" href="../profile.php">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>My Profile</span></a>
-            </li>
-
-            <!-- Nav Item - Siswa -->
-            <li class="nav-item active">
-                <a class="nav-link" href="../siswa.php">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Siswa</span></a>
-            </li>
-
-
-            <!-- Nav Item - final report -->
-            <li class="nav-item">
-                <a class="nav-link" href="../reportweekly.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Report Weekly</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Log Out -->
-            <li class="nav-item">
-                <a class="nav-link" href="../../logout.php">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log Out</span></a>
-            </li>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <?php
+        include 'template/sidebar_menu.php';
+        ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -123,38 +35,9 @@ if ($_SESSION['role'] !== "Mentor") {
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <h6 class="font-weight-bold text-danger">Anda Login Sebagai <?php echo $_SESSION['role']; ?></h6>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-3 d-none d-lg-inline text-gray-600 small"><?php echo $data['name']; ?> </span>
-                                <img class="img-profile rounded-circle" src="../../img/fotosiswa/<?php echo $data['image']; ?>">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
-                                <a class="dropdown-item" href="../../logout.php" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
+                <?php
+                include 'template/topbar_menu.php';
+                ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -163,11 +46,10 @@ if ($_SESSION['role'] !== "Mentor") {
 
                         <div class="group">
                             <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING RANJANG</h1>
-                            <a href="livingranjang.php" type="button" class="btn btn-outline-primary mt-2">Bantal</a>
-                            <a href="livingseprei.php" type="button" class="btn btn-outline-success mt-2">Seprei</a>
-                            <a href="livingselimut.php" type="button" class="btn btn-outline-warning mt-2">Selimut</a>
-                            <a href="living_ranjang.php" type="button" class="btn btn-outline-danger active mt-2">Ranjang</a>
-
+                            <a href="livingranjang.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Bantal</a>
+                            <a href="livingseprei.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Seprei</a>
+                            <a href="livingselimut.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Selimut</a>
+                            <a href="living_ranjang.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-danger active mt-2">Ranjang</a>
 
                         </div>
                     </div>
@@ -180,15 +62,15 @@ if ($_SESSION['role'] !== "Mentor") {
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
+                                        <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th>Jarak</th>
                                             <th>Posisi</th>
                                             <th>Rapi</th>
                                             <th>Bersih</th>
-                                            <th>Raib</th>
-                                            <th>Catatan Mentor</th>
+                                            <th>Benda Asing</th>
                                             <th>foto</th>
+                                            <th>Catatan Mentor</th>
                                             <th>Date</th>
                                             <th>Option</th>
 
@@ -236,13 +118,9 @@ if ($_SESSION['role'] !== "Mentor") {
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Jurnal PKA &copy; 2021 by Flats 41</span>
-                    </div>
-                </div>
-            </footer>
+            <?php
+            include 'template/footer_menu.php';
+            ?>
             <!-- End of Footer -->
 
         </div>
@@ -356,40 +234,46 @@ if ($_SESSION['role'] !== "Mentor") {
 
 
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../../logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    include 'modal/modal_logout.php';
+    include 'template/script.php';
+    ?>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
-    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                scrollY: 800,
+                scrollX: true,
+                scrollCollapse: true,
+                paging: true
+            });
+        });
 
-    <!-- Core plugin JavaScript-->
-    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+        // $(document).on("click", "#editpenilaian", function() {
 
-    <!-- Custom scripts for all pages-->
-    <script src="../../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        //     let nis = $(this).data('nis');
+        //     let efata = $(this).data('efata');
+        //     let posisi = $(this).data('posisi');
+        //     let rapi = $(this).data('rapi');
+        //     let bersih = $(this).data('bersih');
+        //     let raib = $(this).data('raib');
+        //     let foto = $(this).data('foto');
+        //     let date = $(this).data('date');
+        //     let brngasing = $(this).data('brngasing');
+        //     let catatan = $(this).data('cttn');
+        //     $(" #modal-edit #nis").val(nis);
+        //     $(" #modal-edit #efata").val(efata);
+        //     $(" #modal-edit #posisi").val(posisi);
+        //     $(" #modal-edit #rapi").val(rapi);
+        //     $(" #modal-edit #bersih").val(bersih);
+        //     $(" #modal-edit #brngasing").val(brngasing);
+        //     $(" #modal-edit #date").val(date);
+        //     $(" #modal-edit #raib").val(raib);
+        //     $(" #modal-edit #catatan").val(catatan);
+        //     $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
 
-    <!-- Page level custom scripts -->
-    <script src="../../js/demo/datatables-demo.js"></script>
+        // });
+    </script>
 
 </body>
 
