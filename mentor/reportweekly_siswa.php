@@ -85,10 +85,9 @@ $tgl = $murida['tgl'];
                                         while ($murid2 = mysqli_fetch_array($siswaa)) {
                                             $nis = $murid2['nis'];
                                             $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY date DESC");
-                                            $murid = mysqli_fetch_array($siswa);
+                                            $murid = mysqli_fetch_array($siswaa);
 
-                                            // $dari = $tgl; // tanggal mulai
-                                            $dari = "2021-11-15"; // tanggal mulai
+                                            $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
                                             $s = 1;
                                             // }
@@ -223,7 +222,7 @@ $tgl = $murida['tgl'];
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $row['name']; ?>
+                                                            <?= $murid['name']; ?>
                                                         </td>
                                                         <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
