@@ -315,7 +315,7 @@ $murid = mysqli_fetch_array($siswa);
                             <label for="text">Status :</label>
                             <select class="form-control" name="status" id="status" aria-label="Default select example">
                                 <option value="">Select</option>
-                                <option value="Complate">Complate</option>
+                                <option value="Complete">Complete</option>
                                 <option value="Punishment">Punishment</option>
                                 <option value="Grace">Grace</option>
                                 <option value="Reward">Reward</option>
