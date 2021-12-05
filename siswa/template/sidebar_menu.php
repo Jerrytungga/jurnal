@@ -62,8 +62,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">kategori:</h6>
                 <a class="collapse-item" href="living_buku.php">Lemari</a>
-                <!-- <a class="collapse-item" href="living_pakaianlipat.php">Rak Sepatu & Handuk</a>
-                <a class="collapse-item" href="#">Ranjang</a> -->
+                <a class="collapse-item" href="livingraksepatudanhanduk.php">Rak Sepatu & Handuk</a>
+                <a class="collapse-item" href="living_ranjang.php">Ranjang</a>
 
             </div>
         </div>
