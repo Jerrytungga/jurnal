@@ -155,6 +155,16 @@ include 'template/head.php'
 
                                             $handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
+                                            // living ranjang
+                                            $ranjang = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_ranjang WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            $bantal = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_bantal WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            $seprei = mysqli_query($conn, "SELECT SUM(`rapi`)+SUM(`raib`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_seprei WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+                                            $selimut = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_selimut WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
+
                                             $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
@@ -188,11 +198,16 @@ include 'template/head.php'
                                                 $living_sandal = mysqli_fetch_array($sandal);
                                                 $living_rakhanduk = mysqli_fetch_array($rakhanduk);
                                                 $living_handuk = mysqli_fetch_array($handuk);
+                                                // living ranjang
+                                                $living_ranjang = mysqli_fetch_array($ranjang);
+                                                $living_bantal = mysqli_fetch_array($bantal);
+                                                $living_seprei = mysqli_fetch_array($seprei);
+                                                $living_selimut = mysqli_fetch_array($selimut);
+
 
                                                 $presensiWeekly = mysqli_fetch_array($presensi);
 
-
-
+                                                $total_living_ranjang = $living_ranjang['jumlah'] + $living_bantal['jumlah'] + $living_seprei['jumlah'] + $living_selimut['jumlah'];
                                                 $totalpresensi = $row['presensi'];
                                                 $total_livingraksepatudanhanduk = $living_raksepatu['jumlah'] + $living_sepatusidang['jumlah'] + $living_sepatuor['jumlah'] + $living_sandal['jumlah'] + $living_rakhanduk['jumlah'] + $living_handuk['jumlah'];
                                                 $total_livinglemari = $living_buku['jumlah'] + $living_pakaianlipat['jumlah'] + $living_pakaiangantung['jumlah']  + $living_celana['jumlah'] + $living_logistik['jumlah'] + $living_pakaiandalam['jumlah'];
@@ -201,7 +216,7 @@ include 'template/head.php'
                                                 $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
-                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $totalpresensi
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $totalpresensi + $total_living_ranjang
 
                                             ?>
                                                 <tr>
@@ -217,7 +232,7 @@ include 'template/head.php'
                                                     <td><?= $total_livinglemari; ?></td>
                                                     <td><?= $total_livingraksepatudanhanduk; ?></td>
 
-                                                    <td></td>
+                                                    <td><?= $total_living_ranjang; ?></td>
                                                     <td><?= $totalsemua; ?></td>
                                                     <td>
 
