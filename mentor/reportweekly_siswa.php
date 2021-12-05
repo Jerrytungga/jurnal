@@ -84,7 +84,7 @@ $tgl = $murida['tgl'];
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
                                         while ($murid2 = mysqli_fetch_array($siswaa)) {
                                             $nis = $murid2['nis'];
-                                            $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' ORDER BY date DESC");
+                                            $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY date DESC");
                                             $murid = mysqli_fetch_array($siswa);
 
                                             $dari = $tgl; // tanggal mulai
@@ -222,7 +222,7 @@ $tgl = $murida['tgl'];
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $murida['name']; ?>
+                                                            <?= $murid['name']; ?>
                                                         </td>
                                                         <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
