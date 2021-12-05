@@ -25,6 +25,17 @@ if (isset($_POST['perubahan'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
     }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['id']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_catatan`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 include 'template/session.php';
@@ -110,6 +121,10 @@ include 'template/head.php'
                                                     <!-- Get data Siswa -->
                                                     <a id="edit_catatan" data-toggle="modal" data-target="#edit" data-judul="<?= $row["judul"]; ?>" data-deskripsi="<?= $row["deskripsi"]; ?>" data-id="<?= $row["id_catatan"]; ?>">
                                                         <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+
+                                                    <button type="button" id="edit_catatan" class="btn btn-danger" data-date="<?= $row["date"]; ?>" data-id="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>
@@ -150,9 +165,12 @@ include 'template/head.php'
             let judul = $(this).data('judul');
             let deskripsi = $(this).data('deskripsi');
             let id = $(this).data('id');
+            let date = $(this).data('date');
             $(" #modal-edit #judul").val(judul);
             $(" #modal-edit #deskripsi").val(deskripsi);
             $(" #modal-edit #id").val(id);
+            $(" #modal-hapus #id").val(id);
+            $(" #modal-hapus #date").val(date);
 
         });
     </script>

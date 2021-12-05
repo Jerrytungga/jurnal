@@ -19,6 +19,18 @@ if (isset($_POST['btn_bible'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_bible_reading`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 session_start();
 include 'template/session.php';
 
@@ -159,10 +171,24 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan_mentor']; ?></a></td>
                                                 <td>
-                                                    <!-- Get data personal siswa -->
-                                                    <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                            <!-- Get data personal siswa -->
+                                                            <a id="edit_bible" data-toggle="modal" data-target="#biblereading" data-bible="<?= $row["bible"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-nis="<?= $row["nis"]; ?>" data-ot="<?= $row["total_ot"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" data-nt="<?= $row["total_nt"]; ?>" class="dropdown-item">
+                                                                Edit</a>
+
+                                                            <a type="button" id="edit_bible" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </td>
+
                                             </tr>
                                             <?php
                                             $total = $total + $row['point'] + $row['point1'] + $row['point2']; ?>
@@ -232,6 +258,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #point2").val(point2);
             $(" #modal-edit #catatan4").val(catatan4);
             $(" #modal-edit #date").val(date);
+            $(" #modal-hapus #date").val(date);
+            $(" #modal-hapus #nis").val(nis);
 
         });
     </script>

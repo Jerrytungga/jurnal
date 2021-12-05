@@ -17,6 +17,19 @@ if (isset($_POST['btn_exhibition'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
+
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_exhibition`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
@@ -166,14 +179,28 @@ if (isset($_POST['reset'])) {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <!-- Button trigger modal view -->
-                                                    <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>" data-ctg="<?= $row['category']; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    <!-- Get data jurnal weekly-->
-                                                    <a id="edit_exhibition" data-toggle="modal" data-target="#exhibition" data-verse1="<?= $row["verse"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-pointblessing="<?= $row["point_of_blessing"]; ?>" data-category="<?= $row["category"]; ?>" data-catatan3="<?= $row["catatan_mentor"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+
+                                                            <!-- Button trigger modal view -->
+                                                            <a type="button" id="detail" class="dropdown-item " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-pointblessings="<?= $row['point_of_blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>" data-ctg="<?= $row['category']; ?>">
+                                                                View more
+                                                            </a>
+                                                            <!-- Get data jurnal weekly-->
+                                                            <a id="edit_exhibition" data-toggle="modal" data-target="#exhibition" data-verse1="<?= $row["verse"]; ?>" data-date="<?= $row["date"]; ?>" data-point="<?= $row["point"]; ?>" data-nis="<?= $row["nis"]; ?>" data-pointblessing="<?= $row["point_of_blessing"]; ?>" data-category="<?= $row["category"]; ?>" data-catatan3="<?= $row["catatan_mentor"]; ?>" class="dropdown-item">
+                                                                Edit</a>
+
+                                                            <a type="button" id="edit_exhibition" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php
@@ -255,6 +282,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #point").val(point);
             $(" #modal-edit #catatan2").val(catatan2);
             $(" #modal-edit #date").val(date);
+            $(" #modal-hapus #date").val(date);
+            $(" #modal-hapus #nis").val(nis);
         });
     </script>
 

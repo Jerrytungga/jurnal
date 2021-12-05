@@ -17,6 +17,18 @@ if (isset($_POST['btn_prayernote'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_prayer_note`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
@@ -166,14 +178,28 @@ if (isset($_POST['reset'])) {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" id="detail" class="btn btn-dark" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-category="<?= $row['kategori']; ?>" data-inward="<?= $row['burden_inward_sense']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-                                                    <!-- Get data personal siswa -->
-                                                    <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-point="<?= $row['point']; ?>" data-point1="<?= $row['point1']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                            <!-- Button trigger modal -->
+                                                            <a type="button" id="detail" class="dropdown-item" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-category="<?= $row['kategori']; ?>" data-inward="<?= $row['burden_inward_sense']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                                View more
+                                                            </a>
+
+                                                            <!-- Get data personal siswa -->
+                                                            <a id="edit_prayer_note" data-toggle="modal" data-target="#prayer_note" data-judul="<?= $row["kategori"]; ?>" data-point="<?= $row['point']; ?>" data-point1="<?= $row['point1']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-beban="<?= $row["burden_inward_sense"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="edit_prayer_note" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                             <?php
@@ -251,6 +277,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #date").val(date);
             $(" #modal-edit #point").val(point);
             $(" #modal-edit #point1").val(point1);
+            $(" #modal-hapus #nis").val(nis);
+            $(" #modal-hapus #date").val(date);
 
         });
     </script>

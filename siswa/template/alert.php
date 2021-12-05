@@ -46,4 +46,28 @@
       })
     </script>
   <?php
-  } ?>
+  } else if (isset($notifdelete)) { ?>
+
+    <script>
+      Swal.fire({
+        position: 'top-end',
+        size: '20px',
+        icon: 'success',
+        title: '<?php echo $notifdelete; ?>',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    </script>
+
+  <?php } else if (isset($notifgagal)) { ?>
+
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: '<?php echo $notifgagal; ?>',
+
+      })
+    </script>
+
+  <?php } ?>

@@ -18,6 +18,19 @@ if (isset($_POST['btn_revivalnote'])) {
     }
 }
 
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_revival_note`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
+
+
 session_start();
 // // cek apakah yang mengakses halaman ini sudah login
 include 'template/session.php';
@@ -166,15 +179,34 @@ if (isset($_POST['reset'])) {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <!-- Button view detail revival note -->
-                                                    <button type="button" id="detail" class="btn btn-dark" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-blessings="<?= $row['blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
 
-                                                    <!-- Get data revival note  siswa -->
-                                                    <a id="edit_revival_note" data-toggle="modal" data-target="#revival_note" data-vrs="<?= $row["verse"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-date="<?= $row["date"]; ?>" data-blgs="<?= $row["blessing"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                            <!-- Button view detail revival note -->
+                                                            <a type="button" id="detail" class="dropdown-item" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-verse="<?= $row['verse']; ?>" data-blessings="<?= $row['blessing']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
+                                                                View more
+                                                            </a>
+
+
+                                                            <!-- Get data revival note  siswa -->
+                                                            <a id="edit_revival_note" data-toggle="modal" data-target="#revival_note" data-vrs="<?= $row["verse"]; ?>" data-nis="<?= $row["nis"]; ?>" data-point1="<?= $row["point1"]; ?>" data-point2="<?= $row["point2"]; ?>" data-date="<?= $row["date"]; ?>" data-blgs="<?= $row["blessing"]; ?>" data-catatan="<?= $row["catatan_mentor"]; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="edit_revival_note" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+
+
+
                                                 </td>
                                             </tr>
                                             <?php
@@ -235,6 +267,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #point2").val(point2);
             $(" #modal-edit #date").val(date);
             $(" #modal-edit #mentor").val(mentor);
+            $(" #modal-hapus #date").val(date);
+            $(" #modal-hapus #nis").val(nis);
 
         });
         $(document).on("click", "#detail", function() {
