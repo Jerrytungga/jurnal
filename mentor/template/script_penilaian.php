@@ -25,6 +25,7 @@
       let efata = $(this).data('efata');
       let jarak = $(this).data('jarak');
       let posisi = $(this).data('posisi');
+      let bentuk = $(this).data('bentuk');
       let tinggirendah = $(this).data('tinggirendah');
       let rapi = $(this).data('rapi');
       let bersih = $(this).data('bersih');
@@ -34,6 +35,7 @@
       let brngasing = $(this).data('brngasing');
       let catatan = $(this).data('cttn');
       $(" #modal-edit #nis").val(nis);
+      $(" #modal-edit #bentuk").val(bentuk);
       $(" #modal-edit #efata").val(efata);
       $(" #modal-edit #jarak").val(jarak);
       $(" #modal-edit #posisi").val(posisi);

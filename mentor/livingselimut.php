@@ -1,42 +1,82 @@
 <?php
-include '../../database.php';
-session_start();
-// // cek apakah yang mengakses halaman ini sudah login
-if ($_SESSION['role'] !== "Mentor") {
-    echo "<script type='text/javascript'>
-    alert('Anda harus login terlebih dahulu!');
-    window.location = '../../index.php'
-</script>";
-} else {
-    $id = $_SESSION['id_mentor'];
-    $get_data = mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$id'");
-    $data = mysqli_fetch_array($get_data);
+include '../database.php';
+if (isset($_POST['btn_input'])) {
+    $sumber = $_FILES['image']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['image']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $bt = htmlspecialchars($_POST['bentuk']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $brs = htmlspecialchars($_POST['brngasing']);
+    $notes = htmlspecialchars($_POST['cttn']);
+    $efata = htmlspecialchars($_POST['efata']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$nama_gambar','$notes','$efata') ORDER BY date DESC");
+            if ($input) {
+                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            } else {
+                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            }
+        }
+    } else {
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$notes','$efata') ORDER BY date DESC");
+        if ($input) {
+            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+        } else {
+            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+        }
+    }
 }
+
+if (isset($_POST['btn_update'])) {
+    $sumber = $_FILES['foto']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['foto']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $bt = htmlspecialchars($_POST['bentuk']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $brs = htmlspecialchars($_POST['brngasing']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $date = htmlspecialchars($_POST['date']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ORDER BY date DESC");
+            if ($edit) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            } else {
+                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            }
+        }
+    } else {
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ORDER BY date DESC");
+        if ($edit) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        }
+    }
+}
+session_start();
+include 'template/session.php';
+//menampilkan data siswa
+$nis = $_GET['nis'];
+$siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
+$nama = $siswa2['name'];
+$penilaian = mysqli_query($conn, "SELECT * FROM tb_living_selimut WHERE nis='$nis' ORDER BY date DESC");
+$nilai = mysqli_fetch_array($penilaian);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Penilaian</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-</head>
+<?php
+include 'template/head.php';
+?>
 
 <body id="page-top">
 
@@ -44,76 +84,9 @@ if ($_SESSION['role'] !== "Mentor") {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-bible"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Jurnal PKA</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="../index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface Mentor
-            </div>
-
-            <!-- Nav Item - Profile -->
-            <li class="nav-item">
-                <a class="nav-link" href="../profile.php">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>My Profile</span></a>
-            </li>
-
-            <!-- Nav Item - Siswa -->
-            <li class="nav-item active">
-                <a class="nav-link" href="../siswa.php">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Siswa</span></a>
-            </li>
-
-
-            <!-- Nav Item - final report -->
-            <li class="nav-item">
-                <a class="nav-link" href="../reportweekly.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Report Weekly</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Log Out -->
-            <li class="nav-item">
-                <a class="nav-link" href="../../logout.php">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log Out</span></a>
-            </li>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <?php
+        include 'template/sidebar_menu.php';
+        ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -123,103 +96,85 @@ if ($_SESSION['role'] !== "Mentor") {
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <h6 class="font-weight-bold text-danger">Anda Login Sebagai <?php echo $_SESSION['role']; ?></h6>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-3 d-none d-lg-inline text-gray-600 small"><?php echo $data['name']; ?> </span>
-                                <img class="img-profile rounded-circle" src="../../img/fotosiswa/<?php echo $data['image']; ?>">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
-                                <a class="dropdown-item" href="../../logout.php" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
+                <?php
+                include 'template/topbar_menu.php';
+                ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING RANJANG</h1>
-                            <a href="livingranjang.php" type="button" class="btn btn-outline-primary mt-2">Bantal</a>
-                            <a href="livingseprei.php" type="button" class="btn btn-outline-success mt-2">Seprei</a>
-                            <a href="livingselimut.php" type="button" class="btn btn-outline-warning active mt-2">Selimut</a>
-                            <a href="living_ranjang.php" type="button" class="btn btn-outline-danger mt-2">Ranjang</a>
-
-
-                        </div>
-                    </div>
+                    <?php
+                    include 'template/menu_living_ranjang.php'
+                    ?>
                     <!-- DataTales Rak sepatu -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
+                            <h6 class=" font-weight-bold text-warning">Selimut</h6>
                             <a href="" class="btn btn-warning" data-toggle="modal" data-target="#livingselimut">Input</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
+                                        <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Jarak</th>
-                                            <th>Posisi</th>
-                                            <th>Bentuk</th>
-                                            <th>Rapi</th>
-                                            <th>Bersih</th>
-                                            <th>Raib</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th width="30">Jarak</th>
+                                            <th width="30">Posisi</th>
+                                            <th width="30">Bentuk</th>
+                                            <th width="30">Bersih</th>
+                                            <th width="100">Benda Asing</th>
+                                            <th width="150">foto</th>
+                                            <th width="200">Catatan Mentor</th>
+                                            <th width="100">Date</th>
+                                            <th width="150">Option</th>
 
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
+                                        <?php foreach ($penilaian as $row) : ?>
+                                            <tr>
+                                                <td> <?= $i; ?></td>
+                                                <td><?= $row['jarak']; ?></td>
+                                                <td><?= $row['posisi']; ?></td>
+                                                <td><?= $row['bentuk']; ?></td>
+                                                <td><?= $row['bersih']; ?></td>
+                                                <td><?= $row['benda_asing']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $gambar = $row["image"];
+                                                    if ($gambar) { ?>
 
+                                                        <a id="editpenilaian" type="button" data-foto="<?= $row['image']; ?>" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
+                                                        </a>
 
-                                            <td>
+                                                    <?php }
 
-                                                <button type="button" class="btn btn-success form-group">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger form-group">
-                                                    Delete
-                                                </button>
-                                            </td>
+                                                    ?>
+                                                </td>
+                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
+                                                <td><?= $row['date']; ?></td>
+                                                <td>
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-brngasing="<?= $row['benda_asing']; ?>" data-jarak="<?= $row['jarak']; ?>" data-bentuk="<?= $row['bentuk']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
+                                                    </a>
 
-                                        </tr>
+                                                </td>
 
+                                            </tr>
+                                            <?php
+                                            $total = $total + $row['posisi'] + $row['jarak'] + $row['bersih'] + $row['bentuk'] + $row['benda_asing']; ?>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
-
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -233,13 +188,9 @@ if ($_SESSION['role'] !== "Mentor") {
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Jurnal PKA &copy; 2021 by Flats 41</span>
-                    </div>
-                </div>
-            </footer>
+            <?php
+            include 'template/footer_menu.php';
+            ?>
             <!-- End of Footer -->
 
         </div>
@@ -250,12 +201,12 @@ if ($_SESSION['role'] !== "Mentor") {
 
 
 
-    <!-- Modal living ranjang/seprei-->
+    <!-- Modal living selimut-->
     <div class="modal fade" id="livingselimut" tabindex="-1" aria-labelledby="livingselimut" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold" id="livingselimut">Selimut</h5>
+                    <h5 class="modal-title font-weight-bold" id="livingselimut">Living Selimut</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -264,72 +215,193 @@ if ($_SESSION['role'] !== "Mentor") {
 
 
                 <!-- bungkus untuk form inputan -->
-                <form action="post" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <h5 class="text-reset">Jarak</h5>
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
+                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <label class="text-reset">Jarak</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="jarak" aria-label="Default select example">
                                 <option selected>Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Posisi</h5>
+
+                        <label class="text-reset">Posisi</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="posisi" aria-label="Default select example">
                                 <option selected>Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Bentuk</h5>
+
+                        <label class="text-reset">Bentuk</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="bentuk" aria-label="Default select example">
                                 <option selected>Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Rapi</h5>
+
+
+                        <label class="text-reset">Bersih</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="bersih" aria-label="Default select example">
                                 <option selected>Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Bersih</h5>
+                        <label>Benda asing </label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="brngasing" aria-label="Default select example">
                                 <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                                <option value="-3">-3</option>
+                                <option value="-4">-4</option>
+                                <option value="-5">-5</option>
+                                <option value="-6">-6</option>
+                                <option value="-7">-7</option>
+                                <option value="-8">-8</option>
+                                <option value="-9">-9</option>
+                                <option value="-10">-10</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Raib</h5>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
+                            <label for="exampleFormControlFile1">Foto</label>
+                            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
                         </div>
 
+                        <div class="form-group">
+                            <label>Mentor Notes </label>
+                            <textarea rows="5" type="text" class="form-control" id="cttn" name="cttn"></textarea>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning ">Submit</button>
+                        <button type="submit" name="btn_input" class="btn btn-warning ">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Edit Living Selimut-->
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="livingselimut" aria-hidden="true">
+        <div class="modal-dialog" id="modal-edit">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold" id="livingselimut">Change Living Selimut</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+
+                <!-- bungkus untuk form inputan -->
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
+                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <input type="hidden" class="form-control" id="date" name="date">
+                        <label class="text-reset">Jarak</label>
+                        <div class="form-group">
+                            <select class="form-control" id="jarak" name="jarak" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+                        <label class="text-reset">Posisi</label>
+                        <div class="form-group">
+                            <select class="form-control" id="posisi" name="posisi" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+                        <label class="text-reset">Bentuk</label>
+                        <div class="form-group">
+                            <select class="form-control" id="bentuk" name="bentuk" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+
+                        <label class="text-reset">Bersih</label>
+                        <div class="form-group">
+                            <select class="form-control" id="bersih" name="bersih" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+                        <label>Benda asing </label>
+                        <div class="form-group">
+                            <select class="form-control" id="brngasing" name="brngasing" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                                <option value="-3">-3</option>
+                                <option value="-4">-4</option>
+                                <option value="-5">-5</option>
+                                <option value="-6">-6</option>
+                                <option value="-7">-7</option>
+                                <option value="-8">-8</option>
+                                <option value="-9">-9</option>
+                                <option value="-10">-10</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Foto</label>
+                            <div class="padding-bottom:5px">
+                                <img src="" width="250px" id="foto">
+                            </div>
+                            <input type="file" name="foto" class="form-control-file mt-2" id="foto">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mentor Notes </label>
+                            <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="btn_update" class="btn btn-warning ">update</button>
                     </div>
                 </form>
 
@@ -341,40 +413,12 @@ if ($_SESSION['role'] !== "Mentor") {
 
 
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../../logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
-    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../js/demo/datatables-demo.js"></script>
+    <?php
+    include 'modal/modal_logout.php';
+    include 'template/script_penilaian.php';
+    include 'template/alert.php';
+    include 'modal/modal_foto.php';
+    ?>
 
 </body>
 

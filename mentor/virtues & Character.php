@@ -116,17 +116,13 @@ if (isset($_POST['reset'])) {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">My Virtues & Character <?= $siswa2['name']; ?></h1>
-                            <a href="virtues & Character.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active mt-2">My Virtues & Character</a>
-                            <a href="virtues.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Virtues</a>
-                            <a href="character.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning  mt-2">Character</a>
-                        </div>
-                    </div>
+                    <?php
+                    include 'template/menu_living_character_virtues.php'
+                    ?>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
+                            <h6 class=" font-weight-bold text-primary">Character And Virtues</h6>
                             <a href="" class="btn btn-primary text-right mt-2" data-toggle="modal" data-target="#virtuesdancharacter">Input</a>
                             <div class="row mt-2">
                                 <div class="col">

@@ -1,12 +1,72 @@
 <?php
 include '../database.php';
-
+if (isset($_POST['btn_input'])) {
+    $sumber = $_FILES['image']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['image']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $brs = htmlspecialchars($_POST['brngasing']);
+    $notes = htmlspecialchars($_POST['cttn']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$br','$brs','$nama_gambar','$notes','$efata') ORDER BY date DESC ");
+            if ($input) {
+                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            } else {
+                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            }
+        }
+    } else {
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$br','$brs','$notes','$efata') ORDER BY date DESC ");
+        if ($input) {
+            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+        } else {
+            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+        }
+    }
+}
+if (isset($_POST['btn_update'])) {
+    $sumber = $_FILES['foto']['tmp_name'];
+    $target = '../img/penilaian/';
+    $nama_gambar = $_FILES['foto']['name'];
+    $nis = htmlspecialchars($_POST['nis']);
+    $efata = htmlspecialchars($_POST['efata']);
+    $pss = htmlspecialchars($_POST['posisi']);
+    $jrk = htmlspecialchars($_POST['jarak']);
+    $br = htmlspecialchars($_POST['bersih']);
+    $brs = htmlspecialchars($_POST['brngasing']);
+    $notes = htmlspecialchars($_POST['catatan']);
+    $date = htmlspecialchars($_POST['date']);
+    if ($nama_gambar != '') {
+        if (move_uploaded_file($sumber, $target . $nama_gambar)) {
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ORDER BY date DESC ");
+            if ($edit) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            } else {
+                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            }
+        }
+    } else {
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ORDER BY date DESC ");
+        if ($edit) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        }
+    }
+}
 session_start();
 include 'template/session.php';
 //menampilkan data siswa
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+$penilaian = mysqli_query($conn, "SELECT * FROM tb_living_ranjang WHERE nis='$nis' ORDER BY date DESC");
+$nilai = mysqli_fetch_array($penilaian);
 
 ?>
 <!DOCTYPE html>
@@ -42,20 +102,13 @@ include 'template/head.php';
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING RANJANG</h1>
-                            <a href="livingranjang.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary mt-2">Bantal</a>
-                            <a href="livingseprei.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-success mt-2">Seprei</a>
-                            <a href="livingselimut.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-warning mt-2">Selimut</a>
-                            <a href="living_ranjang.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-danger active mt-2">Ranjang</a>
-
-                        </div>
-                    </div>
+                    <?php
+                    include 'template/menu_living_ranjang.php'
+                    ?>
                     <!-- DataTales Rak sepatu -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
+                            <h6 class=" font-weight-bold text-danger">Ranjang</h6>
                             <a href="" class="btn btn-danger" data-toggle="modal" data-target="#ranjang">Input</a>
                         </div>
                         <div class="card-body">
@@ -64,47 +117,61 @@ include 'template/head.php';
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Jarak</th>
-                                            <th>Posisi</th>
-                                            <th>Rapi</th>
-                                            <th>Bersih</th>
-                                            <th>Benda Asing</th>
-                                            <th>foto</th>
-                                            <th>Catatan Mentor</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th width="30">Jarak</th>
+                                            <th width="30">Posisi</th>
+                                            <th width="30">Bersih</th>
+                                            <th width="100">Benda Asing</th>
+                                            <th width="150">foto</th>
+                                            <th width="200">Catatan Mentor</th>
+                                            <th width="100">Date</th>
+                                            <th width="150">Option</th>
 
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <?php $i = 1;
+                                        $total = 0;
+                                        ?>
+                                        <?php foreach ($penilaian as $row) : ?>
+                                            <tr>
+                                                <td> <?= $i; ?></td>
+                                                <td><?= $row['jarak']; ?></td>
+                                                <td><?= $row['posisi']; ?></td>
+                                                <td><?= $row['bersih']; ?></td>
+                                                <td><?= $row['benda_asing']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $gambar = $row["image"];
+                                                    if ($gambar) { ?>
 
+                                                        <a id="editpenilaian" type="button" data-foto="<?= $row['image']; ?>" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                            <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
+                                                        </a>
 
+                                                    <?php }
 
-                                            <td>
+                                                    ?>
+                                                </td>
+                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
+                                                <td><?= $row['date']; ?></td>
+                                                <td>
+                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-brngasing="<?= $row['benda_asing']; ?>" data-jarak="<?= $row['jarak']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
+                                                    </a>
 
-                                                <button type="button" class="btn btn-success form-group">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger form-group">
-                                                    Delete
-                                                </button>
-                                            </td>
+                                                </td>
 
-                                        </tr>
-
+                                            </tr>
+                                            <?php
+                                            $total = $total + $row['posisi'] + $row['jarak'] + $row['bersih'] + $row['benda_asing']; ?>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
-
+                                    <tfoot>
+                                        <th class="bg-warning text-right" colspan="8"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -136,93 +203,176 @@ include 'template/head.php';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold" id="ranjang">Ranjang</h5>
+                    <label class="modal-title font-weight-bold" id="ranjang">Living Ranjang</label>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-
                 </div>
-
-
                 <!-- bungkus untuk form inputan -->
-                <form action="post" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <h5 class="text-reset">Jarak</h5>
+                        <label class="text-reset">Jarak</label>
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
+                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
+                            <select class="form-control" name="jarak" aria-label="Default select example">
+                                <option value="">Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Posisi</h5>
+
+                        <label class="text-reset">Posisi</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
+                            <select class="form-control" name="posisi" aria-label="Default select example">
+                                <option value="">Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Bentuk</h5>
+
+                        <label class="text-reset">Bersih</label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
+                            <select class="form-control" name="bersih" aria-label="Default select example">
+                                <option value="">Select</option>
                                 <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
                             </select>
                         </div>
 
-                        <hr>
-                        <h5 class="text-reset">Rapi</h5>
+
+                        <label>Benda asing </label>
                         <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
+                            <select class="form-control" name="brngasing" aria-label="Default select example">
                                 <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                                <option value="-3">-3</option>
+                                <option value="-4">-4</option>
+                                <option value="-5">-5</option>
+                                <option value="-6">-6</option>
+                                <option value="-7">-7</option>
+                                <option value="-8">-8</option>
+                                <option value="-9">-9</option>
+                                <option value="-10">-10</option>
                             </select>
                         </div>
-
-                        <hr>
-                        <h5 class="text-reset">Bersih</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <h5 class="text-reset">Raib</h5>
-                        <div class="form-group">
-                            <select class="form-control" aria-label="Default select example">
-                                <option selected>Select</option>
-                                <option value="1">1</option>
-                                <option value="2">0</option>
-                            </select>
-                        </div>
-
-                        <hr>
-                        <div class="mb-3">
-                            <label for="input_nis" class="form-label">Catatan Mentor :</label>
-                            <input type="text" class="form-control" required id="catatanMentor">
-                        </div>
-
 
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Foto</label>
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mentor Notes </label>
+                            <textarea rows="5" type="text" class="form-control" id="cttn" name="cttn"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="btn_input" class="btn btn-danger ">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Edit living ranjang-->
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="ranjang" aria-hidden="true">
+        <div class="modal-dialog" id="modal-edit">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title font-weight-bold" id="ranjang">Change Living Ranjang</label>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- bungkus untuk form inputan -->
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <label class="text-reset">Jarak</label>
+                        <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
+                        <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <input type="hidden" class="form-control" id="date" name="date">
+                        <div class="form-group">
+                            <select class="form-control" id="jarak" name="jarak" aria-label="Default select example">
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+                        <label class="text-reset">Posisi</label>
+                        <div class="form-group">
+                            <select class="form-control" id="posisi" name="posisi" aria-label="Default select example">
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+
+
+                        <label class="text-reset">Bersih</label>
+                        <div class="form-group">
+                            <select class="form-control" id="bersih" name="bersih" aria-label="Default select example">
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                            </select>
+                        </div>
+
+
+                        <label>Benda asing </label>
+                        <div class="form-group">
+                            <select class="form-control" id="brngasing" name="brngasing" aria-label="Default select example">
+                                <option selected>Select</option>
+                                <option value="0">0</option>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                                <option value="-3">-3</option>
+                                <option value="-4">-4</option>
+                                <option value="-5">-5</option>
+                                <option value="-6">-6</option>
+                                <option value="-7">-7</option>
+                                <option value="-8">-8</option>
+                                <option value="-9">-9</option>
+                                <option value="-10">-10</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Foto</label>
+                            <div class="padding-bottom:5px">
+                                <img src="" width="250px" id="foto">
+                            </div>
+                            <input type="file" name="foto" class="form-control-file mt-2" id="foto">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mentor Notes </label>
+                            <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger ">Submit</button>
+                        <button type="submit" name="btn_update" class="btn btn-warning ">Update</button>
                     </div>
                 </form>
 
@@ -236,44 +386,12 @@ include 'template/head.php';
 
     <?php
     include 'modal/modal_logout.php';
-    include 'template/script.php';
+    include 'template/script_penilaian.php';
+    include 'template/alert.php';
+    include 'modal/modal_foto.php';
     ?>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
 
-        // $(document).on("click", "#editpenilaian", function() {
-
-        //     let nis = $(this).data('nis');
-        //     let efata = $(this).data('efata');
-        //     let posisi = $(this).data('posisi');
-        //     let rapi = $(this).data('rapi');
-        //     let bersih = $(this).data('bersih');
-        //     let raib = $(this).data('raib');
-        //     let foto = $(this).data('foto');
-        //     let date = $(this).data('date');
-        //     let brngasing = $(this).data('brngasing');
-        //     let catatan = $(this).data('cttn');
-        //     $(" #modal-edit #nis").val(nis);
-        //     $(" #modal-edit #efata").val(efata);
-        //     $(" #modal-edit #posisi").val(posisi);
-        //     $(" #modal-edit #rapi").val(rapi);
-        //     $(" #modal-edit #bersih").val(bersih);
-        //     $(" #modal-edit #brngasing").val(brngasing);
-        //     $(" #modal-edit #date").val(date);
-        //     $(" #modal-edit #raib").val(raib);
-        //     $(" #modal-edit #catatan").val(catatan);
-        //     $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
-
-        // });
-    </script>
 
 </body>
 
