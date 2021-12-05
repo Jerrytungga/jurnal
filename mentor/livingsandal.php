@@ -103,23 +103,12 @@ include 'template/head.php';
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-                        <div class="group">
-                            <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING RAK SEPATU & HANDUK <?= $siswa2['name']; ?></h1>
-                            <a href="livingraksepatudanhanduk.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-primary mt-2">Rak Sepatu</a>
-                            <a href="livingsepatusidang.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-success mt-2">Sepatu Sidang</a>
-                            <a href="livingsepatuor.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-warning mt-2">Sepatu Or</a>
-                            <a href="livingsandal.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-danger active mt-2">Sandal</a>
-                            <a href="livingrakhanduk.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-primary mt-2">Rak Handuk</a>
-                            <a href="livinghanduk.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-success mt-2">Handuk</a>
-
-                        </div>
-                    </div>
+                    <?php include 'template/menu_livingraksepatu_handuk.php'; ?>
                     <!-- DataTales Rak sepatu -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#livingsendal">Input</a>
+                            <h6 class=" font-weight-bold text-danger ">Sepatu Or</h6>
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-target="#livingsendal">Input</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -133,7 +122,7 @@ include 'template/head.php';
                                             <th width="40">Rapi</th>
                                             <th width="40">Bersih</th>
                                             <th width="40">Raib</th>
-                                            <th width="40">Image</th>
+                                            <th width="40">Foto</th>
                                             <th width="100">Date</th>
                                             <th width="250">Mentor Notes</th>
                                             <th width="100">Option</th>
@@ -158,9 +147,10 @@ include 'template/head.php';
                                                     $gambar = $row["image"];
                                                     if ($gambar) { ?>
 
-                                                        <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+
+                                                        <a id="editpenilaian" type="button" data-foto="<?= $row['image']; ?>" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
                                                             <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
-                                                        </button>
+                                                        </a>
 
                                                     <?php }
 

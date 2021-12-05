@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="livingsepatusidang">Living Or</h5>
+        <h5 class="modal-title font-weight-bold" id="livingsepatusidang">Living Sepatu Or</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

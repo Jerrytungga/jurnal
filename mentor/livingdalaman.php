@@ -135,6 +135,7 @@ include 'template/head.php';
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
+                            <h6 class=" font-weight-bold text-success">Pakaian Dalam</h6>
                             <a href="" class="btn btn-success" data-toggle="modal" data-target="#pakaianlipat">Input</a>
                             <div class="row mt-2">
                                 <div class="col">
@@ -194,10 +195,9 @@ include 'template/head.php';
                                                     $gambar = $row["image"];
                                                     if ($gambar) { ?>
 
-                                                        <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
+                                                        <a id="editpenilaian" type="button" data-foto="<?= $row['image']; ?>" class="btn  btn-lg" data-toggle="modal" data-target="#myModal">
                                                             <img src="../img/penilaian/<?= $row["image"]; ?>" class="img-responsive" width="90" height="90">
-                                                        </button>
-
+                                                        </a>
                                                     <?php }
 
                                                     ?>
