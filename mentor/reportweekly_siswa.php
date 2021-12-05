@@ -87,7 +87,8 @@ $tgl = $murida['tgl'];
                                             $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY date DESC");
                                             $murid = mysqli_fetch_array($siswa);
 
-                                            $dari = $tgl; // tanggal mulai
+                                            // $dari = $tgl; // tanggal mulai
+                                            $dari = "2021-11-15"; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
                                             $s = 1;
                                             // }
