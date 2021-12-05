@@ -164,7 +164,7 @@ $tgl = $murida['tgl'];
                                                 $selimut = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_selimut WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
-                                                $presensia = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                                $presensia = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
                                                 $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
@@ -222,7 +222,7 @@ $tgl = $murida['tgl'];
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $murid['name']; ?>
+                                                            <?= $row['name']; ?>
                                                         </td>
                                                         <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
