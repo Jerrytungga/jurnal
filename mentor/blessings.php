@@ -126,7 +126,7 @@ if (isset($_POST['reset'])) {
                     </div>
 
                     <div class="btn-group mb-4" role="group" aria-label="Basic outlined example">
-                        <a href="blessings.php" type="button" class="btn btn-outline-primary active">Blessings</a>
+                        <a href="blessings.php?nis=<?= $nis; ?>" type="button" class="btn btn-outline-primary active">Blessings</a>
 
                     </div>
                     <!-- DataTales Example -->
@@ -325,19 +325,11 @@ if (isset($_POST['reset'])) {
     include 'modal/modal_logout.php';
     include 'modal/modal_blessings.php';
     include 'template/script.php';
+    include 'modal/modal_hapus.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#edit_blessings", function() {
 
             let nis = $(this).data('nis');
@@ -392,6 +384,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #point6").val(point6);
             $(" #modal-edit #point7").val(point7);
             $(" #modal-edit #point8").val(point8);
+            $(" #modal-hapus #date").val(date);
+            $(" #modal-hapus #nis").val(nis);
         });
 
         $(document).on("click", "#detail", function() {

@@ -234,20 +234,12 @@ if (isset($_POST['reset'])) {
     <?php
     include 'modal/modal_logout.php';
     include 'modal/modal_homemeeting.php';
+    include 'modal/modal_hapus.php';
     include 'template/script.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#homemeeting", function() {
 
             let nis = $(this).data('nis');

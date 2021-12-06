@@ -60,6 +60,17 @@ if (isset($_POST['btn_update'])) {
         }
     }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_living_seprei`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
 session_start();
 include 'template/session.php';
 //menampilkan data siswa
@@ -157,9 +168,22 @@ include 'template/head.php';
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td><?= $row['date']; ?></td>
                                                 <td>
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-brngasing="<?= $row['benda_asing']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
-                                                    </a>
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-brngasing="<?= $row['benda_asing']; ?>" data-raib="<?= $row['raib']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
 
                                                 </td>
 
@@ -397,6 +421,7 @@ include 'template/head.php';
     include 'template/script_penilaian.php';
     include 'template/alert.php';
     include 'modal/modal_foto.php';
+    include 'modal/modal_hapus.php';
     ?>
 
 

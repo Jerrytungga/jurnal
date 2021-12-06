@@ -251,24 +251,11 @@ if (isset($_POST['reset'])) {
     include 'modal/modal_logout.php';
     include 'modal/modal_personalgoal.php';
     include 'template/script.php';
+    include 'modal/modal_hapus.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 700,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true,
-                lengthMenu: [
-                    [7, 10, 25, 50, -1],
-                    [7, 10, 25, 50, "All"]
-                ],
-
-            });
-        });
-
         $(document).on("click", "#edit_personalgoal", function() {
 
             let nis = $(this).data('nis');

@@ -34,6 +34,18 @@ if (isset($_POST['btn_virtue_character'])) {
 }
 
 
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_vrtues_caharacter`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
+
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
@@ -176,10 +188,22 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
-                                                    <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-berbagi="<?= $row['perhatian_berbagi']; ?>" data-salam="<?= $row['salam_sapa']; ?>" data-ucapan="<?= $row['bersyukur_berterimakasih']; ?>" data-hormat="<?= $row['hormat_taat']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
-                                                    </a>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <!-- Button trigger modal -->
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-berbagi="<?= $row['perhatian_berbagi']; ?>" data-salam="<?= $row['salam_sapa']; ?>" data-ucapan="<?= $row['bersyukur_berterimakasih']; ?>" data-hormat="<?= $row['hormat_taat']; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </td>
 
                                             </tr>
@@ -214,19 +238,11 @@ if (isset($_POST['reset'])) {
     include 'modal/modal_logout.php';
     include 'modal/modal_virtues_character.php';
     include 'template/script.php';
+    include 'modal/modal_hapus.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#editpenilaian", function() {
             let nis = $(this).data('nis');
             let efata = $(this).data('efata');
@@ -235,6 +251,7 @@ if (isset($_POST['reset'])) {
             let ucapan = $(this).data('ucapan');
             let hormat = $(this).data('hormat');
             let catatan = $(this).data('cttn');
+            let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
             $(" #modal-edit #berbagi").val(berbagi);
@@ -242,6 +259,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #ucapan").val(ucapan);
             $(" #modal-edit #hormat").val(hormat);
             $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-hapus #nis").val(nis);
+            $(" #modal-hapus #date").val(date);
 
         });
     </script>

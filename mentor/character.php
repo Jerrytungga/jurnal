@@ -8,7 +8,12 @@ if (isset($_POST['btnpenilaian'])) {
     $tepat = htmlspecialchars($_POST['tepat']);
     $ketat = htmlspecialchars($_POST['ketat']);
     $notes = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes')");
+    $input = mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes') ");
+    if ($input) {
+        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+    } else {
+        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+    }
 }
 // proses edit inputan nilai
 if (isset($_POST['editcharacter'])) {
@@ -19,8 +24,25 @@ if (isset($_POST['editcharacter'])) {
     $tepat = htmlspecialchars($_POST['tepat']);
     $ketat = htmlspecialchars($_POST['ketat']);
     $notes = htmlspecialchars($_POST['catatan']);
-    mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date' ");
+    $edit = mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date'");
+    if ($edit) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+    } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+    }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_character`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 
 session_start();
 include 'template/session.php';
@@ -155,10 +177,22 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
-                                                    <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-bnr="<?= $row['benar']; ?>" data-date="<?= $row['date']; ?>" data-tpt="<?= $row['tepat']; ?>" data-ketat="<?= $row['ketat']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
-                                                    </a>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <!-- Button trigger modal -->
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-bnr="<?= $row['benar']; ?>" data-date="<?= $row['date']; ?>" data-tpt="<?= $row['tepat']; ?>" data-ketat="<?= $row['ketat']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+                                                            <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
                                                 </td>
 
                                             </tr>
@@ -194,29 +228,12 @@ if (isset($_POST['reset'])) {
     <!-- End of Page Wrapper -->
     <?php
     include 'modal/modal_logout.php';
-    include './modal/modal_penilaiancharacter.php';
+    include 'template/script.php';
+    include 'modal/modal_penilaiancharacter.php';
+    include 'template/alert.php';
+    include 'modal/modal_hapus.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
-
         $(document).on("click", "#editpenilaian", function() {
             let nis = $(this).data('nis');
             let efata = $(this).data('efata');
@@ -232,6 +249,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #tepat").val(tepat);
             $(" #modal-edit #date").val(date);
             $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-hapus #date").val(date);
+            $(" #modal-hapus #nis").val(nis);
 
         });
     </script>

@@ -368,15 +368,6 @@ $murid = mysqli_fetch_array($siswa);
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#edit_penilaian", function() {
             let absen = $(this).data('absen');
             let status = $(this).data('status');

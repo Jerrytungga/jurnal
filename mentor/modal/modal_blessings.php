@@ -3,7 +3,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="blessings">Blessings</h5>
+                <h5 class="modal-title" id="blessings">Change Blessings</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -370,30 +370,6 @@
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modal-edit">
-        <div class="modal-content">
-
-            <form method="POST">
-                <div class="modal-body">
-                    <h5>Are you sure you want to delete the data ?</h5>
-                    <input type="hidden" class="form-control" id="nis" name="nis">
-                    <input type="text" readonly class="form-control" id="date" name="date">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="submit" name="hapus" class="btn btn-danger">Yes</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>

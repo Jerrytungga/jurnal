@@ -282,21 +282,7 @@ $tgl = $murida['tgl'];
     include 'template/alert.php';
     ?>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 900,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true,
-                lengthMenu: [
-                    [7, 10, 25, 50, -1],
-                    [7, 10, 25, 50, "All"]
-                ],
 
-            });
-        });
-    </script>
 </body>
 
 </html>

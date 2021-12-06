@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modal-title font-weight-bold" id="Character">Character</label>
+                <label class="modal-title font-weight-bold" id="Character">Changes Character</label>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

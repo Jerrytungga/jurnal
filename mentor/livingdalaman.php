@@ -64,6 +64,19 @@ if (isset($_POST['btn_update'])) {
         }
     }
 }
+
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_living_pakaiandalam`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 session_start();
 include 'template/session.php';
 //menampilkan data siswa
@@ -206,10 +219,23 @@ include 'template/head.php';
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
-                                                    <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-brngasing="<?= $row['barang_asing']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
-                                                    </a>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <!-- Button trigger modal -->
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-posisi="<?= $row['posisi']; ?>" data-rapi="<?= $row['rapi']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" data-bersih="<?= $row['bersih']; ?>" data-raib="<?= $row['raib']; ?>" data-brngasing="<?= $row['barang_asing']; ?>" data-foto="<?= $row['image']; ?>" data-date="<?= $row['date']; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
                                                 </td>
 
                                             </tr>
@@ -243,20 +269,12 @@ include 'template/head.php';
     include 'modal/modal_logout.php';
     include 'modal/modal_living_pakaiandalam.php';
     include 'modal/modal_foto.php';
+    include 'modal/modal_hapus.php';
     include 'template/script.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#editpenilaian", function() {
 
             let nis = $(this).data('nis');
@@ -279,6 +297,8 @@ include 'template/head.php';
             $(" #modal-edit #raib").val(raib);
             $(" #modal-edit #catatan").val(catatan);
             $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
+            $(" #modal-hapus #nis").val(nis);
+            $(" #modal-hapus #date").val(date);
 
         });
     </script>

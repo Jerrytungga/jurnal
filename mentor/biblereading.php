@@ -225,19 +225,11 @@ if (isset($_POST['reset'])) {
     include 'modal/modal_logout.php';
     include 'modal/modal_biblereading.php';
     include 'template/script.php';
+    include 'modal/modal_hapus.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#edit_bible", function() {
 
             let nis = $(this).data('nis');

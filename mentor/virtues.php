@@ -25,13 +25,25 @@ if (isset($_POST['btn_virtue'])) {
     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis'");
+    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis' ");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
     }
 }
+
+if (isset($_POST['hapus'])) {
+    $nis = htmlspecialchars($_POST['nis']);
+    $date = htmlspecialchars($_POST['date']);
+    $hapus =  mysqli_query($conn, "DELETE FROM `tb_virtues`  WHERE `nis` ='$nis' AND `date`='$date'");
+    if ($hapus) {
+        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+    } else {
+        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+    }
+}
+
 
 session_start();
 include 'template/session.php';
@@ -171,10 +183,24 @@ if (isset($_POST['reset'])) {
                                                 <td><?= $row['date']; ?></td>
                                                 <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
                                                 <td>
-                                                    <!-- Button trigger modal -->
-                                                    <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-sikapramahsopan="<?= $row['sikapramahsopan']; ?>" data-sikapberkordinasi="<?= $row['sikapberkordinasi']; ?>" data-sikaptolongmenolong="<?= $row['sikaptolongmenolong']; ?>" data-sikapseedo="<?= $row['sikapseedo']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button>
-                                                    </a>
+
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                                                            Choice
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                            <!-- Button trigger modal -->
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-sikapramahsopan="<?= $row['sikapramahsopan']; ?>" data-sikapberkordinasi="<?= $row['sikapberkordinasi']; ?>" data-sikaptolongmenolong="<?= $row['sikaptolongmenolong']; ?>" data-sikapseedo="<?= $row['sikapseedo']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" class="dropdown-item">
+                                                                Edit
+                                                            </a>
+
+                                                            <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
+                                                                Delete
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
                                                 </td>
 
                                             </tr>
@@ -210,19 +236,11 @@ if (isset($_POST['reset'])) {
     include 'modal/modal_logout.php';
     include 'modal/modal_virtues.php';
     include 'template/script.php';
+    include 'modal/modal_hapus.php';
     include 'template/alert.php';
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#editpenilaian", function() {
             let nis = $(this).data('nis');
             let efata = $(this).data('efata');
@@ -231,6 +249,7 @@ if (isset($_POST['reset'])) {
             let sikaptolongmenolong = $(this).data('sikaptolongmenolong');
             let sikapseedo = $(this).data('sikapseedo');
             let catatan = $(this).data('cttn');
+            let date = $(this).data('date');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
             $(" #modal-edit #sikapramahsopan").val(sikapramahsopan);
@@ -238,6 +257,8 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #sikaptolongmenolong").val(sikaptolongmenolong);
             $(" #modal-edit #sikapseedo").val(sikapseedo);
             $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-hapus #nis").val(nis);
+            $(" #modal-hapus #date").val(date);
 
         });
     </script>

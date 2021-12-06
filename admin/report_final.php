@@ -40,6 +40,16 @@ include 'template/Session.php';
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- isi konten -->
+
+
+
+
+
+
+
+
+
+
                 </div>
                 <!-- /.container-fluid -->
             </div>

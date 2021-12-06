@@ -170,16 +170,6 @@ $s = mysqli_fetch_array($siswa);
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true,
-
-            });
-        });
-
         $(document).on("click", "#pre", function() {
             var nis = $(this).data('nis');
             var name = $(this).data('name');

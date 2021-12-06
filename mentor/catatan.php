@@ -140,15 +140,6 @@ $catatan = mysqli_fetch_array($notes);
     ?>
 
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-
         $(document).on("click", "#edit_catatan", function() {
 
             let nis = $(this).data('nis');

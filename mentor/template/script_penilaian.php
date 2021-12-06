@@ -47,6 +47,8 @@
       $(" #modal-edit #raib").val(raib);
       $(" #modal-edit #catatan").val(catatan);
       $(" #modal-edit #foto").attr("src", "../img/penilaian/" + foto);
+      $(" #modal-hapus #nis").val(nis);
+      $(" #modal-hapus #date").val(date);
 
     });
   </script>
