@@ -129,17 +129,11 @@ include 'template/head.php'
                                                     <button type="button" id="detail" class="btn btn-dark " data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-karakter="<?= $row['character_virtue']; ?>" data-doa="<?= $row['prayer']; ?>" data-neutron="<?= $row['neutron']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['Catatan_mentor']; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <?php
 
 
-                                                    $tanggal = date('Y-m-d');
+                                                    <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
-                                                    if ($tanggal >= $row['date']) { ?>
-                                                        <!-- Edit Prayer Note -->
-                                                        <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
-                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
-                                                    <?php }
-                                                    ?>
 
 
 
@@ -209,6 +203,19 @@ include 'template/head.php'
             $(" #modal-edit #neutron").val(neutron);
             $(" #modal-edit #date").val(date);
         });
+    </script>
+
+    <script type="text/javascript">
+        var edit = document.getElementById('edit_personalgoal');
+        var waktu = new Date();
+        var hari = waktu.getDay();
+        var bulan = waktu.getMonth();
+
+        if (hari == 0) {
+            edit_personalgoal.style.display = 'blok';
+        } else {
+            edit_personalgoal.style.display = 'none';
+        }
     </script>
 
 </body>
