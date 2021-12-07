@@ -8,15 +8,7 @@ $siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.ang
 $banyak = mysqli_num_rows($siswaa);
 echo $banyak;
 $u = 1;
-while ($murida = mysqli_fetch_array($siswaa)) {
 
-
-
-    $tgl = $murida['tgl'];
-    $nis = $murida['nis'];
-    echo $u . "=" . $nis . "#" . $tgl . " - ";
-    $u++;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +84,14 @@ while ($murida = mysqli_fetch_array($siswaa)) {
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
-                                        while ($murid2 = mysqli_fetch_array($siswaa)) {
-                                            $nis = $murid2['nis'];
+                                        while ($murida = mysqli_fetch_array($siswaa)) {
+
+                                            $tgl = $murida['tgl'];
+                                            $nis = $murida['nis'];
+                                            echo $u . "=" . $nis . "#" . $tgl . " - ";
+
+
+                                            // $nis = $murid2['nis'];
                                             $nn = $murid2['name'];
                                             $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
                                             $murid = mysqli_fetch_array($siswa);
@@ -265,6 +263,7 @@ while ($murida = mysqli_fetch_array($siswaa)) {
                                         <?php endforeach;
                                                 $s++;
                                             }
+                                            $u++;
                                         } ?>
                                     </tbody>
                                 </table>
