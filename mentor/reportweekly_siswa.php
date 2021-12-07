@@ -1,13 +1,25 @@
 <?php
 include '../database.php';
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
 
+    if ($mulai != null || $selesai != null) {
+
+        $jurnal = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
+    }
+}
+
+if (isset($_POST['reset'])) {
+    $nis = $_GET['nis'];
+    $jurnal = mysqli_query($conn, "SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
+    $revivalnote = mysqli_fetch_array($jurnal);
+}
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
-$banyak = mysqli_num_rows($siswa);
-echo $banyak;
-// $u = 1;
+
 
 ?>
 <!DOCTYPE html>
@@ -88,26 +100,12 @@ echo $banyak;
 
                                             $tgl = $murid['tgl'];
                                             $nis = $murid['nis'];
-                                            // echo $u . "=" . $nis . "#" . $tgl . " - ";
-
-
-                                            // $nis = $murid2['nis'];
                                             $nama = $murid['name'];
-                                            // $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
-                                            // $murid = mysqli_fetch_array($siswa);
-
                                             $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
                                             $s = 1;
-                                            // echo $s . "=" . $nn . "-";
-                                            // $s = $s++;
-                                            // }
                                             while (strtotime($dari) <= strtotime($sampai)) {
-                                                // while ($murid = mysqli_fetch_array($siswa)) {
-                                                //     $nis = $murid['nis'];
 
-                                                // echo "$dari<br/>";
-                                                // pembacaan alkitab
                                                 $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                                 // doa
