@@ -14,7 +14,7 @@ while ($murida = mysqli_fetch_array($siswaa)) {
 
     $tgl = $murida['tgl'];
     $nis = $murida['nis'];
-    echo $u . "=" . $nis . "#" . $ptl . " - ";
+    echo $u . "=" . $nis . "#" . $tgl . " - ";
     $u++;
 }
 ?>
