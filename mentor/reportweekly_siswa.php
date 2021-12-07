@@ -92,15 +92,15 @@ $u = 1;
 
 
                                             // $nis = $murid2['nis'];
-                                            $nn = $murid2['name'];
+                                            // $nn = $murid2['name'];
                                             $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
                                             $murid = mysqli_fetch_array($siswa);
 
                                             $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
                                             $s = 1;
-                                            echo $s . "=" . $nn . "-";
-                                            $s = $s++;
+                                            // echo $s . "=" . $nn . "-";
+                                            // $s = $s++;
                                             // }
                                             while (strtotime($dari) <= strtotime($sampai)) {
                                                 // while ($murid = mysqli_fetch_array($siswa)) {
