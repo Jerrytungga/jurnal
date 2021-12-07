@@ -18,7 +18,7 @@ include 'template/Session.php';
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
@@ -41,7 +41,47 @@ include 'template/Session.php';
                 <div class="container-fluid">
                     <!-- isi konten -->
 
+                    <h1 class="text-dark text-center font-weight-bold">Yayasan Kebenaran Alkitab</h1>
+                    <p class=" text-dark text-center font-monospace">PELATIHAN PELAYANAN ROHANI “KEBENARAN ALKITAB” <br> Jalan Ngamarto 2, Lawang 65211; Telpon 0341 4301212, Fax 0341 426639 <br>Email address : pka.lawang@gmail.com <br> Keputusan Dirjen Bimas Kristen (Protestan)<br>Kementrian Agama nomor F/Kep/HK 00579/22377/99, Tgl 20-7-1999</p>
+                    <h5 class="text-dark text-center font-weight-bold">LAPORAN SEMESTER PERKEMBANGAN BELAJAR SISWA PKA LAWANG</h5>
+                    <h6 class=" m-lg6">Nama</h6>
 
+                    <table class="table table-bordered " width="90%" cellspacing="0">
+                        <thead class=" table-secondary">
+                            <tr>
+                                <th rowspan="2" width="5">ASPEK PEMBELAJARAN</th>
+                                <th rowspan="2" width="10">FOKUS/MATERI PEMBELAJARAN</th>
+                                <th rowspan="2">Target</th>
+                                <th colspan="3" class=" text-center">Pencapaian Akhir</th>
+                                <th rowspan="2">Bobot</th>
+                                <th rowspan="2">Deskripsi Pelaksanaan</th>
+                                <th rowspan="2">Ket.</th>
+
+                            </tr>
+                            <tr class=" border-dark">
+                                <th>Nilai Akhir</th>
+                                <th>%</th>
+                                <th>Huruf</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr>
+                                <th rowspan="3">
+                                    Pengembangan Diri (Kerohanian)
+                                </th>
+
+
+                            </tr>
+
+
+                        </tbody>
+
+
+
+
+                    </table>
 
 
 
@@ -95,18 +135,7 @@ include 'template/Session.php';
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <!-- script dataTable  -->
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                scrollY: 800,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true
-            });
-        });
-    </script>
+
 
 </body>
 

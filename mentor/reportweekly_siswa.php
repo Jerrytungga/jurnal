@@ -222,7 +222,7 @@ $tgl = $murida['tgl'];
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $murid['name']; ?>
+                                                            <?= $row['name']; ?>
                                                         </td>
                                                         <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
