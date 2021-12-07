@@ -92,7 +92,7 @@ $u = 1;
 
 
                                             // $nis = $murid2['nis'];
-                                            // $nn = $murid2['name'];
+                                            $nn = $murida['name'];
                                             $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
                                             $murid = mysqli_fetch_array($siswa);
 
