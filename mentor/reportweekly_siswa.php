@@ -12,9 +12,9 @@ while ($murida = mysqli_fetch_array($siswaa)) {
 
 
 
-    $nis = $murida['nis'];
-    echo $u . "=" . $nis . "#";
     $tgl = $murida['tgl'];
+    $nis = $murida['nis'];
+    echo $u . "=" . $nis . "#" . $ptl . " - ";
     $u++;
 }
 ?>
