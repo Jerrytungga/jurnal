@@ -251,8 +251,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                                         <td>Week <?= $s; ?></td>
                                                         <td><?= $row['date']; ?></td>
                                                         <td>
-                                                            <?= $row['grace']; ?>
-                                                            <?= $row['punisment']; ?>
+                                                            <a class="font-weight-bold text-danger font-italic"><?= $row['grace']; ?> <?= $row['punisment']; ?> </a>
                                                         </td>
 
                                                     </tr>
