@@ -7,8 +7,16 @@ include 'template/session.php';
 $siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
 $banyak = mysqli_num_rows($siswaa);
 echo $banyak;
-$murida = mysqli_fetch_array($siswaa);
-$tgl = $murida['tgl'];
+$u = 1;
+while ($murida = mysqli_fetch_array($siswaa)) {
+
+
+
+    $nis = $murida['nis'];
+    echo $u . "=" . $nis . "#";
+    $tgl = $murida['tgl'];
+    $u++;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
