@@ -8,7 +8,7 @@ $siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.ang
 $banyak = mysqli_num_rows($siswaa);
 echo $banyak;
 $u = 1;
-$tgl = $banyak['tgl'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,15 +86,15 @@ $tgl = $banyak['tgl'];
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
                                         while ($murida = mysqli_fetch_array($siswaa)) {
 
-
+                                            $tgl = $murida['tgl'];
                                             $nis = $murida['nis'];
-                                            // echo $u . "=" . $nis . "#" . $tgl . " - ";
+                                            echo $u . "=" . $nis . "#" . $tgl . " - ";
 
 
                                             // $nis = $murid2['nis'];
                                             $nn = $murida['name'];
-                                            $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
-                                            $murid = mysqli_fetch_array($siswa);
+                                            // $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
+                                            // $murid = mysqli_fetch_array($siswa);
 
                                             $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
