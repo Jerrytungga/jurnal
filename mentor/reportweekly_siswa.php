@@ -8,7 +8,7 @@ $siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.ang
 $banyak = mysqli_num_rows($siswaa);
 echo $banyak;
 $u = 1;
-$tgl = $murida['tgl'];
+$tgl = $banyak['tgl'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
