@@ -86,9 +86,9 @@ $u = 1;
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
                                         while ($murida = mysqli_fetch_array($siswaa)) {
 
-                                            $tgl = $murida['tgl'];
-                                            $nis = $murida['nis'];
-                                            echo $u . "=" . $nis . "#" . $tgl . " - ";
+                                            // $tgl = $murida['tgl'];
+                                            // $nis = $murida['nis'];
+                                            // echo $u . "=" . $nis . "#" . $tgl . " - ";
 
 
                                             // $nis = $murid2['nis'];
