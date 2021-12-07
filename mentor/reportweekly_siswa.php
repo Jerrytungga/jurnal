@@ -7,7 +7,7 @@ include 'template/session.php';
 $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
 $banyak = mysqli_num_rows($siswa);
 echo $banyak;
-$u = 1;
+// $u = 1;
 
 ?>
 <!DOCTYPE html>
@@ -263,7 +263,7 @@ $u = 1;
                                         <?php endforeach;
                                                 $s++;
                                             }
-                                            $u++;
+                                            // $u++;
                                         } ?>
                                     </tbody>
                                 </table>
