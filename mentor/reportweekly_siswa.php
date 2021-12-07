@@ -90,6 +90,7 @@ $tgl = $murida['tgl'];
                                             $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
                                             $s = 1;
+                                            echo $murid['name'] . "-";
                                             // }
                                             while (strtotime($dari) <= strtotime($sampai)) {
                                                 // while ($murid = mysqli_fetch_array($siswa)) {
