@@ -5,6 +5,8 @@ session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
+$banyak = mysqli_num_rows($siswa);
+echo $banyak;
 $murida = mysqli_fetch_array($siswaa);
 $tgl = $murida['tgl'];
 ?>
