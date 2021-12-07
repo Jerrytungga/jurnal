@@ -4,8 +4,8 @@ include '../database.php';
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
-$siswaa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
-$banyak = mysqli_num_rows($siswaa);
+$siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
+$banyak = mysqli_num_rows($siswa);
 echo $banyak;
 $u = 1;
 
@@ -84,15 +84,15 @@ $u = 1;
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
-                                        while ($murida = mysqli_fetch_array($siswaa)) {
+                                        while ($murid = mysqli_fetch_array($siswa)) {
 
-                                            $tgl = $murida['tgl'];
-                                            $nis = $murida['nis'];
-                                            echo $u . "=" . $nis . "#" . $tgl . " - ";
+                                            $tgl = $murid['tgl'];
+                                            $nis = $murid['nis'];
+                                            // echo $u . "=" . $nis . "#" . $tgl . " - ";
 
 
                                             // $nis = $murid2['nis'];
-                                            $nn = $murida['name'];
+                                            $nama = $murid['name'];
                                             // $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' AND status='Aktif' ORDER BY nis DESC");
                                             // $murid = mysqli_fetch_array($siswa);
 
@@ -233,7 +233,7 @@ $u = 1;
                                                     <tr>
                                                         <td><?= $i; ?></td>
                                                         <td>
-                                                            <?= $nn; ?>
+                                                            <?= $nama; ?>
                                                         </td>
                                                         <td><?= $row['presensi']; ?></td>
                                                         <td><?= $total; ?></td>
