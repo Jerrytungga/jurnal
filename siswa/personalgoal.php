@@ -131,10 +131,9 @@ include 'template/head.php'
                                                     </button>
 
 
-                                                    <button id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></button>
 
-
+                                                    <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
+                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
 
                                                 </td>
@@ -205,18 +204,19 @@ include 'template/head.php'
         });
     </script>
 
-    <script type="text/javascript">
-        var edit = document.getElementById('edit_personalgoal');
+    <!-- <script>
+        var edit_personalgoal = document.getElementById('edit_personalgoal');
         var waktu = new Date();
         var hari = waktu.getDay();
         var bulan = waktu.getMonth();
+        // alert(hari)
 
-        if (hari == 0) {
+        if (hari == 7) {
             edit_personalgoal.style.display = 'blok';
         } else {
             edit_personalgoal.style.display = 'none';
         }
-    </script>
+    </script> -->
 
 </body>
 
