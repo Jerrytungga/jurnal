@@ -1,20 +1,5 @@
 <?php
 include '../database.php';
-if (isset($_POST['filter_tanggal'])) {
-    $mulai = $_POST['tanggal_mulai'];
-    $selesai = $_POST['tanggal_akhir'];
-
-    if ($mulai != null || $selesai != null) {
-
-        $jurnal = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis AND date BETWEEN '$mulai' AND '$selesai' ORDER BY date DESC;");
-    }
-}
-
-if (isset($_POST['reset'])) {
-    $nis = $_GET['nis'];
-    $jurnal = mysqli_query($conn, "SELECT * FROM tb_revival_note WHERE nis='$nis' ORDER BY date DESC");
-    $revivalnote = mysqli_fetch_array($jurnal);
-}
 session_start();
 include 'template/session.php';
 //menampilkan data siswa dan jurnal
@@ -64,6 +49,29 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
+                        <div class="card-header py-3">
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <form action="" method="POST" class="form-inline">
+                                        <?php
+                                        if (isset($_POST['filter_tanggal'])) {
+                                            $mulai = $_POST['tanggal_mulai'];
+                                            $selesai = $_POST['tanggal_akhir'];
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <input type="date" name="tanggal_mulai" class="form-control">
+                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                        <?php } ?>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
@@ -103,9 +111,17 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                             $nama = $murid['name'];
                                             $dari = $tgl; // tanggal mulai
                                             $sampai = date('Y-m-d'); // tanggal akhir
+
+
                                             $s = 1;
+                                            if (isset($_POST['filter_tanggal'])) {
+                                                $dari = $_POST['tanggal_mulai'];
+                                                $sampai = $_POST['tanggal_akhir'];
+                                            }
+
                                             while (strtotime($dari) <= strtotime($sampai)) {
 
+                                                // echo $s . "-" . $i . "=";
                                                 $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                                 // doa
@@ -136,7 +152,6 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                                 // character
                                                 $character = mysqli_query($conn, "SELECT SUM(`benar`)+SUM(`tepat`)+SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-
                                                 // living lemari 
                                                 $buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
@@ -146,7 +161,8 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
                                                 $celana = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_celanalipat WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-                                                $logistik = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jumlah FROM tb_living_logistik WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                                $logistik = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jum`lah FROM tb_living_logistik WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+
 
                                                 $pakaiandalam = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaiandalam WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
@@ -199,6 +215,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                                     $living_pakaiangantung = mysqli_fetch_array($pakaiangantung);
                                                     $living_celana = mysqli_fetch_array($celana);
                                                     $living_logistik = mysqli_fetch_array($logistik);
+
                                                     $living_pakaiandalam = mysqli_fetch_array($pakaiandalam);
                                                     // living rak sepatu dan handuk
                                                     $living_raksepatu = mysqli_fetch_array($raksepatu);
