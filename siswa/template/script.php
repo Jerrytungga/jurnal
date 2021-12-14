@@ -29,3 +29,19 @@
 
       });
     </script>
+
+    <script>
+      $(document).ready(function() {
+        var living = document.getElementById('living');
+        var waktu = new Date();
+        var hari = waktu.getDay();
+        var bulan = waktu.getMonth();
+
+
+        if (hari == 7) {
+          living.style.display = 'blok';
+        } else {
+          living.style.display = 'none';
+        }
+      });
+    </script>

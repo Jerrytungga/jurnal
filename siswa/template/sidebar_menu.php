@@ -47,10 +47,10 @@
                 <a class="collapse-item" href="revivalnote.php">Daily</a>
                 <a class="collapse-item" href="Weekly.php">Weekly</a>
                 <a class="collapse-item" href="Monthly.php">Monthly</a>
-
             </div>
         </div>
     </li>
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
@@ -64,10 +64,11 @@
                 <a class="collapse-item" href="living_buku.php">Lemari</a>
                 <a class="collapse-item" href="livingraksepatudanhanduk.php">Rak Sepatu & Handuk</a>
                 <a class="collapse-item" href="living_ranjang.php">Ranjang</a>
-
             </div>
         </div>
     </li>
+
+
 
     <!-- Nav Item - final report -->
     <li class="nav-item active">
@@ -83,8 +84,6 @@
     <div class="sidebar-heading">
         Catatan
     </div>
-
-
 
 
     <!-- Nav Item - Tables -->
@@ -104,10 +103,11 @@
             <span>Log Out</span></a>
     </li>
 
+
+
     <!-- Sidebar Toggler (Sidebar) -->
     <!-- <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div> -->
-
 
 </ul>
