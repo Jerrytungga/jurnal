@@ -261,11 +261,10 @@ include 'template/head.php'
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <?php
-                include 'template/footer.php';
-                ?>
-            </footer>
+
+            <?php
+            include 'template/footer.php';
+            ?>
             <!-- End of Footer -->
 
         </div>
