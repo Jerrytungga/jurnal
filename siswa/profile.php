@@ -43,16 +43,11 @@ include 'template/session.php';
       <!-- Main Content -->
       <div id="content">
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-          <!-- Topbar Navbar -->
-          <?php
-          include 'template/topbar_menu.php';
-          ?>
-        </nav>
+
+        <?php
+        include 'template/topbar_menu.php';
+        ?>
+
         <!-- End of Topbar -->
         <!-- Begin Page Content -->
         <div class="container-fluid">

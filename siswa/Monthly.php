@@ -69,19 +69,9 @@ include 'template/head.php'
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <?php
-                    include 'template/topbar_menu.php';
-                    ?>
-
-                </nav>
+                <?php
+                include 'template/topbar_menu.php';
+                ?>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -104,7 +94,7 @@ include 'template/head.php'
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="table-secondary">
+                                        <tr class="table-primary">
                                             <th width="10">No</th>
                                             <th width="150">What I gain on God</th>
                                             <th width="150">What I learn on Education</th>
