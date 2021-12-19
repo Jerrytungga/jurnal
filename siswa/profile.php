@@ -809,7 +809,7 @@ include 'template/session.php';
       var bulan = waktu.getMonth();
 
 
-      if (hari == 7) {
+      if (hari == 0) {
         living.style.display = 'blok';
       } else {
         living.style.display = 'none';
