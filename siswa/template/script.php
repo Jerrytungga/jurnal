@@ -36,9 +36,9 @@
         var waktu = new Date();
         var hari = waktu.getDay();
         var bulan = waktu.getMonth();
+        // alert(hari)
 
-
-        if (hari == 7) {
+        if (hari == 0) {
           living.style.display = 'blok';
         } else {
           living.style.display = 'none';
