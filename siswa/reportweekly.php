@@ -80,7 +80,7 @@ include 'template/head.php'
 
                                     <tbody>
                                         <?php $i = 1;
-                                        $s = 1; ?>
+                                        ?>
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
@@ -232,7 +232,7 @@ include 'template/head.php'
                                                         <?= $row['status']; ?>
 
                                                     </td>
-                                                    <td>Week <?= $s; ?></td>
+                                                    <td>Week <?= $row['week']; ?></td>
                                                     <td><?= $row['date']; ?></td>
                                                     <td>
                                                         <a class="font-weight-bold text-danger font-italic">
@@ -246,7 +246,7 @@ include 'template/head.php'
 
                                                 <?php $i++; ?>
                                         <?php endforeach;
-                                            $s++;
+                                            // $s++;
                                         } ?>
                                     </tbody>
                                 </table>

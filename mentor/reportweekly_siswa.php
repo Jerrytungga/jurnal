@@ -5,7 +5,6 @@ include 'template/session.php';
 //menampilkan data siswa dan jurnal
 $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,54 +46,74 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report</h1>
                     </div>
+                    <div class="row mt-2 mb-4">
+                        <div class="col">
+                            <form action="cetak.php" target="blank" method="POST" class="form-inline">
+                                <?php
+                                if (isset($_POST['filter_tanggal'])) {
+                                    $mulai = $_POST['tanggal_mulai'];
+                                    $selesai = $_POST['tanggal_akhir'];
+                                ?>
+                                    <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
+                                    <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                <?php
+                                } else {
+                                ?>
+                                    <input type="date" name="tanggal_mulai" class="form-control">
+                                    <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                <?php } ?>
+
+                                <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Download</button>
+                                <!-- <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button> -->
+                            </form>
+                        </div>
+                    </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
-                        <div class="card-header py-3">
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <form action="" method="POST" class="form-inline">
-                                        <?php
-                                        if (isset($_POST['filter_tanggal'])) {
-                                            $mulai = $_POST['tanggal_mulai'];
-                                            $selesai = $_POST['tanggal_akhir'];
-                                        ?>
-                                            <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control">
-                                            <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <input type="date" name="tanggal_mulai" class="form-control">
-                                            <input type="date" name="tanggal_akhir" class="form-control ml-3">
-                                        <?php } ?>
-                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
-                                        <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+
+                                    <!-- <thead>
+                                        <tr>
+                                            <th width="10">No</th>
+                                            <th width="700">Name</th>
+                                            <th width="50">Presensi</th>
+                                            <th width="50">Jurnal Daily</th>
+                                            <th width="50">Jurnal Weekly</th>
+                                            <th width="70">Jurnal Monthly</th>
+                                            <th width="50">Virtue</th>
+                                            <th width="50">Living Lemari</th>
+                                            <th width="50">Living Rak Sepatu dan Handuk</th>
+                                            <th width="50">Living Ranjang</th>
+                                            <th width="50">Total</th>
+                                            <th width="50">Status</th>
+                                            <th width="50">Keterangan</th>
+                                            <th width="200">Date</th>
+                                            <th width="800">Sanksi</th>
+
+
+
+                                        </tr>
+                                    </thead> -->
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="450">Name</th>
-                                            <th>Presensi</th>
-                                            <th>Jurnal Daily</th>
-                                            <th>Jurnal Weekly</th>
-                                            <th>Jurnal Monthly</th>
-                                            <th>Virtue</th>
-                                            <th>Living Lemari</th>
-                                            <th>Living Rak Sepatu dan Handuk</th>
-                                            <th>Living Ranjang</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Keterangan</th>
+                                            <th width="700">Name</th>
+                                            <th width="50">Presensi</th>
+                                            <th width="50">Jurnal Daily</th>
+                                            <th width="50">Jurnal Weekly</th>
+                                            <th width="70">Jurnal Monthly</th>
+                                            <th width="50">Virtue</th>
+                                            <th width="50">Living Lemari</th>
+                                            <th width="50">Living Rak Sepatu dan Handuk</th>
+                                            <th width="50">Living Ranjang</th>
+                                            <th width="50">Total</th>
+                                            <th width="50">Status</th>
+                                            <th width="50">Keterangan</th>
                                             <th width="200">Date</th>
-                                            <th width="400">Sanksi</th>
-
-
+                                            <th width="800">Sanksi</th>
                                         </tr>
                                     </thead>
 
@@ -113,7 +132,8 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                             $sampai = date('Y-m-d'); // tanggal akhir
 
 
-                                            $s = 1;
+
+                                            // $s = 1;
                                             if (isset($_POST['filter_tanggal'])) {
                                                 $dari = $_POST['tanggal_mulai'];
                                                 $sampai = $_POST['tanggal_akhir'];
@@ -265,7 +285,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                                             <?= $row['status']; ?>
 
                                                         </td>
-                                                        <td>Week <?= $s; ?></td>
+                                                        <td>Week <?= $row['week']; ?></td>
                                                         <td><?= $row['date']; ?></td>
                                                         <td>
                                                             <a class="font-weight-bold text-danger font-italic"><?= $row['grace']; ?> <?= $row['punisment']; ?> </a>
@@ -275,11 +295,29 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
                                                     <?php $i++; ?>
                                         <?php endforeach;
-                                                $s++;
+                                                // $s++;
                                             }
                                             // $u++;
                                         } ?>
                                     </tbody>
+                                    <tfoot>
+                                        <th width="10"></th>
+                                        <th width="700"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="70"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="50"></th>
+                                        <th width="200"></th>
+                                        <th width="800"></th>
+
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

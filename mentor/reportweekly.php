@@ -8,7 +8,8 @@ if (isset($_POST['edit'])) {
     $grace = htmlspecialchars($_POST['graces']);
     $punisment = htmlspecialchars($_POST['ps']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
+    $week = htmlspecialchars($_POST['Minggu']);
+    $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`week`='$week',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {
@@ -93,7 +94,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                     <tbody>
                                         <?php $i = 1;
-                                        $s = 1; ?>
+                                        ?>
                                         <?php
                                         date_default_timezone_set('Asia/Jakarta'); // Set timezone
                                         //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
@@ -248,14 +249,14 @@ $murid = mysqli_fetch_array($siswa);
                                                         <?= $row['status']; ?>
 
                                                     </td>
-                                                    <td>Week <?= $s; ?></td>
+                                                    <td>Week <?= $row['week']; ?></td>
                                                     <td><?= $row['date']; ?></td>
                                                     <td>
                                                         <?= $row['grace']; ?>
                                                         <?= $row['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>">
+                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>" data-week="<?= $row['week']; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     </td>
 
@@ -263,7 +264,6 @@ $murid = mysqli_fetch_array($siswa);
 
                                                 <?php $i++; ?>
                                         <?php endforeach;
-                                            $s++;
                                         } ?>
                                     </tbody>
                                 </table>
@@ -291,7 +291,7 @@ $murid = mysqli_fetch_array($siswa);
         <div class="modal-dialog" id="modal-edit">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Presensi dan Status</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Presensi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -303,6 +303,10 @@ $murid = mysqli_fetch_array($siswa);
                         <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="date" name="date">
 
+                        <div class="form-group">
+                            <label for="text">Week :</label>
+                            <input type="number" class="form-control" id="week" name="Minggu">
+                        </div>
 
                         <div class="form-group">
                             <label for="text">Presensi :</label>
@@ -374,7 +378,9 @@ $murid = mysqli_fetch_array($siswa);
             let graces = $(this).data('graces');
             let date = $(this).data('date');
             let ps = $(this).data('ps');
+            let week = $(this).data('week');
 
+            $(" #modal-edit #week").val(week);
             $(" #modal-edit #absen").val(absen);
             $(" #modal-edit #status").val(status);
             $(" #modal-edit #graces").val(graces);

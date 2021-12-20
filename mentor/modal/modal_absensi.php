@@ -19,8 +19,8 @@
                          <input type="text" class="form-control" readonly id="name" name="name">
                      </div>
                      <div class="form-group">
-                         <label for="text">Date :</label>
-                         <input type="date" class="form-control" id="date" name="date">
+                         <label for="text">Week :</label>
+                         <input type="number" class="form-control" id="Minggu" name="Minggu">
                      </div>
 
                      <div class="form-group">
