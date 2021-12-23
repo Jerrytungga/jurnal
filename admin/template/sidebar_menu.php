@@ -109,7 +109,7 @@
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <h6 class="collapse-header">kategori:</h6>
-                 <a class="collapse-item" href="report.php">Weekly</a>
+                 <a class="collapse-item" href="reportweekly.php">Weekly</a>
                  <a class="collapse-item" href="report_final.php">Final</a>
              </div>
          </div>

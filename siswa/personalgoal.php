@@ -126,10 +126,17 @@ include 'template/head.php'
                                                         <i class="fas fa-eye"></i>
                                                     </button>
 
+                                                    <?php
+                                                    $tanggal = date('Y-m-d');
 
 
-                                                    <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
-                                                        <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                    if ($tanggal <= $row['date']) { ?>
+
+                                                        <a id="edit_personalgoal" data-toggle="modal" data-target="#personalgoal" data-character="<?= $row["character_virtue"]; ?>" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-prayer="<?= $row["prayer"]; ?>" data-neutron="<?= $row["neutron"]; ?>">
+                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                                                    <?php }
+                                                    ?>
+
 
 
                                                 </td>

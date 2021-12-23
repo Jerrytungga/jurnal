@@ -77,6 +77,12 @@
             <span>Report Weekly</span></a>
     </li>
 
+    <!-- Nav Item - final report -->
+    <li class="nav-item active">
+        <a class="nav-link" href="pengembangan.php">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Rapor Akhir</span></a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 

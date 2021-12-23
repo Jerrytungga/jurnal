@@ -13,11 +13,8 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 <head>
 
   <style>
-    h1 {
-      font-weight: bold;
-      font-size: 20pt;
-      text-align: center;
-      color: #191A19;
+    text {
+      font-size: 15pt;
     }
 
     a {
@@ -36,11 +33,11 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
     }
 
-    #img {
-      width: 128px;
-      height: 128px;
+    img {
+      width: 10%;
+      text-align: center;
       padding: auto;
-      margin: 30px;
+
     }
 
     #customers {
@@ -71,37 +68,52 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: center;
-      background-color: #E5890A;
+
       color: white;
     }
   </style>
 </head>
 
 <body>
+  <center>
 
-  <img align="right" id="img" src="../img/logo/Edit Logo PKA-DP.png">
-  <h1>Report Weekly</h1>
+    <img src="../img/logo/Edit Logo PKA-DP.png">
+  </center>
   <p>Name : <?= $data['name']; ?></p>
   <p>Efata : <?= $data['efata']; ?></p>
 
   <div class=" border-primary">
     <table id="customers">
       <tr>
-        <th width="10">No</th>
-        <th width="250">Nama Siswa</th>
-        <th width="90">Presensi</th>
-        <th width="150">Jurnal Daily</th>
-        <th width="200">Jurnal Weekly</th>
-        <th width="200">Jurnal Monthly</th>
-        <th width="150">Virtue</th>
-        <th width="300">Living Lemari</th>
-        <th width="360">Living Rak Sepatu dan Handuk</th>
-        <th width="150">Living Ranjang</th>
-        <th width="150">Total</th>
-        <th width="100">Status</th>
-        <th width="100">Keterangan</th>
-        <th width="370">Date</th>
-        <th width="470">Sanksi</th>
+
+        <th bgcolor="#000957" colspan="15">
+          <text>
+            Report Weekly
+            <?php
+            $tanggal = date('d M Y');
+            echo $tanggal;
+            ?>
+          </text>
+        </th>
+
+      </tr>
+
+      <tr>
+        <th bgcolor="#6998AB" width="10">No</th>
+        <th bgcolor="#6998AB" width="400">Name</th>
+        <th bgcolor="#6998AB" width="90">Presensi</th>
+        <th bgcolor="#6998AB" width="150">Jurnal Daily</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Weekly</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Monthly</th>
+        <th bgcolor="#6998AB" width="150">Virtue</th>
+        <th bgcolor="#6998AB" width="300">Living Lemari</th>
+        <th bgcolor="#6998AB" width="360">Living Rak Sepatu dan Handuk</th>
+        <th bgcolor="#6998AB" width="150">Living Ranjang</th>
+        <th bgcolor="#6998AB" width="150">Total</th>
+        <th bgcolor="#6998AB" width="100">Status</th>
+        <th bgcolor="#6998AB" width="100">Keterangan</th>
+        <th bgcolor="#6998AB" width="370">Date</th>
+        <th bgcolor="#6998AB" width="800">Sanksi</th>
       </tr>
 
       <tr>
