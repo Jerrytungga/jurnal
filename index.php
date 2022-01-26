@@ -17,7 +17,7 @@ if (!isset($_SESSION['role'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>E-Jurnal PKA</title>
+  <title>Jurnal PKA</title>
   <!-- Bootstrap core CSS -->
   <link href="assets/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/alert/iziToast.min.css">
