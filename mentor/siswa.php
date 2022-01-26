@@ -111,9 +111,9 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         Dairy Siswa
                                                     </a>
-                                                    <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
+                                                    <!-- <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
                                                         isi Rapor
-                                                    </a>
+                                                    </a> -->
 
                                                     <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
                                                         Presensi
