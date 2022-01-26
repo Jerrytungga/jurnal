@@ -30,7 +30,7 @@
 
      <!-- Data siswa -->
      <li class="nav-item active">
-         <a class="nav-link" href="Siswa.php">
+         <a class="nav-link" href="siswa.php">
              <i class="fas fa-fw fa-users"></i>
              <span>Data Siswa</span></a>
      </li>
