@@ -14,7 +14,7 @@ if (isset($_POST['btn_input'])) {
     $efata = htmlspecialchars($_POST['efata']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$nama_gambar','$notes','$efata') ORDER BY date DESC");
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$nama_gambar','$notes','$efata') ");
             if ($input) {
                 $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
             } else {
@@ -22,7 +22,7 @@ if (isset($_POST['btn_input'])) {
             }
         }
     } else {
-        $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$notes','$efata') ORDER BY date DESC");
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_selimut`(`nis`, `jarak`, `posisi`, `bentuk`, `bersih`, `benda_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$bt','$br','$brs','$notes','$efata') ");
         if ($input) {
             $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
         } else {
@@ -46,7 +46,7 @@ if (isset($_POST['btn_update'])) {
     $date = htmlspecialchars($_POST['date']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ORDER BY date DESC");
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ");
             if ($edit) {
                 $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
             } else {
@@ -54,7 +54,7 @@ if (isset($_POST['btn_update'])) {
             }
         }
     } else {
-        $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ORDER BY date DESC");
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_selimut` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bentuk`='$bt',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_selimut`.`nis`='$nis' AND `tb_living_selimut`.`date`='$date' ");
         if ($edit) {
             $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         } else {
