@@ -115,6 +115,12 @@
          </div>
      </li>
 
+     <li class="nav-item active">
+         <a class="nav-link" href="backupdatabase.php">
+             <i class="fas fa-database"></i>
+             <span>Database</span></a>
+     </li>
+
      <!-- Divider -->
      <hr class="sidebar-divider d-none d-md-block">
 
