@@ -7,13 +7,21 @@
     </button>
 
     <!-- Topbar Navbar -->
+    <!-- <label class=" m-lg-1">Pilih Siswa</label>
+    <select name="filter" id="filter">
+        <option value="">Pilih</option>
+        <option value="1">Per Tanggal</option>
+        <option value="2">Per Bulan</option>
+        <option value="3">Per Tahun</option>
+    </select> -->
+
+
     <ul class="navbar-nav ml-auto">
-       
         <!-- Nav Item - Admin Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-3 d-none d-lg-inline text-gray-600 small"> <?php echo $data['name']; ?></span>
-               
+
             </a>
             <!-- Dropdown - Admin Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

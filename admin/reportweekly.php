@@ -12,7 +12,7 @@ if (!isset($_SESSION['role'])) {
     $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
     $data = mysqli_fetch_array($get_data);
 }
-$siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC;");
+$siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE status='Aktif' ORDER BY a.date DESC ");
 
 ?>
 <!DOCTYPE html>
