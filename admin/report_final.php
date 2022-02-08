@@ -9,93 +9,95 @@ $s = mysqli_fetch_array($siswa);
 $dari = $s['tgl'];
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
-$jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' ");
 $revivalnote = mysqli_fetch_array($jurnal);
-$alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil' ");
 $pembacaanalkitab = mysqli_fetch_array($alkitab);
-$doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' ");
 $bebandoa = mysqli_fetch_array($doa);
-$presensi = mysqli_query($conn, "SELECT SUM(`presensi`) as jumlah FROM tb_presensi WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$presensi = mysqli_query($conn, "SELECT SUM(`presensi`) as jumlah FROM tb_presensi WHERE nis='$nis' ");
 $kehadiran = mysqli_fetch_array($presensi);
-$homemeeting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$homemeeting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$nis'  ");
 $catatanberkat = mysqli_fetch_array($homemeeting);
-$ask = mysqli_query($conn, "SELECT SUM(`point7`) as jumlah FROM tb_blessings WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$ask = mysqli_query($conn, "SELECT SUM(`point7`) as jumlah FROM tb_blessings WHERE nis='$nis' ");
 $konseling = mysqli_fetch_array($ask);
 
+
 // personal goals
-$prayer = mysqli_query($conn, "SELECT SUM(`point2`) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$prayer = mysqli_query($conn, "SELECT SUM(`point2`) as jumlah FROM tb_personal_goal WHERE nis='$nis' ");
 $kerohanian = mysqli_fetch_array($prayer);
-$neutron = mysqli_query($conn, "SELECT SUM(`point3`) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$neutron = mysqli_query($conn, "SELECT SUM(`point3`) as jumlah FROM tb_personal_goal WHERE nis='$nis' ");
 $pendidikan = mysqli_fetch_array($neutron);
-$karakter = mysqli_query($conn, "SELECT SUM(`point1`) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$karakter = mysqli_query($conn, "SELECT SUM(`point1`) as jumlah FROM tb_personal_goal WHERE nis='$nis'  ");
 $karakter1 = mysqli_fetch_array($karakter);
 
+
 // character
-$benar = mysqli_query($conn, "SELECT SUM(`benar`) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$benar = mysqli_query($conn, "SELECT SUM(`benar`) as jumlah FROM tb_character WHERE nis='$nis' ");
 $sikapbenar = mysqli_fetch_array($benar);
-$tepat = mysqli_query($conn, "SELECT SUM(`tepat`) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$tepat = mysqli_query($conn, "SELECT SUM(`tepat`) as jumlah FROM tb_character WHERE nis='$nis' ");
 $sikaptepat = mysqli_fetch_array($tepat);
-$ketat = mysqli_query($conn, "SELECT SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$ketat = mysqli_query($conn, "SELECT SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$nis'  ");
 $sikapketat = mysqli_fetch_array($ketat);
 
 // Virtues
-$sedo = mysqli_query($conn, "SELECT SUM(`sikapseedo`) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$sedo = mysqli_query($conn, "SELECT SUM(`sikapseedo`) as jumlah FROM tb_virtues WHERE nis='$nis'  ");
 $sikapsedo = mysqli_fetch_array($sedo);
-$tolongmenolong = mysqli_query($conn, "SELECT SUM(`sikaptolongmenolong`) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$tolongmenolong = mysqli_query($conn, "SELECT SUM(`sikaptolongmenolong`) as jumlah FROM tb_virtues WHERE nis='$nis'  ");
 $sikaptolongmenolong = mysqli_fetch_array($tolongmenolong);
-$berkordinasi = mysqli_query($conn, "SELECT SUM(`sikapberkordinasi`) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$berkordinasi = mysqli_query($conn, "SELECT SUM(`sikapberkordinasi`) as jumlah FROM tb_virtues WHERE nis='$nis' ");
 $sikapberkordinasi = mysqli_fetch_array($berkordinasi);
-$ramahsopan = mysqli_query($conn, "SELECT SUM(`sikapramahsopan`) as jumlah FROM tb_virtues WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$ramahsopan = mysqli_query($conn, "SELECT SUM(`sikapramahsopan`) as jumlah FROM tb_virtues WHERE nis='$nis'  ");
 $sikapramahsopan = mysqli_fetch_array($ramahsopan);
 
 // virtue dan character
-$hormattaat = mysqli_query($conn, "SELECT SUM(`hormat_taat`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$hormattaat = mysqli_query($conn, "SELECT SUM(`hormat_taat`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' ");
 $sikaphormattaat = mysqli_fetch_array($hormattaat);
-$bersyukurberterimakasih = mysqli_query($conn, "SELECT SUM(`bersyukur_berterimakasih`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$bersyukurberterimakasih = mysqli_query($conn, "SELECT SUM(`bersyukur_berterimakasih`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' ");
 $sikapbersyukurberterimakasih = mysqli_fetch_array($bersyukurberterimakasih);
-$salamsapa = mysqli_query($conn, "SELECT SUM(`salam_sapa`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$salamsapa = mysqli_query($conn, "SELECT SUM(`salam_sapa`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis'  ");
 $sikapsalamsapa = mysqli_fetch_array($salamsapa);
-$berbagi = mysqli_query($conn, "SELECT SUM(`perhatian_berbagi`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$berbagi = mysqli_query($conn, "SELECT SUM(`perhatian_berbagi`) as jumlah FROM tb_vrtues_caharacter WHERE nis='$nis'  ");
 $sikapberbagi = mysqli_fetch_array($berbagi);
 
 // total living lemari
-$buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$nis' ");
 $livingbuku = mysqli_fetch_array($buku);
-$pakaianlipat = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaianlipat WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$pakaianlipat = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaianlipat WHERE nis='$nis' ");
 $livingpakaianlipat = mysqli_fetch_array($pakaianlipat);
-$pakaiangantung = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bentuk`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jumlah FROM tb_living_pakaiangantung WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$pakaiangantung = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bentuk`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jumlah FROM tb_living_pakaiangantung WHERE nis='$nis' ");
 $livingpakaiangantung = mysqli_fetch_array($pakaiangantung);
-$celana = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_celanalipat WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$celana = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_celanalipat WHERE nis='$nis'  ");
 $livingcelana = mysqli_fetch_array($celana);
-$logistik = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jumlah FROM tb_living_logistik WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$logistik = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`barang_asing`)+SUM(`raib`) as jumlah FROM tb_living_logistik WHERE nis='$nis' ");
 $livinglogistik = mysqli_fetch_array($logistik);
-$pakaiandalam = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaiandalam WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$pakaiandalam = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaiandalam WHERE nis='$nis' ");
 $livingpakaiandalam = mysqli_fetch_array($pakaiandalam);
 $totallivinglemari = $livingbuku['jumlah'] + $livingpakaianlipat['jumlah'] + $livingpakaiangantung['jumlah'] + $livingcelana['jumlah'] + $livinglogistik['jumlah'] + $livingpakaiandalam['jumlah'];
 
 // total living ranjang
-$ranjang = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_ranjang WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$ranjang = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_ranjang WHERE nis='$nis'  ");
 $livingranjang = mysqli_fetch_array($ranjang);
-$bantal = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_bantal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$bantal = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_bantal WHERE nis='$nis' ");
 $livingbantal = mysqli_fetch_array($bantal);
-$seprei = mysqli_query($conn, "SELECT SUM(`rapi`)+SUM(`raib`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_seprei WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$seprei = mysqli_query($conn, "SELECT SUM(`rapi`)+SUM(`raib`)+SUM(`bersih`)+SUM(`benda_asing`) as jumlah FROM tb_living_seprei WHERE nis='$nis' ");
 $livingseprei = mysqli_fetch_array($seprei);
-$selimut = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_selimut WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$selimut = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`bersih`)+SUM(`bentuk`)+SUM(`benda_asing`) as jumlah FROM tb_living_selimut WHERE nis='$nis' ");
 $livingselimut = mysqli_fetch_array($selimut);
 $totallivingranjang = $livingranjang['jumlah'] + $livingbantal['jumlah'] + $livingseprei['jumlah'] + $livingselimut['jumlah'];
 
 // total living rak sepatu
 $raksepatu = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_rak_sepatu WHERE nis='$nis' ");
 $livingraksepatu = mysqli_fetch_array($raksepatu);
-$sepatusidang = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sepatu_sidang WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$sepatusidang = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sepatu_sidang WHERE nis='$nis' ");
 $livingsepatusidang = mysqli_fetch_array($sepatusidang);
-$sepatu_or = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sepatu_or WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$sepatu_or = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sepatu_or WHERE nis='$nis' ");
 $livingsepatu_or = mysqli_fetch_array($sepatu_or);
-$sandal = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sendal WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$sandal = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_sendal WHERE nis='$nis' ");
 $livingsandal = mysqli_fetch_array($sandal);
-$rakhanduk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_rak_handuk WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$rakhanduk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_rak_handuk WHERE nis='$nis' ");
 $livingrakhanduk = mysqli_fetch_array($rakhanduk);
-$handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+70 day", strtotime($dari))) . "' ");
+$handuk = mysqli_query($conn, "SELECT SUM(`jarak`)+SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`) as jumlah FROM tb_living_handuk WHERE nis='$nis' ");
 $livinghanduk = mysqli_fetch_array($handuk);
 $totallivingraksepatu = $livingraksepatu['jumlah'] + $livingsepatusidang['jumlah'] + $livingsepatu_or['jumlah'] + $livingsandal['jumlah'] + $livingrakhanduk['jumlah'] + $livinghanduk['jumlah'];
 include 'template/Session.php';
