@@ -10,8 +10,10 @@ if (isset($_POST['submit'])) {
     $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`Catatan_mentor`) VALUES ('$nis','$Character','$prayer','$Neutron',NULL)");
     if ($goal) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
+        echo notice(0);
     }
 }
 
@@ -25,8 +27,10 @@ if (isset($_POST['btn_update_personalgoal'])) {
     $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 
@@ -223,3 +227,14 @@ include 'template/head.php'
 </body>
 
 </html>
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>

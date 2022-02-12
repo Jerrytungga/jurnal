@@ -1,4 +1,6 @@
 <?php
+
+
 include '../database.php';
 // sistem ganti password siswa
 if (isset($_POST['edit_profile'])) {
@@ -11,7 +13,8 @@ if (isset($_POST['edit_profile'])) {
 session_start();
 
 include 'template/session.php';
-$pesan = $_SESSION
+$pesan = $_SESSION['gagal'] = 'Gagal!';
+echo notice(0);
 
 ?>
 <!DOCTYPE html>
@@ -142,29 +145,29 @@ $pesan = $_SESSION
       var jam = waktu.getHours();
 
 
-      // if (jam == 20) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 21) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 22) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 23) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 01) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 02) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 03) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 04) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 05) {
-      //   jurnal.style.display = 'none';
-      // } else if (jam == 06) {
-      //   jurnal.style.display = 'none';
-      // } else {
-      //   jurnal.style.display = 'blok';
-      // }
+      if (jam == 20) {
+        jurnal.style.display = 'none';
+      } else if (jam == 21) {
+        jurnal.style.display = 'none';
+      } else if (jam == 22) {
+        jurnal.style.display = 'none';
+      } else if (jam == 23) {
+        jurnal.style.display = 'none';
+      } else if (jam == 01) {
+        jurnal.style.display = 'none';
+      } else if (jam == 02) {
+        jurnal.style.display = 'none';
+      } else if (jam == 03) {
+        jurnal.style.display = 'none';
+      } else if (jam == 04) {
+        jurnal.style.display = 'none';
+      } else if (jam == 05) {
+        jurnal.style.display = 'none';
+      } else if (jam == 06) {
+        jurnal.style.display = 'none';
+      } else {
+        jurnal.style.display = 'blok';
+      }
 
     });
   </script>
@@ -213,3 +216,15 @@ $pesan = $_SESSION
 
 
 </html>
+
+<?php
+function notice($type)
+{
+  if ($type == 1) {
+    return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+  } elseif ($type == 0) {
+    return "<audio autoplay><source src='" . '../music/kidung.mp3' . "'></audio>";
+  }
+}
+
+?>

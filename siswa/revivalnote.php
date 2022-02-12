@@ -8,8 +8,10 @@ if (isset($_POST['revival_note'])) {
     $revival = mysqli_query($conn, "INSERT INTO `tb_revival_note`(`nis`, `verse`, `blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
     if ($revival) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
+        echo notice(0);
     }
 }
 // sistem edit revival note
@@ -21,8 +23,10 @@ if (isset($_POST['btn_editrevivalnote'])) {
     $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 // cek apakah yang mengakses halaman ini sudah login
@@ -215,3 +219,14 @@ include 'template/head.php'
 </body>
 
 </html>
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>

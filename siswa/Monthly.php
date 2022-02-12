@@ -14,8 +14,10 @@ if (isset($_POST['blessing'])) {
     $blessings1 = mysqli_query($conn, "INSERT INTO `tb_blessings`(`nis`, `what_i_gain_on_god`, `cttn1`, `what_i_learn_on_education`, `cttn2`, `what_i_learn_on_character_and_virtue`, `cttn3`, `what_l_appreciate_toward_brother_sister`, `cttn4`, `what_l_appreciate_toward_my_trainers`, `cttn5`, `what_l_appreciate_toward_saints`, `cttn6`, `what_I_want_to_ask`, `cttn7`, `what_i_learn_the_most_this_month`, `cttn8`, `catatan_mentor`) VALUES ('$nis','$god',NULL,'$education',NULL,'$character',NULL,'$appreciate1',NULL,'$appreciate2',NULL,'$appreciate3',NULL,'$ask',NULL,'$thismonth',NULL,NULL)");
     if ($blessings1) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
+        echo notice(0);
     }
 }
 
@@ -34,8 +36,10 @@ if (isset($_POST['btn_blessings'])) {
     $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 
@@ -279,3 +283,14 @@ include 'template/head.php'
 </body>
 
 </html>
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>

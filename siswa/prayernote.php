@@ -8,8 +8,10 @@ if (isset($_POST['prayer_note'])) {
     $praye = mysqli_query($conn, "INSERT INTO `tb_prayer_note`(`nis`, `kategori`, `burden_inward_sense`, `catatan_mentor`) VALUES ('$nis','$kategori','$burden_inward_sense',NULL)");
     if ($praye) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
+        echo notice(0);
     }
 }
 
@@ -22,8 +24,10 @@ if (isset($_POST['btn_edit_prayernote'])) {
     $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `kategori`='$judul',`burden_inward_sense`='$beban' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 
@@ -201,3 +205,14 @@ include 'template/head.php'
 </body>
 
 </html>
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>

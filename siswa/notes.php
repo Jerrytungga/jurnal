@@ -8,8 +8,10 @@ if (isset($_POST['catatan'])) {
     $catatan = mysqli_query($conn, "INSERT INTO `tb_catatan`(`nis`, `judul`, `deskripsi`) VALUES ('$nis','$jd_diary','$isi_diary')");
     if ($catatan) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Gagal Disimpan';
+        echo notice(0);
     }
 }
 
@@ -21,8 +23,10 @@ if (isset($_POST['perubahan'])) {
     $edit =  mysqli_query($conn, "UPDATE `tb_catatan` SET `judul`='$judul',`deskripsi`='$deskripsi' WHERE `tb_catatan`.`id_catatan`='$id'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 
@@ -32,8 +36,10 @@ if (isset($_POST['hapus'])) {
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_catatan`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
         $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        echo notice(0);
     }
 }
 // cek apakah yang mengakses halaman ini sudah login
@@ -168,3 +174,15 @@ include 'template/head.php'
 </body>
 
 </html>
+
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>

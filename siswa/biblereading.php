@@ -27,10 +27,12 @@ if (isset($_POST['btn_editbible'])) {
 
     if ($editbible) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        echo notice(1);
     } else {
         // echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
 
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        echo notice(0);
     }
 }
 // cek apakah yang mengakses halaman ini sudah login
@@ -39,14 +41,6 @@ include 'template/session.php';
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
 $bible = mysqli_fetch_array($jurnal);
 
-function notice($type)
-{
-    if ($type == 1) {
-        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
-    } elseif ($type == 0) {
-        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -201,3 +195,15 @@ include 'template/head.php'
 </body>
 
 </html>
+
+<?php
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
+
+?>
