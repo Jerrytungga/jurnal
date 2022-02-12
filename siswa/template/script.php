@@ -53,11 +53,13 @@
         var jam = waktu.getHours();
 
 
-        if (jam == 22) {
+        if (jam == 20) {
+          jurnal.style.display = 'none';
+        } else if (jam == 21) {
+          jurnal.style.display = 'none';
+        } else if (jam == 22) {
           jurnal.style.display = 'none';
         } else if (jam == 23) {
-          jurnal.style.display = 'none';
-        } else if (jam == 00) {
           jurnal.style.display = 'none';
         } else if (jam == 01) {
           jurnal.style.display = 'none';
