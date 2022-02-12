@@ -45,7 +45,7 @@
         }
       });
     </script>
-    <script>
+    <!-- <script>
       $(document).ready(function() {
         var living = document.getElementById('jurnal');
         var waktu = new Date();
@@ -77,4 +77,4 @@
           jurnal.style.display = 'blok';
         }
       });
-    </script>
+    </script> -->

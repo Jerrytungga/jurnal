@@ -1,5 +1,6 @@
 <?php
 include '../database.php';
+
 // sistem submit/post di bagian jurnal bible reading
 if (isset($_POST['bible_reading'])) {
     $nis = htmlspecialchars($_POST['nis']);
@@ -9,8 +10,10 @@ if (isset($_POST['bible_reading'])) {
     $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`, `catatan_mentor`) VALUES ('$nis','$kitab','$OT','$NT',NULL)");
     if ($bible) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        echo notice(1);
     } else {
         $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
+        echo notice(0);
     }
 }
 // sistem edit bible
@@ -26,6 +29,7 @@ if (isset($_POST['btn_editbible'])) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {
         // echo '<script>alert("Mohon Maaf Pengisian jurnal Hanya Sekali Saja")</script>';
+
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
     }
 }
@@ -35,7 +39,14 @@ include 'template/session.php';
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
 $bible = mysqli_fetch_array($jurnal);
 
-
+function notice($type)
+{
+    if ($type == 1) {
+        return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+    } elseif ($type == 0) {
+        return "<audio autoplay><source src='" . '../music/error.wav' . "'></audio>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
