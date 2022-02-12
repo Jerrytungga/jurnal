@@ -45,3 +45,34 @@
         }
       });
     </script>
+    <script>
+      $(document).ready(function() {
+        var living = document.getElementById('jurnal');
+        var waktu = new Date();
+        var menit = waktu.getMinutes();
+        var jam = waktu.getHours();
+
+
+        if (jam == 22) {
+          jurnal.style.display = 'none';
+        } else if (jam == 23) {
+          jurnal.style.display = 'none';
+        } else if (jam == 00) {
+          jurnal.style.display = 'none';
+        } else if (jam == 01) {
+          jurnal.style.display = 'none';
+        } else if (jam == 02) {
+          jurnal.style.display = 'none';
+        } else if (jam == 03) {
+          jurnal.style.display = 'none';
+        } else if (jam == 04) {
+          jurnal.style.display = 'none';
+        } else if (jam == 05) {
+          jurnal.style.display = 'none';
+        } else if (jam == 06) {
+          jurnal.style.display = 'none';
+        } else {
+          jurnal.style.display = 'blok';
+        }
+      });
+    </script>

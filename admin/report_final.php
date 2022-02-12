@@ -9,22 +9,22 @@ $s = mysqli_fetch_array($siswa);
 $dari = $s['tgl'];
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
-$jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' ");
+$jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
 $revivalnote = mysqli_fetch_array($jurnal);
 $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil' ");
 $pembacaanalkitab = mysqli_fetch_array($alkitab);
-$doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' ");
+$doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
 $bebandoa = mysqli_fetch_array($doa);
-$presensi = mysqli_query($conn, "SELECT SUM(`presensi`) as jumlah FROM tb_presensi WHERE nis='$nis' ");
+$presensi = mysqli_query($conn, "SELECT SUM(`presensi`) as jumlah FROM tb_presensi WHERE nis='$nis' AND semester='$fil' ");
 $kehadiran = mysqli_fetch_array($presensi);
-$homemeeting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$nis'  ");
+$homemeeting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND semester='$fil'  ");
 $catatanberkat = mysqli_fetch_array($homemeeting);
-$ask = mysqli_query($conn, "SELECT SUM(`point7`) as jumlah FROM tb_blessings WHERE nis='$nis' ");
+$ask = mysqli_query($conn, "SELECT SUM(`point7`) as jumlah FROM tb_blessings WHERE nis='$nis' AND semester='$fil' ");
 $konseling = mysqli_fetch_array($ask);
 
 
 // personal goals
-$prayer = mysqli_query($conn, "SELECT SUM(`point2`) as jumlah FROM tb_personal_goal WHERE nis='$nis' ");
+$prayer = mysqli_query($conn, "SELECT SUM(`point2`) as jumlah FROM tb_personal_goal WHERE nis='$nis' AND semester='$fil' ");
 $kerohanian = mysqli_fetch_array($prayer);
 $neutron = mysqli_query($conn, "SELECT SUM(`point3`) as jumlah FROM tb_personal_goal WHERE nis='$nis' ");
 $pendidikan = mysqli_fetch_array($neutron);

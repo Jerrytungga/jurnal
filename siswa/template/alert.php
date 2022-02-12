@@ -70,4 +70,15 @@
       })
     </script>
 
+  <?php } else if (isset($pesan)) { ?>
+    <script>
+      Swal.fire({
+        title: '<strong>Maintenance</strong>',
+        icon: 'info',
+        html: 'Saudara/i Jurnal akan ditutup pukul 20:00 WIB',
+        showCloseButton: true,
+        focusConfirm: true,
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+      })
+    </script>
   <?php } ?>

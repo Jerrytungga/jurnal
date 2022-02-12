@@ -29,12 +29,13 @@ if (isset($_POST['btn_editbible'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
     }
 }
-
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 include 'template/session.php';
 $jurnal = mysqli_query($conn, "SELECT * FROM tb_bible_reading WHERE nis='$id' ORDER BY date DESC");
 $bible = mysqli_fetch_array($jurnal);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

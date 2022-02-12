@@ -9,7 +9,10 @@ if (isset($_POST['edit_profile'])) {
 }
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
+
 include 'template/session.php';
+$pesan = $_SESSION
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +102,9 @@ include 'template/session.php';
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <!-- Custom scripts for all pages-->
   <script src="../js/sb-admin-2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
   <script>
     $(document).on("click", "#edit_siswa", function() {
       let image = $(this).data('foto');
@@ -127,6 +133,78 @@ include 'template/session.php';
         living.style.display = 'none';
       }
     });
+  </script>
+  <script>
+    $(document).ready(function() {
+      var living = document.getElementById('jurnal');
+      var waktu = new Date();
+      var menit = waktu.getMinutes();
+      var jam = waktu.getHours();
+
+
+      if (jam == 22) {
+        jurnal.style.display = 'none';
+      } else if (jam == 23) {
+        jurnal.style.display = 'none';
+      } else if (jam == 00) {
+        jurnal.style.display = 'none';
+      } else if (jam == 01) {
+        jurnal.style.display = 'none';
+      } else if (jam == 02) {
+        jurnal.style.display = 'none';
+      } else if (jam == 03) {
+        jurnal.style.display = 'none';
+      } else if (jam == 04) {
+        jurnal.style.display = 'none';
+      } else if (jam == 05) {
+        jurnal.style.display = 'none';
+      } else if (jam == 06) {
+        jurnal.style.display = 'none';
+      } else {
+        jurnal.style.display = 'blok';
+      }
+    });
+  </script>
+
+  <script>
+    Swal.fire({
+      title: '<strong>Maintenance </strong> ',
+      icon: 'info',
+      html: 'Saudara/i Jurnal akan ditutup pukul 20:00 - 06:00 WIB <br> Akan kembali dibuka mulai pukul 06:00 - 20:00 WIB <br> <a class="text-danger">Proses maintenance ini berlaku selama 10 hari kedepan.<br> Pastikan jurnal saudara/i selesai di isi</a> <p> <h1><p id="demo"></p> </h1>',
+      showCloseButton: true,
+      focusConfirm: true,
+      confirmButtonAriaLabel: 'Thumbs up, great!',
+    })
+  </script>
+  <script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("Feb 22, 2022 15:37:25").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+        minutes + "m " + seconds + "s ";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
   </script>
 </body>
 
