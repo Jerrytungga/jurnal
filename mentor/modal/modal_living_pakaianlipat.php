@@ -14,6 +14,18 @@
         <div class="modal-body">
           <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
           <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+          <div class="form-group">
+            <label class="text-reset font-weight-bold" for="smt">Semester :</label>
+            <select class="form-control" name="smt" id="smt" aria-label="Default select example" required>
+
+              <!-- Looping data mentor -->
+              <?php
+              while ($data_smt = mysqli_fetch_array($semester)) {
+                echo '<option value="' . $data_smt['thn_semester'] . '">' . $data_smt['keterangan'] . '</option>';
+              }
+              ?>
+            </select>
+          </div>
           <label class="font-weight-bold">Posisi :</label>
           <div class="form-group">
             <select class="form-control" name="posisi" aria-label="Default select example">
@@ -105,7 +117,7 @@
   <div class="modal-dialog" id="modal-edit">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="Buku">Living Pakaian Lipat</h5>
+        <h5 class="modal-title font-weight-bold" id="Buku">Change Living Pakaian Lipat</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
