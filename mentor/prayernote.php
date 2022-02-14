@@ -10,7 +10,8 @@ if (isset($_POST['btn_prayernote'])) {
     $point1 = htmlspecialchars($_POST['point1']);
     $date = htmlspecialchars($_POST['date']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`efata`='$efata',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    $smtr = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`efata`='$efata',`point1`='$point1',`kategori`='$judul',`semester`='$smtr',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {
@@ -35,6 +36,7 @@ include 'template/session.php';
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+$semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status= '1'") or die(mysqli_error($conn));
 
 if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];

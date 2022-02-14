@@ -14,9 +14,10 @@ if (isset($_POST['btn_input'])) {
     $rb = htmlspecialchars($_POST['raib']);
     $brs = htmlspecialchars($_POST['barangasing']);
     $notes = htmlspecialchars($_POST['catatan']);
+    $smtr = htmlspecialchars($_POST['smt']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $input =  mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata')");
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata','$smtr')");
             if ($input) {
                 $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
             } else {
@@ -24,7 +25,7 @@ if (isset($_POST['btn_input'])) {
             }
         }
     } else {
-        $input = mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$notes','$efata')");
+        $input = mysqli_query($conn, "INSERT INTO `tb_living_buku`(`nis`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$tr','$rp','$br','$rb','$brs','$notes','$efata','$smtr')");
         if ($input) {
             $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
         } else {
@@ -85,6 +86,7 @@ include 'template/session.php';
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+$semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status= '1'") or die(mysqli_error($conn));
 if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];
     $selesai = $_POST['tanggal_akhir'];

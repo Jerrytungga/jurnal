@@ -16,7 +16,19 @@
                     <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <div class="form-group">
-                        <h7 class="text-reset" for="date">Date :</h7>
+                        <label class="text-reset font-weight-bold" for="smt">Semester :</label>
+                        <select class="form-control" name="smt" id="smt" aria-label="Default select example" required>
+
+                            <!-- Looping data mentor -->
+                            <?php
+                            while ($data_smt = mysqli_fetch_array($semester)) {
+                                echo '<option value="' . $data_smt['thn_semester'] . '">' . $data_smt['keterangan'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-reset" for="date">Date :</label>
                         <input type="text" class="form-control" id="date" name="date" placeholder="date">
                     </div>
 

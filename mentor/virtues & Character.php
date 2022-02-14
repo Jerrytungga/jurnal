@@ -9,7 +9,8 @@ if (isset($_POST['btn_myvirtues'])) {
     $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`) VALUES ('$nis','$berbagi','$salam','$berterimakasih','$hormat','$efata','$catatan')");
+    $smtr = htmlspecialchars($_POST['smt']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`, `semester`) VALUES ('$nis','$berbagi','$salam ','$berterimakasih','$hormat','$efata','$catatan','$smtr')");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {
@@ -52,6 +53,7 @@ include 'template/session.php';
 $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
+$semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status= '1'") or die(mysqli_error($conn));
 
 if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];

@@ -1,12 +1,10 @@
 <?php
 include '../database.php';
 session_start();
-date_default_timezone_set('Asia/Jakarta');
 $nis = $_GET['nis'];
 $fil = $_GET['filter'];
-$siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angkatan= b.angkatan WHERE nis='$nis' ORDER BY a.date DESC ");
+$siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' ");
 $s = mysqli_fetch_array($siswa);
-$dari = $s['tgl'];
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
 $jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
