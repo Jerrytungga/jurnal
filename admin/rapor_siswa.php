@@ -48,7 +48,7 @@ $s = mysqli_fetch_array($siswa);
                             <option value="">Pilih Semester</option>
                             <?php
 
-                            $semester = mysqli_query($conn, "SELECT * FROM tb_semester where status='1' ");
+                            $semester = mysqli_query($conn, "SELECT * FROM tb_semester where status='Aktif' ");
                             while ($thn = mysqli_fetch_array($semester)) {
                                 echo '<option value="' . $thn['thn_semester'] . '">' . $thn['keterangan'] . '</option>';
                             }
