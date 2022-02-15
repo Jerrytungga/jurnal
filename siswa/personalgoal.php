@@ -7,7 +7,8 @@ if (isset($_POST['submit'])) {
     $Character = htmlspecialchars($_POST['Character']);
     $prayer = htmlspecialchars($_POST['prayer']);
     $Neutron = htmlspecialchars($_POST['Neutron']);
-    $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`Catatan_mentor`) VALUES ('$nis','$Character','$prayer','$Neutron',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $goal = mysqli_query($conn, "INSERT INTO `tb_personal_goal`(`nis`, `character_virtue`, `prayer`, `neutron`,`semester`) VALUES ('$nis','$Character','$prayer','$Neutron','$smt')");
     if ($goal) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -24,7 +25,8 @@ if (isset($_POST['btn_update_personalgoal'])) {
     $prayer = htmlspecialchars($_POST['prayer']);
     $Neutron = htmlspecialchars($_POST['neutron']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`semester`='$smt' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);

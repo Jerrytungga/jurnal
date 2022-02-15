@@ -8,7 +8,8 @@ if (isset($_POST['btnpenilaian'])) {
     $tepat = htmlspecialchars($_POST['tepat']);
     $ketat = htmlspecialchars($_POST['ketat']);
     $notes = htmlspecialchars($_POST['catatan']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes') ");
+    $smt = htmlspecialchars($_POST['smt']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_character`(`nis`, `efata`, `benar`, `tepat`, `ketat`, `catatan`,`semester`) VALUES ('$nis','$efata','$benar','$tepat','$ketat','$notes','$smt') ");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {
@@ -24,7 +25,8 @@ if (isset($_POST['editcharacter'])) {
     $tepat = htmlspecialchars($_POST['tepat']);
     $ketat = htmlspecialchars($_POST['ketat']);
     $notes = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_character` SET `nis`='$nis',`efata`='$no_efata',`benar`='$benar',`tepat`='$tepat',`ketat`='$ketat',`catatan`='$notes',`semester`='$smt' WHERE `tb_character`.`nis`='$nis' AND `tb_character`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

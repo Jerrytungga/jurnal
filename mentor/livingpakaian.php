@@ -13,10 +13,10 @@ if (isset($_POST['btn_input'])) {
     $rb = htmlspecialchars($_POST['raib']);
     $brs = htmlspecialchars($_POST['barangasing']);
     $notes = htmlspecialchars($_POST['catatan']);
-    $smtr = htmlspecialchars($_POST['smt']);
+    $smt = htmlspecialchars($_POST['smt']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $input =  mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata','$smtr')");
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata','$smt')");
             if ($input) {
                 $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
             } else {
@@ -24,7 +24,7 @@ if (isset($_POST['btn_input'])) {
             }
         }
     } else {
-        $input =  mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$rp','$br','$rb','$brs','$notes','$efata','$smtr')");
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_pakaianlipat`(`nis`, `posisi`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`,`semester`) VALUES ('$nis','$pss','$rp','$br','$rb','$brs','$notes','$efata','$smt')");
         if ($input) {
             $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
         } else {
@@ -47,9 +47,10 @@ if (isset($_POST['btn_update'])) {
     $barangasing = htmlspecialchars($_POST['brngasing']);
     $date = htmlspecialchars($_POST['date']);
     $notes = htmlspecialchars($_POST['catatan']);
+    $smt = htmlspecialchars($_POST['smt']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $edit =   mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`barang_asing`='$barangasing',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+            $edit =   mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`catatan`='$notes',`barang_asing`='$barangasing',`date`='$date',`semester`='$smt' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
             if ($edit) {
                 $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
             } else {
@@ -57,7 +58,7 @@ if (isset($_POST['btn_update'])) {
             }
         }
     } else {
-        $edit =  mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`catatan`='$notes',`date`='$date' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_pakaianlipat` SET `nis`='$nis',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`catatan`='$notes',`date`='$date',`semester`='$smt' WHERE `tb_living_pakaianlipat`.`nis`='$nis' AND `tb_living_pakaianlipat`.`date`='$date'");
 
         if ($edit) {
             $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';

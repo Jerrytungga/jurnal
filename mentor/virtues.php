@@ -9,8 +9,8 @@ if (isset($_POST['btn_submit_virtues'])) {
     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $smtr = htmlspecialchars($_POST['smt']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`,`semester`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan','$smtr')");
+    $smt = htmlspecialchars($_POST['smt']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`,`semester`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan','$smt')");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {
@@ -26,7 +26,8 @@ if (isset($_POST['btn_virtue'])) {
     $sikaptolongmenolong = htmlspecialchars($_POST['sikaptolongmenolong']);
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan' WHERE  `tb_virtues`.`nis`='$nis' ");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan',`semester`='$smt' WHERE  `tb_virtues`.`nis`='$nis' ");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

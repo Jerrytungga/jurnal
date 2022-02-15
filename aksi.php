@@ -16,7 +16,6 @@ $num_row2    = mysqli_num_rows($result2);
 $query3  	= "SELECT * FROM admin WHERE username='$username' AND password='$password' ";
 $result3     = mysqli_query($conn, $query3);
 $num_row3    = mysqli_num_rows($result3);
-
 // Mengecek data nya ada atau tidak
 if ($num_row > 0) {
 	$row    = mysqli_fetch_array($result);

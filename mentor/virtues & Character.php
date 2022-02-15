@@ -9,8 +9,8 @@ if (isset($_POST['btn_myvirtues'])) {
     $berterimakasih = htmlspecialchars($_POST['berterimakasih']);
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $smtr = htmlspecialchars($_POST['smt']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`, `semester`) VALUES ('$nis','$berbagi','$salam ','$berterimakasih','$hormat','$efata','$catatan','$smtr')");
+    $smt = htmlspecialchars($_POST['smt']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_vrtues_caharacter`(`nis`, `perhatian_berbagi`, `salam_sapa`, `bersyukur_berterimakasih`, `hormat_taat`, `efata`, `catatan`, `semester`) VALUES ('$nis','$berbagi','$salam ','$berterimakasih','$hormat','$efata','$catatan','$smt')");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {
@@ -26,7 +26,8 @@ if (isset($_POST['btn_virtue_character'])) {
     $ucapan = htmlspecialchars($_POST['ucapan']);
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
-    $edit = mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`semester`='$smt',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

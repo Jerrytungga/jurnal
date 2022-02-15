@@ -9,8 +9,7 @@ if (isset($_POST['btn_homemeeting'])) {
     $catatan8 = htmlspecialchars($_POST['catatan8']);
     $point_homemeeting = htmlspecialchars($_POST['point']);
     $date = htmlspecialchars($_POST['date']);
-    $smtr = htmlspecialchars($_POST['smt']);
-    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`semester`='$smtr',`efata`='$efata',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`point`='$point_homemeeting',`efata`='$efata',`date`='$date',`what_i_get_and_lern`='$berkat',`catatan_mentor`='$catatan8' WHERE `tb_home_meeting`.`nis` ='$nis' AND `tb_home_meeting`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

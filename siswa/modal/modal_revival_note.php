@@ -51,6 +51,7 @@
             <form action="" method="POST">
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="nis" name="nis">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                     <div class="form-group">
                         <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
                         <input type="text" class="form-control" id="date" name="date" readonly></input>
@@ -93,6 +94,7 @@
             <form action="" method="POST">
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                     <div class="form-group">
                         <label for="verse1-text" class="col-form-label font-weight-bold">Verse :</label>
                         <textarea rows="5" type="text" class="form-control" id="verse1" name="verse1">

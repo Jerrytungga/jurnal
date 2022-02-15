@@ -11,6 +11,7 @@
                 <!-- bungkus untuk form -->
                 <form action="" method="POST">
                     <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="god-text" class="col-form-label font-weight-bold">What I gain on God :</label>
@@ -67,6 +68,7 @@
                     </button>
                 </div>
                 <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
+
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="god-text" class="col-form-label font-weight-bold">What I gain on God :</label>
@@ -93,6 +95,7 @@
                     </button>
                 </div>
                 <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
+
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="god-text" class="col-form-label font-weight-bold">What I learn on Education :</label>
@@ -271,6 +274,7 @@
                 <!-- bungkus untuk form inputan personal goal-->
                 <form action="" method="POST">
                     <input type="hidden" class="form-control" id="nis" name="nis">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
 
                     <div class="modal-body">
                         <div class="form-group">

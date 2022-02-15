@@ -11,9 +11,10 @@ if (isset($_POST['btn_input'])) {
     $br = htmlspecialchars($_POST['bersih']);
     $brs = htmlspecialchars($_POST['brngasing']);
     $notes = htmlspecialchars($_POST['cttn']);
+    $smt = htmlspecialchars($_POST['smt']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$br','$brs','$nama_gambar','$notes','$efata') ");
+            $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `image`, `catatan`, `efata`, `semester`) VALUES ('$nis','$jrk','$pss','$br','$brs','$nama_gambar','$notes','$efata','$smt') ");
             if ($input) {
                 $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
             } else {
@@ -21,7 +22,7 @@ if (isset($_POST['btn_input'])) {
             }
         }
     } else {
-        $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `catatan`, `efata`) VALUES ('$nis','$jrk','$pss','$br','$brs','$notes','$efata') ");
+        $input =  mysqli_query($conn, "INSERT INTO `tb_living_ranjang`(`nis`, `jarak`, `posisi`, `bersih`, `benda_asing`, `catatan`, `efata`, `semester`) VALUES ('$nis','$jrk','$pss','$br','$brs','$notes','$efata','$smt') ");
         if ($input) {
             $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
         } else {
@@ -41,9 +42,10 @@ if (isset($_POST['btn_update'])) {
     $brs = htmlspecialchars($_POST['brngasing']);
     $notes = htmlspecialchars($_POST['catatan']);
     $date = htmlspecialchars($_POST['date']);
+    $smt = htmlspecialchars($_POST['smt']);
     if ($nama_gambar != '') {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-            $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ");
+            $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata',`semester`='$smt' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ");
             if ($edit) {
                 $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
             } else {
@@ -51,7 +53,7 @@ if (isset($_POST['btn_update'])) {
             }
         }
     } else {
-        $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ");
+        $edit =  mysqli_query($conn, "UPDATE `tb_living_ranjang` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`bersih`='$br',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata',`semester`='$smt' WHERE `tb_living_ranjang`.`nis`='$nis' AND `tb_living_ranjang`.`date`='$date' ");
         if ($edit) {
             $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         } else {
@@ -237,6 +239,7 @@ include 'template/head.php';
                         <label class="text-reset">Jarak</label>
                         <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                         <div class="form-group">
                             <select class="form-control" name="jarak" aria-label="Default select example">
                                 <option value="">Select</option>
@@ -325,6 +328,7 @@ include 'template/head.php';
                         <label class="text-reset">Jarak</label>
                         <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                        <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                         <input type="hidden" class="form-control" id="date" name="date">
                         <div class="form-group">
                             <select class="form-control" id="jarak" name="jarak" aria-label="Default select example">

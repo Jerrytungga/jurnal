@@ -1,13 +1,13 @@
 <?php
 include '../database.php';
-
 // sistem submit/post di bagian jurnal bible reading
 if (isset($_POST['bible_reading'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $kitab = htmlspecialchars($_POST['kitab']);
     $OT = htmlspecialchars($_POST['OT']);
     $NT = htmlspecialchars($_POST['NT']);
-    $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`, `catatan_mentor`) VALUES ('$nis','$kitab','$OT','$NT',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $bible = mysqli_query($conn, "INSERT INTO `tb_bible_reading`(`nis`, `bible`, `total_ot`, `total_nt`,`semester`) VALUES ('$nis','$kitab','$OT','$NT','$smt')");
     if ($bible) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -23,7 +23,8 @@ if (isset($_POST['btn_editbible'])) {
     $ot = htmlspecialchars($_POST['ot']);
     $nt = htmlspecialchars($_POST['nt']);
     $date = htmlspecialchars($_POST['date']);
-    $editbible = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `bible`='$bible',`total_ot`='$ot',`total_nt`='$nt' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $editbible = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`semester`='$smt' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
 
     if ($editbible) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';

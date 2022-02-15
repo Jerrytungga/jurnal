@@ -10,8 +10,7 @@ if (isset($_POST['btn_exhibition'])) {
     $catatan2 = htmlspecialchars($_POST['catatan2']);
     $date = htmlspecialchars($_POST['date']);
     $point_exhibition = htmlspecialchars($_POST['point']);
-    $smtr = htmlspecialchars($_POST['smt']);
-    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse2',`semester`='$smtr',`efata`='$efata',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse2',`efata`='$efata',`point_of_blessing`='$point',`catatan_mentor`='$catatan2',`date`='$date',`point`='$point_exhibition' WHERE `tb_exhibition`.`nis` ='$nis' AND `tb_exhibition`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

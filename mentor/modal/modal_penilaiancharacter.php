@@ -14,6 +14,7 @@
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                     <label class="font-weight-bold">Benar :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="benar" id="benar">
@@ -77,6 +78,7 @@
 
                     <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                    <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
 
                     <div class="form-group">
                         <label class="font-weight-bold">Date :</label>

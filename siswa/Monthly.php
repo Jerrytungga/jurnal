@@ -11,7 +11,8 @@ if (isset($_POST['blessing'])) {
     $appreciate3 = htmlspecialchars($_POST['appreciate3']);
     $ask = htmlspecialchars($_POST['ask']);
     $thismonth = htmlspecialchars($_POST['thismonth']);
-    $blessings1 = mysqli_query($conn, "INSERT INTO `tb_blessings`(`nis`, `what_i_gain_on_god`, `cttn1`, `what_i_learn_on_education`, `cttn2`, `what_i_learn_on_character_and_virtue`, `cttn3`, `what_l_appreciate_toward_brother_sister`, `cttn4`, `what_l_appreciate_toward_my_trainers`, `cttn5`, `what_l_appreciate_toward_saints`, `cttn6`, `what_I_want_to_ask`, `cttn7`, `what_i_learn_the_most_this_month`, `cttn8`, `catatan_mentor`) VALUES ('$nis','$god',NULL,'$education',NULL,'$character',NULL,'$appreciate1',NULL,'$appreciate2',NULL,'$appreciate3',NULL,'$ask',NULL,'$thismonth',NULL,NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $blessings1 = mysqli_query($conn, "INSERT INTO `tb_blessings`(`nis`, `what_i_gain_on_god`, `cttn1`, `what_i_learn_on_education`, `cttn2`, `what_i_learn_on_character_and_virtue`, `cttn3`, `what_l_appreciate_toward_brother_sister`, `cttn4`, `what_l_appreciate_toward_my_trainers`, `cttn5`, `what_l_appreciate_toward_saints`, `cttn6`, `what_I_want_to_ask`, `cttn7`, `what_i_learn_the_most_this_month`, `cttn8`, `catatan_mentor`,`semester`) VALUES ('$nis','$god',NULL,'$education',NULL,'$character',NULL,'$appreciate1',NULL,'$appreciate2',NULL,'$appreciate3',NULL,'$ask',NULL,'$thismonth',NULL,NULL,'$smt')");
     if ($blessings1) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -33,7 +34,8 @@ if (isset($_POST['btn_blessings'])) {
     $ask = htmlspecialchars($_POST['ask']);
     $berkat = htmlspecialchars($_POST['berkat']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat',`semester`='$smt' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);

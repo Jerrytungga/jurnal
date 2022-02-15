@@ -12,8 +12,7 @@ if (isset($_POST['btn_bible'])) {
     $point_bible1 = htmlspecialchars($_POST['point1']);
     $point_bible2 = htmlspecialchars($_POST['point2']);
     $catatan4 = htmlspecialchars($_POST['catatan4']);
-    $smtr = htmlspecialchars($_POST['smt']);
-    $edit = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis',`efata`='$efata', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`semester`='$smtr',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
+    $edit = mysqli_query($conn, "UPDATE `tb_bible_reading` SET `nis`='$nis',`efata`='$efata', `point`='$point_bible',`point1`='$point_bible1',`point2`='$point_bible2',`bible`='$bible',`total_ot`='$ot',`total_nt`='$nt',`catatan_mentor`='$catatan4',`date`='$date' WHERE `tb_bible_reading`.`nis` ='$nis' AND `tb_bible_reading`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {

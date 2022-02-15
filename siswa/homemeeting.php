@@ -5,7 +5,8 @@ include '../database.php';
 if (isset($_POST['home_meeting'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $getandlern = htmlspecialchars($_POST['getandlern']);
-    $homemeeting = mysqli_query($conn, "INSERT INTO `tb_home_meeting`(`nis`, `what_i_get_and_lern`, `catatan_mentor`) VALUES ('$nis','$getandlern',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $homemeeting = mysqli_query($conn, "INSERT INTO `tb_home_meeting`(`nis`, `what_i_get_and_lern`, `semester`) VALUES ('$nis','$getandlern','$smt')");
     if ($homemeeting) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -19,7 +20,8 @@ if (isset($_POST['btn_update_hommeeting'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $learn = htmlspecialchars($_POST['learn']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`what_i_get_and_lern`='$learn' WHERE `tb_home_meeting`.`nis`='$nis' AND `tb_home_meeting`.`date`='$date' ");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_home_meeting` SET `nis`='$nis',`what_i_get_and_lern`='$learn', `semester`='$smt' WHERE `tb_home_meeting`.`nis`='$nis' AND `tb_home_meeting`.`date`='$date' ");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);

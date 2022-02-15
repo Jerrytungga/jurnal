@@ -13,6 +13,7 @@
 
                       <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                       <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
+                      <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                       <label class=" font-weight-bold">Ramah & Sopan :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapramahsopan" id="sikapramahsopan">
@@ -85,18 +86,8 @@
                   <div class="modal-body">
                       <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                       <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
-                      <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="smt">Semester :</label>
-                          <select class="form-control" name="smt" id="smt" aria-label="Default select example" required>
+                      <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
 
-                              <!-- Looping data mentor -->
-                              <?php
-                                while ($data_smt = mysqli_fetch_array($semester)) {
-                                    echo '<option value="' . $data_smt['thn_semester'] . '">' . $data_smt['keterangan'] . '</option>';
-                                }
-                                ?>
-                          </select>
-                      </div>
                       <label class=" font-weight-bold">Ramah & Sopan :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapramahsopan" id="sikapramahsopan">

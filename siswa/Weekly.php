@@ -7,7 +7,8 @@ if (isset($_POST['exhibition'])) {
     $verse = htmlspecialchars($_POST['verse_exhibition']);
     $category = htmlspecialchars($_POST['category']);
     $blessing = htmlspecialchars($_POST['blessing_exhibition']);
-    $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`,`category`, `verse`, `point_of_blessing`, `catatan_mentor`) VALUES ('$nis','$category','$verse','$blessing',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $exhibition = mysqli_query($conn, "INSERT INTO `tb_exhibition`(`nis`,`category`, `verse`, `point_of_blessing`, `semester`) VALUES ('$nis','$category','$verse','$blessing','$smt')");
     if ($exhibition) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -22,7 +23,8 @@ if (isset($_POST['btn_editexhibition'])) {
     $verse = htmlspecialchars($_POST['verse']);
     $pointblessings = htmlspecialchars($_POST['pointblessings']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_exhibition` SET `nis`='$nis',`category`='$category',`verse`='$verse',`point_of_blessing`='$pointblessings',`semester`='$smt' WHERE `tb_exhibition`.`nis`='$nis' AND `tb_exhibition`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);

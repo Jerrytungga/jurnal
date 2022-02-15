@@ -8,7 +8,8 @@ if (isset($_POST['input'])) {
     $presensi = htmlspecialchars($_POST['presensi']);
     $nama = htmlspecialchars($_POST['name']);
     $week = htmlspecialchars($_POST['Minggu']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`,`week`) VALUES ('$nis','$nama','$presensi','$efata','$week')");
+    $smt = htmlspecialchars($_POST['smt']);
+    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`,`week`,`semester`) VALUES ('$nis','$nama','$presensi','$efata','$week','$smt')");
     if ($input) {
         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
     } else {

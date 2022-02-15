@@ -97,6 +97,7 @@
                  <h6 class="collapse-header">kategori:</h6>
                  <a class="collapse-item" href="jurusan.php">Jurusan</a>
                  <a class="collapse-item" href="angkatan.php">Angkatan</a>
+                 <a class="collapse-item" href="semester.php">Semester</a>
              </div>
          </div>
      </li>

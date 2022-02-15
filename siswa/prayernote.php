@@ -5,7 +5,8 @@ if (isset($_POST['prayer_note'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $kategori = htmlspecialchars($_POST['kategori']);
     $burden_inward_sense = htmlspecialchars($_POST['burden_inward_sense']);
-    $praye = mysqli_query($conn, "INSERT INTO `tb_prayer_note`(`nis`, `kategori`, `burden_inward_sense`, `catatan_mentor`) VALUES ('$nis','$kategori','$burden_inward_sense',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $praye = mysqli_query($conn, "INSERT INTO `tb_prayer_note`(`nis`, `kategori`, `burden_inward_sense`, `semester`) VALUES ('$nis','$kategori','$burden_inward_sense','$smt')");
     if ($praye) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -21,7 +22,8 @@ if (isset($_POST['btn_edit_prayernote'])) {
     $judul = htmlspecialchars($_POST['judul']);
     $beban = htmlspecialchars($_POST['beban']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `kategori`='$judul',`burden_inward_sense`='$beban' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `kategori`='$judul',`burden_inward_sense`='$beban',`semester`='$smt' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);

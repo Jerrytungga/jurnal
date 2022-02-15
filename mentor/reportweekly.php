@@ -9,7 +9,8 @@ if (isset($_POST['edit'])) {
     $punisment = htmlspecialchars($_POST['ps']);
     $date = htmlspecialchars($_POST['date']);
     $week = htmlspecialchars($_POST['Minggu']);
-    $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`week`='$week',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`semester`='$smt',`week`='$week',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
     } else {
@@ -302,6 +303,7 @@ $murid = mysqli_fetch_array($siswa);
                         <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
                         <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="date" name="date">
+                        <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
 
                         <div class="form-group">
                             <label for="text">Week :</label>

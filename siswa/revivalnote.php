@@ -5,7 +5,8 @@ if (isset($_POST['revival_note'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $verse = htmlspecialchars($_POST['verse1']);
     $blessing = htmlspecialchars($_POST['blessing1']);
-    $revival = mysqli_query($conn, "INSERT INTO `tb_revival_note`(`nis`, `verse`, `blessing`, `catatan_mentor`) VALUES ('$nis','$verse','$blessing',NULL)");
+    $smt = htmlspecialchars($_POST['smt']);
+    $revival = mysqli_query($conn, "INSERT INTO `tb_revival_note`(`nis`, `verse`, `blessing`, `semester`) VALUES ('$nis','$verse','$blessing','$smt')");
     if ($revival) {
         $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
@@ -20,7 +21,8 @@ if (isset($_POST['btn_editrevivalnote'])) {
     $verse = htmlspecialchars($_POST['verse']);
     $blessing = htmlspecialchars($_POST['blessings']);
     $date = htmlspecialchars($_POST['date']);
-    $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
+    $smt = htmlspecialchars($_POST['smt']);
+    $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`semester`='$smt' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
         echo notice(1);
