@@ -55,6 +55,12 @@ if (isset($_POST['btn_edit_siswa'])) {
     $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `nis`='$nis',`name`='$name',`mentor`='$mentor',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`username`='$username',`password`='$password',`status`='$status' WHERE `siswa`.`nis` = '$nis'");
   }
 }
+
+if (isset($_POST['simpan'])) {
+  $angkatansiswa = htmlspecialchars($_POST['angkatan']);
+  $statusangkatan = htmlspecialchars($_POST['status']);
+  $updateangkatan = mysqli_query($conn, "UPDATE siswa SET status='$statusangkatan' WHERE angkatan='$angkatansiswa'");
+}
 $siswa = mysqli_query($conn, "SELECT * FROM siswa ORDER BY date DESC");
 $s = mysqli_fetch_array($siswa);
 session_start();
@@ -117,7 +123,11 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i> Tambah Siswa</a>
+              <button type="button" class="btn btn-danger d-inline" data-toggle="modal" data-target="#exampleModal">
+                Aktifkan & Menonaktifkan Angkatan Siswa
+              </button>
+
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -213,6 +223,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   <?php
   include 'models/m_logout.php';
   include 'models/m_siswa.php';
+  include 'models/menonaktifkansiswa.php';
   ?>
   <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- Bootstrap core JavaScript-->
