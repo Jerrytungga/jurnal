@@ -127,6 +127,9 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
               <button type="button" class="btn btn-danger d-inline" data-toggle="modal" data-target="#exampleModal">
                 Aktifkan & Menonaktifkan Angkatan Siswa
               </button>
+              <button type="button" target-blank class="btn btn-success d-inline" data-toggle="modal" data-target="#QR">
+                Download QR Code Siswa
+              </button>
 
             </div>
             <div class="card-body">
@@ -224,6 +227,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   include 'models/m_logout.php';
   include 'models/m_siswa.php';
   include 'models/menonaktifkansiswa.php';
+  include 'models/download_qrcode.php';
   ?>
   <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- Bootstrap core JavaScript-->
