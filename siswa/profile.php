@@ -11,10 +11,9 @@ if (isset($_POST['edit_profile'])) {
 }
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
-
 include 'template/session.php';
 $pesan = $_SESSION['gagal'] = 'Gagal!';
-echo notice(0);
+
 
 ?>
 <!DOCTYPE html>
@@ -137,7 +136,7 @@ echo notice(0);
       }
     });
   </script>
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       var living = document.getElementById('jurnal');
       var waktu = new Date();
@@ -170,8 +169,8 @@ echo notice(0);
       }
 
     });
-  </script>
-
+  </script> -->
+  <!-- 
   <script>
     Swal.fire({
       title: '<strong>Maintenance </strong> ',
@@ -213,18 +212,6 @@ echo notice(0);
     }, 1000);
   </script>
 </body>
-
+ -->
 
 </html>
-
-<?php
-function notice($type)
-{
-  if ($type == 1) {
-    return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
-  } elseif ($type == 0) {
-    return "<audio autoplay><source src='" . '../music/kidung.mp3' . "'></audio>";
-  }
-}
-
-?>
