@@ -98,6 +98,7 @@
                  <a class="collapse-item" href="jurusan.php">Jurusan</a>
                  <a class="collapse-item" href="angkatan.php">Angkatan</a>
                  <a class="collapse-item" href="semester.php">Semester</a>
+                 <a class="collapse-item" href="kegiatan.php">Kegiatan Siswa</a>
              </div>
          </div>
      </li>
