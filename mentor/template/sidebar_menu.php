@@ -26,11 +26,17 @@
             <i class="fas fa-fw fa-user"></i>
             <span>My Profile</span></a>
     </li>
-    <!-- Nav Item - Profile -->
+    <!-- Nav Item - siswa -->
     <li class="nav-item active">
         <a class="nav-link" href="siswa.php">
             <i class="fas fa-fw fa-users"></i>
             <span>Siswa</span></a>
+    </li>
+    <!-- presensi -->
+    <li class="nav-item active">
+        <a class="nav-link" href="presensi_siswa_mentor.php">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Presensi</span></a>
     </li>
     <!-- Nav Item - final report -->
     <li class="nav-item active">

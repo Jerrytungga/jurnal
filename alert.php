@@ -3,7 +3,7 @@
       Swal.fire({
         position: 'center',
         icon: 'info',
-        title: 'Verifikasi Langka Ke 2',
+        title: 'Verifikasi Langkah Ke 2',
         showConfirmButton: false,
         html: ' <a href="contoh.php?nis=<?= $nis; ?>" class="btn btn-success text-light my-2 my-sm-0">Ambil Gambar</a>'
         // timer: 1500

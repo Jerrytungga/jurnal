@@ -29,24 +29,27 @@ $info = $_SESSION['info'] =  $list20['info'];
 $waktu = $_SESSION['waktu'] =  $list20['start_time'];
 $waktuabsent = $_SESSION['absen'] =  $list20['absent_time'];
 $status = $_SESSION['status'] =  $list20['status'];
+$jam_akhir = $_SESSION['waktu_akhir'] =  $list20['end_time'];
 
 // jika waktu presensi > waktu kegiatan maka statusnya terlambat
 if ($waktuabsent > $waktu) {
   $hasil = 'v';
   // v adalah Hadir dengan waktu yang ditentukan
 } else {
-  $hasil = 'T';
+  $hasil = 'S';
   // T adalah terlambat, siswa tetap hadir dengan status terlambat karena melebihi waktu yang ditentukan
 }
 // $waktu == $waktu_sekarang &&
 // && $waktuabsent == $waktu_sekarang
 // jika waktu sama dengan waktu sekarang dan status aktif maka di ijinkan untuk presensi
-if ($status == 'Aktif') {
+if ($status == 'Aktif' && $waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
   if (isset($_POST['nis'])) {
     $nis = htmlspecialchars($_POST['nis']);
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent`"));
+    $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
+    $mentor = $mentor['mentor'];
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
     $idbr = $max['id'] + 1;
-    $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$angkatansiswa','$nama_kegiatan','$data_semester','$info','$hasil',' $idbr')");
+    $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$angkatansiswa','$nama_kegiatan','$data_semester','$info','$hasil',' $idbr','$mentor')");
     if ($hapus) {
       $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
@@ -61,7 +64,7 @@ if ($status == 'Aktif') {
 
 
 
-$jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' ORDER BY start_time ASC");
+$jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini'  ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
 ?>
@@ -84,7 +87,7 @@ $cek = mysqli_num_rows($jadwal);
     <a class="navbar-brand text-light">Presensi PKA</a>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tombolaksi">
-      Lihat Presensi
+      See Attendance (Lihat Presensi)
     </button>
     <a href="./login.php" class="btn btn-success text-light my-2 my-sm-0">Login Ke Jurnal</a>
   </nav>
@@ -225,7 +228,9 @@ $cek = mysqli_num_rows($jadwal);
 
 
 
-
+  <?php
+  include 'm_lihatpresensi.php';
+  ?>
 
 
   <!-- Bootstrap core JavaScript-->
@@ -267,7 +272,6 @@ $cek = mysqli_num_rows($jadwal);
       decoder.stop().play();
     });
 
-    // jquery extend function
     $.extend({
       redirectPost: function(location, args) {
         var form = '';
@@ -315,138 +319,3 @@ $cek = mysqli_num_rows($jadwal);
 ...........................................................
 ...........................................................
  -->
-
-<?php
-function activity($activity)
-{
-  global $conn;
-  $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$activity'"));
-  return $sqly['name'];
-}
-
-$tampilan_jadwal = mysqli_query($conn, "SELECT * FROM schedule");
-$tampilan = mysqli_fetch_array($tampilan_jadwal);
-
-
-$tampilan_aktivitas = mysqli_query($conn, "SELECT * FROM activity");
-$array_aktivitas = mysqli_fetch_array($tampilan_aktivitas);
-
-
-// $nama_aktivitas1 = $array_aktivitas['id_activity'] = '1';
-// $nama_aktivitas2 = $array_aktivitas['id_activity'] = '2';
-// $nama_aktivitas3 = $array_aktivitas['id_activity'] = '3';
-// $nama_aktivitas = $array_aktivitas['id_activity'] = '4';
-// $nama_aktivitas = $array_aktivitas['id_activity'] = '5';
-
-$tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent");
-// $tampilan_presensi1 = mysqli_query($conn, "SELECT count(mark) as total from absent where nis");
-// $array_presensi = mysqli_fetch_array($tampilan_presensi1);
-// $array_presens = mysqli_fetch_array($tampilan_presensi);
-?>
-
-<!-- Modal aksi tombol -->
-<div class="modal fade" id="tombolaksi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Presensi</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Name</th>
-              <th scope="col"><span class="badge badge-pill badge-success">V</span></th>
-              <th scope="col"><span class="badge badge-pill badge-warning">O</span></th>
-              <th scope="col"><span class="badge badge-pill badge-danger">X</span></th>
-              <th scope="col"><span class="badge badge-pill badge-primary">I</span></th>
-              <th scope="col"><span class="badge badge-pill badge-info">S</span></th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <?php $i = 1; ?>
-            <?php
-            while ($absent = mysqli_fetch_array($tampilan_presensi)) {
-              $nis = $absent['nis'];
-              $mark_V = $absent['mark'] = 'V';
-              $mark_O = $absent['mark'] = 'O';
-              $mark_X = $absent['mark'] = 'X';
-              $mark_I = $absent['mark'] = 'I';
-              $mark_S = $absent['mark'] = 'S';
-
-
-
-              $absen_mark_V = mysqli_query($conn, "SELECT count(mark) as total from absent where nis='$nis' and mark='$mark_V'");
-              $absen_mark_O = mysqli_query($conn, "SELECT count(mark) as total from absent where nis='$nis' and mark='$mark_O'");
-              $absen_mark_X = mysqli_query($conn, "SELECT count(mark) as total from absent where nis='$nis' and mark='$mark_X'");
-              $absen_mark_I = mysqli_query($conn, "SELECT count(mark) as total from absent where nis='$nis' and mark='$mark_I'");
-              $absen_mark_S = mysqli_query($conn, "SELECT count(mark) as total from absent where nis='$nis' and mark='$mark_S'");
-              $ss = mysqli_query($conn, "SELECT * FROM absent where nis");
-
-            ?>
-              <?php foreach ($ss as $data) :
-                $presensi = mysqli_fetch_array($ss);
-                $Mark_V = mysqli_fetch_array($absen_mark_V);
-                $Mark_O = mysqli_fetch_array($absen_mark_O);
-                $Mark_X = mysqli_fetch_array($absen_mark_X);
-                $Mark_I = mysqli_fetch_array($absen_mark_I);
-                $Mark_S = mysqli_fetch_array($absen_mark_S);
-
-              ?>
-                <tr>
-                  <th scope="row"><?= $i; ?></th>
-                  <td><?= Activity($data["nis"]); ?></td>
-                  <td>
-                    <button type="button" class="btn " data-toggle="modal" data-target="#exampleModal">
-                      <?= $Mark_V["total"]; ?>
-                    </button>
-
-                  </td>
-                  <td><?= $Mark_O["total"]; ?></td>
-                  <td><?= $Mark_X["total"]; ?></td>
-                  <td><?= $Mark_I["total"]; ?></td>
-                  <td><?= $Mark_S["total"]; ?></td>
-
-
-
-
-                </tr>
-                <?php $i++; ?>
-              <?php endforeach; ?>
-            <?php  }
-            ?>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -1,22 +1,24 @@
 <?php
 include 'database.php';
-$nis = $_GET['nis'];
-session_start();
-if (isset($_POST['kirim_gambar'])) {
-  $img = $_POST['image'];
-  $folderPath = "img/verifikasi/";
-  $fileName = uniqid() . '.png';
-  $image_parts = explode(";base64,", $img);
-  $image_type_aux = explode("image/", $image_parts[0]);
-  $image_type = $image_type_aux[1];
-  $image_base64 = base64_decode($image_parts[1]);
-  $file = $folderPath . $fileName;
-  if (file_put_contents($file, $image_base64)) {
-    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$file' WHERE nis='$nis' and absent_time");
+// $nis = $_GET['nis'];
+// session_start();
+if (isset($_POST['nis'])) {
+  if (isset($_POST['kirim_gambar'])) {
+    $img = $_POST['image'];
+    $folderPath = "img/verifikasi/";
+    $fileName = uniqid() . '.png';
+    $image_parts = explode(";base64,", $img);
+    $image_type_aux = explode("image/", $image_parts[0]);
+    $image_type = $image_type_aux[1];
+    $image_base64 = base64_decode($image_parts[1]);
+    $file = $folderPath . $fileName;
+    if (file_put_contents($file, $image_base64)) {
+      $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$file' WHERE nis='$nis' and absent_time");
 
-    if ($updatejadwal) {
+      if ($updatejadwal) {
 
-      header('location: index.php');
+        header('location: index.php');
+      }
     }
   }
 }
@@ -82,7 +84,7 @@ if (isset($_POST['kirim_gambar'])) {
           <div class="card-body">
             <center>
               <div id="my_camera"></div>
-              <input class="btn btn-success" type=button value="Take Snapshot" onClick="take_snapshot()">
+              <input class="btn btn-success" type=button value="Take Snapshot" autoClick="take_snapshot()">
               <input type="hidden" name="image" class="image-tag">
             </center>
           </div>
