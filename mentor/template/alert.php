@@ -65,4 +65,32 @@
         text: '<?php echo $notifgagalinput; ?>',
       })
     </script>
+  <?php } else if (isset($insertpresensi)) { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: '<?php echo $insertpresensi; ?>',
+      })
+    </script>
+  <?php } else if (isset($gagalinsertpresensi)) { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '<?php echo $gagalinsertpresensi; ?>',
+      })
+    </script>
+  <?php } else if (isset($cek_data_presensi)) { ?>
+    <script>
+      Swal.fire({
+        title: '<p class="text-danger"><strong>Announcement!</strong></p>',
+        icon: 'info',
+        html: '<p class=" text-uppercase"><b><?= nama_siswa($nis) ?></b><br><br> has made a presence at schedule </p><p class=" text-capitalize"><?= kegiatan($activity); ?> || <b>Time <?= $timeabsent; ?> WIB </b> </p>',
+        footer: '<?php echo $cek_data_presensi; ?>',
+        showCloseButton: true,
+        focusConfirm: true,
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+      })
+    </script>
   <?php } ?>

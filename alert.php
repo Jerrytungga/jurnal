@@ -1,4 +1,18 @@
-  <?php if (isset($notifsukses)) { ?>
+  <?php
+  function name($name_absent)
+  {
+    global $conn;
+    $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$name_absent'"));
+    return $sqly2['name'];
+  }
+  function kegiatan($name_kegiatan)
+  {
+    global $conn;
+    $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$name_kegiatan'"));
+    return $sqly3['items'];
+  }
+
+  if (isset($notifsukses)) { ?>
     <script>
       Swal.fire({
         position: 'center',
@@ -24,15 +38,16 @@
     </script>
 
   <?php
-  } else if (isset($notifsuksesedit)) { ?>
+  } else if (isset($duakalipresensi)) { ?>
     <script>
       Swal.fire({
-        position: 'top-end',
-        size: '20px',
-        icon: 'success',
-        title: '<?php echo $notifsuksesedit; ?>',
-        showConfirmButton: false,
-        timer: 1500
+        title: '<?php echo $duakalipresensi; ?>',
+        icon: 'info',
+        html: '<p class=" text-uppercase"><b><?= name($CekPresensi) ?></b><br><br> has made a presence at schedule </p><p class=" text-capitalize"><?= kegiatan($CekPresensi2); ?> || <b>Time <?= $CekPresensi3; ?> WIB </b> </p>',
+        // footer: '<?php echo $duakalipresensi; ?>',
+        showCloseButton: true,
+        focusConfirm: true,
+        confirmButtonAriaLabel: 'Thumbs up, great!',
       })
     </script>
 

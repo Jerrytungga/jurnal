@@ -1,27 +1,24 @@
 <?php
 include 'database.php';
-// $nis = $_GET['nis'];
-// session_start();
-if (isset($_POST['nis'])) {
-  if (isset($_POST['kirim_gambar'])) {
-    $img = $_POST['image'];
-    $folderPath = "img/verifikasi/";
-    $fileName = uniqid() . '.png';
-    $image_parts = explode(";base64,", $img);
-    $image_type_aux = explode("image/", $image_parts[0]);
-    $image_type = $image_type_aux[1];
-    $image_base64 = base64_decode($image_parts[1]);
-    $file = $folderPath . $fileName;
-    if (file_put_contents($file, $image_base64)) {
-      $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$file' WHERE nis='$nis' and absent_time");
+$nis = $_GET['nis'];
+session_start();
 
-      if ($updatejadwal) {
-
-        header('location: index.php');
-      }
-    }
+if (isset($_POST['kirim_gambar'])) {
+  $nis = $_POST['nis'];
+  $img = $_POST['image'];
+  $folderPath = "img/verifikasi/";
+  $fileName = uniqid() . '.png';
+  $image_parts = explode(";base64,", $img);
+  $image_type_aux = explode("image/", $image_parts[0]);
+  $image_type = $image_type_aux[1];
+  $image_base64 = base64_decode($image_parts[1]);
+  $file = $folderPath . $fileName;
+  if (file_put_contents($file, $image_base64)) {
+    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$file' WHERE nis='$nis' and absent_time");
+    header('location: index.php');
   }
 }
+
 
 ?>
 
@@ -73,7 +70,7 @@ if (isset($_POST['nis'])) {
   <div class="container-fluid">
     <form method="POST" action="" enctype="multipart/form-data">
       <div class="form-row">
-        <div class="card shadow m-5 col-md-3">
+        <div class="card shadow m-5 col-md-4">
           <div class="card-header text-light bg-primary">
             <center>
               <h4>
@@ -84,7 +81,7 @@ if (isset($_POST['nis'])) {
           <div class="card-body">
             <center>
               <div id="my_camera"></div>
-              <input class="btn btn-success" type=button value="Take Snapshot" autoClick="take_snapshot()">
+              <input type=button value="Take Snapshot" onClick="take_snapshot()">
               <input type="hidden" name="image" class="image-tag">
             </center>
           </div>
@@ -111,8 +108,8 @@ if (isset($_POST['nis'])) {
     <!-- Configure a few settings and attach camera -->
     <script language="JavaScript">
       Webcam.set({
-        width: 400,
-        height: 400,
+        width: 490,
+        height: 390,
         image_format: 'jpeg',
         jpeg_quality: 90
       });

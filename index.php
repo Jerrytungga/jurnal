@@ -1,6 +1,7 @@
 <?php
 include 'database.php';
-
+$page = $_SERVER['PHP_SELF'];
+$sec = "50";
 session_start();
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-j');
@@ -18,53 +19,59 @@ $nis = $_SESSION['nis'] =  $data_siswa['nis'];
 
 
 
-// mengambil data schedule/jadwal
-$sql_schedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif'");
-$list20 = mysqli_fetch_array($sql_schedule);
-$id_kegiatan = $_SESSION['id_schedule'] =  $list20['id'];
-$week = $_SESSION['minggu'] =  $list20['week'];
-$angkatansiswa = $_SESSION['angkatan'] =  $list20['batch'];
-$nama_kegiatan = $_SESSION['schedule'] =  $list20['id_activity'];
-$info = $_SESSION['info'] =  $list20['info'];
-$waktu = $_SESSION['waktu'] =  $list20['start_time'];
-$waktuabsent = $_SESSION['absen'] =  $list20['absent_time'];
-$status = $_SESSION['status'] =  $list20['status'];
-$jam_akhir = $_SESSION['waktu_akhir'] =  $list20['end_time'];
 
-// jika waktu presensi > waktu kegiatan maka statusnya terlambat
-if ($waktuabsent > $waktu) {
-  $hasil = 'v';
-  // v adalah Hadir dengan waktu yang ditentukan
-} else {
-  $hasil = 'S';
-  // T adalah terlambat, siswa tetap hadir dengan status terlambat karena melebihi waktu yang ditentukan
-}
-// $waktu == $waktu_sekarang &&
-// && $waktuabsent == $waktu_sekarang
-// jika waktu sama dengan waktu sekarang dan status aktif maka di ijinkan untuk presensi
-if ($status == 'Aktif' && $waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+
+// mengambil data schedule/jadwal
+$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and start_time < '$waktu_sekarang' and end_time > '$waktu_sekarang' ||  absent_time > '$waktu_sekarang' and timer > '$waktu_sekarang'"));
+$id_kegiatan = $list20['id'];
+$week = $list20['week'];
+$batch = $list20['batch'];
+$id_kegiatan1 = $list20['id_activity'];
+$info = $list20['info'];
+$waktu = $list20['start_time'];
+$jam_akhir = $list20['end_time'];
+$waktuabsent = $list20['absent_time'];
+$timer = $list20['timer'];
+$agreement = 'Waiting';
+
+
+
+
+
+if ($waktu < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+
+  if ($waktuabsent > $waktu_sekarang) {
+    $hasil = 'V';
+  } else if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
+    $hasil = 'O';
+  } else {
+    $hasil = 'X';
+  }
+
   if (isset($_POST['nis'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
     $mentor = $mentor['mentor'];
+    $CekPresensi = mysqli_fetch_array(mysqli_query($conn, "SELECT nis FROM `absent` WHERE nis='$nis'"));
+    $CekPresensi = $CekPresensi['nis'];
     $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
     $idbr = $max['id'] + 1;
-    $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$angkatansiswa','$nama_kegiatan','$data_semester','$info','$hasil',' $idbr','$mentor')");
+    $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
     if ($hapus) {
       $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
     } else {
-      echo "<script>alert('Presensi Gagal!');</script>";
+      // $duakalipresensi = $_SESSION['gagal'] = '<p class="text-danger"><strong>Announcement!</strong></p>';
+      $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
     }
   }
 } else {
   $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
-  // peringatan pesan jika presensinya belum aktif atau belum saatnya presensi
+  //   // peringatan pesan jika presensinya belum aktif atau belum saatnya presensi
 }
 
 
 
-
-$jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini'  ORDER BY start_time ASC");
+$jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
 ?>
@@ -76,6 +83,7 @@ $cek = mysqli_num_rows($jadwal);
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="refresh" content="<?= $sec ?>;URL='<?= $page ?>'">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
@@ -85,10 +93,6 @@ $cek = mysqli_num_rows($jadwal);
 <body>
   <nav class="navbar navbar-light bg-dark">
     <a class="navbar-brand text-light">Presensi PKA</a>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tombolaksi">
-      See Attendance (Lihat Presensi)
-    </button>
     <a href="./login.php" class="btn btn-success text-light my-2 my-sm-0">Login Ke Jurnal</a>
   </nav>
 
@@ -111,7 +115,7 @@ $cek = mysqli_num_rows($jadwal);
 ..................................................
 .................................................. -->
     <div class="form-row">
-      <div class="card shadow m-5 col-md-3">
+      <div class="card shadow m-3 col-md-3">
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
@@ -122,14 +126,131 @@ $cek = mysqli_num_rows($jadwal);
 
 
         <div class="card-body">
+          <br>
+          <br>
+          <br>
           <center>
             <canvas></canvas>
+            <br>
+            <br>
+            <br>
+            <br>
             <p>Silahkan Pilih Sumber kamera</p>
             <select></select>
           </center>
         </div>
       </div>
-      <div class="card shadow m-3 col-md-7">
+
+
+      <!-- script tampilan absensi -->
+      <div class="card shadow m-3 col-md-5">
+        <div class="card-header text-light bg-primary">
+          <center>
+            <h4>
+              Daily Attendance (Presensi Harian)
+            </h4>
+          </center>
+        </div>
+
+        <div class="card-body">
+          <table class="table  text-dark">
+            <thead>
+              <tr>
+                <th width="150">&nbsp;&nbsp;No</th>
+                <th width="270">Name</th>
+                <th width="130"><span class="badge badge-pill badge-success">V</span></th>
+                <th width="100"><span class="badge badge-pill badge-warning">O</span></th>
+                <th width="100"><span class="badge badge-pill badge-danger">X</span></th>
+                <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
+                <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
+                <th width="100">POINT</th>
+              </tr>
+            </thead>
+          </table>
+          <?php
+          function activity_name($nama_activity)
+          {
+            global $conn;
+            $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$nama_activity'"));
+            return $sqly['name'];
+          }
+
+          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where absent_date='$hari_ini'  group by nis order by absent_time DESC");
+
+          ?>
+          <div class="modal-body " style="height: 400px;overflow: scroll;">
+            <table class=" table table-striped">
+              <tbody>
+                <?php $j = 1; ?>
+                <?php
+                while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
+                  $nis = $array_presensi['nis'];
+                  $mark_V = $array_presensi['mark'] = 'V';
+                  $mark_O = $array_presensi['mark'] = 'O';
+                  $mark_X = $array_presensi['mark'] = 'X';
+                  $mark_I = $array_presensi['mark'] = 'I';
+                  $mark_S = $array_presensi['mark'] = 'S';
+
+
+                  $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V' AND absent_date='$hari_ini' ");
+                  $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+
+                  $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_O'AND absent_date='$hari_ini' ");
+                  $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
+
+                  $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_X' AND absent_date='$hari_ini'");
+                  $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
+
+                  $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_I' AND absent_date='$hari_ini'");
+                  $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
+
+                  $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_S' AND absent_date='$hari_ini'");
+                  $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
+
+                  $tampil3 = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' group by nis ");
+                  $arraytampil3 = mysqli_fetch_array($tampil3);
+
+                  $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+                ?>
+
+                  <?php foreach ($tampil3  as $data) :
+                  ?>
+                    <tr>
+                      <th width="75"><?= $j; ?></th>
+                      <td width="300"><a href="" type="button" class="btn"><?= activity_name($data["nis"]); ?></a></td>
+                      <td width="125"><?= $arraytampil_mark_V['total']; ?></td>
+                      <td width="110"><?= $arraytampil_mark_O['total']; ?></td>
+                      <td width="110"><?= $arraytampil_mark_X['total']; ?></td>
+                      <td width="100"><?= $arraytampil_mark_I['total']; ?></td>
+                      <td width="90"><?= $arraytampil_mark_S['total']; ?></td>
+                      <td width="30">
+                        <?php
+                        if ($total_point == -1) { ?>
+                          <!-- jika absent nya mines maka warna merah hasilnya -->
+                          <span class="badge badge-pill badge-danger"><?= $total_point; ?></span>
+                        <?php } else { ?>
+                          <!-- jika absent nya bukam mines maka warna biru laut hasilnya -->
+                          <span class="badge badge-pill badge-info"><?= $total_point; ?></span>
+                        <?php   }
+                        ?>
+                      </td>
+                    </tr>
+                    <?php $j++; ?>
+                <?php endforeach;
+                }
+                ?>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <!-- akhir script tampilan absent -->
+
+
+      <!-- tabel schedule -->
+      <div class="card shadow m-3 col-md-3">
         <!-- <div class="card-header"> -->
         <table class="table bg-primary text-light">
           <thead>
@@ -140,7 +261,6 @@ $cek = mysqli_num_rows($jadwal);
             </tr>
           </thead>
         </table>
-        <!-- </div> -->
         <div class="card-body" style="height: 400px;overflow: scroll;">
           <table class="table table-striped">
             <?php
@@ -162,13 +282,6 @@ $cek = mysqli_num_rows($jadwal);
                     <th scope="row"><?= $i; ?></th>
                     <td><?= activity($row["id_activity"]); ?></td>
                     <td><?= $row["start_time"]; ?></td>
-
-                    <!-- <td>
-                    
-                    <button type="button" id="<?= $row["id"]; ?>" class="btn btn-primary" data-toggle="modal" data-target="#m2">
-                      Launch demo modal
-                    </button>
-                  </td> -->
                   </tr>
                   <?php $i++; ?>
                 <?php endforeach;
@@ -177,31 +290,11 @@ $cek = mysqli_num_rows($jadwal);
             <?php }
             ?>
           </table>
-
-        </div>
-      </div>
-      <!-- Modal -->
-      <div class="modal fade" id="m2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <?= $_GET["id"]; ?>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- akhir tabel schedule -->
 
   <div class="card shadow m-2">
     <div class="card-header   text-danger">
@@ -225,12 +318,6 @@ $cek = mysqli_num_rows($jadwal);
 
 
 
-
-
-
-  <?php
-  include 'm_lihatpresensi.php';
-  ?>
 
 
   <!-- Bootstrap core JavaScript-->

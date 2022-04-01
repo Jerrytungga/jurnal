@@ -78,7 +78,7 @@ $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent group by nis");
               $tampil3 = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' group by nis ");
               $arraytampil3 = mysqli_fetch_array($tampil3);
 
-              $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] + $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+              $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
             ?>
 
               <?php foreach ($tampil3  as $data) :

@@ -53,12 +53,10 @@ if (isset($_POST['insert_shedule'])) {
   $start_Waktu = htmlspecialchars($_POST['start_time']);
   $end_waktu = htmlspecialchars($_POST['end_time']);
   $waktu_absent = htmlspecialchars($_POST['absent_time']);
-  $pilihan_absent = htmlspecialchars($_POST['is_need_absent']);
   $status = htmlspecialchars($_POST['status']);
   $partisipasi = htmlspecialchars($_POST['participant']);
-  $area = htmlspecialchars($_POST['area']);
   $timer = htmlspecialchars($_POST['txtAbsentTimer']);
-  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`, `is_need_absent`,  `status`,  `participant`, `area`, `timer`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$pilihan_absent','$status','$partisipasi','$area','$timer')");
+  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `participant`, `timer`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status','$partisipasi','$timer')");
   if ($input_schedule) {
     echo "<script>alert('Schedule Berhasil di tambahkan!');</script>";
   } else {
@@ -77,12 +75,10 @@ if (isset($_POST['updateschedule'])) {
   $edit_waktu_mulai = htmlspecialchars($_POST['waktumulai']);
   $edit_waktu_akhir = htmlspecialchars($_POST['waktuakhir']);
   $edit_waktu_absensi = htmlspecialchars($_POST['waktuabsen']);
-  $edit_pilihan_absensi = htmlspecialchars($_POST['presensiatautidak']);
   $edit_status = htmlspecialchars($_POST['keterangan']);
   $edit_peserta = htmlspecialchars($_POST['peserta']);
-  $edit_wilaya = htmlspecialchars($_POST['wilaya']);
   $edit_timer_absen = htmlspecialchars($_POST['timerabsen']);
-  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`is_need_absent`='$edit_pilihan_absensi',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`participant`='$edit_peserta',`area`='$edit_wilaya',`timer`='$edit_timer_absen' WHERE `schedule`.`id`='$id_schedule' ");
+  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`participant`='$edit_peserta',`timer`='$edit_timer_absen' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
     echo "<script>alert('Schedule Berhasil di Update!');</script>";
@@ -291,10 +287,8 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       let waktumulai = $(this).data('waktumulai');
       let waktuakhir = $(this).data('waktuakhir');
       let waktuabsen = $(this).data('waktuabsen');
-      let presensiatautidak = $(this).data('presensiatautidak');
       let keterangan = $(this).data('keterangan');
       let peserta = $(this).data('peserta');
-      let wilaya = $(this).data('wilaya');
       let timerabsen = $(this).data('timerabsen');
       let id = $(this).data('id');
       let aktivitas = $(this).data('aktivitas');
@@ -307,10 +301,8 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       $(" #modal-editschedule #waktumulai").val(waktumulai);
       $(" #modal-editschedule #waktuakhir").val(waktuakhir);
       $(" #modal-editschedule #waktuabsen").val(waktuabsen);
-      $(" #modal-editschedule #presensiatautidak").val(presensiatautidak);
       $(" #modal-editschedule #keterangan").val(keterangan);
       $(" #modal-editschedule #peserta").val(peserta);
-      $(" #modal-editschedule #wilaya").val(wilaya);
       $(" #modal-editschedule #timerabsen").val(timerabsen);
       $(" #modal-hapus #id").val(id);
       $(" #modal-hapus #aktivitas").val(aktivitas);

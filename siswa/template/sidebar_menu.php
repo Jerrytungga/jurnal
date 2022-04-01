@@ -67,22 +67,43 @@
             </div>
         </div>
     </li>
-
-
-
     <!-- Nav Item - final report -->
     <li class="nav-item active">
-        <a class="nav-link" href="reportweekly.php">
+        <a class="nav-link" href="presence_siswa.php" aria-expanded="true" aria-controls="presence">
             <i class="fas fa-fw fa-table"></i>
-            <span>Report Weekly</span></a>
+            <span>Presence PKA</span></a>
     </li>
 
-    <!-- Nav Item - final report -->
     <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pka" aria-expanded="true" aria-controls="pka">
+            <i class="far fa-clipboard"></i>
+            <span>Report Jurnal PKA</span>
+        </a>
+        <div id="pka" class="collapse" aria-labelledby="pka" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">kategori:</h6>
+                <a class="collapse-item" href="reportweekly.php">Weekly</a>
+                <a class="collapse-item" href="pengembangan.php">Semester</a>
+            </div>
+        </div>
+    </li>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Nav Item - final report -->
+    <!-- <li class="nav-item active">
         <a class="nav-link" href="pengembangan.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Rapor Akhir</span></a>
-    </li>
+    </li> -->
     <!-- Divider -->
     <hr class="sidebar-divider">
 

@@ -54,7 +54,7 @@
                 <td><?= $data1["id"]; ?></td>
                 <td width="50">
                   <div class="btn-group" aria-label="Basic example">
-                    <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-wilaya="<?= $data1["area"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-presensiatautidak="<?= $data1["is_need_absent"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                    <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
                     <button type="button" id="edit_schedule" data-aktivitas="<?= $data1["id_activity"]; ?>" data-id="<?= $data1["id"]; ?>" data-toggle="modal" data-target="#hapus" class="btn m-1 btn-danger"><i class="fa fa-trash"></i></button>
                   </div>
@@ -143,11 +143,12 @@
           </div><br />
           <div class="form-row">
             <div class="col">
-              <label>Is Need Absent (0=no or 1=yes)</label>
-              <!--<input type="number" min="0" max="1" name="is_need_absent" id="is_need_absent" class="form-control" /> -->
-              <select class="custom-select" name="is_need_absent" id="is_need_absent">
-                <option>1</option>
-                <option>0</option>
+              <label>Participant (all or ipa or ips)</label>
+              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
+              <select class="custom-select" name="participant" id="participant">
+                <option value="ALL">all</option>
+                <option value="IPA">ipa</option>
+                <option value="IPS">ips</option>
               </select>
             </div>
             <div class="col">
@@ -161,26 +162,8 @@
           </div><br />
           <div class="form-row">
             <div class="col">
-              <label>Participant (all or ipa or ips)</label>
-              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
-              <select class="custom-select" name="participant" id="participant">
-                <option value="ALL">all</option>
-                <option value="IPA">ipa</option>
-                <option value="IPS">ips</option>
-              </select>
-            </div>
-            <div class="col">
-              <label>Area (umum or kamar)</label>
-              <!--<input type="text" name="area" id="area" class="form-control" /> -->
-              <select class="custom-select" name="area" id="area">
-                <option value="umum">umum</option>
-                <option value="kamar">kamar</option>
-              </select>
-
-            </div>
-            <div class="col">
               <label>Absent Timer (durasi absensi)</label>
-              <input type="number" min="5" value="5" name="txtAbsentTimer" id="txtAbsentTimer" class="form-control" required />
+              <input type="time" name="txtAbsentTimer" id="txtAbsentTimer" class="form-control" required />
             </div>
           </div><br />
           <button type="submit" name="insert_shedule" class="btn btn-success">Insert</button>
@@ -268,11 +251,12 @@
           </div><br />
           <div class="form-row">
             <div class="col">
-              <label>Is Need Absent (0=no or 1=yes)</label>
-              <!--<input type="number" min="0" max="1" name="is_need_absent" id="is_need_absent" class="form-control" /> -->
-              <select class="custom-select" name="presensiatautidak" id="presensiatautidak">
-                <option>1</option>
-                <option>0</option>
+              <label>Participant (all or ipa or ips)</label>
+              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
+              <select class="custom-select" name="peserta" id="peserta">
+                <option value="ALL">all</option>
+                <option value="IPA">ipa</option>
+                <option value="IPS">ips</option>
               </select>
             </div>
             <div class="col">
@@ -286,26 +270,8 @@
           </div><br />
           <div class="form-row">
             <div class="col">
-              <label>Participant (all or ipa or ips)</label>
-              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
-              <select class="custom-select" name="peserta" id="peserta">
-                <option value="ALL">all</option>
-                <option value="IPA">ipa</option>
-                <option value="IPS">ips</option>
-              </select>
-            </div>
-            <div class=" col">
-              <label>Area (umum or kamar)</label>
-              <!--<input type="text" name="area" id="area" class="form-control" /> -->
-              <select class="custom-select" name="wilaya" id="wilaya">
-                <option value="umum">umum</option>
-                <option value="kamar">kamar</option>
-              </select>
-
-            </div>
-            <div class="col">
               <label>Absent Timer (durasi absensi)</label>
-              <input type="number" min="5" value="5" name="timerabsen" id="timerabsen" class="form-control" required />
+              <input type="time" name="timerabsen" id="timerabsen" class="form-control" required />
             </div>
           </div><br />
           <button type="submit" name="updateschedule" class="btn btn-warning">Update Schedule</button>
