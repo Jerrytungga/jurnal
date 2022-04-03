@@ -18,9 +18,6 @@ $data_siswa = mysqli_fetch_array($sql_siswa);
 $nis = $_SESSION['nis'] =  $data_siswa['nis'];
 
 
-
-
-
 // mengambil data schedule/jadwal
 $list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and start_time < '$waktu_sekarang' and end_time > '$waktu_sekarang' ||  absent_time > '$waktu_sekarang' and timer > '$waktu_sekarang'"));
 $id_kegiatan = $list20['id'];
@@ -32,17 +29,14 @@ $waktu = $list20['start_time'];
 $jam_akhir = $list20['end_time'];
 $waktuabsent = $list20['absent_time'];
 $timer = $list20['timer'];
+$alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
-
-
-
-
 if ($waktu < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-
-  if ($waktuabsent > $waktu_sekarang) {
-    $hasil = 'V';
-  } else if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
+  if ($waktu < $waktu_sekarang && $waktuabsent > $waktu_sekarang) {
+    $hasil = 'V'; ?>
+    <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+    <?php } else if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
     $hasil = 'O';
   } else {
     $hasil = 'X';
@@ -52,29 +46,49 @@ if ($waktu < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
     $nis = htmlspecialchars($_POST['nis']);
     $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
     $mentor = $mentor['mentor'];
-    $CekPresensi = mysqli_fetch_array(mysqli_query($conn, "SELECT nis FROM `absent` WHERE nis='$nis'"));
-    $CekPresensi = $CekPresensi['nis'];
+
+
+    $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT absent_time FROM `absent` WHERE nis='$nis'"));
+    $timeabsent = $sql_schedule5['absent_time'];
     $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
     $idbr = $max['id'] + 1;
+    $sql_schedule3 = mysqli_fetch_array(mysqli_query($conn, "SELECT id_activity FROM `schedule` WHERE id='$id_kegiatan'"));
+    $activity = $sql_schedule3['id_activity'];
+
     $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
     if ($hapus) {
       $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
-    } else {
-      // $duakalipresensi = $_SESSION['gagal'] = '<p class="text-danger"><strong>Announcement!</strong></p>';
-      $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
-    }
+      // header('location: contoh.php');
+    ?>
+      <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
+    <?php  } else {
+      $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>'; ?>
+      <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
+  <?php    }
   }
 } else {
-  $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
-  //   // peringatan pesan jika presensinya belum aktif atau belum saatnya presensi
-}
+  // $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi'; 
+  ?>
+  <!-- <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio> -->
+<?php }
+
+
 
 
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
+
+// $cek_data_absent = mysqli_query($conn, "SELECT nis FROM `absent` WHERE nis='$nis'");
+// $cek_absent = mysqli_fetch_array($cek_data_absent);
+// $_data = mysqli_num_rows($cek_data_absent);
 ?>
+
+
+
+
+
 
 <!doctype html>
 <html lang="en">
@@ -90,32 +104,29 @@ $cek = mysqli_num_rows($jadwal);
   <title>Presensi PKA</title>
 </head>
 
-<body>
-  <nav class="navbar navbar-light bg-dark">
-    <a class="navbar-brand text-light">Presensi PKA</a>
-    <a href="./login.php" class="btn btn-success text-light my-2 my-sm-0">Login Ke Jurnal</a>
-  </nav>
-
-  <div class="card shadow m-2">
+<body style="background-color: #EDEDF5; ">
+  <?php
+  include 'navbar_buttom.php';
+  ?>
+  <div class="card shadow m-3">
     <div class="card-header  bg-primary text-light">
-      <h2>
+      <h3>
         <center>
           <?php
           echo date('d F Y');
           ?>
         </center>
-      </h2>
+      </h3>
     </div>
     <div class="card-body">
-      <h1 style=" text-align:center; font-size: 120px; font-family: arial;" id="jam"></h1>
+      <h1 style=" text-align:center; font-size: 50pt; font-family: arial;" id="jam"></h1>
     </div>
   </div>
-  <div class="container-fluid">
-    <!-- .............................................
-..................................................
-.................................................. -->
-    <div class="form-row">
-      <div class="card shadow m-3 col-md-3">
+
+  <div class="container-fluid m-md-5 m-2 ">
+    <div class="form-row mx-auto">
+
+      <div class="card shadow mr-3 p-3 mt-2 col-md-3">
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
@@ -123,16 +134,12 @@ $cek = mysqli_num_rows($jadwal);
             </h4>
           </center>
         </div>
-
-
         <div class="card-body">
           <br>
           <br>
           <br>
           <center>
-            <canvas></canvas>
-            <br>
-            <br>
+            <canvas style=" border-radius: 5px; width:280px;height:200px;"></canvas>
             <br>
             <br>
             <p>Silahkan Pilih Sumber kamera</p>
@@ -143,7 +150,7 @@ $cek = mysqli_num_rows($jadwal);
 
 
       <!-- script tampilan absensi -->
-      <div class="card shadow m-3 col-md-5">
+      <div class="card shadow mr-3 p-3  mt-2 col-md-5">
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
@@ -153,19 +160,19 @@ $cek = mysqli_num_rows($jadwal);
         </div>
 
         <div class="card-body">
-          <table class="table  text-dark">
-            <thead>
-              <tr>
-                <th width="150">&nbsp;&nbsp;No</th>
-                <th width="270">Name</th>
-                <th width="130"><span class="badge badge-pill badge-success">V</span></th>
-                <th width="100"><span class="badge badge-pill badge-warning">O</span></th>
-                <th width="100"><span class="badge badge-pill badge-danger">X</span></th>
-                <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
-                <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
-                <th width="100">POINT</th>
-              </tr>
-            </thead>
+          <table>
+
+            <tr>
+              <th width="150">&nbsp;&nbsp;&nbsp;&nbsp;No</th>
+              <th width="270">Name</th>
+              <th width="130"><span class="badge badge-pill badge-success">V</span></th>
+              <th width="100"><span class="badge badge-pill badge-warning">O</span></th>
+              <th width="100"><span class="badge badge-pill badge-danger">X</span></th>
+              <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
+              <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
+              <th width="100">POINT</th>
+            </tr>
+
           </table>
           <?php
           function activity_name($nama_activity)
@@ -216,8 +223,8 @@ $cek = mysqli_num_rows($jadwal);
                   <?php foreach ($tampil3  as $data) :
                   ?>
                     <tr>
-                      <th width="75"><?= $j; ?></th>
-                      <td width="300"><a href="" type="button" class="btn"><?= activity_name($data["nis"]); ?></a></td>
+                      <th width="55"><?= $j; ?></th>
+                      <td width="300"><a href="view.php?nis=<?= $data["nis"]; ?>" type="button" class="btn"><?= activity_name($data["nis"]); ?></a></td>
                       <td width="125"><?= $arraytampil_mark_V['total']; ?></td>
                       <td width="110"><?= $arraytampil_mark_O['total']; ?></td>
                       <td width="110"><?= $arraytampil_mark_X['total']; ?></td>
@@ -225,14 +232,27 @@ $cek = mysqli_num_rows($jadwal);
                       <td width="90"><?= $arraytampil_mark_S['total']; ?></td>
                       <td width="30">
                         <?php
-                        if ($total_point == -1) { ?>
+                        if (
+                          $total_point == -1 || $total_point == -2 || $total_point == -3 || $total_point == -4  ||
+                          $total_point == -5 || $total_point == -6 || $total_point == -7 || $total_point == -8  ||
+                          $total_point == -9 || $total_point == -10 || $total_point == -11 || $total_point == -12  ||
+                          $total_point == -13 || $total_point == -14 || $total_point == -15 || $total_point == -16  ||
+                          $total_point == -17 || $total_point == -18 || $total_point == -19 || $total_point == -20  ||
+                          $total_point == -21 || $total_point == -22 || $total_point == -23 || $total_point == -24  ||
+                          $total_point == -25 || $total_point == -26 || $total_point == -27 || $total_point == -28  ||
+                          $total_point == -29 || $total_point == -30 || $total_point == -31 || $total_point == -32  ||
+                          $total_point == -33 || $total_point == -34 || $total_point == -35 || $total_point == -36  ||
+                          $total_point == -37 || $total_point == -38 || $total_point == -39 || $total_point == -40
+                        ) { ?>
                           <!-- jika absent nya mines maka warna merah hasilnya -->
                           <span class="badge badge-pill badge-danger"><?= $total_point; ?></span>
+
                         <?php } else { ?>
                           <!-- jika absent nya bukam mines maka warna biru laut hasilnya -->
                           <span class="badge badge-pill badge-info"><?= $total_point; ?></span>
                         <?php   }
                         ?>
+
                       </td>
                     </tr>
                     <?php $j++; ?>
@@ -242,7 +262,6 @@ $cek = mysqli_num_rows($jadwal);
 
               </tbody>
             </table>
-
           </div>
         </div>
       </div>
@@ -250,16 +269,16 @@ $cek = mysqli_num_rows($jadwal);
 
 
       <!-- tabel schedule -->
-      <div class="card shadow m-3 col-md-3">
+      <div class="card shadow mr-3 p-3 mt-2 col-md-3">
         <!-- <div class="card-header"> -->
         <table class="table bg-primary text-light">
-          <thead>
-            <tr>
-              <th width="70">&nbsp;&nbsp;No</th>
-              <th width="290">Today'Schedule</th>
-              <th width="120">Start Time</th>
-            </tr>
-          </thead>
+
+          <tr>
+            <th width="170">&nbsp;&nbsp;No</th>
+            <th width="290">Today'Schedule</th>
+            <th width="120">Start Time</th>
+          </tr>
+
         </table>
         <div class="card-body" style="height: 400px;overflow: scroll;">
           <table class="table table-striped">
@@ -294,26 +313,9 @@ $cek = mysqli_num_rows($jadwal);
       </div>
     </div>
   </div>
+
+
   <!-- akhir tabel schedule -->
-
-  <div class="card shadow m-2">
-    <div class="card-header   text-danger">
-      <h2>
-        <center>
-          <p>Pengumuman</p>
-        </center>
-      </h2>
-    </div>
-    <div class="card-body">
-
-    </div>
-  </div>
-
-
-  <!-- ...............................................
-....................................................
-....................................................
- -->
 
 
 
@@ -336,6 +338,8 @@ $cek = mysqli_num_rows($jadwal);
   <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
+
+  <!-- Configure a few settings and attach camera -->
 
 
   <script type="text/javascript">
@@ -392,17 +396,12 @@ $cek = mysqli_num_rows($jadwal);
       return e;
     }
   </script>
+
+
   <?php
   include 'alert.php';
+  include 'modal.php';
   ?>
-
 </body>
 
 </html>
-
-
-
-<!-- ......................................................
-...........................................................
-...........................................................
- -->

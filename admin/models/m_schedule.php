@@ -6,6 +6,7 @@
         <h5 class="modal-title" id="activity">Schedule :
           <button type="button" data-toggle="modal" data-target="#addschedule" class="btn btn-warning">Add Schedule</button>
           <button type="button" data-toggle="modal" data-target="#offschedule" class="btn btn-danger">Turn on/off all schedules</button>
+          <button type="button" data-toggle="modal" data-target="#alarm" class="btn btn-info">🔔 Ringtones</button>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -27,6 +28,7 @@
               <th scope="col">Participant</th>
               <th scope="col">Absent Timer</th>
               <th scope="col">ID</th>
+              <th scope="col">Ringtones</th>
               <th scope="col">Options</th>
             </tr>
           </thead>
@@ -52,9 +54,10 @@
                 <td><?= $data1["participant"]; ?></td>
                 <td><?= $data1["timer"]; ?></td>
                 <td><?= $data1["id"]; ?></td>
+                <td><?= $data1["nada_alarm"]; ?></td>
                 <td width="50">
                   <div class="btn-group" aria-label="Basic example">
-                    <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                    <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-nada="<?= $data1["nada_alarm"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
                     <button type="button" id="edit_schedule" data-aktivitas="<?= $data1["id_activity"]; ?>" data-id="<?= $data1["id"]; ?>" data-toggle="modal" data-target="#hapus" class="btn m-1 btn-danger"><i class="fa fa-trash"></i></button>
                   </div>
@@ -68,6 +71,50 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!-- Modal alarm-->
+<div class="modal fade" id="alarm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Ringtones 🔔 </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="file" name="filUpload"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="addringtones" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -165,6 +212,20 @@
               <label>Absent Timer (durasi absensi)</label>
               <input type="time" name="txtAbsentTimer" id="txtAbsentTimer" class="form-control" required />
             </div>
+            <div class="col">
+              <label>Select Alarm Tone</label>
+              <select class="form-control" name="alarm_nada" aria-label="Default select example" required>
+                <option selected>Select</option>
+                <?php
+                // looping data ankatan
+                $nd_alarm = mysqli_query($conn, "SELECT * FROM ringtones");
+                while ($data_alarm = mysqli_fetch_array($nd_alarm)) {
+                  echo '<option value="' . $data_alarm['Ringtones'] . '">' . $data_alarm['Ringtones'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+
           </div><br />
           <button type="submit" name="insert_shedule" class="btn btn-success">Insert</button>
         </form>
@@ -272,6 +333,20 @@
             <div class="col">
               <label>Absent Timer (durasi absensi)</label>
               <input type="time" name="timerabsen" id="timerabsen" class="form-control" required />
+            </div>
+
+            <div class="col">
+              <label>Select Alarm Tone</label>
+              <select class="form-control" name="nada" id="nada" aria-label="Default select example" required>
+                <option selected>Select</option>
+                <?php
+                // looping data ankatan
+                $nd_alarm_edit = mysqli_query($conn, "SELECT * FROM ringtones");
+                while ($data_alarm_edit = mysqli_fetch_array($nd_alarm_edit)) {
+                  echo '<option value="' . $data_alarm_edit['Ringtones'] . '">' . $data_alarm_edit['Ringtones'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div><br />
           <button type="submit" name="updateschedule" class="btn btn-warning">Update Schedule</button>

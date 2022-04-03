@@ -22,8 +22,33 @@ function kegiatan($name_kegiatan)
 } // akhir function data kegiatan 
 
 
-$absent_siswa = mysqli_query($conn, "SELECT * FROM `absent` WHERE `nis`='$id' and ACC_Mentor='approve'");
-$data_absent = mysqli_fetch_array($absent_siswa);
+
+if (isset($_POST['filter_tanggal'])) {
+    $mulai = $_POST['tanggal_mulai'];
+    $selesai = $_POST['tanggal_akhir'];
+
+
+    if ($mulai != null || $selesai != null) {
+        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
+    } else {
+
+        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
+        $array_absent = mysqli_fetch_array($Sqli_absent);
+    }
+} else {
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approve' order by absent_time DESC");
+    $array_absent = mysqli_fetch_array($Sqli_absent);
+}
+if (isset($_POST['reset'])) {
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  order by absent_time DESC");
+    $array_absent = mysqli_fetch_array($Sqli_absent);
+}
+
+
+
+
+// $absent_siswa = mysqli_query($conn, "SELECT * FROM `absent` WHERE `nis`='$id' and ACC_Mentor='approve'");
+// $data_absent = mysqli_fetch_array($absent_siswa);
 
 ?>
 <!DOCTYPE html>
@@ -67,7 +92,27 @@ include 'template/head.php'
                     <!-- DataTales Example -->
                     <div class="card shadow mb-5 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#notes">Add New Diary</a>
+                            <div class="form-inline">
+
+                                <form action="" method="POST">
+                                    <?php
+                                    if (isset($_POST['filter_tanggal'])) {
+                                        $mulai = $_POST['tanggal_mulai'];
+                                        $selesai = $_POST['tanggal_akhir'];
+                                    ?>
+                                        <input type="date" name="tanggal_mulai" value="<?= $mulai ?>" class="form-control ml-3">
+                                        <input type="date" name="tanggal_akhir" value="<?= $selesai ?>" class="form-control ml-3">
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <input type="date" name="tanggal_mulai" class="form-control ml-3">
+                                        <input type="date" name="tanggal_akhir" class="form-control ml-3">
+                                    <?php } ?>
+                                    <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
+                                </form>
+
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -90,10 +135,10 @@ include 'template/head.php'
 
                                     <tbody>
                                         <?php $i = 1; ?>
-                                        <?php foreach ($absent_siswa as $row) : ?>
+                                        <?php foreach ($Sqli_absent as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td></td>
+                                                <td> <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="90"></td>
                                                 <td><?= kegiatan($row['schedule_id']); ?></td>
                                                 <td>
                                                     <?php

@@ -43,17 +43,21 @@ if (!isset($_SESSION['role'])) {
 </head>
 
 <body class="text-center">
+  <?php
+  include 'navbar_buttom.php';
+  ?>
+  <?php
+  include 'modal.php';
+  ?>
 
   <main class="form-signin">
     <img style="float:center;width:300px;height:300px;" src="img/logo/Edit Logo PKA-DP.png">
     <h1 class="h3 mb-3 fw-normal">Silahkan Login</h1>
     <label for="username" class="visually-hidden">Username</label>
-    <input type="text" id="username" class="form-control" placeholder="Username" autocomplete="off">
-    <label for="password" class="visually-hidden">Password</label>
+    <input type="text" id="username" class="form-control my-2" placeholder="Username" autocomplete="off">
+    <label for="password" class="visually-hidden ">Password</label>
     <input type="password" id="password" class="form-control mt-md-2" placeholder="Password">
-
     <button class="w-100 btn btn-lg btn-primary btn-login" type="button">Sign in</button>
-    <a href="./index.php" class="w-100 btn btn-lg btn-warning  mt-2" type="button">Presensi</a>
     <footer class="sticky-footer mt-3">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
@@ -62,6 +66,7 @@ if (!isset($_SESSION['role'])) {
       </div>
     </footer>
   </main>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="assets/alert/sweetalert2.min.js"></script>
   <script type="text/javascript" src="assets/alert/iziToast.min.js"></script>

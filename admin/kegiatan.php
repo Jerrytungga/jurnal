@@ -17,6 +17,18 @@ if (isset($_POST['btn_tambah_item'])) {
   }
 }
 
+if (isset($_POST['addringtones'])) {
+  $sumber = $_FILES['filUpload']['tmp_name'];
+  $target = '../music/';
+  $ringtones = $_FILES['filUpload']['name'];
+  $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_alarm`) As id FROM `ringtones`"));
+  $id_max = $max_id['id'] + 1;
+  if ($ringtones != '') {
+    if (move_uploaded_file($sumber, $target . $ringtones)) {
+      $addnadaalarm =  mysqli_query($conn, "INSERT INTO `ringtones`(`id_alarm`, `Ringtones`) VALUES ('$id_max','$ringtones')");
+    }
+  }
+}
 
 //edit data activity
 if (isset($_POST['btn_edit_activity'])) {
@@ -56,7 +68,8 @@ if (isset($_POST['insert_shedule'])) {
   $status = htmlspecialchars($_POST['status']);
   $partisipasi = htmlspecialchars($_POST['participant']);
   $timer = htmlspecialchars($_POST['txtAbsentTimer']);
-  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `participant`, `timer`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status','$partisipasi','$timer')");
+  $alrm_nada = htmlspecialchars($_POST['alarm_nada']);
+  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `participant`, `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status','$partisipasi','$timer', '$alrm_nada')");
   if ($input_schedule) {
     echo "<script>alert('Schedule Berhasil di tambahkan!');</script>";
   } else {
@@ -78,7 +91,8 @@ if (isset($_POST['updateschedule'])) {
   $edit_status = htmlspecialchars($_POST['keterangan']);
   $edit_peserta = htmlspecialchars($_POST['peserta']);
   $edit_timer_absen = htmlspecialchars($_POST['timerabsen']);
-  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`participant`='$edit_peserta',`timer`='$edit_timer_absen' WHERE `schedule`.`id`='$id_schedule' ");
+  $nama_alarm_edit = htmlspecialchars($_POST['nada']);
+  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`participant`='$edit_peserta',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
     echo "<script>alert('Schedule Berhasil di Update!');</script>";
@@ -292,6 +306,8 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       let timerabsen = $(this).data('timerabsen');
       let id = $(this).data('id');
       let aktivitas = $(this).data('aktivitas');
+      let nada = $(this).data('nada');
+      $(" #modal-editschedule #nada").val(nada);
       $(" #modal-editschedule #angkatan").val(angkatan);
       $(" #modal-editschedule #idschedule").val(idschedule);
       $(" #modal-editschedule #minggu").val(week);
