@@ -121,9 +121,14 @@ function kegiatan($name_kegiatan)
                 <form action="" method="POST">
 
                   <select class="form-control" required name="nis" aria-label="Default select example">
-                    <option selected>Pilih Siswa</option>
                     <?php
-
+                    if (isset($_POST['nis'])) {
+                      $daftarsiswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id' and nis='" . $_POST['nis'] . "'"));
+                    ?>
+                      <option value="<?= $daftarsiswa['nis']; ?>"><?= $daftarsiswa['name']; ?></option>
+                    <?php } else {
+                      echo "<option selected>Pilih Siswa</option>";
+                    }
                     $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id'");
                     while ($data1 = mysqli_fetch_array($daftarsiswa)) { ?>
                       <option value="<?= $data1['nis']; ?>"><?= $data1['name']; ?></option>

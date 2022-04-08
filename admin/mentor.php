@@ -96,16 +96,13 @@ include 'template/Session.php';
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Data Mentor</h1>
-                            <div class="alert alert-warning">
-                                Admin hanya menetapkan 1x di bagian Efata mentor selain efata admin bebas untuk mengedit.
-                            </div>
+                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Mentor Data </h1>
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Mentor"><i class="fas fa-user-plus"></i></a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Mentor"><i class="fas fa-user-plus"> Add Mentor</i></a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -113,9 +110,9 @@ include 'template/Session.php';
                                     <thead class=" text-md-center">
                                         <tr>
                                             <th width="10">No</th>
-                                            <th width="90">Foto</th>
+                                            <th width="90">Image</th>
                                             <th>Efata</th>
-                                            <th width="150">Nama</th>
+                                            <th width="150">Name</th>
                                             <th>Gender</th>
                                             <th>Username</th>
                                             <th>Password</th>

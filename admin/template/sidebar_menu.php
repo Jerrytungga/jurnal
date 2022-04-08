@@ -22,95 +22,50 @@
      <!-- Divider -->
      <hr class="sidebar-divider">
 
-     <!-- Heading -->
-     <div class="sidebar-heading">
-         Interface Administrator
-     </div>
-
 
      <!-- Data siswa -->
      <li class="nav-item active">
          <a class="nav-link" href="siswa.php">
              <i class="fas fa-fw fa-users"></i>
-             <span>Data Siswa</span></a>
+             <span>Student Data</span></a>
      </li>
 
      <!-- Data Mentor -->
      <li class="nav-item active">
          <a class="nav-link" href="mentor.php">
              <i class="fas fa-fw fa-users"></i>
-             <span>Data Mentor</span></a>
+             <span>Mentor Data</span></a>
      </li>
-
-     <!-- Data Jurusan
-     <li class="nav-item active">
-         <a class="nav-link" href="jurusan.php">
-             <i class="fas fa-plus-square"></i>
-             <span>Tambah Jurusan</span></a>
-     </li> -->
-
-
-     <!-- Data Angkatan
-     <li class="nav-item active">
-         <a class="nav-link" href="angkatan.php">
-             <i class="fas fa-plus-square"></i>
-             <span>Tambah Angkatan</span></a>
-     </li> -->
-
-     <!-- Data Categori doa
-     <li class="nav-item active">
-         <a class="nav-link" href="categoridoa.php">
-             <i class="fas fa-plus-square"></i>
-             <span>Tambah Categori Doa</span></a>
-     </li> -->
-
-
-
 
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kategori" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-plus-square"></i>
-             <span>kategori</span>
+             <span>Category</span>
          </a>
          <div id="kategori" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="categoridoa.php">Doa</a>
+                 <a class="collapse-item" href="categoridoa.php">Prayer</a>
                  <a class="collapse-item" href="categori_exhibition.php">Exhibition</a>
                  <a class="collapse-item" href="Punishment.php">Punishment</a>
                  <a class="collapse-item" href="grace.php">Grace</a>
-             </div>
-         </div>
-     </li>
-
-
-
-
-
-     <li class="nav-item active">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseTwo">
-             <i class="fas fa-plus-square"></i>
-             <span>Data</span>
-         </a>
-         <div id="collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
-                 <h6 class="collapse-header">kategori:</h6>
-                 <a class="collapse-item" href="jurusan.php">Jurusan</a>
-                 <a class="collapse-item" href="angkatan.php">Angkatan</a>
+                 <a class="collapse-item" href="jurusan.php">Department</a>
+                 <a class="collapse-item" href="angkatan.php">Batch</a>
                  <a class="collapse-item" href="semester.php">Semester</a>
-                 <a class="collapse-item" href="kegiatan.php">Kegiatan Siswa</a>
+                 <a class="collapse-item" href="kegiatan.php">Student Activities</a>
              </div>
          </div>
      </li>
+
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
-             <span>Report & Rapor</span>
+             <span>Report</span>
          </a>
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <h6 class="collapse-header">kategori:</h6>
+                 <h6 class="collapse-header">Category:</h6>
                  <a class="collapse-item" href="reportweekly.php">Weekly</a>
                  <a class="collapse-item" href="rapor_siswa.php">Final</a>
              </div>

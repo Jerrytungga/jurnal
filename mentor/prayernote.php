@@ -204,7 +204,7 @@ if (isset($_POST['reset'])) {
                                                 </td>
                                             </tr>
                                             <?php
-                                            $total = $total + $row['point'] + $row['point1']; ?>
+                                            $total = $row['point'] + $row['point1']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>

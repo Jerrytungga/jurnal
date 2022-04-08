@@ -114,21 +114,18 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Data Siswa</h1>
-              <div class="alert alert-warning">
-                Admin hanya menetapkan 1x di bagian Nis siswa selain nis admin bebas untuk mengedit.
-              </div>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Student Data</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i> Tambah Siswa</a>
-              <button type="button" class="btn btn-danger d-inline" data-toggle="modal" data-target="#exampleModal">
-                Aktifkan & Menonaktifkan Angkatan Siswa
+              <button href="" class="btn btn-primary mt-2 " data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i> Add Student</button>
+              <button type="button" class="btn btn-danger d-inline mt-2" data-toggle="modal" data-target="#exampleModal">
+                Enable And Disable Student Batch
               </button>
-              <button type="button" target-blank class="btn btn-success d-inline" data-toggle="modal" data-target="#QR">
-                Download QR Code Siswa
+              <button type="button" target-blank class="btn btn-success d-inline mt-2" data-toggle="modal" data-target="#QR">
+                Download QR Code Student
               </button>
 
             </div>
@@ -138,18 +135,18 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
                   <thead class=" text-md-center">
                     <tr>
                       <th>No</th>
-                      <th width="90">Foto</th>
-                      <th>Nis Siswa</th>
-                      <th witdh="50">Nama Siswa</th>
-                      <th>Angkatan</th>
+                      <th width="90">Image</th>
+                      <th>ID</th>
+                      <th witdh="50">Name</th>
+                      <th>Batch</th>
                       <th>Gender</th>
-                      <th>Jurusan</th>
-                      <th>Bimbel</th>
+                      <th>Department</th>
+                      <th>Tutoring</th>
                       <th>Mentor</th>
                       <th>Username</th>
                       <th>Password</th>
                       <th>Status</th>
-                      <th>Option</th>
+                      <th>Options</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -160,18 +157,6 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM mentor WHERE efata='$mentor'"));
                       return $sqly['name'];
                     }
-                    // function jurusan($jurusan)
-                    // {
-                    //   global $conn;
-                    //   $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_jurusan WHERE id='$jurusan'"));
-                    //   return $sqly2['jurusan'];
-                    // }
-                    // function angkatan($angkatan)
-                    // {
-                    //   global $conn;
-                    //   $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$angkatan'"));
-                    //   return $sqly3['angkatan'];
-                    // }
                     ?>
                     <?php foreach ($siswa as $row) : ?>
 

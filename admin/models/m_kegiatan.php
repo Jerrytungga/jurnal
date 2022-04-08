@@ -43,6 +43,10 @@
              <label class="text-reset" for="username">Items Activity :</label>
              <input type="text" class="form-control" id="itemactivity" name="itemactivity">
            </div>
+           <div class="form-group">
+             <label class="text-reset" for="target">Target :</label>
+             <input type="number" class="form-control" id="target1" name="target1" required>
+           </div>
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

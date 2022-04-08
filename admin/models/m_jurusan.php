@@ -3,7 +3,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="jurusan">New Jurusan</h5>
+         <h5 class="modal-title" id="jurusan">New Department</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -12,7 +12,7 @@
        <form action="" method="POST">
          <div class="modal-body">
            <div class="form-group">
-             <label class="text-reset" for="name">Jurusan :</label>
+             <label class="text-reset" for="name">Department :</label>
              <input type="text" class="form-control" id="jurusan" name="jurusan" required>
            </div>
          </div>
@@ -30,7 +30,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_jurusan">Edit Data Jurusan</h5>
+         <h5 class="modal-title" id="edit_jurusan">Change Department Data</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -40,7 +40,7 @@
          <div class="modal-body" id="modal-edit">
            <input type="hidden" class="form-control" id="kode" name="kode">
            <div class="form-group">
-             <label class="text-reset" for="username">jurusan :</label>
+             <label class="text-reset" for="username">Department :</label>
              <input type="text" class="form-control" id="jurusan" name="jurusan">
            </div>
          </div>

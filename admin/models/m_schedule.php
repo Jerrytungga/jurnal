@@ -16,7 +16,7 @@
         <table class="table dataTable table-striped" width="70%" id="tableschedule">
           <thead class="bg-success">
             <tr>
-              <th scope="col">Angkatan</th>
+              <th scope="col">Batch</th>
               <th scope="col">Week</th>
               <th scope="col">Schedule item</th>
               <th scope="col">Info Schedule</th>
@@ -25,7 +25,6 @@
               <th scope="col">End Time</th>
               <th scope="col">Absent Time</th>
               <th scope="col">Status</th>
-              <th scope="col">Participant</th>
               <th scope="col">Absent Timer</th>
               <th scope="col">ID</th>
               <th scope="col">Ringtones</th>
@@ -51,7 +50,6 @@
                 <td><?= $data1["end_time"]; ?></td>
                 <td><?= $data1["absent_time"]; ?></td>
                 <td><?= $data1["status"]; ?></td>
-                <td><?= $data1["participant"]; ?></td>
                 <td><?= $data1["timer"]; ?></td>
                 <td><?= $data1["id"]; ?></td>
                 <td><?= $data1["nada_alarm"]; ?></td>
@@ -134,7 +132,7 @@
         <form method="post">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="batch">Angkatan</label>
+              <label for="batch">Batch</label>
               <select class="form-control" name="angkatan" aria-label="Default select example" required>
                 <option selected>Select</option>
                 <?php
@@ -189,15 +187,6 @@
             </div>
           </div><br />
           <div class="form-row">
-            <div class="col">
-              <label>Participant (all or ipa or ips)</label>
-              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
-              <select class="custom-select" name="participant" id="participant">
-                <option value="ALL">all</option>
-                <option value="IPA">ipa</option>
-                <option value="IPS">ips</option>
-              </select>
-            </div>
             <div class="col">
               <label>Status</label>
               <!--<input type="number" min="0" max="1" name="has_triggered" id="has_triggered" class="form-control" />-->
@@ -254,7 +243,7 @@
         <form method="post">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="batch">Angkatan</label>
+              <label for="batch">Batch</label>
               <input type="hidden" readonly id="idschedule" name="idschedule" class="form-control" />
               <select class="form-control" name="angkatan" id="angkatan" aria-label="Default select example" required>
                 <option selected>Select</option>
@@ -312,15 +301,6 @@
           </div><br />
           <div class="form-row">
             <div class="col">
-              <label>Participant (all or ipa or ips)</label>
-              <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
-              <select class="custom-select" name="peserta" id="peserta">
-                <option value="ALL">all</option>
-                <option value="IPA">ipa</option>
-                <option value="IPS">ips</option>
-              </select>
-            </div>
-            <div class="col">
               <label>Status</label>
               <!--<input type="number" min="0" max="1" name="has_triggered" id="has_triggered" class="form-control" />-->
               <select class="form-control" name="keterangan" id="keterangan">
@@ -369,7 +349,7 @@
 
       <form method="POST">
         <div class="modal-body">
-          <h5>Are you sure you want to delete the data ?</h5>
+          <h5>Sure ?</h5>
           <input type="hidden" class="form-control" id="id" name="id">
           <input type="text" readonly class="form-control" id="aktivitas" name="aktivitas">
         </div>
@@ -404,7 +384,7 @@
       <form action="" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <label for="">Silahkan Pilih Angkatan :</label>
+            <label>Select Batch :</label>
             <select class="form-control" required name="angkatan" required aria-label="Default select example">
               <?php
               $angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan ");

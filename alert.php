@@ -39,13 +39,17 @@
 
   <?php
 
-  } elseif (isset($cekdata)) { ?>
+  } elseif (isset($cekdata)) {
+    $cek_data_absesnt = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `absent` WHERE nis='$nis' and `schedule_id`='$id_kegiatan'"));
+    $timeabsent = $sql_schedule5['absent_time'];
+
+  ?>
     <script>
       Swal.fire({
         icon: 'error',
         title: '<p class="text-danger"><strong>Announcement!</strong></p>',
-        html: '<p class=" text-uppercase"><b><?= name($_POST['nis']) ?></b><br><br> has made a presence at schedule </p><p class=" text-capitalize">   <?= kegiatan($activity); ?>  || <b>Time  <?= $timeabsent; ?>   WIB </b> </p>',
-        footer: '<?php echo $cekdata; ?>',
+        html: '<p class=" text-uppercase"><b><?= name($_POST['nis']) ?></b><br><br> Have done the presence before </p>',
+        footer: '<?php echo $cekdata; ?>'
       })
     </script>
   <?php  }

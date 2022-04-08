@@ -16,7 +16,7 @@
              <input type="text" class="form-control" id="idsemester" name="idsemester" required placeholder="Contoh id 20221 adalah semester gasal">
            </div>
            <div class="alert alert-warning mt-2 " role="alert">
-             Pastikan ID Semester Yang Anda Masukan Sudah Benar!
+             Make sure the semester ID you entered is correct!
            </div>
            <div class="form-group">
              <label for="angkatan-text" class="col-form-label font-weight-bold">Semester :</label>
@@ -37,7 +37,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_semester">Edit Semester</h5>
+         <h5 class="modal-title" id="edit_semester">Change Semester</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>

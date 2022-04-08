@@ -19,7 +19,7 @@ $nis = $_SESSION['nis'] =  $data_siswa['nis'];
 
 
 // mengambil data schedule/jadwal
-$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and start_time < '$waktu_sekarang' and end_time > '$waktu_sekarang' ||  absent_time > '$waktu_sekarang' and timer > '$waktu_sekarang'"));
+$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and   absent_time < '$waktu_sekarang' and timer > '$waktu_sekarang' || end_time > '$waktu_sekarang'"));
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
 $batch = $list20['batch'];
@@ -32,11 +32,11 @@ $timer = $list20['timer'];
 $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
-if ($waktu < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-  if ($waktu < $waktu_sekarang && $waktuabsent > $waktu_sekarang) {
+if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+  if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
     $hasil = 'V'; ?>
     <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-    <?php } else if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
+    <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
     $hasil = 'O';
   } else {
     $hasil = 'X';
@@ -47,27 +47,30 @@ if ($waktu < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
     $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
     $mentor = $mentor['mentor'];
 
+    $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis FROM `siswa` WHERE nis='$nis'"));
+    if ($sql_cekdata_nis > 0) {
 
-    $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT absent_time FROM `absent` WHERE nis='$nis'"));
-    $timeabsent = $sql_schedule5['absent_time'];
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
-    $idbr = $max['id'] + 1;
-    $sql_schedule3 = mysqli_fetch_array(mysqli_query($conn, "SELECT id_activity FROM `schedule` WHERE id='$id_kegiatan'"));
-    $activity = $sql_schedule3['id_activity'];
+      $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT absent_time FROM `absent` WHERE nis='$nis'"));
+      $timeabsent = $sql_schedule5['absent_time'];
+      $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
+      $idbr = $max['id'] + 1;
+      $sql_schedule3 = mysqli_fetch_array(mysqli_query($conn, "SELECT id_activity FROM `schedule` WHERE id='$id_kegiatan'"));
+      $activity = $sql_schedule3['id_activity'];
 
-    $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
-    if ($hapus) {
-      $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
-      // header('location: contoh.php');
+      $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
+      if ($hapus) {
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
+        // header('location: contoh.php');
     ?>
-      <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
-    <?php  } else {
-      $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>'; ?>
-      <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
+        <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
+      <?php  } else {
+        $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>'; ?>
+        <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
   <?php    }
+    }
   }
 } else {
-  // $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi'; 
+  // $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
   ?>
   <!-- <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio> -->
 <?php }
@@ -130,7 +133,7 @@ $cek = mysqli_num_rows($jadwal);
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Scanner
+              Memindai
             </h4>
           </center>
         </div>
@@ -154,7 +157,7 @@ $cek = mysqli_num_rows($jadwal);
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Daily Attendance (Presensi Harian)
+              Presensi Harian
             </h4>
           </center>
         </div>
@@ -164,13 +167,13 @@ $cek = mysqli_num_rows($jadwal);
 
             <tr>
               <th width="150">&nbsp;&nbsp;&nbsp;&nbsp;No</th>
-              <th width="270">Name</th>
-              <th width="130"><span class="badge badge-pill badge-success">V</span></th>
-              <th width="100"><span class="badge badge-pill badge-warning">O</span></th>
-              <th width="100"><span class="badge badge-pill badge-danger">X</span></th>
+              <th width="220">Nama</th>
+              <th width="120"><span class="badge badge-pill badge-success">V</span></th>
+              <th width="110"><span class="badge badge-pill badge-warning">O</span></th>
+              <th width="110"><span class="badge badge-pill badge-danger">X</span></th>
               <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
               <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
-              <th width="100">POINT</th>
+              <th width="100">POIN</th>
             </tr>
 
           </table>
@@ -182,7 +185,7 @@ $cek = mysqli_num_rows($jadwal);
             return $sqly['name'];
           }
 
-          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where absent_date='$hari_ini'  group by nis order by absent_time DESC");
+          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent   group by nis order by absent_time DESC");
 
           ?>
           <div class="modal-body " style="height: 400px;overflow: scroll;">
@@ -275,8 +278,8 @@ $cek = mysqli_num_rows($jadwal);
 
           <tr>
             <th width="170">&nbsp;&nbsp;No</th>
-            <th width="290">Today'Schedule</th>
-            <th width="120">Start Time</th>
+            <th width="290">Jadwal Harian</th>
+            <th width="120">Waktu Mulai</th>
           </tr>
 
         </table>

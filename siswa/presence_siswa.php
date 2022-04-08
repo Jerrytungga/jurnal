@@ -27,12 +27,11 @@ if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];
     $selesai = $_POST['tanggal_akhir'];
 
-
     if ($mulai != null || $selesai != null) {
         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
     } else {
 
-        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
+        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approve'   order by absent_time DESC");
         $array_absent = mysqli_fetch_array($Sqli_absent);
     }
 } else {
@@ -44,6 +43,12 @@ if (isset($_POST['reset'])) {
     $array_absent = mysqli_fetch_array($Sqli_absent);
 }
 
+
+
+
+
+// $Sqli_absent1 = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approve' order by absent_time DESC");
+// $array_absent2 = mysqli_fetch_array($Sqli_absent1);
 
 
 
@@ -89,9 +94,71 @@ include 'template/head.php'
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-mb-4 text-gray-800">Presence</h1>
                     </div>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-5 ">
-                        <div class="card-header py-3">
+
+                    <!-- <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-info text-white mb-4">
+                                <div class="card-body">Hadir</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-warning text-dark mb-4">
+                                <div class="card-body">Terlambat lebih dari waktu jadwal</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-danger text-white mb-4">
+                                <div class="card-body">Terlambat lebih dari waktu jadwal dan presensi</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Izin</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">Sakit</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">Sakit</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+ -->
+
+
+
+
+                    <div class="card  mb-4">
+                        <div class=" card-header py-3">
                             <div class="form-inline">
 
                                 <form action="" method="POST">
@@ -111,9 +178,13 @@ include 'template/head.php'
                                     <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
                                     <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                 </form>
-
                             </div>
                         </div>
+
+
+
+
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -138,7 +209,21 @@ include 'template/head.php'
                                         <?php foreach ($Sqli_absent as $row) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td> <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="90"></td>
+                                                <td>
+
+
+                                                    <?php
+                                                    $gambar = $row["gambar_verifikasi"];
+                                                    if ($gambar) { ?>
+                                                        <button type="button" data-gambar="<?= $row["gambar_verifikasi"]; ?>" class="btn " data-toggle="modal" data-target="#foto">
+                                                            <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="90">
+                                                        </button>
+
+                                                    <?php }
+
+                                                    ?>
+
+                                                </td>
                                                 <td><?= kegiatan($row['schedule_id']); ?></td>
                                                 <td>
                                                     <?php
@@ -181,7 +266,9 @@ include 'template/head.php'
                                                 <td><?= $row['absent_date']; ?></td>
 
                                             </tr>
-                                            <?php $i++; ?>
+                                            <?php
+
+                                            $i++; ?>
                                         <?php endforeach; ?>
 
                                     </tbody>
@@ -212,21 +299,27 @@ include 'template/head.php'
                                         $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approve' and mark='$mark_S'");
                                         $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
+
                                         $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
 
+
                                         ?>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
-                                        <th class="text-center"><?= $total; ?></th>
+                                        <!-- <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                                        <th class="text-center"><?= $total; ?></th> -->
                                     </tfoot>
                                 </table>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-            <!-- Footer -->
+
+
 
             <?php
             include 'template/footer.php';
@@ -243,6 +336,7 @@ include 'template/head.php'
     include 'modal/modal_logout.php';
     include 'template/script.php';
     include 'template/alert.php';
+    include '../modal.php';
     ?>
     <script>
         // edit catatan

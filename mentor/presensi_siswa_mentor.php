@@ -238,7 +238,16 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td>
-                                                    <img src="../img/fotosiswa/<?= $row["image"]; ?>" width="90">
+                                                    <?php
+                                                    $gambar = $row["gambar_verifikasi"];
+                                                    if ($gambar) { ?>
+                                                        <button type="button" data-gambar="<?= $row["gambar_verifikasi"]; ?>" class="btn " data-toggle="modal" data-target="#foto">
+                                                            <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="90">
+                                                        </button>
+
+                                                    <?php }
+
+                                                    ?>
                                                 </td>
                                                 <td><?= nama_siswa($row["nis"]); ?></td>
                                                 <td><?= kegiatan($row["id_activity"]); ?></td>
@@ -330,6 +339,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
     include 'modal/modal_presence.php';
     include 'template/script.php';
     include 'template/alert.php';
+    include '../modal.php';
     ?>
 
     <script>

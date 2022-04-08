@@ -3,7 +3,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="siswa">New siswa </h5>
+         <h5 class="modal-title" id="siswa">New student </h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -12,19 +12,19 @@
        <form action="" method="POST" enctype="multipart/form-data">
          <div class="modal-body">
            <div class="form-group">
-             <label for="image">Foto</label>
+             <label for="image">Image</label>
              <input type="file" name="image" class="form-control-file" id="image">
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="nis_siswa">Nis Siswa :</h7>
+             <h7 class="text-reset" for="nis_siswa">ID :</h7>
              <input type="text" class="form-control" id="nis" name="nis" required>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="name">Nama Siswa :</h7>
+             <h7 class="text-reset" for="name">Name :</h7>
              <input type="text" class="form-control" id="name" name="name" required>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="angkatan">Angkatan :</h7>
+             <h7 class="text-reset" for="angkatan">Batch :</h7>
              <select class="form-control" name="angkatan" id="angkatan" aria-label="Default select example">
                <option selected>Select</option>
                <?php
@@ -44,7 +44,7 @@
              </select>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="jurusan">Jurusan :</h7>
+             <h7 class="text-reset" for="jurusan">Tutoring :</h7>
              <select class="form-control" name="jurusan" id="jurusan" aria-label="Default select example">
                <option holder>Select</option>
                <?php
@@ -56,7 +56,7 @@
              </select>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="jurusan">Bimbel :</h7>
+             <h7 class="text-reset" for="jurusan">Department :</h7>
              <select class="form-control" name="bimbel" id="bimbel" aria-label="Default select example">
                <option selected>Select</option>
                <option value="IPS">IPS</option>
@@ -107,7 +107,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_siswa">Edit Data Siswa</h5>
+         <h5 class="modal-title" id="edit_siswa">Change Student Data</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -116,22 +116,22 @@
        <form action="" method="POST" enctype="multipart/form-data">
          <div class="modal-body" id="modal-edit">
            <div class="form-group">
-             <label for="image">Foto</label>
+             <label for="image">Image</label>
              <div class="padding-bottom:5px">
                <img src="" width="120px" id="image">
              </div>
              <input type="file" name="image" class="form-control-file mt-2" id="image">
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="nis_siswa">Nis Siswa :</h7>
+             <h7 class="text-reset" for="nis_siswa">ID :</h7>
              <input type="text" class="form-control" id="nis" name="nis" readonly>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="name">Nama Siswa :</h7>
+             <h7 class="text-reset" for="name">Name :</h7>
              <input type="text" class="form-control" id="name" name="name">
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="angkatan">Angkatan :</h7>
+             <h7 class="text-reset" for="angkatan">Batch :</h7>
              <select class="form-control" name="angkatan" id="angkatan">
                <option selected>Select</option>
                <?php
@@ -151,7 +151,7 @@
              </select>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="jurusan">Jurusan :</h7>
+             <h7 class="text-reset" for="jurusan">Tutoring :</h7>
              <select class="form-control" name="jurusan" id="jurusan">
                <option selected>Select</option>
                <?php
@@ -163,7 +163,7 @@
              </select>
            </div>
            <div class="form-group">
-             <h7 class="text-reset" for="bimbel">Bimbel :</h7>
+             <h7 class="text-reset" for="bimbel">Department :</h7>
              <select class="form-control" name="bimbel" id="bimbel">
                <option selected>Select</option>
                <option value="IPS">IPS</option>

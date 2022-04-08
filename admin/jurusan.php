@@ -77,13 +77,13 @@ $j = mysqli_fetch_array($jurusan);
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Jurusan</h1>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Department Data</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#jurusan"><i class="fas fa-plus-square"></i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#jurusan"><i class="fas fa-plus-square"></i> Add Department</a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -91,7 +91,7 @@ $j = mysqli_fetch_array($jurusan);
                   <thead class=" text-md-center">
                     <tr>
                       <th width="10">No</th>
-                      <th>Jurusan</th>
+                      <th>Department</th>
                       <th>Option</th>
                     </tr>
                   </thead>

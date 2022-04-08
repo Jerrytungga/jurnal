@@ -75,9 +75,9 @@ include 'template/Session.php';
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#semester">Tambah Semester</a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#semester">Add Semester</a>
               <div class="alert alert-danger mt-2 col-4" role="alert">
-                Semester Tidak di ijinkan untuk dihapus!
+                Semester Not allowed to be deleted!
               </div>
             </div>
             <div class="card-body">

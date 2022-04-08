@@ -154,7 +154,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Daftar Kegiatan</h1>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Activity List</h1>
             </div>
           </div>
           <!-- DataTales Example -->
@@ -169,7 +169,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
                   <thead class=" text-md-center">
                     <tr>
                       <th width="10">No</th>
-                      <th>Nama Kegiatan</th>
+                      <th>Name Activity</th>
                       <th>Options</th>
                     </tr>
                   </thead>
@@ -181,7 +181,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
                         <td><?= $row["items"]; ?></td>
                         <td width="50">
                           <!-- Get data items Activity-->
-                          <a id="edit_items" data-toggle="modal" data-target="#edit" data-itemactivity="<?= $row["items"]; ?>" data-kode="<?= $row["id_activity"]; ?>">
+                          <a id="edit_items" data-toggle="modal" data-target="#edit" data-itemactivity="<?= $row["items"]; ?>" data-kode="<?= $row["id_activity"]; ?>" data-target1="<?= $row["target"]; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>
@@ -254,8 +254,10 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
     $(document).on("click", "#edit_items", function() {
       let itemactivity = $(this).data('itemactivity');
       let kode = $(this).data('kode');
+      let target1 = $(this).data('target1');
       $(" #modal-edit #itemactivity").val(itemactivity);
       $(" #modal-edit #kode").val(kode);
+      $(" #modal-edit #target1").val(target1);
 
     });
   </script>

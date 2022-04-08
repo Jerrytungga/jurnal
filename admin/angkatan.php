@@ -69,13 +69,13 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-3">
             <div class="group">
-              <h1 class="h3 mb-2 text-gray-800">Angkatan</h1>
+              <h1 class="h3 mb-2 text-gray-800">Batch Data</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#angkatan"><i class="fas fa-plus-square"></i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#angkatan"><i class="fas fa-plus-square"></i> Add Batch</a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -83,7 +83,7 @@ include 'template/Session.php';
                   <thead class=" text-md-center">
                     <tr>
                       <th width="10">No</th>
-                      <th>Angkatan</th>
+                      <th>Batch</th>
 
                       <th>Option</th>
                     </tr>

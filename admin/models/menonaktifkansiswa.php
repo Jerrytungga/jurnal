@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Angkatan Siswa</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Student Batch</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,7 +11,7 @@
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="form-group">
-            <label for="">Silahkan Pilih Angkatan :</label>
+            <label for="">Batch :</label>
             <select class="form-control" required name="angkatan" required id="angkatan" aria-label="Default select example">
               <?php
               $angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan ");

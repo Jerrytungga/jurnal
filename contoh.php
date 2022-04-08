@@ -22,16 +22,16 @@ $s['name'];
 if (isset($_POST['kirim_gambar'])) {
   $img = $_POST['image'];
   $folderPath = "img/verifikasi/";
-  $image_parts = explode(";base64,", $img);
+  $image_parts = explode("base64,", $img);
   $image_type_aux = explode("image/", $image_parts[0]);
   $image_type = $image_type_aux[1];
   $image_base64 = base64_decode($image_parts[1]);
-  $fileName = $s['name'] . '_' . $hari_ini . '_'  . $waktu_sekarang . '.png';
+  $fileName = $waktu_sekarang . '_' . $s['name'] . '_' . $hari_ini . '.png';
   $file = $folderPath . $fileName;
   // file_put_contents($file, $image_base64);
 
   if (file_put_contents($file, $image_base64)) {
-    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$file' WHERE nis='$nis' and schedule_id='$id'");
+    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `gambar_verifikasi`='$fileName' WHERE nis='$nis' and schedule_id='$id'");
 
     if ($updatejadwal) {
 
@@ -130,7 +130,7 @@ if (isset($_POST['kirim_gambar'])) {
     Webcam.set({
       width: 300,
       height: 300,
-      image_format: 'jpeg',
+      image_format: 'png',
       jpeg_quality: 90
     });
 
@@ -139,7 +139,7 @@ if (isset($_POST['kirim_gambar'])) {
     function take_snapshot() {
       Webcam.snap(function(data_uri) {
         $(".image-tag").val(data_uri);
-        document.getElementById();
+        // document.getElementById();
       });
     }
   </script>
