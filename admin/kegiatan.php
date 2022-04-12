@@ -66,10 +66,9 @@ if (isset($_POST['insert_shedule'])) {
   $end_waktu = htmlspecialchars($_POST['end_time']);
   $waktu_absent = htmlspecialchars($_POST['absent_time']);
   $status = htmlspecialchars($_POST['status']);
-  $partisipasi = htmlspecialchars($_POST['participant']);
   $timer = htmlspecialchars($_POST['txtAbsentTimer']);
   $alrm_nada = htmlspecialchars($_POST['alarm_nada']);
-  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `participant`, `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status','$partisipasi','$timer', '$alrm_nada')");
+  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
   if ($input_schedule) {
     echo "<script>alert('Schedule Berhasil di tambahkan!');</script>";
   } else {
@@ -89,10 +88,9 @@ if (isset($_POST['updateschedule'])) {
   $edit_waktu_akhir = htmlspecialchars($_POST['waktuakhir']);
   $edit_waktu_absensi = htmlspecialchars($_POST['waktuabsen']);
   $edit_status = htmlspecialchars($_POST['keterangan']);
-  $edit_peserta = htmlspecialchars($_POST['peserta']);
   $edit_timer_absen = htmlspecialchars($_POST['timerabsen']);
   $nama_alarm_edit = htmlspecialchars($_POST['nada']);
-  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`participant`='$edit_peserta',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
+  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
     echo "<script>alert('Schedule Berhasil di Update!');</script>";
@@ -160,8 +158,11 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#activity">Add Items</a>
-              <a href="" class="btn btn-success" data-toggle="modal" data-target="#schedule">Today's Schedule</a>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#activity">Add Items</button>
+              <button class="btn btn-success" data-toggle="modal" data-target="#schedule">Today's Schedule</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#targetpoin">
+                Target Points
+              </button>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
@@ -216,6 +217,7 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   include 'models/m_logout.php';
   include 'models/m_kegiatan.php';
   include 'models/m_schedule.php';
+  include 'models/m_target_schedule.php';
   ?>
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>

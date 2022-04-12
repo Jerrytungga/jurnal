@@ -1,6 +1,9 @@
 <?php
 include '../database.php';
 session_start();
+date_default_timezone_set('Asia/Jakarta');
+$hari_ini = date('Y-m-d');
+$waktu_sekarang = date('H:i:s');
 include 'template/session.php';
 
 if (isset($_POST['save_pesan'])) {
@@ -18,7 +21,7 @@ if (isset($_POST['insert_Edit_presence'])) {
     $Acc_1 = htmlspecialchars($_POST['agreement1']);
     $catatan_1 = htmlspecialchars($_POST['catatan1']);
     $ct_timer = htmlspecialchars($_POST['time1']);
-    $sqli_absent2 = mysqli_query($conn, "UPDATE `absent` SET `nis`='$Nis',`absent_date`='$date_1',`absent_time`='$ct_timer',`mark`='$mark_1',`info_schedule`='[value-8]',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_absent`='$id_1'");
+    $sqli_absent2 = mysqli_query($conn, "UPDATE `absent` SET `nis`='$Nis',`absent_date`='$date_1',`absent_time`='$ct_timer',`mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_absent`='$id_1'");
     if ($sqli_absent2) {
         $_SESSION['alert_edit_absent_berhasil'] = 'changed successfully';
     } else {
@@ -141,6 +144,9 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+
 </head>
 
 <body id="page-top">
@@ -164,7 +170,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Presence Siswa</h1>
+                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Presence Student</h1>
 
                             <a href="presensi_siswa_mentor.php" type="button" class="btn mt-2 btn-outline-success active">Presence</a>
                             <a href="report_presence.php" type="button" class="btn mt-2 btn-outline-danger">Report</a>
@@ -180,16 +186,16 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                             </div>
                         <?php
                             unset($_SESSION['alert_edit_absent_berhasil']);
-                        } else if (isset($_SESSION['alert_approve'])) { ?>
+                        } else if (isset($_SESSION['alert_approved'])) { ?>
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Successfully!</strong> <?php echo $_SESSION['alert_approve']; ?>
+                                <strong>Successfully!</strong> <?php echo $_SESSION['alert_approved']; ?>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                         <?php
-                            unset($_SESSION['alert_approve']);
+                            unset($_SESSION['alert_approved']);
                         } else if (isset($_SESSION['alert_not_approved'])) { ?>
 
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -219,10 +225,11 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th>Verification step 2</th>
-                                            <th>Name Siswa</th>
+                                            <th>Student's Name</th>
                                             <th>Schedule</th>
                                             <th>Start Time</th>
                                             <th>Absent Time</th>
+                                            <th>Presence Time</th>
                                             <th>Week</th>
                                             <th>Status</th>
                                             <th>Agreement</th>
@@ -239,10 +246,10 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                 <td><?= $i; ?></td>
                                                 <td>
                                                     <?php
-                                                    $gambar = $row["gambar_verifikasi"];
+                                                    $gambar = $row["image"];
                                                     if ($gambar) { ?>
-                                                        <button type="button" data-gambar="<?= $row["gambar_verifikasi"]; ?>" class="btn " data-toggle="modal" data-target="#foto">
-                                                            <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="90">
+                                                        <button type="button" data-gambar="<?= $row["image"]; ?>" class="btn " id="verifikasi" data-toggle="modal" data-target="#gambar">
+                                                            <img src="../img/verifikasi/<?= $row["image"]; ?>" width="90">
                                                         </button>
 
                                                     <?php }
@@ -254,13 +261,33 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                 <td>
                                                     <?php
                                                     // mengambil waktu kegiatanm di tabel kegiatan berdasarkan id kegiatan
+
                                                     $id_kegiatan = $row["schedule_id"];
                                                     $sqly4 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM schedule WHERE id='$id_kegiatan'"));
-                                                    $waktu_kegiatan = $sqly4['start_time']
+                                                    $waktu_kegiatan = $sqly4['start_time'];
+                                                    $waktu_absent = $sqly4['absent_time'];
+                                                    $Waktu_akhir = $sqly4['end_time'];
+                                                    $date = $sqly4['date'];
+
                                                     ?>
                                                     <?= $waktu_kegiatan; ?>
+                                                    <?php
+                                                    // script jika waktu akhir jadwal sudah lewat maka sistem akan otomatis untuk tidak meng approved presensi siswa
+                                                    if ($waktu_sekarang > $Waktu_akhir && $date == $hari_ini) { ?>
+                                                        <script>
+                                                            window.onload = function() {
+                                                                var button = document.getElementById('notapproved');
+                                                                setInterval(function() {
+                                                                    button.click();
+                                                                }, 1000);
+                                                            };
+                                                        </script>
+                                                    <?php
+                                                    }
 
+                                                    ?>
                                                 </td>
+                                                <td><?= $waktu_absent; ?></td>
                                                 <td><?= $row["absent_time"]; ?></td>
                                                 <td><?= $row["week"]; ?></td>
                                                 <td>
@@ -277,6 +304,8 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     ?>
                                                 </td>
                                                 <td>
+
+
                                                     <?php
                                                     // jika presensinya terlambat maka warna merah statusnya
                                                     if ($row["ACC_Mentor"] == 'Waiting') { ?>
@@ -300,10 +329,10 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     </button> -->
                                                     <?php
                                                     if ($row["ACC_Mentor"] == 'Waiting') { ?>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approve=approve" type="button" class="btn btn-info m-2">Approve</a>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
+                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
+                                                        <a id="notapproved" href="proses_approve.php?id=<?= $row["id_absent"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
                                                     <?php  } else if ($row["ACC_Mentor"] == 'not approved') { ?>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approve=approve" type="button" class="btn btn-info m-2">Approve</a>
+                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
                                                     <?php   } else { ?>
 
                                                         <button type="button" class="btn btn-warning m-2" data-nis1="<?= $row["nis"]; ?>" data-item_schedule1="<?= $row['schedule_id']; ?>" data-mark1="<?= $row['mark']; ?>" data-date1="<?= $row['absent_date']; ?>" data-catatan1="<?= $row['catatan']; ?>" data-time1="<?= $row['absent_time']; ?>" data-agreement1="<?= $row['ACC_Mentor']; ?>" data-id1="<?= $row['id_absent']; ?>" id="edit_schedule" data-toggle="modal" data-target="#Edit_presensi_siswa">
@@ -368,6 +397,15 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
             $(" #modal-edit_shedule #catatan1").val(catatan1);
         });
     </script>
+
+    <script>
+        $(document).on("click", "#verifikasi", function() {
+            let gambar = $(this).data('gambar');
+            $(" #modal-gambar #gambar").attr("src", "../img/verifikasi/" + gambar);
+
+        });
+    </script>
+
 
 
 </body>

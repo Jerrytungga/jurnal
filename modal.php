@@ -24,9 +24,9 @@
 
  <!-- modal foto -->
  <!-- Modal -->
- <div class="modal fade" id="foto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="gambar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered">
-     <div class="modal-content">
+     <div class="modal-content" id="modal-gambar">
        <div class="modal-header">
          <h5 class="modal-title" id="exampleModalLabel">Presence Picture</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -36,7 +36,7 @@
        <div class="modal-body">
          <center>
            <div class="padding-bottom:7px">
-             <img src="../img/verifikasi/<?= $row["gambar_verifikasi"]; ?>" width="455px" height="400px" id="gambar">
+             <img src="../img/verifikasi/<?= $row["image"]; ?>" width="455px" height="400px" id="gambar">
            </div>
          </center>
        </div>

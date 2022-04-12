@@ -167,19 +167,19 @@ function activity($activity)
 
   <div class="card_2 shadow  ">
     <div class="card-header  bg-dark text-light">
-      <judul>Jadwal Mingguan</judul>
+      <judul>Weekly Schedule</judul>
     </div>
     <div class="card-body">
 
       <div class="col">
         <div class="select_ form-inline">
           <form action="" method="POST" id="form_id">
-            <b class="font-weight-normal">Minggu :</b>&nbsp;&nbsp;
+            <b class="font-weight-normal">Week :</b>&nbsp;&nbsp;
             <?php
             if (isset($_POST['week'])) {
               $week = $_POST['week']; ?>
               <select id="" class="form-control col-10" name="week" onChange="document.getElementById('form_id').submit();">
-                <option value="%">Pilih Semua Minggu</option>
+                <option value="%">Select All Weeks</option>
                 <option value="1" <?php if ($week == "1") { ?> selected <?php } ?>>01</option>
                 <option value="2" <?php if ($week == "2") { ?> selected <?php } ?>>02</option>
                 <option value="3" <?php if ($week == "3") { ?> selected <?php } ?>>03</option>
@@ -238,7 +238,7 @@ function activity($activity)
             } else {
             ?>
               <select id="" class="form-control col-10" name="week" onChange="document.getElementById('form_id').submit();">
-                <option value="%">Pilih Semua Minggu</option>
+                <option value="%">Select All Weeks</option>
                 <option value="1">01</option>
                 <option value="2">02</option>
                 <option value="3">03</option>
@@ -311,8 +311,8 @@ function activity($activity)
             <input type="date" name="tanggal_mulai" class="form-control">
             <input type="date" name="tanggal_akhir" class="form-control ml-3">
           <?php } ?>
-          <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Cari</button>
-          <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Mengatur Ulang</button>
+          <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Search</button>
+          <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
         </form>
       </div>
       <div style="height: 500px;overflow: scroll;  ">
@@ -321,8 +321,8 @@ function activity($activity)
           if ($cek == 0) {
             echo "  <script>
                 Swal.fire(
-                  '<strong>PERINGATAN!</strong>',
-                  'Jadwal Mingguan Tidak Ada',
+                  '<strong>Announcement!</strong>',
+                  'Weekly Schedule Not Available',
                   'question'
                 )
                </script>";
@@ -330,11 +330,11 @@ function activity($activity)
             <thead>
               <tr>
                 <th scope="col">No</th>
-                <th scope="col">Jadwal</th>
-                <th scope="col">Waktu Mulai</th>
-                <th scope="col">Waktu Akhir</th>
-                <th scope="col">Minggu</th>
-                <th scope="col">Tanggal</th>
+                <th scope="col">Schedule</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Week</th>
+                <th scope="col">Date</th>
 
               </tr>
             </thead>
@@ -365,8 +365,6 @@ function activity($activity)
       </div>
     </div>
   </div>
-
-
 
 
 

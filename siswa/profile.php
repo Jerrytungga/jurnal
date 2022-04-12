@@ -170,7 +170,7 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
 
     });
   </script> -->
-  <!-- 
+  <!--   
   <script>
     Swal.fire({
       title: '<strong>Maintenance </strong> ',
@@ -210,8 +210,8 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
         document.getElementById("demo").innerHTML = "EXPIRED";
       }
     }, 1000);
-  </script>
+  </script> -->
 </body>
- -->
+
 
 </html>

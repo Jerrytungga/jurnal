@@ -22,21 +22,23 @@ if (isset($_POST['filter_tanggal'])) {
 
 
   if ($mulai != null || $selesai != null || $nis != null) {
-    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'  and mentor='$id'  order by absent_time DESC");
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approved' and absent_date BETWEEN '$mulai' AND '$selesai'  and mentor='$id'  order by absent_time DESC");
   } else {
 
-    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis'and ACC_Mentor='approve' and absent_date BETWEEN '$mulai' AND '$selesai'  and mentor='$id'  order by absent_time DESC");
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis'and ACC_Mentor='approved' and absent_date BETWEEN '$mulai' AND '$selesai'  and mentor='$id'  order by absent_time DESC");
     $array_absent = mysqli_fetch_array($Sqli_absent);
   }
 } else {
-  $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approve' and  mentor='$id'  order by absent_time DESC");
+  $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approved' and  mentor='$id'  order by absent_time DESC");
   $array_absent = mysqli_fetch_array($Sqli_absent);
 }
 if (isset($_POST['reset'])) {
-  $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and  mentor='$id'  order by absent_time DESC");
+  $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approved' and  mentor='$id'  order by absent_time DESC");
   $array_absent = mysqli_fetch_array($Sqli_absent);
 }
 
+$Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and ACC_Mentor='approved' and  mentor='$id'  order by absent_time DESC");
+$array_absent = mysqli_fetch_array($Sqli_absent);
 
 
 
@@ -125,6 +127,7 @@ function kegiatan($name_kegiatan)
                     if (isset($_POST['nis'])) {
                       $daftarsiswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id' and nis='" . $_POST['nis'] . "'"));
                     ?>
+
                       <option value="<?= $daftarsiswa['nis']; ?>"><?= $daftarsiswa['name']; ?></option>
                     <?php } else {
                       echo "<option selected>Pilih Siswa</option>";
@@ -189,7 +192,7 @@ function kegiatan($name_kegiatan)
                       <tr>
                         <td><?= $i; ?></td>
                         <td><?= nama_siswa($row["nis"]); ?></td>
-                        <td><?= kegiatan($row["schedule_id"]); ?></td>
+                        <td><?= kegiatan($row["id_activity"]); ?></td>
                         <td>
                           <?php
                           // mengambil waktu kegiatanm di tabel kegiatan berdasarkan id kegiatan
@@ -234,19 +237,19 @@ function kegiatan($name_kegiatan)
                     $mark_I = $array_presensi['mark'] = 'I';
                     $mark_S = $array_presensi['mark'] = 'S';
 
-                    $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_V' ");
+                    $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' ");
                     $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-                    $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_O' ");
+                    $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_O' ");
                     $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-                    $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_X'");
+                    $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_X'");
                     $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-                    $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_I'");
+                    $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I'");
                     $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-                    $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_S'");
+                    $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_S'");
                     $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
                     $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];

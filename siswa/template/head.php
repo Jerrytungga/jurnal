@@ -12,4 +12,24 @@
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <style>
+    strong {
+      color: red;
+    }
+
+    .card_information {
+      width: 140px;
+      height: 125px;
+      margin-left: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card_presence {
+      width: 200px;
+      height: 125px;
+      margin-left: 20px;
+      margin-bottom: 30px;
+    }
+  </style>
 </head>

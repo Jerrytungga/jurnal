@@ -1,14 +1,21 @@
 <?php
 include '../database.php';
 session_start();
+date_default_timezone_set('Asia/Jakarta');
+$hari_ini = date('Y-m-j');
+$waktu_sekarang = date('H:i:s');
 include 'template/session.php';
 $id = $_GET['id'];
-$keterangan = $_GET['approve'];
+$keterangan = $_GET['approved'];
 $keterangan2 = $_GET['notapproved'];
-if ($keterangan = $_GET['approve']) {
+
+$Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where mentor='$id'");
+$array_absent = mysqli_fetch_array($Sqli_absent);
+
+if ($keterangan = $_GET['approved']) {
   $sqli = mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='$keterangan' where id_absent='$id'");
   if ($sqli) {
-    $_SESSION['alert_approve'] = 'Approve';
+    $_SESSION['alert_approved'] = 'Approved';
     header('location: presensi_siswa_mentor.php');
   }
 } else {

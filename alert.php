@@ -11,34 +11,18 @@
     $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$name_kegiatan'"));
     return $sqly3['items'];
   }
-
-  if (isset($notifsukses)) { ?>
-    <script>
-      Swal.fire({
-        position: 'center',
-        icon: 'info',
-        title: '<div id="my_camera"></div>',
-        showConfirmButton: false,
-        html: ' <a href="contoh.php?nis=<?= $_POST['nis']; ?>&id=<?= $id_kegiatan; ?>" class="btn btn-success text-light my-2 my-sm-0">Ambil Gambar</a>'
-        // timer: 1500
-      })
-    </script>
-
-    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
-  <?php unset($notifsukses);
-  } else if (isset($notifgagal)) { ?>
+  if (isset($notifgagal)) { ?>
 
     <script>
       Swal.fire({
         icon: 'error',
-        title: 'Gagal',
+        title: 'Failed',
         text: '<?php echo $notifgagal; ?>',
 
       })
     </script>
 
-  <?php
-
+  <?php unset($notifgagal);
   } elseif (isset($cekdata)) {
     $cek_data_absesnt = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `absent` WHERE nis='$nis' and `schedule_id`='$id_kegiatan'"));
     $timeabsent = $sql_schedule5['absent_time'];
@@ -52,5 +36,14 @@
         footer: '<?php echo $cekdata; ?>'
       })
     </script>
-  <?php  }
+  <?php  } elseif (isset($Announcement)) { ?>
+
+    <script>
+      Swal.fire({
+        icon: 'warning',
+        title: '<p class="text-danger"><strong>Announcement!</strong></p>',
+        html: '<?php echo $Announcement; ?>'
+      })
+    </script>
+  <?php }
   ?>

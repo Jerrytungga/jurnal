@@ -3,23 +3,23 @@ include 'database.php';
 $page = $_SERVER['PHP_SELF'];
 $sec = "50";
 session_start();
+error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
-$hari_ini = date('Y-m-j');
+$hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
-
-// data semester
+// ambil data semester
 $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Aktif'");
 $data1 = mysqli_fetch_array($get_semester);
 $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 
-// sql data siswa
-$sql_siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE nis AND status='Aktif'");
-$data_siswa = mysqli_fetch_array($sql_siswa);
-$nis = $_SESSION['nis'] =  $data_siswa['nis'];
+// ambil data angkatan siswa berdasarkan nis yang di scan qrcode
+$nis2 = $_POST['nis'];
+$sql_siswa = mysqli_query($conn, "SELECT angkatan FROM `siswa` WHERE nis='$nis2'");
+$data_angkatan = mysqli_fetch_array($sql_siswa);
+$angkatan = $data_angkatan['angkatan'];
 
-
-// mengambil data schedule/jadwal
-$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and   absent_time < '$waktu_sekarang' and timer > '$waktu_sekarang' || end_time > '$waktu_sekarang'"));
+// mengambil data schedule/jadwal berdasarkan angkatan siswa
+$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and batch='$angkatan' and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'"));
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
 $batch = $list20['batch'];
@@ -32,7 +32,8 @@ $timer = $list20['timer'];
 $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
-if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+// memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
+if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
   if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
     $hasil = 'V'; ?>
     <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
@@ -47,51 +48,33 @@ if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang && $jam_akhir
     $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
     $mentor = $mentor['mentor'];
 
-    $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis FROM `siswa` WHERE nis='$nis'"));
+    // pengecekan nis siswa untuk menghindari sistem salah input nis
+    $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis, angkatan FROM `siswa` WHERE nis='$nis' and angkatan='$batch'"));
     if ($sql_cekdata_nis > 0) {
 
-      $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT absent_time FROM `absent` WHERE nis='$nis'"));
-      $timeabsent = $sql_schedule5['absent_time'];
+      // menambah masimum id
       $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
       $idbr = $max['id'] + 1;
-      $sql_schedule3 = mysqli_fetch_array(mysqli_query($conn, "SELECT id_activity FROM `schedule` WHERE id='$id_kegiatan'"));
-      $activity = $sql_schedule3['id_activity'];
+      $inputpresensi =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
 
-      $hapus =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
-      if ($hapus) {
-        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
-        // header('location: contoh.php');
+      if ($inputpresensi) {
+        $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
     ?>
         <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
       <?php  } else {
-        $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>'; ?>
+        $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
+      ?>
         <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
-  <?php    }
+<?php    }
     }
   }
-} else {
-  // $notifgagal = $_SESSION['gagal'] = 'Belum Saatnya Melakukan Presensi';
-  ?>
-  <!-- <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio> -->
-<?php }
-
-
-
+}
 
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
-
-// $cek_data_absent = mysqli_query($conn, "SELECT nis FROM `absent` WHERE nis='$nis'");
-// $cek_absent = mysqli_fetch_array($cek_data_absent);
-// $_data = mysqli_num_rows($cek_data_absent);
 ?>
-
-
-
-
-
 
 <!doctype html>
 <html lang="en">
@@ -99,15 +82,56 @@ $cek = mysqli_num_rows($jadwal);
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="refresh" content="<?= $sec ?>;URL='<?= $page ?>'">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+
   <title>Presensi PKA</title>
+  <style>
+    canvas {
+      height: 250px;
+      width: 100%;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+    .formscaner {
+      height: 450px;
+    }
+
+    /* .formdailypresence {
+      height: 450px;
+    } */
+
+    /* .today {
+      height: 450px;
+    } */
+
+    body {
+      height: 800px;
+      width: 100%;
+      background-color: #F9F9F9;
+
+    }
+
+    @media screen and (max-width: 575px) {
+
+      canvas {
+        height: 170px;
+        width: 250px;
+        border-radius: 10px;
+
+      }
+    }
+  </style>
+
 </head>
 
-<body style="background-color: #EDEDF5; ">
+<body>
   <?php
   include 'navbar_buttom.php';
   ?>
@@ -128,54 +152,48 @@ $cek = mysqli_num_rows($jadwal);
 
   <div class="container-fluid m-md-5 m-2 ">
     <div class="form-row mx-auto">
-
-      <div class="card shadow mr-3 p-3 mt-2 col-md-3">
+      <div class="card formscaner shadow mr-3 p-3 mt-2 col-md-3">
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Memindai
+              Scanner
             </h4>
           </center>
         </div>
         <div class="card-body">
           <br>
-          <br>
-          <br>
           <center>
-            <canvas style=" border-radius: 5px; width:280px;height:200px;"></canvas>
+            <canvas></canvas>
             <br>
             <br>
-            <p>Silahkan Pilih Sumber kamera</p>
-            <select></select>
+            <!-- <p>Silahkan Pilih Sumber kamera</p>
+            <select></select> -->
           </center>
         </div>
       </div>
 
 
       <!-- script tampilan absensi -->
-      <div class="card shadow mr-3 p-3  mt-2 col-md-5">
+      <div class="card shadow formdailypresence mr-3 p-3  mt-2 col-md-5">
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Presensi Harian
+              Daily Presence
             </h4>
           </center>
         </div>
-
         <div class="card-body">
           <table>
-
             <tr>
               <th width="150">&nbsp;&nbsp;&nbsp;&nbsp;No</th>
-              <th width="220">Nama</th>
+              <th width="220">Name</th>
               <th width="120"><span class="badge badge-pill badge-success">V</span></th>
               <th width="110"><span class="badge badge-pill badge-warning">O</span></th>
               <th width="110"><span class="badge badge-pill badge-danger">X</span></th>
               <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
               <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
-              <th width="100">POIN</th>
+              <th width="100">Points</th>
             </tr>
-
           </table>
           <?php
           function activity_name($nama_activity)
@@ -184,11 +202,9 @@ $cek = mysqli_num_rows($jadwal);
             $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$nama_activity'"));
             return $sqly['name'];
           }
-
-          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent   group by nis order by absent_time DESC");
-
+          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where absent_date='$hari_ini' group by nis order by absent_time DESC");
           ?>
-          <div class="modal-body " style="height: 400px;overflow: scroll;">
+          <div class="modal-body " style="height: 300px;overflow: scroll;">
             <table class=" table table-striped">
               <tbody>
                 <?php $j = 1; ?>
@@ -262,7 +278,6 @@ $cek = mysqli_num_rows($jadwal);
                 <?php endforeach;
                 }
                 ?>
-
               </tbody>
             </table>
           </div>
@@ -271,24 +286,28 @@ $cek = mysqli_num_rows($jadwal);
       <!-- akhir script tampilan absent -->
 
 
+
+
+
+
       <!-- tabel schedule -->
-      <div class="card shadow mr-3 p-3 mt-2 col-md-3">
-        <!-- <div class="card-header"> -->
+      <div class="card today shadow mr-3 p-3 mt-2 col-md-3">
         <table class="table bg-primary text-light">
 
           <tr>
             <th width="170">&nbsp;&nbsp;No</th>
-            <th width="290">Jadwal Harian</th>
-            <th width="120">Waktu Mulai</th>
+            <th width="290">Today's Schedule</th>
+            <th width="120">Start Time</th>
           </tr>
 
         </table>
-        <div class="card-body" style="height: 400px;overflow: scroll;">
+        <div class="card-body" style="height: 300px;overflow: scroll;">
           <table class="table table-striped">
             <?php
             if ($cek == 0) {
-              echo "<center><h6 style='color:red;'>Schedule Not Found</h6></center>";
-            } else { ?>
+              $Announcement = $_SESSION['Announcement'] = 'No Schedule'; ?>
+              <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
+            <?php  } else { ?>
               <tbody>
                 <?php function activity($activity)
                 {
@@ -318,32 +337,12 @@ $cek = mysqli_num_rows($jadwal);
   </div>
 
 
-  <!-- akhir tabel schedule -->
 
-
-
-
-
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <!-- Custom scripts for all pages-->
   <script type="text/javascript" src="scanner/js/jquery.js"></script>
   <script type="text/javascript" src="scanner/js/qrcodelib.js"></script>
   <script type="text/javascript" src="scanner/js/webcodecamjquery.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-  <!-- Page level plugins -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
-  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-
-
-  <!-- Configure a few settings and attach camera -->
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
     var arg = {
@@ -359,9 +358,6 @@ $cek = mysqli_num_rows($jadwal);
     var decoder = $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery;
     decoder.buildSelectMenu("select");
     decoder.play();
-    /*  Without visible select menu
-        decoder.buildSelectMenu(document.createElement('select'), 'environment|back').init(arg).play();
-    */
     $('select').on('change', function() {
       decoder.stop().play();
     });
@@ -399,8 +395,6 @@ $cek = mysqli_num_rows($jadwal);
       return e;
     }
   </script>
-
-
   <?php
   include 'alert.php';
   include 'modal.php';
@@ -408,3 +402,76 @@ $cek = mysqli_num_rows($jadwal);
 </body>
 
 </html>
+
+<!-- script awal menampilakan webcam di modal -->
+<?php
+if (isset($percobaan)) { ?>
+  <style>
+    .sembunyikantombol {
+      display: none;
+    }
+  </style>
+  <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-light">
+          <h5 class="modal-title" id="staticBackdropLabel">Verification Presence</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <script>
+          $(document).ready(function() {
+            var button = document.getElementById('ambil');
+            var detik = 5;
+
+            function hitung() {
+              setTimeout(hitung, 1000);
+              $('#tampilkan').html(detik);
+              detik--;
+              if (detik < 0) {
+                button.click();
+                detik--;
+              }
+            }
+            hitung();
+          });
+        </script>
+
+        <form action="verifikasi.php?nis=<?= $_POST['nis']; ?>&id=<?= $id_kegiatan; ?>" method="POST" enctype="multipart/form-data">
+          <div class="card-body">
+            <center>
+              <?php echo $percobaan; ?>
+              <br />
+              <h2 id='tampilkan' class="text-danger"></h2>
+              <input type="submit" class="sembunyikantombol" name="kirim_gambar" id="ambil" value="Take Snapshot" onClick="take_snapshot()">
+              <input type="hidden" name="image" class="image-tag">
+            </center>
+          </div>
+        </form>
+        <script language="JavaScript">
+          Webcam.set({
+            width: 350,
+            height: 300,
+            image_format: 'png',
+            jpeg_quality: 90
+
+          });
+          Webcam.attach('#my_camera');
+
+          function take_snapshot() {
+            Webcam.snap(function(data_uri) {
+              $(".image-tag").val(data_uri);
+              // document.getElementById();
+            });
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+<?php }
+?>
+<script>
+  $('#myModal').modal('show')
+</script>
+<!-- script akhir menampilkan webcam di modal -->
