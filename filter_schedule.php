@@ -121,7 +121,7 @@ function activity($activity)
     global $conn;
     $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$kegiatan'"));
     return $sqly3['items'];
-  } // akhir function data kegiatan 
+  } // akhir function data kegiatan
 
   if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];
@@ -318,15 +318,17 @@ function activity($activity)
       <div style="height: 500px;overflow: scroll;  ">
         <table class="table mt-3 table-striped">
           <?php
-          if ($cek == 0) {
-            echo "  <script>
-                Swal.fire(
-                  '<strong>Announcement!</strong>',
-                  'Weekly Schedule Not Available',
-                  'question'
-                )
-               </script>";
-          } else { ?>
+          if ($cek == 0) { ?>
+            <script>
+              Swal.fire(
+                '<strong>Announcement!</strong>',
+                'Weekly Schedule Not Available',
+                'question'
+              )
+            </script>
+            <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
+
+          <?php       } else { ?>
             <thead>
               <tr>
                 <th scope="col">No</th>

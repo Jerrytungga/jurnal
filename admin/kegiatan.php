@@ -2,9 +2,11 @@
 include '../database.php';
 session_start();
 include 'template/Session.php';
+$get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Aktif'");
+$data1 = mysqli_fetch_array($get_semester);
+$data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 
-
-//input data activity
+//proses input list kegiatan
 if (isset($_POST['btn_tambah_item'])) {
   $item = htmlspecialchars($_POST['item_activity']);
   $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_activity`) As id FROM `activity`"));
@@ -17,6 +19,7 @@ if (isset($_POST['btn_tambah_item'])) {
   }
 }
 
+// proses input nada alarm
 if (isset($_POST['addringtones'])) {
   $sumber = $_FILES['filUpload']['tmp_name'];
   $target = '../music/';
@@ -30,7 +33,7 @@ if (isset($_POST['addringtones'])) {
   }
 }
 
-//edit data activity
+//edit data list kegiatan
 if (isset($_POST['btn_edit_activity'])) {
   $activity = htmlspecialchars($_POST['itemactivity']);
   $kode = htmlspecialchars($_POST['kode']);
@@ -42,12 +45,34 @@ if (isset($_POST['btn_edit_activity'])) {
   }
 }
 
+// proses input target
+if (isset($_POST['addtarget'])) {
+  $hari = htmlspecialchars($_POST['Day']);
+  $datatarget = htmlspecialchars($_POST['target']);
+  $minggu = htmlspecialchars($_POST['week']);
+  $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
+  $id_maxtarget = $max_idtarget['id'] + 1;
+  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu') ");
+}
+
+// proses edit target
+if (isset($_POST['updatetarget'])) {
+  $id_target = htmlspecialchars($_POST['id_taget_presensi']);
+  $edit_hari = htmlspecialchars($_POST['hari']);
+  $edit_target = htmlspecialchars($_POST['target2']);
+  $edit_minggu = htmlspecialchars($_POST['week']);
+  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu' WHERE `id_tabel_presence`='$id_target'");
+}
+
+
+// proses hapus list kegiatan
 if (isset($_POST['hapus'])) {
   $idschedule = htmlspecialchars($_POST['id']);
   $scheduledata = htmlspecialchars($_POST['aktivitas']);
   $hapus =  mysqli_query($conn, "DELETE FROM `schedule`  WHERE `id` ='$idschedule' AND `id_activity`='$scheduledata'");
 }
 
+// proses on-off semua kegiatan
 if (isset($_POST['offallschedule'])) {
   $angkatansiswa1 = htmlspecialchars($_POST['angkatan']);
   $statusangkatan = htmlspecialchars($_POST['status']);
@@ -55,7 +80,7 @@ if (isset($_POST['offallschedule'])) {
 }
 
 
-//insert schedule
+//proses insert schedule
 if (isset($_POST['insert_shedule'])) {
   $angkatansiswa = htmlspecialchars($_POST['angkatan']);
   $mm = htmlspecialchars($_POST['week']);
@@ -99,7 +124,7 @@ if (isset($_POST['updateschedule'])) {
   }
 }
 
-
+// SELECT schedule.batch, tb_target_presensi.target, tb_target_presensi.date FROM schedule INNER JOIN tb_target_presensi ON schedule.date=tb_target_presensi.date;
 
 
 $activity = mysqli_query($conn, "SELECT * FROM activity ORDER BY id_activity ASC");
@@ -261,6 +286,16 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       $(" #modal-edit #kode").val(kode);
       $(" #modal-edit #target1").val(target1);
 
+      // value edit data target
+      let id_taget_presensi = $(this).data('id_taget_presensi');
+      let hari = $(this).data('hari');
+      let target2 = $(this).data('target2');
+      let week = $(this).data('week');
+      $(" #modal-edittarget #id_taget_presensi").val(id_taget_presensi);
+      $(" #modal-edittarget #hari").val(hari);
+      $(" #modal-edittarget #target2").val(target2);
+      $(" #modal-edittarget #week").val(week);
+
     });
   </script>
 
@@ -326,6 +361,14 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       $(" #modal-editschedule #timerabsen").val(timerabsen);
       $(" #modal-hapus #id").val(id);
       $(" #modal-hapus #aktivitas").val(aktivitas);
+
+
+    });
+  </script>
+
+  <script>
+    $(document).on("click", "#edit_target", function() {
+
 
 
     });

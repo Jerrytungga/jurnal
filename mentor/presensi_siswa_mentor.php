@@ -121,10 +121,10 @@ function kegiatan($name_kegiatan)
     global $conn;
     $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$name_kegiatan'"));
     return $sqly3['items'];
-} // akhir function data kegiatan 
-
+} // akhir function data kegiatan
+// and absent_date='$hari_ini'
 //query data absent siswa
-$Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where mentor='$id'");
+$Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where mentor='$id' and absent_date='$hari_ini'");
 $array_absent = mysqli_fetch_array($Sqli_absent);
 ?>
 <!DOCTYPE html>
@@ -214,7 +214,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_presensi_siswa">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_presensi_siswa">
                                 Add Presence
                             </button>
                         </div>
@@ -273,10 +273,10 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     <?= $waktu_kegiatan; ?>
                                                     <?php
                                                     // script jika waktu akhir jadwal sudah lewat maka sistem akan otomatis untuk tidak meng approved presensi siswa
-                                                    if ($waktu_sekarang > $Waktu_akhir && $date == $hari_ini) { ?>
+                                                    if ($waktu_sekarang > $Waktu_akhir || $date < $hari_ini) { ?>
                                                         <script>
                                                             window.onload = function() {
-                                                                var button = document.getElementById('notapproved');
+                                                                var button = document.getElementById('approved');
                                                                 setInterval(function() {
                                                                     button.click();
                                                                 }, 1000);
@@ -329,8 +329,8 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     </button> -->
                                                     <?php
                                                     if ($row["ACC_Mentor"] == 'Waiting') { ?>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
-                                                        <a id="notapproved" href="proses_approve.php?id=<?= $row["id_absent"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
+                                                        <a id="approved" href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
+                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
                                                     <?php  } else if ($row["ACC_Mentor"] == 'not approved') { ?>
                                                         <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
                                                     <?php   } else { ?>

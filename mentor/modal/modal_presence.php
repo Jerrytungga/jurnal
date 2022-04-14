@@ -2,7 +2,7 @@
 <div class="modal fade" id="add_presensi_siswa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
+      <div class="modal-header bg-info text-white">
         <h5 class="modal-title">Add Presence</h5>
         <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>
       </div>
@@ -32,7 +32,7 @@
                 $hari_ini = date('Y-m-j');
                 $waktu_sekarang = date('H:i:s');
                 // looping data ankatan
-                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and end_time > '$waktu_sekarang' ");
+                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and end_time > '$waktu_sekarang' || absent_date='$hari_ini'");
                 while ($data_schedule = mysqli_fetch_array($listshedule)) {
                   echo '<option value="' . $data_schedule['id'] . '">' . kegiatan($data_schedule['id_activity']) . '</option>';
                 }

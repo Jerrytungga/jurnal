@@ -7,7 +7,7 @@ if (!isset($_SESSION['role'])) {
 </script>";
   //echo "tanpa role";
 } else if ($_SESSION['role'] == "Mentor") {
-  header("location:../mentor/profile.php");
+  header("location:../mentor/index.php");
 } else if ($_SESSION['role'] == "Admin") {
   header("location:../admin/index.php");
 } else {

@@ -45,5 +45,6 @@
         html: '<?php echo $Announcement; ?>'
       })
     </script>
-  <?php }
+  <?php unset($Announcement);
+  }
   ?>

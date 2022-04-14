@@ -8,14 +8,13 @@ $waktu_sekarang = date('H:i:s');
 header("Content-type: application/vnd-ms-excel");
 header("Content-Disposition: attachment; filename=Report Presence.xls");
 $nis = $_GET['nis'];
-$mulai = $_GET['mulai'];
-$selesai = $_GET['akhir'];
+$week = $_GET['week'];
+$target = $_GET['target'];
 
 $sql_siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$nis' AND status='Aktif'");
 $data_siswa = mysqli_fetch_array($sql_siswa);
-$sql_Presence = mysqli_query($conn, "SELECT * FROM absent WHERE nis='$nis' ");
+$sql_Presence = mysqli_query($conn, "SELECT * FROM absent WHERE nis='$nis' and week='$week'");
 $data_presensi = mysqli_fetch_array($sql_Presence);
-
 
 // function data kegiatan
 function kegiatan($name_kegiatan)
@@ -23,7 +22,7 @@ function kegiatan($name_kegiatan)
   global $conn;
   $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$name_kegiatan'"));
   return $sqly3['items'];
-} // akhir function data kegiatan 
+} // akhir function data kegiatan
 
 
 ?>
@@ -57,6 +56,7 @@ function kegiatan($name_kegiatan)
     th,
     td {
       padding: 10px;
+      text-align: center;
     }
 
     th {
@@ -84,6 +84,21 @@ function kegiatan($name_kegiatan)
       text-align: right;
       font-size: 15pt;
       font-weight: bold;
+      float: right;
+    }
+
+    .card {
+      width: 250px;
+      height: 30px;
+      margin-bottom: 20px;
+      color: red;
+      font-weight: 800;
+
+
+    }
+
+    b {
+      color: red;
     }
   </style>
 
@@ -93,7 +108,10 @@ function kegiatan($name_kegiatan)
     <h3>Report Presence Jurnal PKA <br> <?= $data_siswa['name']; ?><br>[<?= $data_siswa['nis']; ?>]</h3>
   </center>
   <center>
-
+    <div class="card">
+      Target : <?= $target; ?> Points <br>
+      Week : <?= $week; ?>
+    </div>
     <table border="2">
       <tr>
         <th>No</th>
@@ -101,7 +119,9 @@ function kegiatan($name_kegiatan)
         <th>Schedule</th>
         <th>Schedule Time</th>
         <th>Presence Time</th>
-        <th>Week</th>
+        <th>Point</th>
+        <th>Batch</th>
+        <!-- <th>Week</th> -->
         <th>Status</th>
         <th>Suggestion Mentor</th>
         <th>Date</th>
@@ -123,11 +143,12 @@ function kegiatan($name_kegiatan)
             <?= $waktu_kegiatan; ?> WIB
           </td>
           <td><?= $row['absent_time'] ?> WIB</td>
+          <td><?= $row['batch'] ?></td>
+          <!-- <td><?= $target; ?></td> -->
           <td><?= $row['week'] ?></td>
           <td><?= $row['ACC_Mentor'] ?></td>
           <td><?= $row['catatan'] ?></td>
-          <td><?= $row['absent_date'] ?></td>
-
+          <td width="200"><?= $row['absent_date'] ?></td>
       </tr>
       <?php $i++; ?>
     <?php endforeach; ?>
@@ -142,26 +163,36 @@ function kegiatan($name_kegiatan)
       $mark_I = $array_presensi['mark'] = 'I';
       $mark_S = $array_presensi['mark'] = 'S';
 
-      $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_V' ");
+      $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' ");
       $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-      $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_O' ");
+      $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_O' ");
       $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-      $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_X'");
+      $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_X'");
       $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-      $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_I'");
+      $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I'");
       $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-      $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approve' and mark='$mark_S'");
+      $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_S'");
       $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
       $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
 
+      $jumlah = $total - $target;
       ?>
       <tr>
-        <td colspan="9" align="right"><text>Total Point Presence : <?= $total; ?></text></td>
+        <td colspan="8" align="right"><text>Total Point Presence : <?= $jumlah ?> </text>
+
+        <td colspan="2" align="center">
+          <?php
+          if ($total < $target) { ?>
+            <b> Did not meet the weekly target</b>
+          <?php }
+          ?>
+        </td>
+        </td>
       </tr>
     </tfoot>
 

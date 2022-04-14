@@ -3,9 +3,9 @@ session_start();
 // jika sudah login ke mentor maka akan di teruskan ke halaman mentor
 if (!isset($_SESSION['role'])) {
 } else if ($_SESSION['role'] == "Siswa") {
-  header("location:siswa/profile.php");
+  header("location:siswa/index.php");
 } else if ($_SESSION['role'] == "Mentor") {
-  header("location:mentor/profile.php");
+  header("location:mentor/index.php");
 } else if ($_SESSION['role'] == "Admin") {
   header("location:admin/index.php");
 }
@@ -109,7 +109,7 @@ if (!isset($_SESSION['role'])) {
             },
             // Jika response nya sukses atau berhasil maka fungsi ini akan berjalan
             success: function(response) {
-              // Jika ia sebagai admin 
+              // Jika ia sebagai admin
               if (response == "Mentor") {
 
                 iziToast.success({
@@ -118,10 +118,10 @@ if (!isset($_SESSION['role'])) {
                   position: 'topRight'
                 });
                 setTimeout(function() {
-                  window.location.href = "mentor/profile.php";
+                  window.location.href = "mentor/index.php";
                 }, 3000);
 
-                // Jika ia sebagai siswa 
+                // Jika ia sebagai siswa
               } else if (response == "Siswa") {
 
                 iziToast.success({
@@ -130,10 +130,10 @@ if (!isset($_SESSION['role'])) {
                   position: 'topRight'
                 });
                 setTimeout(function() {
-                  window.location.href = "siswa/profile.php";
+                  window.location.href = "siswa/index.php";
                 }, 3000);
 
-                // Jika ia sebagai owner 
+                // Jika ia sebagai owner
               } else if (response == "Admin") {
 
                 iziToast.success({

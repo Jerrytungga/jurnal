@@ -19,7 +19,10 @@ $data_angkatan = mysqli_fetch_array($sql_siswa);
 $angkatan = $data_angkatan['angkatan'];
 
 // mengambil data schedule/jadwal berdasarkan angkatan siswa
-$list20 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and batch='$angkatan' and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'"));
+$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and batch='$angkatan' and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+$cek_angkatan = mysqli_num_rows($sqli_jadwal);
+// if ($cek_angkatan > 0) {
+$list20 = mysqli_fetch_array($sqli_jadwal);
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
 $batch = $list20['batch'];
@@ -32,44 +35,57 @@ $timer = $list20['timer'];
 $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
-// memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-  if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
-    $hasil = 'V'; ?>
-    <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-    <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
-    $hasil = 'O';
-  } else {
-    $hasil = 'X';
-  }
+// pr
+$durasi = date('00 : 00 : 30');
+$batas = $waktuabsent + $durasi;
+// $da = date(strtotime('+30'), $waktuabsent);
 
-  if (isset($_POST['nis'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
-    $mentor = $mentor['mentor'];
 
-    // pengecekan nis siswa untuk menghindari sistem salah input nis
-    $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis, angkatan FROM `siswa` WHERE nis='$nis' and angkatan='$batch'"));
-    if ($sql_cekdata_nis > 0) {
+// echo $batas;
+if ($angkatan == $batch) {
 
-      // menambah masimum id
-      $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
-      $idbr = $max['id'] + 1;
-      $inputpresensi =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
+  // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
+  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {  ?>
+    <?php if ($waktuabsent < $waktu_sekarang && $batas > $waktu_sekarang) {  ?>
+      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+    <?php }
+    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
+      $hasil = 'V'; ?>
+      <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
+      $hasil = 'O';
+    } else {
+      $hasil = 'X';
+    }
 
-      if ($inputpresensi) {
-        $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
-    ?>
-        <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
-      <?php  } else {
-        $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
+    if (isset($_POST['nis'])) {
+      $nis = htmlspecialchars($_POST['nis']);
+      $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
+      $mentor = $mentor['mentor'];
+
+      // pengecekan nis siswa untuk menghindari sistem salah input nis
+      $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis, angkatan FROM `siswa` WHERE nis='$nis' and angkatan='$batch'"));
+
+      if ($sql_cekdata_nis > 0) {
+        // menambah masimum id
+        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
+        $idbr = $max['id'] + 1;
+        $inputpresensi =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
+
+        if ($inputpresensi) {
+          $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
       ?>
-        <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
+          <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
+        <?php  } else {
+          $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
+        ?>
+          <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
 <?php    }
+      }
     }
   }
+} else {
+  echo ' <script type="text/javascript"> alert ("text")</script> ';
 }
-
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);

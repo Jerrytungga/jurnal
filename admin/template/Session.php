@@ -6,9 +6,9 @@ if (!isset($_SESSION['role'])) {
   window.location = '../index.php'
 </script>";
 } else if ($_SESSION['role'] == "Siswa") {
-  header("location:../siswa/profile.php");
+  header("location:../siswa/index.php");
 } else if ($_SESSION['role'] == "Mentor") {
-  header("location:../mentor/profile.php");
+  header("location:../mentor/index.php");
 } else {
   $id = $_SESSION['id_Admin'];
   $get_data = mysqli_query($conn, "SELECT * FROM admin WHERE id='$id'");
