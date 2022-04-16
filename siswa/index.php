@@ -2,6 +2,7 @@
 include '../database.php';
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
+error_reporting(E_ALL ^ E_NOTICE);
 include 'template/session.php';
 $get1 = mysqli_query($conn, "SELECT * FROM siswa WHERE status='Aktif' ");
 $count1 = mysqli_num_rows($get1);
@@ -164,6 +165,9 @@ include 'template/head.php'
                                 if (isset($_POST['filter_tanggal'])) {
                                     $mulai = $_POST['tanggal_mulai'];
                                     $selesai = $_POST['tanggal_akhir'];
+
+                                    $tampilan_presensi21 = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(presensi) as totalpresensi FROM tb_presensi where nis='$id' and semester='$data_semester'  and date BETWEEN '$mulai' and '$selesai '  group by nis"));
+
                                     $revival_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point2) as revivalnote FROM `tb_revival_note` where nis='$id' and semester='$data_semester'  and date BETWEEN '$mulai' and '$selesai '"));
 
                                     $prayer_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point) as prayernote FROM `tb_prayer_note` where nis='$id' and semester='$data_semester' and date BETWEEN '$mulai' and '$selesai '"));
@@ -256,7 +260,18 @@ include 'template/head.php'
 
                                         $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                                     }
+
+                                    $pointpresensi = $total_point;
+                                    if ($pointpresensi == NULL) {
+                                        $pointpresensi = $tampilan_presensi21['totalpresensi'];
+                                    } else {
+                                        $pointpresensi = $total_point +
+                                            $tampilan_presensi21['totalpresensi'];
+                                    }
                                 } else {
+
+                                    $tampilan_presensi21 = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(presensi) as totalpresensi FROM tb_presensi where nis='$id' and semester='$data_semester'  group by nis"));
+
                                     $revival_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point2) as revivalnote FROM `tb_revival_note` where nis='$id' and semester='$data_semester' "));
 
                                     $prayer_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point) as prayernote FROM `tb_prayer_note` where nis='$id' and semester='$data_semester'"));
@@ -349,6 +364,13 @@ include 'template/head.php'
 
                                         $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                                     }
+                                    $pointpresensi = $total_point;
+                                    if ($pointpresensi == NULL) {
+                                        $pointpresensi = $tampilan_presensi21['totalpresensi'];
+                                    } else {
+                                        $pointpresensi = $total_point +
+                                            $tampilan_presensi21['totalpresensi'];
+                                    }
                                 }
                                 ?>
 
@@ -416,6 +438,21 @@ include 'template/head.php'
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script>
+        $(document).ready(function() {
+            var living = document.getElementById('living');
+            var waktu = new Date();
+            var hari = waktu.getDay();
+            var bulan = waktu.getMonth();
+
+
+            if (hari == 0) {
+                living.style.display = 'blok';
+            } else {
+                living.style.display = 'none';
+            }
+        });
+    </script>
     <!-- contoh bar chart -->
     <script type="text/javascript">
         // Create the chart
@@ -451,14 +488,14 @@ include 'template/head.php'
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.1f}%'
+                        format: '{point.y:.1f} Poin'
                     }
                 }
             },
 
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f} Poin </b> of total<br/>'
             },
 
 
@@ -470,7 +507,7 @@ include 'template/head.php'
 
                         [
                             "Presence",
-                            <?= $total_point; ?>
+                            <?= $pointpresensi; ?>
                         ],
                         [
                             "Revival Note",

@@ -36,22 +36,20 @@ $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
 // pr
-$durasi = date('00 : 00 : 30');
-$batas = $waktuabsent + $durasi;
-// $da = date(strtotime('+30'), $waktuabsent);
+
 
 
 // echo $batas;
 if ($angkatan == $batch) {
 
   // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {  ?>
-    <?php if ($waktuabsent < $waktu_sekarang && $batas > $waktu_sekarang) {  ?>
-      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-    <?php }
+  //  <?php if ($waktuabsent < $waktu_sekarang && $timer  > $waktu_sekarang) {
+  //   }
+  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
     if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
       $hasil = 'V'; ?>
-      <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
+      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+<?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
       $hasil = 'O';
     } else {
       $hasil = 'X';
@@ -73,13 +71,11 @@ if ($angkatan == $batch) {
 
         if ($inputpresensi) {
           $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
-      ?>
-          <audio src="music/beep.mp3" autoplay="autoplay" hidden="hidden"></audio>
-        <?php  } else {
+          echo notice(2);
+        } else {
           $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
-        ?>
-          <audio src="music/late_2.mp3" autoplay="autoplay" hidden="hidden"></audio>
-<?php    }
+          echo notice(3);
+        }
       }
     }
   }
@@ -491,3 +487,22 @@ if (isset($percobaan)) { ?>
   $('#myModal').modal('show')
 </script>
 <!-- script akhir menampilkan webcam di modal -->
+
+<?php
+
+
+function notice($type)
+{
+  if ($type == 1) {
+    return "<audio autoplay><source src='" . 'music/success.wav' . "'></audio>";
+  } elseif ($type == 0) {
+    return "<audio autoplay><source src='" . 'music/error.wav' . "'></audio>";
+  } elseif ($type == 2) {
+    return "<audio autoplay><source src='" . 'music/beep.mp3' . "'></audio>";
+  } elseif ($type == 3) {
+    return "<audio autoplay><source src='" . 'music/late_2.mp3' . "'></audio>";
+  }
+}
+
+
+?>

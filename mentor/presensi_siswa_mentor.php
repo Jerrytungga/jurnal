@@ -14,14 +14,11 @@ if (isset($_POST['save_pesan'])) {
 }
 if (isset($_POST['insert_Edit_presence'])) {
     $id_1 = htmlspecialchars($_POST['id1']);
-    $Nis = htmlspecialchars($_POST['nis1']);
     $Schedule = htmlspecialchars($_POST['item_schedule1']);
     $mark_1 = htmlspecialchars($_POST['mark1']);
-    $date_1 = htmlspecialchars($_POST['date1']);
     $Acc_1 = htmlspecialchars($_POST['agreement1']);
     $catatan_1 = htmlspecialchars($_POST['catatan1']);
-    $ct_timer = htmlspecialchars($_POST['time1']);
-    $sqli_absent2 = mysqli_query($conn, "UPDATE `absent` SET `nis`='$Nis',`absent_date`='$date_1',`absent_time`='$ct_timer',`mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_absent`='$id_1'");
+    $sqli_absent2 = mysqli_query($conn, "UPDATE `absent` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_absent`='$id_1'");
     if ($sqli_absent2) {
         $_SESSION['alert_edit_absent_berhasil'] = 'changed successfully';
     } else {

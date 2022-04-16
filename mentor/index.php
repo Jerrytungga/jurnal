@@ -1,6 +1,8 @@
 <?php
 include '../database.php';
 session_start();
+error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(0);
 include 'template/session.php';
 $get1 = mysqli_query($conn, "SELECT * FROM siswa WHERE status='Aktif' and mentor='$id'");
 $count1 = mysqli_num_rows($get1);
@@ -180,6 +182,7 @@ $count4 = mysqli_num_rows($get4);
                                     $nis = $_POST['nis'];
                                     $siswa = mysqli_fetch_array(mysqli_query($conn, "SELECT name FROM `siswa` where nis='$nis' and mentor='$id' "));
 
+                                    $tampilan_presensi21 = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(presensi) as totalpresensi FROM tb_presensi where nis='$nis' and semester='$data_semester' and efata='$id' group by nis"));
 
                                     $revival_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point2) as revivalnote FROM `tb_revival_note` where nis='$nis' and semester='$data_semester' and efata='$id' "));
 
@@ -246,6 +249,8 @@ $count4 = mysqli_num_rows($get4);
 
                                     $totaljurnal = $revival_note['revivalnote'] + $prayer_note['prayernote'] + $bible_reading['biblereading'] + $exhibition['exhibition'] + $personalgoal['personalgoal'] + $homemeeting['homemeeting'] + $blessings['blessings'] + $totallivingraksepatu + $totallivingranjang + $totallivinglemari + $virtue_character;
 
+
+
                                     $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where nis='$nis'  and semester='$data_semester'  and mentor='$id' group by nis order by absent_time DESC");
                                     while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
                                         $nis = $array_presensi['nis'];
@@ -254,8 +259,6 @@ $count4 = mysqli_num_rows($get4);
                                         $mark_X = $array_presensi['mark'] = 'X';
                                         $mark_I = $array_presensi['mark'] = 'I';
                                         $mark_S = $array_presensi['mark'] = 'S';
-
-
                                         $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V'  and semester='$data_semester' and mentor='$id'");
                                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
@@ -273,8 +276,15 @@ $count4 = mysqli_num_rows($get4);
 
                                         $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                                     }
-                                }
 
+                                    $pointpresensi = $total_point;
+                                    if ($pointpresensi == NULL) {
+                                        $pointpresensi = $tampilan_presensi21['totalpresensi'];
+                                    } else {
+                                        $pointpresensi = $total_point +
+                                            $tampilan_presensi21['totalpresensi'];
+                                    }
+                                }
                                 ?>
 
 
@@ -365,14 +375,14 @@ $count4 = mysqli_num_rows($get4);
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.1f}%'
+                        format: '{point.y:.1f} Poin'
                     }
                 }
             },
 
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f} Poin </b> of total<br/>'
             },
 
 
@@ -383,7 +393,8 @@ $count4 = mysqli_num_rows($get4);
                     data: [
                         [
                             "Presence",
-                            <?= $total_point; ?>
+                            <?= $pointpresensi; ?>
+
                         ],
                         [
                             "Prayer Note",

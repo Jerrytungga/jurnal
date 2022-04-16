@@ -50,9 +50,10 @@ if (isset($_POST['addtarget'])) {
   $hari = htmlspecialchars($_POST['Day']);
   $datatarget = htmlspecialchars($_POST['target']);
   $minggu = htmlspecialchars($_POST['week']);
+  $date2 = htmlspecialchars($_POST['tanggal']);
   $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
   $id_maxtarget = $max_idtarget['id'] + 1;
-  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu') ");
+  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`date`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu','$date2') ");
 }
 
 // proses edit target
@@ -60,8 +61,9 @@ if (isset($_POST['updatetarget'])) {
   $id_target = htmlspecialchars($_POST['id_taget_presensi']);
   $edit_hari = htmlspecialchars($_POST['hari']);
   $edit_target = htmlspecialchars($_POST['target2']);
+  $date4 = htmlspecialchars($_POST['date']);
   $edit_minggu = htmlspecialchars($_POST['week']);
-  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu' WHERE `id_tabel_presence`='$id_target'");
+  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`date`='$date4' WHERE `id_tabel_presence`='$id_target'");
 }
 
 
@@ -291,10 +293,12 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       let hari = $(this).data('hari');
       let target2 = $(this).data('target2');
       let week = $(this).data('week');
+      let date = $(this).data('date');
       $(" #modal-edittarget #id_taget_presensi").val(id_taget_presensi);
       $(" #modal-edittarget #hari").val(hari);
       $(" #modal-edittarget #target2").val(target2);
       $(" #modal-edittarget #week").val(week);
+      $(" #modal-edittarget #date").val(date);
 
     });
   </script>
@@ -366,13 +370,6 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
     });
   </script>
 
-  <script>
-    $(document).on("click", "#edit_target", function() {
-
-
-
-    });
-  </script>
 </body>
 
 </html>

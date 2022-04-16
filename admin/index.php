@@ -207,6 +207,8 @@ $count4 = mysqli_num_rows($get4);
                                         $nis2 = $data['nis'];
                                         $revival_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point2) as revivalnote FROM `tb_revival_note` where nis='$nis2' and semester='$semester'"));
 
+                                        $tampilan_presensi21 = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(presensi) as totalpresensi FROM tb_presensi where nis='$nis2' and semester='$semester' group by nis"));
+
                                         $prayer_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point) as prayernote FROM `tb_prayer_note` where nis='$nis2' and semester='$semester'"));
 
                                         $bible_reading = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point)+sum(point2) as biblereading FROM `tb_bible_reading` where nis='$nis2' and semester='$semester'"));
@@ -273,6 +275,10 @@ $count4 = mysqli_num_rows($get4);
 
                                         $totaljurnal = $revival_note['revivalnote'] + $prayer_note['prayernote'] + $bible_reading['biblereading'] + $exhibition['exhibition'] + $personalgoal['personalgoal'] + $homemeeting['homemeeting'] + $blessings['blessings'] + $totallivingraksepatu + $totallivingranjang + $totallivinglemari + $virtue_character;
 
+
+
+
+
                                         $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' group by nis order by absent_time DESC");
                                         while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
                                             $nis = $array_presensi['nis'];
@@ -301,7 +307,15 @@ $count4 = mysqli_num_rows($get4);
                                             $tampil3 = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' group by nis ");
                                             $arraytampil3 = mysqli_fetch_array($tampil3);
 
-                                            $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+                                            $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'] +
+                                                $tampilan_presensi21['totalpresensi'];
+                                        }
+                                        $pointpresensi = $total_point;
+                                        if ($pointpresensi == NULL) {
+                                            $pointpresensi = $tampilan_presensi21['totalpresensi'];
+                                        } else {
+                                            $pointpresensi = $total_point +
+                                                $tampilan_presensi21['totalpresensi'];
                                         }
                                     }
                                 } else {
@@ -420,7 +434,7 @@ $count4 = mysqli_num_rows($get4);
                     data: [
                         [
                             "Presence",
-                            <?= $total_point; ?>
+                            <?= $pointpresensi; ?>
                         ],
                         [
                             "Revival Note",

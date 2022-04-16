@@ -2,14 +2,14 @@
 include 'database.php';
 session_start();
 date_default_timezone_set('Asia/Jakarta');
-$hari_ini = date('Y-m-j');
+$hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H-i-s');
 $nis = $_GET['nis'];
 // $id = $_GET['id'];
 $siswa = mysqli_query($conn, "SELECT * FROM siswa where nis='$nis'");
 $s = mysqli_fetch_array($siswa);
 $s['name'];
-$data_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis'");
+$data_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and absent_date='$hari_ini'");
 $query_absent = mysqli_fetch_array($data_absent);
 $s['name'];
 

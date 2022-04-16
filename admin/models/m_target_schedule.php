@@ -38,7 +38,7 @@
                 <td><?= $row2['target']; ?></td>
                 <td><?= $row2['week']; ?></td>
                 <td><?= $row2['date']; ?></td>
-                <td><a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-week="<?= $row2["week"]; ?>">
+                <td><a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-date="<?= $row2["date"]; ?>" data-week="<?= $row2["week"]; ?>">
                     <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a></td>
               </tr>
               <?php $T++; ?>
@@ -67,24 +67,36 @@
       </div>
       <form action="" method="POST">
         <div class="modal-body">
-          <label for="Day">Day</label>
-          <select class="form-control" name="Day">
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-          </select>
-          <div class="group mt-2">
-            <label for="target">Target</label>
-            <input type="text" name="target" class="form-control">
+          <div class="form-row">
+            <div class="col">
+              <label for="Day">Day</label>
+              <select class="form-control" name="Day">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="target">Target</label>
+              <input type="text" name="target" class="form-control">
+            </div>
           </div>
-          <div class="group mt-2">
-            <label for="target">Week</label>
-            <input type="number" name="week" class="form-control">
+
+          <div class="form-row">
+            <div class="col">
+              <label for="target">Date</label>
+              <input type="date" name="tanggal" class="form-control">
+            </div>
+            <div class="col">
+              <label for="target">Week</label>
+              <input type="number" name="week" class="form-control">
+            </div>
           </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -109,24 +121,37 @@
       <div class="modal-body" id="modal-edittarget">
         <form action="" method="POST">
           <input type="hidden" name="id_taget_presensi" id="id_taget_presensi" class="form-control">
-          <label for="Day">Day</label>
-          <select class="form-control" name="hari" id="hari">
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-          </select>
-          <div class="group mt-2">
-            <label for="target">Target</label>
-            <input type="text" name="target2" id="target2" class="form-control">
+          <div class="form-row">
+            <div class="col">
+              <label for="Day">Day</label>
+              <select class="form-control" name="hari" id="hari">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label for="target">Target</label>
+              <input type="text" name="target2" id="target2" class="form-control">
+            </div>
           </div>
-          <div class="group mt-2">
-            <label for="target">Week</label>
-            <input type="number" name="week" id="week" class="form-control">
-          </div>
+
+          <div class="form-row">
+            <div class="col">
+              <label>Date</label>
+              <input type="date" name="date" id="date" class="form-control">
+            </div>
+            <div class="col">
+              <label for="target">Week</label>
+              <input type="number" name="week" id="week" class="form-control">
+            </div>
+          </div><br>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" name="updatetarget" class="btn btn-primary">Update</button>

@@ -58,7 +58,7 @@ $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent group by nis");
               $mark_I = $array_presensi['mark'] = 'I';
               $mark_S = $array_presensi['mark'] = 'S';
               date_default_timezone_set('Asia/Jakarta');
-              $hari_ini = date('Y-m-j');
+              $hari_ini = date('Y-m-d');
 
               $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V' AND absent_date='$hari_ini' ");
               $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);

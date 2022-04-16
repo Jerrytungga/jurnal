@@ -4,7 +4,7 @@ session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 include 'template/session.php';
 date_default_timezone_set('Asia/Jakarta');
-$hari_ini = date('Y-m-j');
+$hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
 
 
