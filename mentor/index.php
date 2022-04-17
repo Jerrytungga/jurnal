@@ -78,7 +78,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Active Student</div>
+                                                My Student</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count1; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -96,7 +96,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Siswa</div>
+                                                Total Student</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count2; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -447,8 +447,8 @@ $count4 = mysqli_num_rows($get4);
 
                         ],
                         [
-                            "Total Points",
-                            <?= $totaljurnal; ?>
+                            "Total Point",
+                            <?= $totaljurnal + $pointpresensi; ?>
 
                         ]
                     ]

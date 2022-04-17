@@ -319,7 +319,7 @@ $count4 = mysqli_num_rows($get4);
                                         }
                                     }
                                 } else {
-                                    echo 'Tidak Ada Data';
+                                    echo 'No Data';
                                 }
 
                                 ?>
@@ -492,8 +492,8 @@ $count4 = mysqli_num_rows($get4);
 
                         ],
                         [
-                            "Total Points",
-                            <?= $totaljurnal; ?>
+                            "Total Point",
+                            <?= $totaljurnal + $pointpresensi; ?>
 
                         ]
 

@@ -38,18 +38,20 @@ $agreement = 'Waiting';
 // pr
 
 
+$jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
+$cek = mysqli_num_rows($jadwal1);
 
 // echo $batas;
+// $angkatan == $batch
 if ($angkatan == $batch) {
-
   // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-  //  <?php if ($waktuabsent < $waktu_sekarang && $timer  > $waktu_sekarang) {
-  //   }
-  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {  ?>
+    <?php if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {  ?>
+      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+    <?php }
     if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
       $hasil = 'V'; ?>
-      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-<?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
+  <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
       $hasil = 'O';
     } else {
       $hasil = 'X';
@@ -79,7 +81,10 @@ if ($angkatan == $batch) {
       }
     }
   }
-} else {
+} else if ($cek == 0) {
+  $Announcement = $_SESSION['Announcement'] = 'No Schedule'; ?>
+  <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
+<?php } else {
   echo ' <script type="text/javascript"> alert ("text")</script> ';
 }
 
@@ -87,6 +92,7 @@ $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -204,7 +210,7 @@ $cek = mysqli_num_rows($jadwal);
               <th width="110"><span class="badge badge-pill badge-danger">X</span></th>
               <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
               <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
-              <th width="100">Points</th>
+              <th width="100">Point</th>
             </tr>
           </table>
           <?php
@@ -315,33 +321,39 @@ $cek = mysqli_num_rows($jadwal);
         </table>
         <div class="card-body" style="height: 300px;overflow: scroll;">
           <table class="table table-striped">
-            <?php
-            if ($cek == 0) {
-              $Announcement = $_SESSION['Announcement'] = 'No Schedule'; ?>
-              <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
-            <?php  } else { ?>
-              <tbody>
-                <?php function activity($activity)
-                {
-                  global $conn;
-                  $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
-                  return $sqly['items'];
-                }
-                ?>
-                <?php $i = 1; ?>
-                <?php foreach ($jadwal as $row) :
-                ?>
-                  <tr>
-                    <th scope="row"><?= $i; ?></th>
-                    <td><?= activity($row["id_activity"]); ?></td>
-                    <td><?= $row["start_time"]; ?></td>
-                  </tr>
-                  <?php $i++; ?>
-                <?php endforeach;
-                ?>
-              </tbody>
-            <?php }
-            ?>
+            <tbody>
+              <?php function activity($activity)
+              {
+                global $conn;
+                $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
+                return $sqly['items'];
+              }
+              ?>
+              <?php $i = 1; ?>
+              <?php foreach ($jadwal as $row) :
+              ?>
+                <tr>
+                  <th scope="row"><?= $i; ?></th>
+                  <!-- menampilkan pesan jika pesan dijadwal ada -->
+                  <td><?= activity($row["id_activity"]); ?>
+                    <?php
+                    if ($row["info"] != NULL) { ?>
+                      <br>
+                      <div class="alert alert-success mt-2" role="alert">
+                        <h6 class="alert-heading">Message!</h6>
+                        <p><?= $row["info"]; ?></p>
+                      </div>
+                    <?php    }
+                    ?>
+
+                  </td>
+                  <td><?= $row["start_time"]; ?></td>
+                </tr>
+                <?php $i++; ?>
+              <?php endforeach;
+              ?>
+            </tbody>
+
           </table>
         </div>
       </div>
@@ -494,7 +506,7 @@ if (isset($percobaan)) { ?>
 function notice($type)
 {
   if ($type == 1) {
-    return "<audio autoplay><source src='" . 'music/success.wav' . "'></audio>";
+    return "<audio autoplay><source src='" . 'music/error.wav' . "'></audio>";
   } elseif ($type == 0) {
     return "<audio autoplay><source src='" . 'music/error.wav' . "'></audio>";
   } elseif ($type == 2) {

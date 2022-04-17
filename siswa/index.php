@@ -10,11 +10,12 @@ $count1 = mysqli_num_rows($get1);
 $get2 = mysqli_query($conn, "SELECT * FROM siswa ");
 $count2 = mysqli_num_rows($get2);
 // menghitung jumlah mentor
-$get3 = mysqli_query($conn, "SELECT * FROM mentor WHERE status='Aktif'");
-$count3 = mysqli_num_rows($get3);
-// menghitung jumlah mentor
-$get4 = mysqli_query($conn, "SELECT * FROM mentor");
-$count4 = mysqli_num_rows($get4);
+$siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
+$getmentor = mysqli_fetch_array($siswa);
+$mentor = $getmentor['mentor'];
+$get_mentor_siswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mentor where efata='$mentor'"));
+$get_mentor_siswa['name'];
+$get_mentor_siswa['image'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,13 @@ $count4 = mysqli_num_rows($get4);
 <?php
 include 'template/head.php'
 ?>
+<style>
+    .gambar {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+    }
+</style>
 
 <body id="page-top">
 
@@ -61,7 +69,7 @@ include 'template/head.php'
                     <div class="row">
 
                         <!-- Siswa aktif -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -79,13 +87,13 @@ include 'template/head.php'
                         </div>
 
                         <!-- Total Siswa -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Siswa</div>
+                                                Total Student</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count2; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -98,43 +106,23 @@ include 'template/head.php'
 
 
                         <!-- Mentor Aktif -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Active Mentor</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count3; ?></div>
+                                                My Mentor</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $get_mentor_siswa['name']; ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            <img src="../img/fotomentor/<?= $get_mentor_siswa['image']; ?>" class="gambar" alt="...">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
-
-
-                        <!-- Total Mentor -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Mentor</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count4; ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Bar Chart -->
                         <div class="card shadow  w-100 m-lg-2">
@@ -565,8 +553,8 @@ include 'template/head.php'
 
                         ],
                         [
-                            "Total Points",
-                            <?= $totaljurnal; ?>
+                            "Total Poin",
+                            <?= $totaljurnal + $pointpresensi; ?>
 
                         ]
                     ]
