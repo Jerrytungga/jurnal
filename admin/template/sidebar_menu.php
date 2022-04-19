@@ -52,6 +52,7 @@
                  <a class="collapse-item" href="jurusan.php">Department</a>
                  <a class="collapse-item" href="angkatan.php">Batch</a>
                  <a class="collapse-item" href="semester.php">Semester</a>
+                 <a class="collapse-item" href="target_jurnal.php">Target Junal PKA</a>
                  <a class="collapse-item" href="kegiatan.php">Student Activities</a>
              </div>
          </div>

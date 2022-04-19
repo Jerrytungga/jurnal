@@ -236,7 +236,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">Kerohanian</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">38</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $kerohanian['jumlah']; ?></td>
                                         <!-- persen -->
@@ -250,7 +250,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Pendidikan</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">24</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $pendidikan['jumlah']; ?></td>
                                         <!-- persen -->
@@ -264,7 +264,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Karakter</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">38</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"> <?= $karakter1['jumlah']; ?></td>
                                         <!-- persen -->
@@ -285,7 +285,7 @@ include 'template/Session.php';
                                         <!-- target -->
                                         <td class="border-dark">Pelatihan</td>
                                         <!-- nilai akhir -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">40</td>
                                         <!-- persen -->
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
@@ -298,7 +298,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Penyegaran Pagi</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">25</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -312,7 +312,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Alkitab</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">36</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -327,7 +327,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">karakter</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">20</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -342,7 +342,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Pendidikan</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">10</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -359,7 +359,7 @@ include 'template/Session.php';
                                         <!-- target -->
                                         <td class="border-dark">PDTH</td>
                                         <!-- nilai akhir -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">100</td>
                                         <td class="border-dark"></td>
                                         <!-- persen -->
                                         <td class="border-dark"></td>
@@ -374,7 +374,7 @@ include 'template/Session.php';
 
                                         <td class="border-dark">Pengalaman Hayat</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">60</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -394,7 +394,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">Karakter (benar,ketat dan tepat) </td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">60</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -410,7 +410,7 @@ include 'template/Session.php';
 
                                         <td class="border-dark">Karakter (tokoh)</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">23</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -425,7 +425,7 @@ include 'template/Session.php';
 
                                         <td class="border-dark">Evaluasi Karakter</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">34</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -444,7 +444,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">alkitab</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">45</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -467,7 +467,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">Entrepreunership</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">3</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -484,7 +484,7 @@ include 'template/Session.php';
 
                                         <td class="border-dark">Komunikasi</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">23</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -500,7 +500,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Gitar</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">20</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"></td>
                                         <!-- persen -->
@@ -576,7 +576,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">Perhatian & Berbagi</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">5</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapberbagi['jumlah']; ?></td>
                                         <!-- persen -->
@@ -591,7 +591,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Tegur - Sapa - Salam</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">7</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"> <?= $sikapsalamsapa['jumlah']; ?></td>
                                         <!-- persen -->
@@ -606,7 +606,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Bersyukur dan Berterima Kasih</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">2</td>
                                         <td class="border-dark"><?= $sikapbersyukurberterimakasih['jumlah']; ?></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
@@ -619,7 +619,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Hormat & Taat</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">8</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikaphormattaat['jumlah']; ?></td>
                                         <!-- persen -->
@@ -634,7 +634,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Ramah & Sopan</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">12</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapramahsopan['jumlah']; ?></td>
                                         <!-- persen -->
@@ -649,7 +649,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Berkordinasi</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">7</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapberkordinasi['jumlah']; ?></td>
                                         <!-- persen -->
@@ -664,7 +664,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Tolong Menolong</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">6</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikaptolongmenolong['jumlah']; ?></td>
                                         <!-- persen -->
@@ -679,7 +679,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">See & Do</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">5</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapsedo['jumlah']; ?></td>
                                         <!-- persen -->
@@ -694,7 +694,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Benar</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">5</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapbenar['jumlah']; ?></td>
                                         <!-- persen -->
@@ -709,7 +709,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Tepat</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">5</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikaptepat['jumlah']; ?></td>
                                         <!-- persen -->
@@ -724,7 +724,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Ketat</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">8</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $sikapketat['jumlah']; ?></td>
                                         <!-- persen -->
@@ -755,7 +755,7 @@ include 'template/Session.php';
                                         </th>
                                         <td class="border-dark">Lemari</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">280</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $totallivinglemari ?></td>
                                         <!-- persen -->
@@ -771,7 +771,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Ranjang</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">150</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $totallivingranjang ?></td>
                                         <!-- persen -->
@@ -786,7 +786,7 @@ include 'template/Session.php';
                                     <tr class="text-center">
                                         <td class="border-dark">Rak Sepatu</td>
                                         <!-- target -->
-                                        <td class="border-dark"></td>
+                                        <td class="border-dark">200</td>
                                         <!-- nilai akhir -->
                                         <td class="border-dark"><?= $totallivingraksepatu ?></td>
                                         <!-- persen -->

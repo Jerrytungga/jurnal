@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 $page = $_SERVER['PHP_SELF'];
-$sec = "50";
+$sec = "60";
 session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
@@ -19,9 +19,8 @@ $data_angkatan = mysqli_fetch_array($sql_siswa);
 $angkatan = $data_angkatan['angkatan'];
 
 // mengambil data schedule/jadwal berdasarkan angkatan siswa
-$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and date='$hari_ini' and batch='$angkatan' and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif'  and batch='$angkatan' and date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $cek_angkatan = mysqli_num_rows($sqli_jadwal);
-// if ($cek_angkatan > 0) {
 $list20 = mysqli_fetch_array($sqli_jadwal);
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
@@ -35,23 +34,21 @@ $timer = $list20['timer'];
 $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
-// pr
-
-
+// mengecek jadwal jika tidak ada maka ada peringatan tidak ada pesan
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek = mysqli_num_rows($jadwal1);
 
-// echo $batas;
-// $angkatan == $batch
+
 if ($angkatan == $batch) {
   // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {  ?>
-    <?php if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {  ?>
+  if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) { ?>
       <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-    <?php }
+    <?php
+    }
     if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
       $hasil = 'V'; ?>
-  <?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
+<?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
       $hasil = 'O';
     } else {
       $hasil = 'X';
@@ -82,17 +79,18 @@ if ($angkatan == $batch) {
     }
   }
 } else if ($cek == 0) {
-  $Announcement = $_SESSION['Announcement'] = 'No Schedule'; ?>
-  <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
-<?php } else {
-  echo ' <script type="text/javascript"> alert ("text")</script> ';
+  $Announcement = $_SESSION['Announcement'] = 'No Schedule';
+  echo notice(0);
+} else {
+  $Announcement = $_SESSION['Announcement'] = 'Bukan Jadwal Angkatan Anda';
+  echo notice(0);
 }
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 $cek = mysqli_num_rows($jadwal);
-?>
 
+?>
 
 <!doctype html>
 <html lang="en">
@@ -370,6 +368,10 @@ $cek = mysqli_num_rows($jadwal);
   <script type="text/javascript" src="scanner/js/webcodecamjquery.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
+
+
+
+
   <script type="text/javascript">
     var arg = {
       resultFunction: function(result) {
@@ -517,6 +519,5 @@ function notice($type)
     return "<audio autoplay><source src='" . 'music/late_2.mp3' . "'></audio>";
   }
 }
-
 
 ?>
