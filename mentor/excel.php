@@ -163,7 +163,13 @@ function kegiatan($name_kegiatan)
 
         $jumlah = $total - $target;
         ?>
-        <?php foreach ($sql_Presence as $row) : ?>
+        <?php foreach ($sql_Presence as $row) :
+          if ($row['mark'] == 'X') $max = -1;
+          if ($row['mark'] == 'V') $max = 1;
+          if ($row['mark'] == 'S') $max = 1;
+          if ($row['mark'] == 'O') $max = 1;
+          if ($row['mark'] == 'I') $max = 1;
+        ?>
           <td><?= $i; ?></td>
           <td><?= $data_siswa['name']; ?></td>
           <td><?= kegiatan($row['id_activity']); ?></td>
@@ -179,7 +185,7 @@ function kegiatan($name_kegiatan)
           <td><?= $row['absent_time'] ?> WIB</td>
           <td><?= $row['batch'] ?></td>
           <!-- <td><?= $target; ?></td> -->
-          <td><?= $row['mark'] ?></td>
+          <td><?= $max; ?></td>
           <td><?= $row['ACC_Mentor'] ?></td>
           <td><?= $row['catatan'] ?></td>
           <td width="200"><?= $row['absent_date'] ?></td>

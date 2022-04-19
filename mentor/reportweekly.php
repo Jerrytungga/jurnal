@@ -127,6 +127,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                             $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
+                                            // $Pres = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
 
@@ -199,8 +200,8 @@ $murid = mysqli_fetch_array($siswa);
 
 
                                             // Presensi
-                                            $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
-                                            $presensiWeekly = mysqli_fetch_array($presensi);
+                                            $presensi_lama = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $presensiWeekly = mysqli_fetch_array($presensi_lama);
 
 
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
@@ -271,7 +272,27 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td>
                                                         <?= $murid['name']; ?>
                                                     </td>
-                                                    <td><?= $total_presensix; ?></td>
+                                                    <?php
+                                                    $date_presensi_baru = mysqli_query($conn, "SELECT MAX(date) as max, nis FROM `tb_presensi` where nis='$id'");
+                                                    $erray_date = mysqli_fetch_array($date_presensi_baru);
+                                                    $date_presensi = $erray_date['max'];
+                                                    $nol = 0;
+
+
+                                                    if ($date_presensi < $presensiWeekly['date']) {  ?>
+                                                        <td><?= $presensiWeekly['presensi']; ?></td>
+                                                    <?php } else if ($total_presensix > 0) { ?>
+                                                        <td><?= $total_presensix; ?></td>
+                                                    <?php  } else {
+                                                        echo "<td>" . $nol . "</td>";
+                                                    }
+
+
+                                                    ?>
+
+
+
+
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
