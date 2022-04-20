@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 $page = $_SERVER['PHP_SELF'];
-$sec = "5";
+$sec = "40";
 session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
@@ -12,6 +12,14 @@ $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Akt
 $data1 = mysqli_fetch_array($get_semester);
 $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 
+// set alarm
+$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang'  ORDER BY `start_time` ASC"));
+$alarm = $alert_alarm['nada_alarm'];
+if ($alert_alarm['absent_time'] < $waktu_sekarang && $alert_alarm['timer'] > $waktu_sekarang) { ?>
+  <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+<?php }
+
+
 // ambil data angkatan siswa berdasarkan nis yang di scan qrcode
 $nis2 = $_POST['nis'];
 $sql_siswa = mysqli_query($conn, "SELECT angkatan FROM `siswa` WHERE nis='$nis2'");
@@ -19,8 +27,7 @@ $data_angkatan = mysqli_fetch_array($sql_siswa);
 $angkatan = $data_angkatan['angkatan'];
 
 // mengambil data schedule/jadwal berdasarkan angkatan siswa
-$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif'  and date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
-$cek_angkatan = mysqli_num_rows($sqli_jadwal);
+$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='$angkatan' and  date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $list20 = mysqli_fetch_array($sqli_jadwal);
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
@@ -31,11 +38,10 @@ $waktu = $list20['start_time'];
 $jam_akhir = $list20['end_time'];
 $waktuabsent = $list20['absent_time'];
 $timer = $list20['timer'];
-$alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
 
-var_dump($list20['absent_time']);
+// var_dump($alert_alarm['absent_time']);
 // mengecek jadwal jika tidak ada maka ada peringatan tidak ada pesan
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek = mysqli_num_rows($jadwal1);
@@ -44,17 +50,9 @@ $cek = mysqli_num_rows($jadwal1);
 if ($angkatan == $batch) {
   // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
   if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) { ?>
-      <!-- <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio> -->
-
-      <audio autoplay>
-        <source src="music/BellStasiun.mp3" type="audio/ogg">
-      </audio>
-    <?php
-    }
-    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
-      $hasil = 'V'; ?>
-<?php } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
+    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
+      $hasil = 'V';
+    } else if ($timer < $waktu_sekarang && $waktu > $waktu_sekarang) {
       $hasil = 'O';
     } else {
       $hasil = 'X';
@@ -64,16 +62,11 @@ if ($angkatan == $batch) {
       $nis = htmlspecialchars($_POST['nis']);
       $mentor = mysqli_fetch_array(mysqli_query($conn, "SELECT mentor FROM `siswa` WHERE nis='$nis'"));
       $mentor = $mentor['mentor'];
-
-      // pengecekan nis siswa untuk menghindari sistem salah input nis
       $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis, angkatan FROM `siswa` WHERE nis='$nis' and angkatan='$batch'"));
-
       if ($sql_cekdata_nis > 0) {
-        // menambah masimum id
         $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
         $idbr = $max['id'] + 1;
         $inputpresensi =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
-
         if ($inputpresensi) {
           $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
           echo notice(2);
@@ -88,13 +81,13 @@ if ($angkatan == $batch) {
   $Announcement = $_SESSION['Announcement'] = 'No Schedule';
   echo notice(0);
 } else {
-  // $Announcement = $_SESSION['Announcement'] = 'Bukan Jadwal Angkatan Anda';
-  // echo notice(0);
+  $Announcement = $_SESSION['Announcement'] = 'Not Your Batch Schedule!';
+  echo notice(0);
 }
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
-$cek = mysqli_num_rows($jadwal);
+// $cek = mysqli_num_rows($jadwal);
 
 ?>
 
@@ -490,6 +483,7 @@ if (isset($percobaan)) { ?>
             height: 300,
             image_format: 'png',
             jpeg_quality: 90
+
 
           });
           Webcam.attach('#my_camera');
