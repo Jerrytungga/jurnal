@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 $page = $_SERVER['PHP_SELF'];
-$sec = "60";
+$sec = "5";
 session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
@@ -19,7 +19,7 @@ $data_angkatan = mysqli_fetch_array($sql_siswa);
 $angkatan = $data_angkatan['angkatan'];
 
 // mengambil data schedule/jadwal berdasarkan angkatan siswa
-$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif'  and batch='$angkatan' and date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif'  and date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $cek_angkatan = mysqli_num_rows($sqli_jadwal);
 $list20 = mysqli_fetch_array($sqli_jadwal);
 $id_kegiatan = $list20['id'];
@@ -34,6 +34,8 @@ $timer = $list20['timer'];
 $alarm = $list20['nada_alarm'];
 $agreement = 'Waiting';
 
+
+var_dump($list20['absent_time']);
 // mengecek jadwal jika tidak ada maka ada peringatan tidak ada pesan
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek = mysqli_num_rows($jadwal1);
@@ -42,8 +44,12 @@ $cek = mysqli_num_rows($jadwal1);
 if ($angkatan == $batch) {
   // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
   if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) { ?>
-      <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
+    if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) { ?>
+      <!-- <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio> -->
+
+      <audio autoplay>
+        <source src="music/BellStasiun.mp3" type="audio/ogg">
+      </audio>
     <?php
     }
     if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang &&  $waktu > $waktu_sekarang) {
@@ -82,8 +88,8 @@ if ($angkatan == $batch) {
   $Announcement = $_SESSION['Announcement'] = 'No Schedule';
   echo notice(0);
 } else {
-  $Announcement = $_SESSION['Announcement'] = 'Bukan Jadwal Angkatan Anda';
-  echo notice(0);
+  // $Announcement = $_SESSION['Announcement'] = 'Bukan Jadwal Angkatan Anda';
+  // echo notice(0);
 }
 
 $jadwal = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
@@ -187,6 +193,7 @@ $cek = mysqli_num_rows($jadwal);
           </center>
         </div>
       </div>
+      <!-- <audio src="music/BellStasiun.mp3" autoplay="autoplay" hidden="hidden"></audio> -->
 
 
       <!-- script tampilan absensi -->

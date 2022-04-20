@@ -306,7 +306,12 @@ $murid = mysqli_fetch_array($siswa);
                                                         <?= $presensiWeekly['status']; ?>
                                                     </td>
                                                     <td>Week <?= $i; ?></td>
-                                                    <td><?= $presensiWeekly['date']; ?></td>
+                                                    <td>
+
+                                                        <?= $presensiWeekly['date']; ?>
+
+
+                                                    </td>
                                                     <td>
                                                         <?= $presensiWeekly['grace']; ?>
                                                         <?= $presensiWeekly['punisment']; ?>
