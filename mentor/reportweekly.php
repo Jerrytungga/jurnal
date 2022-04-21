@@ -207,7 +207,7 @@ $murid = mysqli_fetch_array($siswa);
                                             $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
                                         ?>
-                                            <?php foreach ($siswa as $row) :
+                                            <?php foreach ($presensi_lama as $row) :
                                                 $hari = $dari;
                                                 $prayernote = mysqli_fetch_array($doa);
                                                 $biblereading = mysqli_fetch_array($alkitab);
@@ -305,7 +305,7 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td>
                                                         <?= $presensiWeekly['status']; ?>
                                                     </td>
-                                                    <td>Week <?= $presensiWeekly['week'];  ?></td>
+                                                    <td>Week <?= $i; ?></td>
                                                     <td>
 
                                                         <?= $presensiWeekly['date']; ?>
