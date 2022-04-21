@@ -44,6 +44,7 @@ $agreement = 'Waiting';
 // var_dump($alert_alarm['absent_time']);
 // mengecek jadwal jika tidak ada maka ada peringatan tidak ada pesan
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
+$cek_presensi = mysqli_fetch_array($jadwal1);
 $cek = mysqli_num_rows($jadwal1);
 
 
@@ -80,8 +81,12 @@ if ($angkatan == $batch) {
 } else if ($cek == 0) {
   $Announcement = $_SESSION['Announcement'] = 'No Schedule';
   echo notice(0);
+} else if ($cek_presensi['absent_time'] > $waktu_sekarang) {
+  $Announcement = $_SESSION['Announcement'] = 'Its Not Time To Presence!';
+  echo notice(0);
 } else {
-  $Announcement = $_SESSION['Announcement'] = 'Not Your Batch Schedule!';
+
+  $Announcement = $_SESSION['Announcement'] = 'Not Your Class Schedule!';
   echo notice(0);
 }
 
@@ -491,7 +496,7 @@ if (isset($percobaan)) { ?>
           function take_snapshot() {
             Webcam.snap(function(data_uri) {
               $(".image-tag").val(data_uri);
-              // document.getElementById();
+              document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
             });
           }
         </script>
