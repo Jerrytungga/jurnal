@@ -260,7 +260,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
-                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $total_presensix + $total_living_ranjang;
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $total_presensix + $total_living_ranjang + $presensiWeekly['presensi'];
 
                                                 // if ($total_presensix > $dari) {
                                                 //     $totalpresensi;
