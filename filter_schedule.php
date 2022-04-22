@@ -139,7 +139,7 @@ function activity($activity)
       $list = mysqli_fetch_array($tamplkan_data);
     }
   } else {
-    $tamplkan_data = mysqli_query($conn, "SELECT * FROM schedule  ORDER BY date DESC;");
+    $tamplkan_data = mysqli_query($conn, "SELECT * FROM schedule where date='$hari_ini ' ORDER BY date DESC;");
     $list = mysqli_fetch_array($tamplkan_data);
   }
 

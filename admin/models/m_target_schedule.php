@@ -4,15 +4,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Target Points</h5>
-        <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#targettambah">
-          Add Target
-        </button>
+        <?php
+        date_default_timezone_set('Asia/Jakarta');
+        $hari_ini = date('Y-m-d');
+        $waktu_sekarang = date('H:i:s');
+        $cek_target = mysqli_query($conn, "SELECT target, date FROM `tb_target_presensi` where date='$hari_ini '");
+        $cektarget = mysqli_num_rows($cek_target);
+        if ($cektarget == 0) { ?>
+          <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#targettambah">
+            Add Target
+          </button>
+        <?php    }
+        ?>
+
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         </button>
         <span aria-hidden="true">&times;</span>
 
         <?php
-        $sqli_target = mysqli_query($conn, "SELECT * FROM tb_target_presensi ORDER BY date DESC");
+        $sqli_target = mysqli_query($conn, "SELECT * FROM tb_target_presensi where date='$hari_ini ' ORDER BY date DESC");
         $data_target = mysqli_fetch_array($sqli_target);
         ?>
       </div>
@@ -70,7 +81,7 @@
           <div class="form-row">
             <div class="col">
               <label for="Day">Day</label>
-              <select class="form-control" name="Day">
+              <select class="form-control" name="Day" required>
                 <option value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -82,18 +93,18 @@
             </div>
             <div class="col">
               <label for="target">Target</label>
-              <input type="text" name="target" class="form-control">
+              <input type="text" name="target" class="form-control" required>
             </div>
           </div>
 
           <div class="form-row">
-            <div class="col">
+            <!-- <div class="col">
               <label for="target">Date</label>
               <input type="date" name="tanggal" class="form-control">
-            </div>
+            </div> -->
             <div class="col">
               <label for="target">Week</label>
-              <input type="number" name="week" class="form-control">
+              <input type="number" name="week" class="form-control" required>
             </div>
           </div>
 
@@ -142,10 +153,10 @@
           </div>
 
           <div class="form-row">
-            <div class="col">
+            <!-- <div class="col">
               <label>Date</label>
               <input type="date" name="date" id="date" class="form-control">
-            </div>
+            </div> -->
             <div class="col">
               <label for="target">Week</label>
               <input type="number" name="week" id="week" class="form-control">

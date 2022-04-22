@@ -374,7 +374,21 @@ function kegiatan($name_kegiatan)
                       }
                       ?>
                       <th class="bg-warning text-right" colspan="7"> Total Point : </th>
-                      <th class="text-center"><?= $total; ?></th>
+                      <th class="text-center">
+                        <?php
+                        if ($Sqli_target['total_target'] < $total) { ?>
+                          <script>
+                            Swal.fire({
+                              icon: 'info',
+                              title: '<strong>Congratulations</strong>',
+                              text: 'The Target Is Met!'
+                            })
+                          </script>
+                          <audio src="../music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
+                        <?php  }
+                        ?>
+                        <?= $total; ?>
+                      </th>
                     </tfoot>
                   </table>
                 </div>

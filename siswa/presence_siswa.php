@@ -23,36 +23,40 @@ function kegiatan($name_kegiatan)
 
 
 
-if (isset($_POST['filter_tanggal'])) {
-    $mulai = $_POST['tanggal_mulai'];
-    $selesai = $_POST['tanggal_akhir'];
+// if (isset($_POST['filter_tanggal'])) {
+//     $mulai = $_POST['tanggal_mulai'];
+//     $selesai = $_POST['tanggal_akhir'];
 
-    if ($mulai != null || $selesai != null) {
-        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
-    } else {
+//     if ($mulai != null || $selesai != null) {
+//         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
+//     } else {
 
-        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approved'   order by absent_time DESC");
-        $array_absent = mysqli_fetch_array($Sqli_absent);
-    }
-} else {
-    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
-    $array_absent = mysqli_fetch_array($Sqli_absent);
-}
-if (isset($_POST['reset'])) {
-    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  order by absent_time DESC");
-    $array_absent = mysqli_fetch_array($Sqli_absent);
-}
+//         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approved'   order by absent_time DESC");
+//         $array_absent = mysqli_fetch_array($Sqli_absent);
+//     }
+// } else {
+//     $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
+//     $array_absent = mysqli_fetch_array($Sqli_absent);
+// }
+// if (isset($_POST['reset'])) {
+//     $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  order by absent_time DESC");
+//     $array_absent = mysqli_fetch_array($Sqli_absent);
+// }
 
 if (isset($_POST['week'])) {
     $week = $_POST['week'];
 
     if ($week == '%') {
         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
+        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE week='$week' and  semester='$data_semester'"));
     } else {
 
         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where week='$week' and nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
         $array_absent = mysqli_fetch_array($Sqli_absent);
     }
+} else {
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
+    $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE semester='$data_semester'"));
 }
 
 $cek = mysqli_num_rows($Sqli_absent);
@@ -108,10 +112,13 @@ include 'template/head.php'
 
                     if ($week != null) {
 
-                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target as total_target FROM tb_target_presensi where date='$date'  and semester='$data_semester' and  week like '$week'"));
+                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target  FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester'"));
+
+
 
                         $tampil_mark_V = mysqli_query($conn, "SELECT *, COUNT(mark) as total FROM `absent` WHERE week like '$week' and nis='$id' and ACC_Mentor='approved' and mark='$mark_V' and semester='$data_semester' ");
                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+
 
                         $tampil_mark_O = mysqli_query($conn, "SELECT *, COUNT(mark) as total FROM `absent` WHERE week like '$week' and nis='$id' and ACC_Mentor='approved' and mark='$mark_O' and semester='$data_semester' ");
                         $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
@@ -126,9 +133,20 @@ include 'template/head.php'
                         $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
                         $points = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
-                    } else {
 
-                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target  FROM tb_target_presensi where date='$date' and semester='$data_semester' "));
+                        // jika target mingguan terpenuhi
+                        if ($points > $Sqli_target['target']) { ?>
+
+                            <script>
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '<p class="text-primary"><strong>Congratulations</strong></p>',
+                                    html: '<b>The Target Is Met</b><br><br>Your Point is <?= $points; ?>'
+                                })
+                            </script>
+                            <audio src="../music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
+                    <?php        }
+                    } else {
 
                         $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_V' and  semester='$data_semester'  ");
                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
@@ -147,29 +165,9 @@ include 'template/head.php'
 
                         $points = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                     }
-                } elseif (strtotime($dari) <= strtotime($sampai)) {
-
-                    $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target, SUM(target)  as total_target FROM tb_target_presensi where semester='$data_semester' and date BETWEEN '$mulai' AND '$selesai'"));
-
-                    $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_V' and semester='$data_semester'  and absent_date BETWEEN '$mulai' AND '$selesai' ");
-                    $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
-
-                    $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_O' and semester='$data_semester' and absent_date BETWEEN '$mulai' AND '$selesai' ");
-                    $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
-
-                    $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_X' and semester='$data_semester' and absent_date BETWEEN '$mulai' AND '$selesai' ");
-                    $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
-
-                    $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_I'  and semester='$data_semester' and absent_date BETWEEN '$mulai' AND '$selesai' ");
-                    $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
-
-                    $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_S' and semester='$data_semester' and absent_date BETWEEN '$mulai' AND '$selesai' ");
-                    $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
-
-                    $points = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                 } else {
 
-                    $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target  FROM tb_target_presensi where date='$date' and semester='$data_semester' "));
+                    // $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target  FROM tb_target_presensi WHERE semester='$data_semester'"));
 
                     $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$id' and ACC_Mentor='approved' and mark='$mark_V' and semester='$data_semester'  ");
                     $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
@@ -189,7 +187,7 @@ include 'template/head.php'
                     $points = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                 }
 
-                if ($points < $Sqli_target['total_target']) { ?>
+                if ($points < $Sqli_target['target']) { ?>
 
                     <script>
                         Swal.fire({
@@ -260,8 +258,8 @@ include 'template/head.php'
                                                     TARGET</div>
                                                 <div class="h5 mb-0 font-weight-bold text-light">
                                                     <?php
-                                                    if ($Sqli_target['total_target']) { ?>
-                                                        <?= $Sqli_target['total_target']; ?>
+                                                    if ($Sqli_target['target']) { ?>
+                                                        <?= $Sqli_target['target']; ?>
                                                     <?php   } else {
                                                         echo '0';
                                                     }
@@ -494,7 +492,7 @@ include 'template/head.php'
                                     <?php } ?>
                                 </form>
 
-                                <form action="" method="POST">
+                                <!-- <form action="" method="POST">
                                     <?php
                                     if (isset($_POST['filter_tanggal'])) {
                                         $mulai = $_POST['tanggal_mulai'];
@@ -510,7 +508,7 @@ include 'template/head.php'
                                     <?php } ?>
                                     <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Search</button>
                                     <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
-                                </form>
+                                </form> -->
                             </div>
                         </div>
 

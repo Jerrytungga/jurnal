@@ -50,10 +50,9 @@ if (isset($_POST['addtarget'])) {
   $hari = htmlspecialchars($_POST['Day']);
   $datatarget = htmlspecialchars($_POST['target']);
   $minggu = htmlspecialchars($_POST['week']);
-  $date2 = htmlspecialchars($_POST['tanggal']);
   $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
   $id_maxtarget = $max_idtarget['id'] + 1;
-  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`date`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu','$date2') ");
+  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu') ");
 }
 
 // proses edit target
@@ -61,9 +60,8 @@ if (isset($_POST['updatetarget'])) {
   $id_target = htmlspecialchars($_POST['id_taget_presensi']);
   $edit_hari = htmlspecialchars($_POST['hari']);
   $edit_target = htmlspecialchars($_POST['target2']);
-  $date4 = htmlspecialchars($_POST['date']);
   $edit_minggu = htmlspecialchars($_POST['week']);
-  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`date`='$date4' WHERE `id_tabel_presence`='$id_target'");
+  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu' WHERE `id_tabel_presence`='$id_target'");
 }
 
 
