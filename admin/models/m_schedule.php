@@ -59,8 +59,7 @@
                   $hari_ini = date('Y-m-d');
                   $waktu_sekarang = date('H:i:s');
                   if (
-                    $data1["end_time"] < $waktu_sekarang && $data1["date"] <
-                    $hari_ini || $data1["date"] == $hari_ini
+                    $data1["end_time"] > $waktu_sekarang && $data1["date"] == $hari_ini
                   ) {
                   ?>
                     <div class="btn-group" aria-label="Basic example">
