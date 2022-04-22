@@ -54,11 +54,22 @@
                 <td><?= $data1["id"]; ?></td>
                 <td><?= $data1["nada_alarm"]; ?></td>
                 <td width="50">
-                  <div class="btn-group" aria-label="Basic example">
-                    <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-nada="<?= $data1["nada_alarm"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                  <?php
+                  date_default_timezone_set('Asia/Jakarta');
+                  $hari_ini = date('Y-m-d');
+                  $waktu_sekarang = date('H:i:s');
+                  if (
+                    $data1["end_time"] < $waktu_sekarang && $data1["date"] <
+                    $hari_ini
+                  ) {
+                  ?>
+                    <div class="btn-group" aria-label="Basic example">
+                      <button data-toggle="modal" data-idschedule="<?= $data1["id"]; ?>" id="edit_schedule" data-angkatan="<?= $data1["batch"]; ?>" data-timerabsen="<?= $data1["timer"]; ?>" data-peserta="<?= $data1["participant"]; ?>" data-keterangan="<?= $data1["status"]; ?>" data-waktuabsen="<?= $data1["absent_time"]; ?>" data-waktuakhir="<?= $data1["end_time"]; ?>" data-waktumulai="<?= $data1["start_time"]; ?>" data-tanggal="<?= $data1["date"]; ?>" data-nada="<?= $data1["nada_alarm"]; ?>" data-pesan="<?= $data1["info"]; ?>" data-itemaktivitas="<?= $data1["id_activity"]; ?>" data-minggu="<?= $data1["week"]; ?>" data-target="#editschedule" class=" m-1 btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
 
-                    <button type="button" id="edit_schedule" data-aktivitas="<?= $data1["id_activity"]; ?>" data-id="<?= $data1["id"]; ?>" data-toggle="modal" data-target="#hapus" class="btn m-1 btn-danger"><i class="fa fa-trash"></i></button>
-                  </div>
+                      <button type="button" id="edit_schedule" data-aktivitas="<?= $data1["id_activity"]; ?>" data-id="<?= $data1["id"]; ?>" data-toggle="modal" data-target="#hapus" class="btn m-1 btn-danger"><i class="fa fa-trash"></i></button>
+                    </div>
+
+                  <?php } ?>
                 </td>
 
               </tr>
