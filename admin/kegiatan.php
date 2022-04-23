@@ -60,8 +60,8 @@ if (isset($_POST['updatetarget'])) {
   $id_target = htmlspecialchars($_POST['id_taget_presensi']);
   $edit_hari = htmlspecialchars($_POST['hari']);
   $edit_target = htmlspecialchars($_POST['target2']);
-  $edit_minggu = htmlspecialchars($_POST['week']);
-  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu' WHERE `id_tabel_presence`='$id_target'");
+  $date4 = htmlspecialchars($_POST['date']);
+  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu WHERE `id_tabel_presence`='$id_target'");
 }
 
 
@@ -127,9 +127,9 @@ if (isset($_POST['updateschedule'])) {
 // SELECT schedule.batch, tb_target_presensi.target, tb_target_presensi.date FROM schedule INNER JOIN tb_target_presensi ON schedule.date=tb_target_presensi.date;
 
 
-$activity = mysqli_query($conn, "SELECT * FROM activity ORDER BY id_activity DESC");
+$activity = mysqli_query($conn, "SELECT * FROM activity ORDER BY id_activity ASC");
 $daftar = mysqli_fetch_array($activity);
-$jadwal = mysqli_query($conn, "SELECT * FROM schedule ORDER BY id DESC");
+$jadwal = mysqli_query($conn, "SELECT * FROM schedule ORDER BY id ASC");
 $list = mysqli_fetch_array($jadwal);
 $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
 ?>

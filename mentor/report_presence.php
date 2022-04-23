@@ -270,7 +270,7 @@ function kegiatan($name_kegiatan)
           <?php
           if ($cek > 0) {
 
-            $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target as total_target FROM tb_target_presensi where semester='$data_semester' and week='$week'"));
+            $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(target) as total_target FROM tb_target_presensi where semester='$data_semester' and week='$week'"));
           ?>
 
 
@@ -374,21 +374,7 @@ function kegiatan($name_kegiatan)
                       }
                       ?>
                       <th class="bg-warning text-right" colspan="7"> Total Point : </th>
-                      <th class="text-center">
-                        <?php
-                        if ($Sqli_target['total_target'] < $total) { ?>
-                          <script>
-                            Swal.fire({
-                              icon: 'info',
-                              title: '<strong>Congratulations</strong>',
-                              text: 'The Target Is Met!'
-                            })
-                          </script>
-                          <audio src="../music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
-                        <?php  }
-                        ?>
-                        <?= $total; ?>
-                      </th>
+                      <th class="text-center"><?= $total; ?></th>
                     </tfoot>
                   </table>
                 </div>
