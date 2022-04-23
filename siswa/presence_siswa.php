@@ -112,7 +112,7 @@ include 'template/head.php'
 
                     if ($week != null) {
 
-                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT target  FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester'"));
+                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(target) as target FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester'"));
 
 
 
