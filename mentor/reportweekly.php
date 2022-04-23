@@ -200,7 +200,7 @@ $murid = mysqli_fetch_array($siswa);
 
 
                                             // Presensi
-                                            $presensi_lama = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                            $presensi_lama = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$nis'  AND date BETWEEN '$dari'   AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC   ");
                                             $presensiWeekly = mysqli_fetch_array($presensi_lama);
 
 
@@ -270,7 +270,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 <tr>
                                                     <td><?= $i; ?></td>
                                                     <td>
-                                                        <?= $murid['name']; ?>
+                                                        <?= $row['name']; ?>
                                                     </td>
                                                     <?php
                                                     $date_presensi_baru = mysqli_query($conn, "SELECT MAX(date) as max, nis FROM `tb_presensi` where nis='$id'");
@@ -303,21 +303,21 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td><?= $total_living_ranjang; ?></td>
                                                     <td><?= $totalsemua; ?></td>
                                                     <td>
-                                                        <?= $presensiWeekly['status']; ?>
+                                                        <?= $row['status']; ?>
                                                     </td>
-                                                    <td>Week <?= $i; ?></td>
+                                                    <td>Week <?= $row['week']; ?></td>
                                                     <td>
 
-                                                        <?= $presensiWeekly['date']; ?>
+                                                        <?= $row['date']; ?>
 
 
                                                     </td>
                                                     <td>
-                                                        <?= $presensiWeekly['grace']; ?>
-                                                        <?= $presensiWeekly['punisment']; ?>
+                                                        <?= $row['grace']; ?>
+                                                        <?= $row['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <!-- <a id="edit_penilaian" data-toggle="modal" data-date="<?= $presensiWeekly['date']; ?>" data-target="#editreport" data-absen="<?= $presensiWeekly['presensi']; ?>" data-status="<?= $presensiWeekly['status']; ?>" data-graces="<?= $presensiWeekly['grace']; ?>" data-ps="<?= $presensiWeekly['punisment']; ?>" data-week="<?= $presensiWeekly['week']; ?>">
+                                                        <!-- <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>" data-week="<?= $row['week']; ?>">
                                                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a> -->
                                                     </td>
 

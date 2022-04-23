@@ -14,7 +14,7 @@
       </div>
       <div class="modal-body">
         <table class="table dataTable table-striped" width="70%" id="tableschedule">
-          <thead class="bg-success">
+          <thead class="bg-success text-light">
             <tr>
               <th scope="col">Batch</th>
               <th scope="col">Week</th>

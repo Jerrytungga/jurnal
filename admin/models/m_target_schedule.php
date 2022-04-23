@@ -23,7 +23,7 @@
         <span aria-hidden="true">&times;</span>
 
         <?php
-        $sqli_target = mysqli_query($conn, "SELECT * FROM tb_target_presensi where date='$hari_ini ' ORDER BY date DESC");
+        $sqli_target = mysqli_query($conn, "SELECT * FROM `tb_target_presensi`  ORDER BY date DESC");
         $data_target = mysqli_fetch_array($sqli_target);
         ?>
       </div>
@@ -41,6 +41,7 @@
             </tr>
           </thead>
           <tbody>
+
             <?php $T = 1; ?>
             <?php foreach ($sqli_target as $row2) : ?>
               <tr>
@@ -49,11 +50,19 @@
                 <td><?= $row2['target']; ?></td>
                 <td><?= $row2['week']; ?></td>
                 <td><?= $row2['date']; ?></td>
-                <td><a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-date="<?= $row2["date"]; ?>" data-week="<?= $row2["week"]; ?>">
-                    <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a></td>
+                <td>
+                  <?php
+                  if ($row2['date'] == $hari_ini) { ?>
+                    <a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-date="<?= $row2["date"]; ?>" data-week="<?= $row2["week"]; ?>">
+                      <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
+                  <?php  }
+                  ?>
+
+                </td>
               </tr>
               <?php $T++; ?>
             <?php endforeach; ?>
+
           </tbody>
         </table>
       </div>
