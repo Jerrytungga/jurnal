@@ -91,7 +91,7 @@ $s = mysqli_fetch_array($siswa);
                                         <?php foreach ($siswa as $row) :
                                             $nis2 = $row['nis'];
                                             $angkatan = $row['angkatan'];
-                                            $Cek_max_week = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(week) as week FROM `tb_absensi` where batch='$angkatan' and nis='$nis2'"));
+                                            $Cek_max_week = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(week) as week FROM `tb_presensi` where batch='$angkatan' and nis='$nis2'"));
                                             $week_ = $Cek_max_week['week'];
                                             $tampil = mysqli_query($conn, "SELECT * FROM absent where nis='$nis2' and week='$week_ ' and ACC_Mentor='approved' and batch='$angkatan' and  mentor='$id'  order by absent_time DESC");
 
