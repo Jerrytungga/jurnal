@@ -14,6 +14,7 @@ if (!isset($_SESSION['role'])) {
   $id = $_SESSION['id_Siswa'];
   $get_data = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$id'");
   $data = mysqli_fetch_array($get_data);
+  $angkatan = $data['angkatan'];
   $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Aktif'");
   $data1 = mysqli_fetch_array($get_semester);
   $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];

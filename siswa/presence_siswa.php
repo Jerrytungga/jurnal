@@ -23,40 +23,20 @@ function kegiatan($name_kegiatan)
 
 
 
-// if (isset($_POST['filter_tanggal'])) {
-//     $mulai = $_POST['tanggal_mulai'];
-//     $selesai = $_POST['tanggal_akhir'];
-
-//     if ($mulai != null || $selesai != null) {
-//         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' and absent_date BETWEEN '$mulai' AND '$selesai'   order by absent_time DESC");
-//     } else {
-
-//         $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'and ACC_Mentor='approved'   order by absent_time DESC");
-//         $array_absent = mysqli_fetch_array($Sqli_absent);
-//     }
-// } else {
-//     $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
-//     $array_absent = mysqli_fetch_array($Sqli_absent);
-// }
-// if (isset($_POST['reset'])) {
-//     $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  order by absent_time DESC");
-//     $array_absent = mysqli_fetch_array($Sqli_absent);
-// }
-
 if (isset($_POST['week'])) {
     $week = $_POST['week'];
 
     if ($week == '%') {
-        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
-        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE week='$week' and  semester='$data_semester'"));
+        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and batch='$angkatan' and ACC_Mentor='approved' order by absent_time DESC");
+        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE week='$week' and  semester='$data_semester'  and batch='$angkatan'"));
     } else {
 
-        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where week='$week' and nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
+        $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where week='$week' and nis='$id' and batch='$angkatan' and ACC_Mentor='approved' order by absent_time DESC");
         $array_absent = mysqli_fetch_array($Sqli_absent);
     }
 } else {
-    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and ACC_Mentor='approved' order by absent_time DESC");
-    $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE semester='$data_semester'"));
+    $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$id' and batch='$angkatan' and ACC_Mentor='approved' order by absent_time DESC");
+    $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as target  FROM tb_target_presensi WHERE batch='$angkatan' and semester='$data_semester'"));
 }
 
 $cek = mysqli_num_rows($Sqli_absent);
@@ -106,13 +86,14 @@ include 'template/head.php'
                 $mark_S = $array_presensi['mark'] = 'S';
                 $week = $_POST['week'];
                 $date = $array_presensi['absent_date'];
+                $batch = $array_presensi['batch'];
 
 
                 if ($week) {
 
                     if ($week != null) {
 
-                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(target) as target FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester'"));
+                        $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(target) as target FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester' and batch='$batch'"));
 
 
 
