@@ -14,13 +14,11 @@
               <select class="form-control" required name="nis" aria-label="Default select example">
                 <option selected>Pilih Siswa</option>
                 <?php
-
                 $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id'");
                 while ($data1 = mysqli_fetch_array($daftarsiswa)) {
                   echo '<option value="' . $data1['nis'] . '">' . $data1['name'] . '</option>';
                 }
                 ?>
-                <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
               </select>
             </div>
             <div class="form-group col-md-6">
@@ -28,8 +26,10 @@
               <select class="form-control" name="item_schedule" aria-label="Default select example" required>
                 <option selected>Select</option>
                 <?php
-                $angkatan = $row["batch"];
-                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini' and batch='$angkatan'");
+                //ambil angktan siswa
+                $ambil_AKT = mysqli_fetch_array(mysqli_query($conn, "SELECT angkatan FROM `siswa` WHERE mentor='$id'"));
+                $AKT = $ambil_AKT['angkatan'];
+                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini' and batch='$AKT' ");
                 while ($data_schedule = mysqli_fetch_array($listshedule)) {
                   echo '<option value="' . $data_schedule['id'] . '">' . kegiatan($data_schedule['id_activity']) . '</option>';
                 }

@@ -20,14 +20,6 @@ if (isset($_POST['cari'])) {
 
 $cek = mysqli_num_rows($Sqli_absent);
 
-// if (reset) {
-//   $nis = $_POST['nis'];
-//   $week = $_POST['week'];
-//   $Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and week='$week' and ACC_Mentor='approved' and  mentor='$id'  order by absent_time DESC");
-// }
-
-
-
 
 
 
