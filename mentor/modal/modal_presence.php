@@ -28,7 +28,8 @@
               <select class="form-control" name="item_schedule" aria-label="Default select example" required>
                 <option selected>Select</option>
                 <?php
-                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini'");
+                $angkatan = $row["batch"];
+                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini' and batch='$angkatan'");
                 while ($data_schedule = mysqli_fetch_array($listshedule)) {
                   echo '<option value="' . $data_schedule['id'] . '">' . kegiatan($data_schedule['id_activity']) . '</option>';
                 }

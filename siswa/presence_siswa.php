@@ -96,7 +96,6 @@ include 'template/head.php'
                         $Sqli_target = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(target) as target FROM tb_target_presensi WHERE week like '$week' and  semester='$data_semester' and batch='$batch'"));
 
 
-
                         $tampil_mark_V = mysqli_query($conn, "SELECT *, COUNT(mark) as total FROM `absent` WHERE week like '$week' and nis='$id' and ACC_Mentor='approved' and mark='$mark_V' and semester='$data_semester' ");
                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
