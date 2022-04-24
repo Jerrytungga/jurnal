@@ -159,7 +159,7 @@ $s = mysqli_fetch_array($siswa);
                                                         isi Rapor
                                                     </a> -->
 
-                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-presensi="<?= $total; ?>" data-minggu="<?= $week; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
+                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-presensi="<?= $total; ?>" data-minggu="<?= $week_; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
                                                         Presensi
                                                     </a>
 
