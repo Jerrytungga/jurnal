@@ -10,7 +10,7 @@
         $waktu_sekarang = date('H:i:s');
         $cek_target = mysqli_query($conn, "SELECT target, date FROM `tb_target_presensi` where date='$hari_ini '");
         $cektarget = mysqli_num_rows($cek_target);
-        if ($cektarget == 0) { ?>
+        if ($cektarget < 2) { ?>
           <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#targettambah">
             Add Target
           </button>
@@ -23,7 +23,7 @@
         <span aria-hidden="true">&times;</span>
 
         <?php
-        $sqli_target = mysqli_query($conn, "SELECT * FROM `tb_target_presensi`  ORDER BY date DESC");
+        $sqli_target = mysqli_query($conn, "SELECT * FROM `tb_target_presensi` where date='$hari_ini'  ORDER BY date DESC");
         $data_target = mysqli_fetch_array($sqli_target);
         ?>
       </div>
@@ -33,6 +33,7 @@
           <thead>
             <tr>
               <th scope="col">No</th>
+              <th scope="col">Batch</th>
               <th scope="col">Day</th>
               <th scope="col">Target</th>
               <th scope="col">Week</th>
@@ -46,6 +47,7 @@
             <?php foreach ($sqli_target as $row2) : ?>
               <tr>
                 <th scope="row"><?= $T; ?></th>
+                <td><?= $row2['batch']; ?></td>
                 <td><?= $row2['Day']; ?></td>
                 <td><?= $row2['target']; ?></td>
                 <td><?= $row2['week']; ?></td>
@@ -53,7 +55,7 @@
                 <td>
                   <?php
                   if ($row2['date'] == $hari_ini) { ?>
-                    <a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-date="<?= $row2["date"]; ?>" data-week="<?= $row2["week"]; ?>">
+                    <a id="edit_items" data-toggle="modal" data-target="#edit_target_m" data-id_taget_presensi="<?= $row2["id_tabel_presence"]; ?>" data-hari="<?= $row2["Day"]; ?>" data-target2="<?= $row2["target"]; ?>" data-angkatan2="<?= $row2["batch"]; ?>" data-week="<?= $row2["week"]; ?>">
                       <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                   <?php  }
                   ?>
@@ -107,10 +109,19 @@
           </div>
 
           <div class="form-row">
-            <!-- <div class="col">
-              <label for="target">Date</label>
-              <input type="date" name="tanggal" class="form-control">
-            </div> -->
+            <div class="col">
+              <label for="angkatan1">Batch</label>
+              <select class="form-control" name="angkatan1" required>
+                <option selected>Select</option>
+                <?php
+                // looping data ankatan
+                $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
+                while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
+                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
             <div class="col">
               <label for="target">Week</label>
               <input type="number" name="week" class="form-control" required>
@@ -162,10 +173,19 @@
           </div>
 
           <div class="form-row">
-            <!-- <div class="col">
-              <label>Date</label>
-              <input type="date" name="date" id="date" class="form-control">
-            </div> -->
+            <div class="col">
+              <label for="angkatan1">Batch</label>
+              <select class="form-control" id="angkatan2" name="angkatan2" required>
+                <option selected>Select</option>
+                <?php
+                // looping data ankatan
+                $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
+                while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
+                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
             <div class="col">
               <label for="target">Week</label>
               <input type="number" name="week" id="week" class="form-control">

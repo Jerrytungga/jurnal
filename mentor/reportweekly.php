@@ -260,7 +260,7 @@ $murid = mysqli_fetch_array($siswa);
                                                 $total_1 = $personalgoal['jumlah'] + $pameran['jumlah'] + $persekutuan['jumlah'];
                                                 $total = $biblereading['jumlah'] + $prayernote['jumlah'] + $revivalnote['jumlah'];
 
-                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $total_presensix + $total_living_ranjang + $presensiWeekly['presensi'];
+                                                $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $total_living_ranjang + $presensiWeekly['presensi'];
 
                                                 // if ($total_presensix > $dari) {
                                                 //     $totalpresensi;
@@ -272,27 +272,25 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td>
                                                         <?= $row['name']; ?>
                                                     </td>
-                                                    <?php
-                                                    $date_presensi_baru = mysqli_query($conn, "SELECT MAX(date) as max, nis FROM `tb_presensi` where nis='$id'");
-                                                    $erray_date = mysqli_fetch_array($date_presensi_baru);
-                                                    $date_presensi = $erray_date['max'];
-                                                    $nol = 0;
+
+                                                    <!-- <?php
+                                                            $date_presensi_baru = mysqli_query($conn, "SELECT MAX(date) as max, nis FROM `tb_presensi` where nis='$id'");
+                                                            $erray_date = mysqli_fetch_array($date_presensi_baru);
+                                                            $date_presensi = $erray_date['max'];
+                                                            $nol = 0;
 
 
-                                                    if ($date_presensi < $presensiWeekly['date']) {  ?>
+                                                            if ($date_presensi < $presensiWeekly['date']) {  ?>
                                                         <td><?= $presensiWeekly['presensi']; ?></td>
+
                                                     <?php } else if ($total_presensix > 0) { ?>
                                                         <td><?= $total_presensix; ?></td>
-                                                    <?php  } else {
-                                                        echo "<td>" . $nol . "</td>";
-                                                    }
+                                                        <?php  } else {
+                                                                echo "<td>" . $nol . "</td>";
+                                                            }
+                                                        ?> -->
 
-
-                                                    ?>
-
-
-
-
+                                                    <td><?= $row['presensi']; ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
                                                     <td><?= $total_2; ?></td>
@@ -307,18 +305,15 @@ $murid = mysqli_fetch_array($siswa);
                                                     </td>
                                                     <td>Week <?= $row['week']; ?></td>
                                                     <td>
-
                                                         <?= $row['date']; ?>
-
-
                                                     </td>
                                                     <td>
                                                         <?= $row['grace']; ?>
                                                         <?= $row['punisment']; ?>
                                                     </td>
                                                     <td>
-                                                        <!-- <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>" data-week="<?= $row['week']; ?>">
-                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a> -->
+                                                        <a id="edit_penilaian" data-toggle="modal" data-date="<?= $row['date']; ?>" data-target="#editreport" data-absen="<?= $row['presensi']; ?>" data-status="<?= $row['status']; ?>" data-graces="<?= $row['grace']; ?>" data-ps="<?= $row['punisment']; ?>" data-week="<?= $row['week']; ?>">
+                                                            <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                                                     </td>
 
                                                 </tr>
@@ -367,7 +362,7 @@ $murid = mysqli_fetch_array($siswa);
 
                         <div class="form-group">
                             <label for="text">Week :</label>
-                            <input type="number" class="form-control" id="week" name="Minggu">
+                            <input type="number" class="form-control" id="week" name="Minggu" readonly>
                         </div>
 
                         <div class="form-group">

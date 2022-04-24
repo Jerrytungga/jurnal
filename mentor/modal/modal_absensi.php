@@ -21,12 +21,12 @@
                      </div>
                      <div class="form-group">
                          <label for="text">Week :</label>
-                         <input type="number" class="form-control" id="Minggu" name="Minggu">
+                         <input type="number" class="form-control" id="minggu" name="Minggu" readonly>
                      </div>
 
                      <div class="form-group">
                          <label for="text">Presensi :</label>
-                         <input type="text" class="form-control" id="presensi" name="presensi">
+                         <input type="text" class="form-control" id="presensi" name="presensi" readonly>
                      </div>
 
                  </div>

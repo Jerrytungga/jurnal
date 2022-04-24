@@ -71,6 +71,7 @@ if (isset($_POST['btn_update'])) {
 }
 
 
+
 if (isset($_POST['hapus'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $date = htmlspecialchars($_POST['date']);

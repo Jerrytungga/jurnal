@@ -2,6 +2,8 @@
 include '../database.php';
 session_start();
 include 'template/session.php';
+
+
 if (isset($_POST['input'])) {
     $nis = htmlspecialchars($_POST['nis']);
     $efata = htmlspecialchars($_POST['efata']);
@@ -16,9 +18,28 @@ if (isset($_POST['input'])) {
         $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
     }
 }
+
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER BY date DESC");
 $s = mysqli_fetch_array($siswa);
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +104,42 @@ $s = mysqli_fetch_array($siswa);
 
                                     <tbody class="text-md-center">
                                         <?php $i = 1; ?>
-                                        <?php foreach ($siswa as $row) : ?>
+                                        <?php foreach ($siswa as $row) :
+                                            $nis2 = $row['nis'];
+                                            $angkatan = $row['angkatan'];
+                                            $Cek_max_week = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(week) as week FROM `absent` where batch='$angkatan'"));
+                                            $week_ = $Cek_max_week['week'];
+                                            $tampil = mysqli_query($conn, "SELECT * FROM absent where nis='$nis2' and week='$week_ ' and ACC_Mentor='approved' and batch='$angkatan' and  mentor='$id'  order by absent_time DESC");
+
+                                            $array_presensi = mysqli_fetch_array($tampil);
+                                            $week = $array_presensi['week'];
+                                            $angkatan = $array_presensi['batch'];
+                                            $nis = $array_presensi['nis'];
+                                            $mark_V = $array_presensi['mark'] = 'V';
+                                            $mark_O = $array_presensi['mark'] = 'O';
+                                            $mark_X = $array_presensi['mark'] = 'X';
+                                            $mark_I = $array_presensi['mark'] = 'I';
+                                            $mark_S = $array_presensi['mark'] = 'S';
+
+                                            $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where  semester='$data_semester' and nis='$nis' and week='$week' and batch='$angkatan' and ACC_Mentor='approved' and mark='$mark_V' ");
+                                            $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+
+                                            $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where semester='$data_semester' and nis='$nis' and week='$week'  and batch='$angkatan' and  ACC_Mentor='approved' and mark='$mark_O' ");
+                                            $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
+
+                                            $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where semester='$data_semester' and nis='$nis' and week='$week'  and batch='$angkatan' and ACC_Mentor='approved' and mark='$mark_X'");
+                                            $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
+
+                                            $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where semester='$data_semester' and  nis='$nis' and week='$week'  and batch='$angkatan' and ACC_Mentor='approved' and mark='$mark_I'");
+                                            $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
+
+                                            $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where semester='$data_semester' and  nis='$nis' and week='$week'  and batch='$angkatan' and ACC_Mentor='approved' and mark='$mark_S'");
+                                            $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
+
+                                            $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+
+
+                                        ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td>
@@ -112,11 +168,14 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         Dairy Siswa
                                                     </a>
+                                                    <!-- <?= $total; ?>
+                                                    <?= $week; ?> -->
+
                                                     <!-- <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
                                                         isi Rapor
                                                     </a> -->
 
-                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
+                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-presensi="<?= $total; ?>" data-minggu="<?= $week; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
                                                         Presensi
                                                     </a>
 
@@ -175,13 +234,19 @@ $s = mysqli_fetch_array($siswa);
 
     <script>
         $(document).on("click", "#pre", function() {
+
+            var presensi = $(this).data('presensi');
+            var minggu = $(this).data('minggu');
             var nis = $(this).data('nis');
             var name = $(this).data('name');
+            $(" #modal-presensi #presensi").val(presensi);
+            $(" #modal-presensi #minggu").val(minggu);
             $(" #modal-presensi #nis").val(nis);
             $(" #modal-presensi #name").val(name);
 
         });
     </script>
+
 
 
 </body>

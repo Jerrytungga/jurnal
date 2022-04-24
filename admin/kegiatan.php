@@ -50,9 +50,10 @@ if (isset($_POST['addtarget'])) {
   $hari = htmlspecialchars($_POST['Day']);
   $datatarget = htmlspecialchars($_POST['target']);
   $minggu = htmlspecialchars($_POST['week']);
+  $angkatan1 = htmlspecialchars($_POST['angkatan1']);
   $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
   $id_maxtarget = $max_idtarget['id'] + 1;
-  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu') ");
+  $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu','$angkatan1') ");
 }
 
 // proses edit target
@@ -61,7 +62,8 @@ if (isset($_POST['updatetarget'])) {
   $edit_hari = htmlspecialchars($_POST['hari']);
   $edit_target = htmlspecialchars($_POST['target2']);
   $edit_minggu = htmlspecialchars($_POST['week']);
-  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu' WHERE `id_tabel_presence`='$id_target'");
+  $angkatan2 = htmlspecialchars($_POST['angkatan2']);
+  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`batch`='$angkatan2' WHERE `id_tabel_presence`='$id_target'");
 }
 
 
@@ -291,12 +293,12 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       let hari = $(this).data('hari');
       let target2 = $(this).data('target2');
       let week = $(this).data('week');
-      let date = $(this).data('date');
+      let angkatan2 = $(this).data('angkatan2');
       $(" #modal-edittarget #id_taget_presensi").val(id_taget_presensi);
       $(" #modal-edittarget #hari").val(hari);
       $(" #modal-edittarget #target2").val(target2);
       $(" #modal-edittarget #week").val(week);
-      $(" #modal-edittarget #date").val(date);
+      $(" #modal-edittarget #angkatan2").val(angkatan2);
 
     });
   </script>
