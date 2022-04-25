@@ -2,43 +2,24 @@
 include '../database.php';
 session_start();
 include 'template/session.php';
-
-
-if (isset($_POST['input'])) {
-    $nis = htmlspecialchars($_POST['nis']);
-    $efata = htmlspecialchars($_POST['efata']);
-    $presensi = htmlspecialchars($_POST['presensi']);
-    $nama = htmlspecialchars($_POST['name']);
-    $week = htmlspecialchars($_POST['Minggu']);
-    $smt = htmlspecialchars($_POST['smt']);
-    $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`,`week`,`semester`) VALUES ('$nis','$nama','$presensi','$efata','$week','$smt')");
-    if ($input) {
-        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
-    } else {
-        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
-    }
-}
+// if (isset($_POST['input'])) {
+//     $nis = htmlspecialchars($_POST['nis']);
+//     $efata = htmlspecialchars($_POST['efata']);
+//     $presensi = htmlspecialchars($_POST['presensi']);
+//     $nama = htmlspecialchars($_POST['name']);
+//     $week = htmlspecialchars($_POST['Minggu']);
+//     $smt = htmlspecialchars($_POST['smt']);
+//     $input = mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`,`week`,`semester`) VALUES ('$nis','$nama','$presensi','$efata','$week','$smt')");
+//     if ($input) {
+//         $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+//     } else {
+//         $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+//     }
+// }
 
 $siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND status='Aktif' ORDER BY date DESC");
 $s = mysqli_fetch_array($siswa);
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,6 +119,18 @@ $s = mysqli_fetch_array($siswa);
                                             $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
                                             $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+                                            //isi presensi berdasarkan waktu yang di tentukan
+                                            $date = date("w");
+                                            date_default_timezone_set('Asia/Jakarta');
+                                            $time = date('H');
+                                            if ($date == 0 && $time == 21) {
+                                                $nis = $row["nis"];
+                                                $nama = $row["name"];
+                                                $week;
+                                                $total;
+                                                $id;
+                                                mysqli_query($conn, "INSERT INTO `tb_presensi`(`nis`, `name`, `presensi`, `efata`,`week`,`semester`) VALUES ('$nis','$nama','$total','$id','$week','$data_semester')");
+                                            }
 
 
                                         ?>
@@ -169,16 +162,15 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         Dairy Siswa
                                                     </a>
-                                                    <!-- <?= $total; ?>
-                                                    <?= $week; ?> -->
+
 
                                                     <!-- <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
                                                         isi Rapor
                                                     </a> -->
 
-                                                    <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-presensi="<?= $total; ?>" data-minggu="<?= $week; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
+                                                    <!-- <a href="" id="pre" data-name="<?= $row["name"]; ?>" data-presensi="<?= $total; ?>" data-minggu="<?= $week; ?>" data-nis="<?= $row["nis"]; ?>" type="button" data-toggle="modal" data-target="#report" class="btn btn-dark btn-sm  form-group">
                                                         Presensi
-                                                    </a>
+                                                    </a> -->
 
                                                 </td>
 

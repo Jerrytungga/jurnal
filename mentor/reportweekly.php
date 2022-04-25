@@ -104,30 +104,28 @@ $murid = mysqli_fetch_array($siswa);
 
                                         while (strtotime($dari) <= strtotime($sampai)) {
                                             // echo "$dari<br/>";
+                                            // $presensi = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `absent` WHERE nis='$nis'"));
+                                            // $mark_V = $presensi['mark'] = 'V';
+                                            // $mark_O = $presensi['mark'] = 'O';
+                                            // $mark_X = $presensi['mark'] = 'X';
+                                            // $mark_I = $presensi['mark'] = 'I';
+                                            // $mark_S = $presensi['mark'] = 'S';
+
+                                            // $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' and  absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
-                                            $presensi = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `absent` WHERE nis='$nis'"));
-                                            $mark_V = $presensi['mark'] = 'V';
-                                            $mark_O = $presensi['mark'] = 'O';
-                                            $mark_X = $presensi['mark'] = 'X';
-                                            $mark_I = $presensi['mark'] = 'I';
-                                            $mark_S = $presensi['mark'] = 'S';
-
-                                            $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' and  absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
+                                            // $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_O' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
-                                            $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_O' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
+                                            // $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_X' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
-                                            $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_X' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
+                                            // $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
-                                            $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
+                                            // $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
-
-                                            $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-                                            // $Pres = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
+                                            // // $Pres = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
 
 
 
@@ -240,16 +238,12 @@ $murid = mysqli_fetch_array($siswa);
                                                 $living_seprei = mysqli_fetch_array($seprei);
                                                 $living_selimut = mysqli_fetch_array($selimut);
 
-                                                $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
-                                                $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
-                                                $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
-                                                $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
-                                                $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
-
-
-
-
-                                                $total_presensix = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
+                                                // $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+                                                // $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
+                                                // $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
+                                                // $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
+                                                // $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
+                                                // $total_presensix = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
 
                                                 $total_living_ranjang = $living_ranjang['jumlah'] + $living_bantal['jumlah'] + $living_seprei['jumlah'] + $living_selimut['jumlah'];
                                                 // $totalpresensi = $row['presensi'];
@@ -272,24 +266,6 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td>
                                                         <?= $row['name']; ?>
                                                     </td>
-
-                                                    <!-- <?php
-                                                            $date_presensi_baru = mysqli_query($conn, "SELECT MAX(date) as max, nis FROM `tb_presensi` where nis='$id'");
-                                                            $erray_date = mysqli_fetch_array($date_presensi_baru);
-                                                            $date_presensi = $erray_date['max'];
-                                                            $nol = 0;
-
-
-                                                            if ($date_presensi < $presensiWeekly['date']) {  ?>
-                                                        <td><?= $presensiWeekly['presensi']; ?></td>
-
-                                                    <?php } else if ($total_presensix > 0) { ?>
-                                                        <td><?= $total_presensix; ?></td>
-                                                        <?php  } else {
-                                                                echo "<td>" . $nol . "</td>";
-                                                            }
-                                                        ?> -->
-
                                                     <td><?= $row['presensi']; ?></td>
                                                     <td><?= $total; ?></td>
                                                     <td><?= $total_1; ?></td>
