@@ -13,7 +13,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table dataTable table-striped" width="70%" id="tableschedule">
+        <table class="table dataTable table-striped" width="70%" id="example">
           <thead class="bg-success text-light">
             <tr>
               <th scope="col">Batch</th>
@@ -85,12 +85,27 @@
               </tr>
             <?php endforeach; ?>
           </tbody>
+          <tfoot>
+            <th width="10" valu></th>
+            <th width="200"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="70"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+
+          </tfoot>
         </table>
       </div>
     </div>
   </div>
 </div>
-
 
 
 

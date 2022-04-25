@@ -282,14 +282,8 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
       });
     });
 
-    $(document).ready(function() {
-      $('#tableschedule').DataTable({
-        scrollY: 500,
-        scrollX: true,
-        scrollCollapse: true,
-        paging: true
-      });
-    });
+
+
 
 
 
@@ -382,6 +376,42 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
 
     });
   </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        scrollY: 600,
+        scrollX: true,
+        scrollCollapse: true,
+        paging: true,
+        lengthMenu: [
+          [-1],
+          ["All"]
+        ],
+        initComplete: function() {
+          this.api().columns().every(function() {
+            var column = this;
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($(column.footer()).empty())
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+          });
+        }
+      });
+    });
+  </script>
+
 
 </body>
 
