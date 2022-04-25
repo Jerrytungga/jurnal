@@ -13,9 +13,9 @@ if (isset($_POST['btn_tambah_item'])) {
   $idbr = $max['id'] + 1;
   $dataactivity = mysqli_query($conn, "INSERT INTO `activity`(`items`,`id_activity`) VALUES ('$item',$idbr)");
   if ($dataactivity) {
-    $notif = $_SESSION['sukses'] = 'Items Activity Berhasil Disimpan';
+    $notif = $_SESSION['sukses'] = 'Activity Items Saved Successfully';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Items Activity Gagal Disimpan';
+    $notifgagal = $_SESSION['gagal'] = 'Activity Items Failed to Save';
   }
 }
 
@@ -39,9 +39,9 @@ if (isset($_POST['btn_edit_activity'])) {
   $kode = htmlspecialchars($_POST['kode']);
   $data_activity = mysqli_query($conn, "UPDATE `activity` SET `items`='$activity',`id_activity`='$kode' WHERE `activity`.`id_activity` = '$kode'");
   if ($data_activity) {
-    echo "<script>alert('Items Berhasil di Edit!');</script>";
+    $notif = $_SESSION['sukses'] = 'Items Activity successfully changed';
   } else {
-    echo "<script>alert('items gagal di Edit!');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Activity Items Failed to Change';
   }
 }
 
@@ -54,6 +54,11 @@ if (isset($_POST['addtarget'])) {
   $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
   $id_maxtarget = $max_idtarget['id'] + 1;
   $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu','$angkatan1') ");
+  if ($tambahdatatarget) {
+    $notif = $_SESSION['sukses'] = 'Target added successfully';
+  } else {
+    $notifgagal = $_SESSION['gagal'] = 'Target failed to add';
+  }
 }
 
 // proses edit target
@@ -63,7 +68,12 @@ if (isset($_POST['updatetarget'])) {
   $edit_target = htmlspecialchars($_POST['target2']);
   $edit_minggu = htmlspecialchars($_POST['week']);
   $angkatan2 = htmlspecialchars($_POST['angkatan2']);
-  $tambahdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`batch`='$angkatan2' WHERE `id_tabel_presence`='$id_target'");
+  $eitdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`batch`='$angkatan2' WHERE `id_tabel_presence`='$id_target'");
+  if ($eitdatatarget) {
+    $notif = $_SESSION['sukses'] = 'Target successfully changed';
+  } else {
+    $notifgagal = $_SESSION['gagal'] = 'Target failed to change';
+  }
 }
 
 
@@ -72,6 +82,9 @@ if (isset($_POST['hapus'])) {
   $idschedule = htmlspecialchars($_POST['id']);
   $scheduledata = htmlspecialchars($_POST['aktivitas']);
   $hapus =  mysqli_query($conn, "DELETE FROM `schedule`  WHERE `id` ='$idschedule' AND `id_activity`='$scheduledata'");
+  if ($hapus) {
+    $notif = $_SESSION['sukses'] = 'Successfully deleted';
+  }
 }
 
 // proses on-off semua kegiatan
@@ -97,9 +110,9 @@ if (isset($_POST['insert_shedule'])) {
   $alrm_nada = htmlspecialchars($_POST['alarm_nada']);
   $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
   if ($input_schedule) {
-    echo "<script>alert('Schedule Berhasil di tambahkan!');</script>";
+    $notif = $_SESSION['sukses'] = 'Schedule added successfully!';
   } else {
-    echo "<script>alert('Schedule gagal di tambahkan!');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Schedule failed to add!';
   }
 }
 
@@ -120,9 +133,9 @@ if (isset($_POST['updateschedule'])) {
   $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
-    echo "<script>alert('Schedule Berhasil di Update!');</script>";
+    $notif = $_SESSION['sukses'] = 'Schedule has been successfully changed!';
   } else {
-    echo "<script>alert('Schedule gagal di Update!');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Schedule failed to change!';
   }
 }
 
