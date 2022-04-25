@@ -60,6 +60,33 @@
 
 
      <li class="nav-item active">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Additional" aria-expanded="true" aria-controls="collapseTwo">
+             <i class="fas fa-fw fa-table"></i>
+             <span>Semester report items</span>
+         </a>
+         <div id="Additional" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <h6 class="collapse-header">Item:</h6>
+                 <a class="collapse-item" href="tb_pengembangan_diri.php">Pengembangan Diri <br> (Kerohanian)</a>
+                 <a class="collapse-item" href="#">Penetapan Tujuan Belajar</a>
+                 <a class="collapse-item" href="#">Keterampilan</a>
+                 <a class="collapse-item" href="#">Kehadiran Kelas</a>
+                 <a class="collapse-item" href="#">Jurnal</a>
+                 <a class="collapse-item" href="#">Kebajikan dan Karakter <br>
+                     (Pengamatan Mentor)</a>
+                 <a class="collapse-item" href="#">Kebersihan dan Kerapian</a>
+                 <a class="collapse-item" href="#">Akademik <br>
+                     (Persiapan SBMPTN)</a>
+                 <h6 class="collapse-header">Pengetahuan:</h6>
+                 <a class="collapse-item" href="#">Kelas Visi</a>
+                 <a class="collapse-item" href="#">Kelas Hayat</a>
+                 <a class="collapse-item" href="#">Kelas Karakter</a>
+                 <a class="collapse-item" href="#">Kelas Konsititusi</a>
+             </div>
+         </div>
+     </li>
+
+     <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
              <span>Report</span>
@@ -72,6 +99,7 @@
              </div>
          </div>
      </li>
+
 
      <li class="nav-item active">
          <a class="nav-link" href="backupdatabase.php">

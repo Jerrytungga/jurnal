@@ -471,7 +471,7 @@ if (isset($percobaan)) { ?>
           });
         </script>
 
-        <form action="verifikasi.php?nis=<?= $_POST['nis']; ?>&id=<?= $id_kegiatan; ?>" method="POST" enctype="multipart/form-data">
+        <form action="verifikasi.php?nis=<?= $_POST['nis']; ?>&id=<?= $idbr; ?>" method="POST" enctype="multipart/form-data">
           <div class="card-body">
             <center>
               <?php echo $percobaan; ?>
@@ -494,6 +494,7 @@ if (isset($percobaan)) { ?>
           Webcam.attach('#my_camera');
 
           function take_snapshot() {
+
             Webcam.snap(function(data_uri) {
               $(".image-tag").val(data_uri);
               document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';

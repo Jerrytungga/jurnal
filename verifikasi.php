@@ -22,7 +22,7 @@ if (isset($_POST['kirim_gambar'])) {
   // file_put_contents($file, $image_base64);
 
   if (file_put_contents($file, $image_base64)) {
-    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `image`='$fileName' WHERE nis='$nis' and schedule_id='$id'");
+    $updatejadwal = mysqli_query($conn, "UPDATE `absent` SET `image`='$fileName' WHERE nis='$nis' and id_absent='$id'");
 
     if ($updatejadwal) {
 
