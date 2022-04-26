@@ -17,9 +17,8 @@ $ambil_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule`
 $tanggal = $ambil_jadwal['date'];
 $status = 'Waiting';
 if ($hari_ini  > $tanggal) {
-  mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' AND absent_date='$tanggal'");
+  mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' ");
 }
-
 
 // set alarm
 $alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
