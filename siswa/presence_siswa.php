@@ -508,7 +508,7 @@ include 'template/head.php'
                                         <thead>
                                             <tr class="table-primary">
                                                 <th width="10">No</th>
-                                                <!-- <th>Presence Picture</th> -->
+                                                <th>Presence Picture</th>
                                                 <th>Schedule</th>
                                                 <th>Schedule Time</th>
                                                 <th>Absent Time Schedule</th>
