@@ -508,7 +508,7 @@ include 'template/head.php'
                                         <thead>
                                             <tr class="table-primary">
                                                 <th width="10">No</th>
-                                                <th>Presence Picture</th>
+                                                <!-- <th>Presence Picture</th> -->
                                                 <th>Schedule</th>
                                                 <th>Schedule Time</th>
                                                 <th>Absent Time Schedule</th>
@@ -527,7 +527,7 @@ include 'template/head.php'
                                             <?php foreach ($Sqli_absent as $row) : ?>
                                                 <tr>
                                                     <td><?= $i; ?></td>
-                                                    <td>
+                                                    <!-- <td>
 
                                                         <?php
                                                         $gambar = $row["image"];
@@ -540,7 +540,7 @@ include 'template/head.php'
 
                                                         ?>
 
-                                                    </td>
+                                                    </td> -->
                                                     <td><?= kegiatan($row['id_activity']); ?></td>
                                                     <td>
                                                         <?php
