@@ -527,7 +527,7 @@ include 'template/head.php'
                                             <?php foreach ($Sqli_absent as $row) : ?>
                                                 <tr>
                                                     <td><?= $i; ?></td>
-                                                    <!-- <td>
+                                                    <td>
 
                                                         <?php
                                                         $gambar = $row["image"];
@@ -540,8 +540,8 @@ include 'template/head.php'
 
                                                         ?>
 
-                                                    </td> -->
-                                                    <td><?= kegiatan($row['schedule_id']); ?></td>
+                                                    </td>
+                                                    <td><?= kegiatan($row['id_activity']); ?></td>
                                                     <td>
                                                         <?php
                                                         // mengambil waktu kegiatanm di tabel kegiatan berdasarkan id kegiatan
