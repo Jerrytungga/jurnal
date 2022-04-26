@@ -12,13 +12,21 @@ $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Akt
 $data1 = mysqli_fetch_array($get_semester);
 $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 
+// update otomatis hasil presensi siswa
+$ambil_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' "));
+$tanggal = $ambil_jadwal['date'];
+$status = 'Waiting';
+if ($hari_ini  > $tanggal) {
+  mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' AND absent_date='$tanggal'");
+}
+
+
 // set alarm
-$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang'  ORDER BY `start_time` ASC"));
+$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
 $alarm = $alert_alarm['nada_alarm'];
 if ($alert_alarm['absent_time'] < $waktu_sekarang && $alert_alarm['timer'] > $waktu_sekarang) { ?>
   <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
 <?php }
-
 
 // ambil data angkatan siswa berdasarkan nis yang di scan qrcode
 $nis2 = $_POST['nis'];
