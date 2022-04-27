@@ -15,10 +15,42 @@ $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 // update otomatis hasil presensi siswa
 $ambil_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' "));
 $tanggal = $ambil_jadwal['date'];
+$akt1 = $ambil_jadwal['batch'] = '1';
+$akt45 = $ambil_jadwal['batch'] = '45';
 $status = 'Waiting';
 if ($hari_ini  > $tanggal) {
   mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' ");
 }
+
+// input target otomatis
+// angkatan 1
+$ambil_total_jadwal_akt1 = mysqli_fetch_array(mysqli_query($conn, "SELECT Max(week) as totalweek1, COUNT(batch) as batch FROM `schedule` WHERE date='$hari_ini' AND batch='$akt1'"));
+$batch1 = $ambil_total_jadwal_akt1['batch'];
+$minggumax1 = $ambil_total_jadwal_akt1['totalweek1'];
+
+// angkatan 45
+$ambil_total_jadwal_akt45 = mysqli_fetch_array(mysqli_query($conn, "SELECT Max(week) as totalweek45, COUNT(batch) as batch FROM `schedule` WHERE date='$hari_ini' AND batch='$akt45'"));
+$batch45 = $ambil_total_jadwal_akt45['batch'];
+$minggumax45 = $ambil_total_jadwal_akt45['totalweek45'];
+
+// ambil jam sekarang dan nama hari
+$time = date('H');
+$nama_hari = date('l');
+
+// eksekusi
+if ($hari_ini  && $time == 21) {
+  $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
+  $id_maxtarget = $max_idtarget['id'] + 1;
+  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch1','$nama_hari','$data_semester ','$minggumax1','$akt1') ");
+};
+
+if ($hari_ini  && $time == 21) {
+  $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
+  $id_maxtarget = $max_idtarget['id'] + 1;
+  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch45','$nama_hari','$data_semester ','$minggumax45','$akt45') ");
+};
+// akhir input target otomatis
+
 
 // set alarm
 $alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
