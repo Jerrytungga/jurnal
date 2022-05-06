@@ -53,13 +53,13 @@
                  <a class="collapse-item" href="angkatan.php">Batch</a>
                  <a class="collapse-item" href="semester.php">Semester</a>
                  <a class="collapse-item" href="target_jurnal.php">Target Junal PKA</a>
-                 <a class="collapse-item" href="kegiatan.php">Student Activities</a>
+                 <a class="collapse-item" href="kegiatan.php">Activity List</a>
              </div>
          </div>
      </li>
 
 
-     <li class="nav-item active">
+     <!-- <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Additional" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
              <span>Semester report items</span>
@@ -84,7 +84,7 @@
                  <a class="collapse-item" href="#">Kelas Konsititusi</a>
              </div>
          </div>
-     </li>
+     </li> -->
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
