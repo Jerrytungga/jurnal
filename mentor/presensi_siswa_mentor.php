@@ -268,21 +268,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
 
                                                     ?>
                                                     <?= $waktu_kegiatan; ?>
-                                                    <?php
-                                                    // script jika waktu akhir jadwal sudah lewat maka sistem akan otomatis untuk tidak meng approved presensi siswa
-                                                    if ($waktu_sekarang > $Waktu_akhir || $date < $hari_ini) { ?>
-                                                        <script>
-                                                            window.onload = function() {
-                                                                var button = document.getElementById('approved');
-                                                                setInterval(function() {
-                                                                    button.click();
-                                                                }, 1000);
-                                                            };
-                                                        </script>
-                                                    <?php
-                                                    }
 
-                                                    ?>
                                                 </td>
                                                 <td><?= $waktu_absent; ?></td>
                                                 <td><?= $row["presensi_time"]; ?></td>
