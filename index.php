@@ -12,16 +12,21 @@ $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Akt
 $data1 = mysqli_fetch_array($get_semester);
 $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 
+// ambil jam sekarang dan nama hari
+$time = date('H');
+$nama_hari = date('l');
+
 // update otomatis hasil presensi siswa
-$ambil_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' "));
+$ambil_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and date='$hari_ini'"));
 $tanggal = $ambil_jadwal['date'];
 $akt1 = $ambil_jadwal['batch'] = '1';
 $akt45 = $ambil_jadwal['batch'] = '45';
 $status = 'Waiting';
-if ($hari_ini  > $tanggal) {
-  mysqli_query($conn, "UPDATE `absent` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' ");
-}
 
+if ($hari_ini  == $tanggal && $time == 21) {
+  mysqli_query($conn, "UPDATE `presensi` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' ");
+}
+var_dump($tanggal);
 // input target otomatis
 // angkatan 1
 $ambil_total_jadwal_akt1 = mysqli_fetch_array(mysqli_query($conn, "SELECT Max(week) as totalweek1, COUNT(batch) as batch FROM `schedule` WHERE date='$hari_ini' AND batch='$akt1'"));
@@ -33,9 +38,7 @@ $ambil_total_jadwal_akt45 = mysqli_fetch_array(mysqli_query($conn, "SELECT Max(w
 $batch45 = $ambil_total_jadwal_akt45['batch'];
 $minggumax45 = $ambil_total_jadwal_akt45['totalweek45'];
 
-// ambil jam sekarang dan nama hari
-$time = date('H');
-$nama_hari = date('l');
+
 
 // eksekusi
 if ($hari_ini  && $time == 21) {
@@ -53,9 +56,9 @@ if ($hari_ini  && $time == 21) {
 
 
 // set alarm
-$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `absent_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
+$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `presensi_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
 $alarm = $alert_alarm['nada_alarm'];
-if ($alert_alarm['absent_time'] < $waktu_sekarang && $alert_alarm['timer'] > $waktu_sekarang) { ?>
+if ($alert_alarm['presensi_time'] < $waktu_sekarang && $alert_alarm['timer'] > $waktu_sekarang) { ?>
   <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
 <?php }
 
@@ -66,7 +69,7 @@ $data_angkatan = mysqli_fetch_array($sql_siswa);
 $angkatan = $data_angkatan['angkatan'];
 
 // mengambil data schedule/jadwal berdasarkan angkatan siswa
-$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='$angkatan' and  date='$hari_ini'  and   `absent_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+$sqli_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='$angkatan' and  date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $list20 = mysqli_fetch_array($sqli_jadwal);
 $id_kegiatan = $list20['id'];
 $week = $list20['week'];
@@ -75,7 +78,7 @@ $id_kegiatan1 = $list20['id_activity'];
 $info = $list20['info'];
 $waktu = $list20['start_time'];
 $jam_akhir = $list20['end_time'];
-$waktuabsent = $list20['absent_time'];
+$waktuabsent = $list20['presensi_time'];
 $timer = $list20['timer'];
 $agreement = 'Waiting';
 
@@ -104,9 +107,9 @@ if ($angkatan == $batch) {
       $mentor = $mentor['mentor'];
       $sql_cekdata_nis = mysqli_num_rows(mysqli_query($conn, "SELECT nis, angkatan FROM `siswa` WHERE nis='$nis' and angkatan='$batch'"));
       if ($sql_cekdata_nis > 0) {
-        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$id_kegiatan'"));
+        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_kegiatan'"));
         $idbr = $max['id'] + 1;
-        $inputpresensi =  mysqli_query($conn, "INSERT INTO `absent`(`nis`,`absent_date`,`absent_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_absent`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
+        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi` (`nis`,`presensi_date`,`presensi_time`,`schedule_id`,`week`, `batch`,`id_activity`,`semester`,`info_schedule`,`mark`,`id_presensi`,`mentor`,`ACC_Mentor`) VALUES ('$nis','$hari_ini','$waktu_sekarang', '$id_kegiatan', ' $week', '$batch','$id_kegiatan1','$data_semester','$info','$hasil','$idbr','$mentor','$agreement')");
         if ($inputpresensi) {
           $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
           echo notice(2);
@@ -120,7 +123,7 @@ if ($angkatan == $batch) {
 } else if ($cek == 0) {
   $Announcement = $_SESSION['Announcement'] = 'No Schedule';
   echo notice(0);
-} else if ($cek_presensi['absent_time'] > $waktu_sekarang) {
+} else if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
   $Announcement = $_SESSION['Announcement'] = 'Its Not Time To Presence!';
   echo notice(0);
 } else {
@@ -262,7 +265,7 @@ $list = mysqli_fetch_array($jadwal);
             $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$nama_activity'"));
             return $sqly['name'];
           }
-          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where absent_date='$hari_ini' group by nis order by absent_time DESC");
+          $tampilan_presensi = mysqli_query($conn, "SELECT * FROM presensi where presensi_date='$hari_ini' group by nis order by presensi_time DESC");
           ?>
           <div class="modal-body " style="height: 300px;overflow: scroll;">
             <table class=" table table-striped">
@@ -278,22 +281,22 @@ $list = mysqli_fetch_array($jadwal);
                   $mark_S = $array_presensi['mark'] = 'S';
 
 
-                  $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V' AND absent_date='$hari_ini' ");
+                  $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_V' AND presensi_date='$hari_ini' ");
                   $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-                  $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_O'AND absent_date='$hari_ini' ");
+                  $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_O'AND presensi_date='$hari_ini' ");
                   $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-                  $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_X' AND absent_date='$hari_ini'");
+                  $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_X' AND presensi_date='$hari_ini'");
                   $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-                  $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_I' AND absent_date='$hari_ini'");
+                  $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_I' AND presensi_date='$hari_ini'");
                   $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-                  $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_S' AND absent_date='$hari_ini'");
+                  $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_S' AND presensi_date='$hari_ini'");
                   $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
-                  $tampil3 = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' group by nis ");
+                  $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nis='$nis' group by nis ");
                   $arraytampil3 = mysqli_fetch_array($tampil3);
 
                   $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];

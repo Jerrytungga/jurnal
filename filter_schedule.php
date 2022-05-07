@@ -58,7 +58,7 @@ function activity($activity)
 
     th {
       position: sticky;
-      top: 0;
+      top: 10px;
       background-color: #007BFF;
       color: #fff;
       padding: 12px 20px;
@@ -329,7 +329,7 @@ function activity($activity)
             <audio src="music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
 
           <?php       } else { ?>
-            <thead>
+            <thead class="mt-2">
               <tr>
                 <th scope="col">No</th>
                 <th scope="col">Schedule</th>
@@ -340,7 +340,7 @@ function activity($activity)
 
               </tr>
             </thead>
-            <tbody>
+            <tbody class="mt-2">
               <?php $i = 1; ?>
               <?php foreach ($tamplkan_data as $row2) : ?>
                 <tr>

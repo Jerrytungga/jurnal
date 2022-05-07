@@ -13,12 +13,12 @@ $s['name'];
 if (isset($_POST['week'])) {
   $week = $_POST['week'];
   if ($week != null) {
-    $data_absent  = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and  week LIKE '$week'  ORDER BY absent_time DESC");
+    $data_absent  = mysqli_query($conn, "SELECT * FROM presensi where nis='$nis' and  week LIKE '$week'  ORDER BY presensi_time DESC");
   } else {
-    $data_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and week='$week'");
+    $data_absent = mysqli_query($conn, "SELECT * FROM presensi where nis='$nis' and week='$week'");
   }
 } else {
-  $data_absent = mysqli_query($conn, "SELECT * FROM absent where nis='$nis' and absent_date='$hari_ini'");
+  $data_absent = mysqli_query($conn, "SELECT * FROM presensi where nis='$nis' and presensi_date='$hari_ini'");
   $query_absent = mysqli_fetch_array($data_absent);
 }
 
@@ -358,12 +358,12 @@ function activity($activity)
               $waktu_kegiatan = $sqly4['start_time'];
               $timer = $sqly4['timer'];
               $end_time = $sqly4['end_time'];
-              $absent_time1 = $sqly4['absent_time'];
+              $absent_time1 = $sqly4['presensi_time'];
               ?>
               <?= $waktu_kegiatan; ?>
             </td>
             <td>
-              <?= $row['absent_time']; ?>
+              <?= $row['presensi_time']; ?>
             </td>
             <td>
               <?php

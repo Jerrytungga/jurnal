@@ -221,7 +221,7 @@ include 'template/head.php'
 
                                     $totaljurnal = $revival_note['revivalnote'] + $prayer_note['prayernote'] + $bible_reading['biblereading'] + $exhibition['exhibition'] + $personalgoal['personalgoal'] + $homemeeting['homemeeting'] + $blessings['blessings'] + $totallivingraksepatu + $totallivingranjang + $totallivinglemari + $virtue_character;
 
-                                    $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai ' group by nis order by absent_time DESC");
+                                    $tampilan_presensi = mysqli_query($conn, "SELECT * FROM presensi where nis='$id'  and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai ' group by nis order by presensi_time DESC");
                                     while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
                                         $nis = $array_presensi['nis'];
                                         $mark_V = $array_presensi['mark'] = 'V';
@@ -231,19 +231,19 @@ include 'template/head.php'
                                         $mark_S = $array_presensi['mark'] = 'S';
 
 
-                                        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V'  and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai '");
+                                        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_V'  and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai '");
                                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-                                        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_O'  and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai '");
+                                        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_O'  and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai '");
                                         $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-                                        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_X'  and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai '");
+                                        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_X'  and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai '");
                                         $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-                                        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_I' and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai '");
+                                        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_I' and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai '");
                                         $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-                                        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_S'  and semester='$data_semester' and absent_date BETWEEN '$mulai' and '$selesai '");
+                                        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_S'  and semester='$data_semester' and presensi_date BETWEEN '$mulai' and '$selesai '");
                                         $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
                                         $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
@@ -325,7 +325,7 @@ include 'template/head.php'
 
                                     $totaljurnal = $revival_note['revivalnote'] + $prayer_note['prayernote'] + $bible_reading['biblereading'] + $exhibition['exhibition'] + $personalgoal['personalgoal'] + $homemeeting['homemeeting'] + $blessings['blessings'] + $totallivingraksepatu + $totallivingranjang + $totallivinglemari + $virtue_character;
 
-                                    $tampilan_presensi = mysqli_query($conn, "SELECT * FROM absent where nis='$id'  and semester='$data_semester' group by nis order by absent_time DESC");
+                                    $tampilan_presensi = mysqli_query($conn, "SELECT * FROM presensi where nis='$id'  and semester='$data_semester' group by nis order by presensi_time DESC");
                                     while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
                                         $nis = $array_presensi['nis'];
                                         $mark_V = $array_presensi['mark'] = 'V';
@@ -335,19 +335,19 @@ include 'template/head.php'
                                         $mark_S = $array_presensi['mark'] = 'S';
 
 
-                                        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_V'  and semester='$data_semester'");
+                                        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_V'  and semester='$data_semester'");
                                         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-                                        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_O'  and semester='$data_semester'");
+                                        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_O'  and semester='$data_semester'");
                                         $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-                                        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_X'  and semester='$data_semester'");
+                                        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_X'  and semester='$data_semester'");
                                         $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-                                        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_I' and semester='$data_semester'");
+                                        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_I' and semester='$data_semester'");
                                         $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-                                        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and mark='$mark_S'  and semester='$data_semester'");
+                                        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and mark='$mark_S'  and semester='$data_semester'");
                                         $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
                                         $total_point = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];

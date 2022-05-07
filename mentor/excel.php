@@ -5,8 +5,8 @@ include 'template/session.php';
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Report Presence.xls");
+// header("Content-type: application/vnd-ms-excel");
+// header("Content-Disposition: attachment; filename=Report Presence.xls");
 $nis = $_GET['nis'];
 $week = $_GET['week'];
 $target = $_GET['target'];
@@ -15,7 +15,7 @@ $data1 = mysqli_fetch_array($get_semester);
 $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
 $sql_siswa = mysqli_query($conn, "SELECT * FROM siswa WHERE nis='$nis' AND status='Aktif'");
 $data_siswa = mysqli_fetch_array($sql_siswa);
-$sql_Presence = mysqli_query($conn, "SELECT * FROM absent WHERE nis='$nis' and week='$week' and semester='$data_semester'");
+$sql_Presence = mysqli_query($conn, "SELECT * FROM presensi WHERE nis='$nis' and week='$week' and semester='$data_semester'");
 $data_presensi = mysqli_fetch_array($sql_Presence);
 
 // function data kegiatan
@@ -119,7 +119,17 @@ function kegiatan($name_kegiatan)
       Target : <?= $target; ?> Points <br>
       Week : <?= $week; ?>
     </div>
+
+    <table class="tgl_cetak">
+      <tr>
+        <th>
+          <?= $hari_ini; ?>
+        </th>
+      </tr>
+    </table>
+
     <table border="2">
+
       <tr>
         <th>No</th>
         <th>Name</th>
@@ -138,7 +148,7 @@ function kegiatan($name_kegiatan)
         ?>
         <?php
 
-        $tampil = mysqli_query($conn, "SELECT * FROM absent WHERE nis='$nis' and week='$week' and semester='$data_semester'");
+        $tampil = mysqli_query($conn, "SELECT * FROM presensi WHERE nis='$nis' and week='$week' and semester='$data_semester'");
         $array_presensi = mysqli_fetch_array($tampil);
         $mark_V = $array_presensi['mark'] = 'V';
         $mark_O = $array_presensi['mark'] = 'O';
@@ -146,19 +156,19 @@ function kegiatan($name_kegiatan)
         $mark_I = $array_presensi['mark'] = 'I';
         $mark_S = $array_presensi['mark'] = 'S';
 
-        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' and week='$week' and semester='$data_semester'");
+        $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' and week='$week' and semester='$data_semester'");
         $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_O' and week='$week' and semester='$data_semester'");
+        $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and ACC_Mentor='approved' and mark='$mark_O' and week='$week' and semester='$data_semester'");
         $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_X' and week='$week' and semester='$data_semester'");
+        $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and ACC_Mentor='approved' and mark='$mark_X' and week='$week' and semester='$data_semester'");
         $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
-        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I' and week='$week' and semester='$data_semester'");
+        $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I' and week='$week' and semester='$data_semester'");
         $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
 
-        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_S' and week='$week' and semester='$data_semester'");
+        $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM presensi where nis='$nis' and ACC_Mentor='approved' and mark='$mark_S' and week='$week' and semester='$data_semester'");
         $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
 
         $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
@@ -184,13 +194,13 @@ function kegiatan($name_kegiatan)
             ?>
             <?= $waktu_kegiatan; ?> WIB
           </td>
-          <td><?= $row['absent_time'] ?> WIB</td>
+          <td><?= $row['presensi_time'] ?> WIB</td>
           <td><?= $row['batch'] ?></td>
           <!-- <td><?= $target; ?></td> -->
           <td><?= $max; ?></td>
           <td><?= $row['ACC_Mentor'] ?></td>
           <td><?= $row['catatan'] ?></td>
-          <td width="200"><?= $row['absent_date'] ?></td>
+          <td width="200"><?= $row['presensi_date'] ?></td>
       </tr>
       <?php $i++; ?>
     <?php endforeach; ?>

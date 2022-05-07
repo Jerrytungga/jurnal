@@ -10,7 +10,7 @@ if (isset($_POST['save_pesan'])) {
     $id_jadwal = htmlspecialchars($_POST['id_absent1']);
     $Pesan_Mentor = htmlspecialchars($_POST['pesan_mentor']);
 
-    $sqli_Catatan = mysqli_query($conn, "UPDATE `absent` SET `catatan`='$Pesan_Mentor' where id_absent='$id_jadwal'");
+    $sqli_Catatan = mysqli_query($conn, "UPDATE `presensi` SET `catatan`='$Pesan_Mentor' where id_presensi='$id_jadwal'");
 }
 if (isset($_POST['insert_Edit_presence'])) {
     $id_1 = htmlspecialchars($_POST['id1']);
@@ -18,7 +18,7 @@ if (isset($_POST['insert_Edit_presence'])) {
     $mark_1 = htmlspecialchars($_POST['mark1']);
     $Acc_1 = htmlspecialchars($_POST['agreement1']);
     $catatan_1 = htmlspecialchars($_POST['catatan1']);
-    $sqli_absent2 = mysqli_query($conn, "UPDATE `absent` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_absent`='$id_1'");
+    $sqli_absent2 = mysqli_query($conn, "UPDATE `presensi` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_presensi`='$id_1'");
     if ($sqli_absent2) {
         $_SESSION['alert_edit_absent_berhasil'] = 'changed successfully';
     } else {
@@ -56,11 +56,11 @@ if (isset($_POST['insert_presence'])) {
     $info = $sql_schedule4['info'];
 
     // mengecek dan mengambil data absent time yang terdapat di database absent
-    $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT absent_time FROM `absent` WHERE nis='$nis'"));
-    $timeabsent = $sql_schedule5['absent_time'];
+    $sql_schedule5 = mysqli_fetch_array(mysqli_query($conn, "SELECT presensi_time FROM `presensi` WHERE nis='$nis'"));
+    $timeabsent = $sql_schedule5['presensi_time'];
 
     // mengurutkan id di database absent
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_absent`) As id FROM `absent` WHERE absent_date=date(now()) AND schedule_id='$schedule'"));
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$schedule'"));
     $idbr = $max['id'] + 1;
 
     // mengecek dan mengambil data mentor yang terdapat di database siswa
@@ -68,7 +68,7 @@ if (isset($_POST['insert_presence'])) {
     $mentor = $mentor['mentor'];
 
     // mengecek apakah ada data presensi ? jika ada maka muncul peringatan
-    $cek_data = mysqli_query($conn, "SELECT * FROM absent WHERE id_activity = '$activity' AND schedule_id ='$schedule' AND nis ='$nis'") or die($conn->error);
+    $cek_data = mysqli_query($conn, "SELECT * FROM presensi WHERE id_activity = '$activity' AND schedule_id ='$schedule' AND nis ='$nis'") or die($conn->error);
     if (mysqli_num_rows($cek_data) > 0) {
 
         // alert jika data nya ada
@@ -78,7 +78,7 @@ if (isset($_POST['insert_presence'])) {
     } else {
 
         // jika data presensi kosong maka di ijinkan untuk menambahkan data presensi
-        $sqli_absent = mysqli_query($conn, "INSERT INTO `absent`(`nis`, `schedule_id`,`mark`, `absent_date`, `absent_time`,`ACC_Mentor`, `catatan`, `id_absent`,`mentor`,`batch`,`week`,`id_activity`,`info_schedule`,`semester`) VALUES ('$nis','$schedule','$mark_presence','$date_presence','$time_presence','$Acc_mentor','$catatan_mentor','$idbr','$mentor','$angkatan','$week','$activity','$info','$data_semester')");
+        $sqli_absent = mysqli_query($conn, "INSERT INTO `presensi`(`nis`, `schedule_id`,`mark`, `presensi_date`, `presensi_time`,`ACC_Mentor`, `catatan`, `id_presensi`,`mentor`,`batch`,`week`,`id_activity`,`info_schedule`,`semester`) VALUES ('$nis','$schedule','$mark_presence','$date_presence','$time_presence','$Acc_mentor','$catatan_mentor','$idbr','$mentor','$angkatan','$week','$activity','$info','$data_semester')");
 
         // alert jika data berhasil di input ke dalam database
         if ($sqli_absent) {
@@ -121,7 +121,7 @@ function kegiatan($name_kegiatan)
 } // akhir function data kegiatan
 // and absent_date='$hari_ini'
 //query data absent siswa
-$Sqli_absent = mysqli_query($conn, "SELECT * FROM absent where mentor='$id' and absent_date='$hari_ini'");
+$Sqli_absent = mysqli_query($conn, "SELECT * FROM presensi where mentor='$id' and presensi_date='$hari_ini'");
 $array_absent = mysqli_fetch_array($Sqli_absent);
 ?>
 <!DOCTYPE html>
@@ -262,7 +262,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     $id_kegiatan = $row["schedule_id"];
                                                     $sqly4 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM schedule WHERE id='$id_kegiatan'"));
                                                     $waktu_kegiatan = $sqly4['start_time'];
-                                                    $waktu_absent = $sqly4['absent_time'];
+                                                    $waktu_absent = $sqly4['presensi_time'];
                                                     $Waktu_akhir = $sqly4['end_time'];
                                                     $date = $sqly4['date'];
 
@@ -285,7 +285,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                     ?>
                                                 </td>
                                                 <td><?= $waktu_absent; ?></td>
-                                                <td><?= $row["absent_time"]; ?></td>
+                                                <td><?= $row["presensi_time"]; ?></td>
                                                 <td><?= $row["week"]; ?></td>
                                                 <td>
                                                     <?php
@@ -313,7 +313,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                         <span class="badge badge-pill badge-success"><?= $row["ACC_Mentor"]; ?></span>
                                                     <?php  } ?>
                                                 </td>
-                                                <td><?= $row["absent_date"]; ?></td>
+                                                <td><?= $row["presensi_date"]; ?></td>
                                                 <td>
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a>
@@ -321,18 +321,18 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                 </td>
 
                                                 <td>
-                                                    <!-- <button type="button" class="btn btn-primary m-2" data-id_absent1="<?= $row["id_absent"]; ?>" data-pesan_mentor="<?= $row['catatan']; ?>" id="PSN" data-toggle="modal" data-target="#cttn_mentor">
+                                                    <!-- <button type="button" class="btn btn-primary m-2" data-id_absent1="<?= $row["id_presensi"]; ?>" data-pesan_mentor="<?= $row['catatan']; ?>" id="PSN" data-toggle="modal" data-target="#cttn_mentor">
                                                         Suggestion
                                                     </button> -->
                                                     <?php
                                                     if ($row["ACC_Mentor"] == 'Waiting') { ?>
-                                                        <a id="approved" href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
+                                                        <a id="approved" href="proses_approve.php?id=<?= $row["id_presensi"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
+                                                        <a href="proses_approve.php?id=<?= $row["id_presensi"]; ?>&notapproved=not approved" type="button" class="btn btn-danger m-2">Not Approved</a>
                                                     <?php  } else if ($row["ACC_Mentor"] == 'not approved') { ?>
-                                                        <a href="proses_approve.php?id=<?= $row["id_absent"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
+                                                        <a href="proses_approve.php?id=<?= $row["id_presensi"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
                                                     <?php   } else { ?>
 
-                                                        <button type="button" class="btn btn-warning m-2" data-nis1="<?= $row["nis"]; ?>" data-item_schedule1="<?= $row['schedule_id']; ?>" data-mark1="<?= $row['mark']; ?>" data-date1="<?= $row['absent_date']; ?>" data-catatan1="<?= $row['catatan']; ?>" data-time1="<?= $row['absent_time']; ?>" data-agreement1="<?= $row['ACC_Mentor']; ?>" data-id1="<?= $row['id_absent']; ?>" id="edit_schedule" data-toggle="modal" data-target="#Edit_presensi_siswa">
+                                                        <button type="button" class="btn btn-warning m-2" data-nis1="<?= $row["nis"]; ?>" data-item_schedule1="<?= $row['schedule_id']; ?>" data-mark1="<?= $row['mark']; ?>" data-date1="<?= $row['presensi_date']; ?>" data-catatan1="<?= $row['catatan']; ?>" data-time1="<?= $row['presensi_time']; ?>" data-agreement1="<?= $row['ACC_Mentor']; ?>" data-id1="<?= $row['id_presensi']; ?>" id="edit_schedule" data-toggle="modal" data-target="#Edit_presensi_siswa">
                                                             Edit
                                                         </button>
                                                     <?php   } ?>
