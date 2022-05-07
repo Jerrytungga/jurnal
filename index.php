@@ -26,7 +26,7 @@ $status = 'Waiting';
 if ($hari_ini  == $tanggal && $time == 21) {
   mysqli_query($conn, "UPDATE `presensi` SET `ACC_Mentor`='approved' WHERE `ACC_Mentor`='$status' ");
 }
-var_dump($tanggal);
+
 // input target otomatis
 // angkatan 1
 $ambil_total_jadwal_akt1 = mysqli_fetch_array(mysqli_query($conn, "SELECT Max(week) as totalweek1, COUNT(batch) as batch FROM `schedule` WHERE date='$hari_ini' AND batch='$akt1'"));
