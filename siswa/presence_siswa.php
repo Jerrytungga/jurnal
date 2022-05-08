@@ -279,13 +279,21 @@ include 'template/head.php'
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-1 ">
                                             <?php
+
                                             $cek_total_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(id_activity) total_jadwal FROM `schedule` WHERE week='$week'"));
-                                            $total4 =  $cek_total_jadwal['total_jadwal'] - $points;
+
+                                            if ($week == '%') {
+                                                $total5 = $cek_total_jadwal['total_jadwal'];
+                                            } else {
+                                                $total5 =  $cek_total_jadwal['total_jadwal'] - $points;
+                                            }
                                             ?>
                                             <center>
                                                 <div class="text-m font-weight-bold text-danger text-uppercase mb-1">
                                                     NOT PRESENT</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $arraytampil_mark_X['total'] +  $total4; ?></div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <?= $total5; ?>
+                                                </div>
                                             </center>
                                         </div>
 
