@@ -278,29 +278,30 @@ include 'template/head.php'
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-1 ">
-                                            <?php
+                                            <!-- <?php
 
-                                            $cek_total_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(id_activity) total_jadwal FROM `schedule` WHERE week='$week'"));
+                                                    $cek_total_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(id_activity) total_jadwal FROM `schedule` WHERE week='$week'"));
 
-                                            if ($week) {
+                                                    if ($week) {
 
-                                                if ($week == '%') {
-                                                    $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
-                                                } else {
-                                                    $cek_total_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as total FROM `tb_target_presensi` WHERE week='$week' and batch='$angkatan'"));
-                                                    $total5 =  $cek_total_target['total'] - $points;
-                                                }
-                                            } else {
-                                                $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
-                                            }
+                                                        if ($week == '%') {
+                                                            $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
+                                                        } else {
+                                                            $cek_total_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as total FROM `tb_target_presensi` WHERE week='$week' and batch='$angkatan'"));
+                                                            $total5 =  $cek_total_target['total'] - $points
+                                                                - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
+                                                        }
+                                                    } else {
+                                                        $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
+                                                    }
 
-                                            ?>
+                                                    ?> -->
                                             <center>
                                                 <div class="text-m font-weight-bold text-danger text-uppercase mb-1">
                                                     NOT PRESENT</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
 
-                                                    <?= $total5; ?>
+                                                    <?= $arraytampil_mark_X['total']; ?>
                                                 </div>
                                             </center>
                                         </div>
