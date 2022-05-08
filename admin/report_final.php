@@ -7,8 +7,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' ");
 $s = mysqli_fetch_array($siswa);
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
-$jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
-$revivalnote = mysqli_fetch_array($jurnal);
+
 $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil' ");
 $pembacaanalkitab = mysqli_fetch_array($alkitab);
 $doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
@@ -182,99 +181,160 @@ include 'template/Session.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="border-dark text-center">
-                                        <th rowspan="3" colspan="2" class="border-dark">
+
+                                    <tr>
+                                        <?php
+                                        $fokus_pembelajaran = mysqli_query($conn, "SELECT * FROM `meteri_pembelajaran` WHERE `nis`='$nis' and semester='$fil'");
+                                        $cek_data = mysqli_num_rows($fokus_pembelajaran);
+                                        $baris = $cek_data + 1;
+                                        ?>
+                                        <th rowspan="<?= $baris ?>" colspan="2" class="border-dark">
                                             Pengembangan Diri (Kerohanian)
                                         </th>
-                                        <td class="border-dark">Penyegaran Pagi<br>(saat teduh)</td>
-                                        <!-- target -->
-                                        <td class="border-dark">126</td>
-                                        <!-- nilai akhir -->
-                                        <td class="border-dark"><?= $revivalnote['jumlah']; ?></td>
-                                        <!-- persen -->
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <!-- keterangan -->
-                                        <td class="border-dark"></td>
                                     </tr>
-                                    <tr class="text-center">
+
+                                    <?php
+                                    while ($data_pembelajaran = mysqli_fetch_array($fokus_pembelajaran)) {
+                                        $namapembelajaran
+                                            = $data_pembelajaran['nama_pembelajaran'];
+                                        $target_pembelajaran
+                                            = $data_pembelajaran['target'];
+                                        $bobot
+                                            = $data_pembelajaran['bobot'];
+                                        $catatan
+                                            = $data_pembelajaran['catatan'];
+                                        if ($catatan == 'tb_bible_reading') {
+                                            $jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil'  ");
+                                        } else if ($catatan == 'tb_revival_note') {
+
+                                            $jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`) as jumlah FROM `" . $catatan . "` WHERE nis='$nis' AND semester='$fil' ");
+                                        } else {
+
+                                            $jurnal = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM `" . $catatan . "` WHERE nis='$nis' AND semester='$fil' ");
+                                        }
+                                        $revivalnote = mysqli_fetch_array($jurnal);
+                                        $persen = $revivalnote['jumlah'] / $target_pembelajaran * 100;
+                                        $bulatkan = round($persen);
+                                    ?>
+                                        <tr class="border-dark text-center">
+
+                                            <td class="border-dark"><?= $namapembelajaran; ?></td>
+                                            <!-- target -->
+                                            <td class="border-dark"><?= $target_pembelajaran; ?></td>
+                                            <!-- nilai akhir -->
+                                            <td class="border-dark"><?= $revivalnote['jumlah']; ?></td>
+                                            <!-- persen -->
+                                            <td class="border-dark"><?= $bulatkan ?></td>
+                                            <td class="border-dark"></td>
+                                            <td class="border-dark"><?= $bobot ?> </td>
+                                            <td class="border-dark"></td>
+                                            <!-- keterangan -->
+                                            <td class="border-dark"></td>
+                                        </tr>
+                                    <?php        }
+                                    ?>
+
+
+
+
+                                    <!-- <tr class="text-center">
                                         <td class="border-dark">Membaca Alkitab</td>
-                                        <!-- target -->
+
                                         <td class="border-dark">266</td>
-                                        <!-- nilai akhir -->
+
                                         <td class="border-dark"><?= $pembacaanalkitab['jumlah']; ?></td>
-                                        <!-- persen -->
+
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
-                                        <!-- keterangan -->
+
                                         <td class="border-dark"></td>
                                     </tr>
                                     <tr class="text-center">
                                         <td class="border-dark">Doa</td>
-                                        <!-- target -->
+
                                         <td class="border-dark">133</td>
-                                        <!-- nilai akhir -->
+
                                         <td class="border-dark"><?= $bebandoa['jumlah']; ?></td>
-                                        <!-- persen -->
+
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
-                                        <!-- keterangan -->
+
                                         <td class="border-dark"></td>
-                                    </tr>
+                                    </tr> -->
 
 
-
-                                    <tr class="text-center">
-                                        <th class="border-dark" rowspan="3" colspan="2">
+                                    <tr>
+                                        <?php
+                                        $fokus_pembelajaran1 = mysqli_query($conn, "SELECT * FROM `meteri_pembelajaran` WHERE `nis`='$nis' and semester='$fil'");
+                                        $cek_data1 = mysqli_num_rows($fokus_pembelajaran1);
+                                        $baris1 = $cek_data1 + 1;
+                                        ?>
+                                        <th class="border-dark" rowspan="<?= $baris1 ?>" colspan="2">
                                             Penetapan Tujuan Belajar
                                         </th>
-                                        <td class="border-dark">Kerohanian</td>
-                                        <!-- target -->
-                                        <td class="border-dark">38</td>
-                                        <!-- nilai akhir -->
-                                        <td class="border-dark"><?= $kerohanian['jumlah']; ?></td>
-                                        <!-- persen -->
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <td class="border-dark"></td>
-                                        <!-- keterangan -->
-                                        <td class="border-dark"></td>
                                     </tr>
-                                    <tr class="text-center">
+
+                                    <?php
+                                    while ($data_pembelajaran1 = mysqli_fetch_array($fokus_pembelajaran1)) {
+                                        $namapembelajaran1
+                                            = $data_pembelajaran1['nama_pembelajaran'];
+                                        $target_pembelajaran1
+                                            = $data_pembelajaran1['target'];
+                                        $bobot1
+                                            = $data_pembelajaran1['bobot'];
+                                        $catatan1
+                                            = $data_pembelajaran1['catatan'];
+                                    ?>
+                                        <tr class="text-center">
+                                            <td class="border-dark"><?= $namapembelajaran1 ?></td>
+                                            <!-- target -->
+                                            <td class="border-dark">38</td>
+                                            <!-- nilai akhir -->
+                                            <td class="border-dark"><?= $kerohanian['jumlah']; ?></td>
+                                            <!-- persen -->
+                                            <td class="border-dark"></td>
+                                            <td class="border-dark"></td>
+                                            <td class="border-dark"></td>
+                                            <td class="border-dark"></td>
+                                            <!-- keterangan -->
+                                            <td class="border-dark"></td>
+                                        </tr>
+                                    <?php        }
+                                    ?>
+
+
+                                    <!-- <tr class="text-center">
                                         <td class="border-dark">Pendidikan</td>
-                                        <!-- target -->
+
                                         <td class="border-dark">24</td>
-                                        <!-- nilai akhir -->
+
                                         <td class="border-dark"><?= $pendidikan['jumlah']; ?></td>
-                                        <!-- persen -->
+
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
-                                        <!-- keterangan -->
+
                                         <td class="border-dark"></td>
                                     </tr>
                                     <tr class="text-center">
                                         <td class="border-dark">Karakter</td>
-                                        <!-- target -->
+
                                         <td class="border-dark">38</td>
-                                        <!-- nilai akhir -->
+
                                         <td class="border-dark"> <?= $karakter1['jumlah']; ?></td>
-                                        <!-- persen -->
+
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
                                         <td class="border-dark"></td>
-                                        <!-- keterangan -->
+
                                         <td class="border-dark"></td>
-                                    </tr>
+                                    </tr> -->
 
 
                                     <tr class="text-center">
