@@ -104,7 +104,7 @@ if (isset($_POST['insert_shedule'])) {
   $date = htmlspecialchars($_POST['date']);
   $start_Waktu = htmlspecialchars($_POST['start_time']);
   $end_waktu = htmlspecialchars($_POST['end_time']);
-  $waktu_absent = htmlspecialchars($_POST['absent_time']);
+  $waktu_absent = htmlspecialchars($_POST['presensi_time']);
   $status = htmlspecialchars($_POST['status']);
   $timer = htmlspecialchars($_POST['txtAbsentTimer']);
   $alrm_nada = htmlspecialchars($_POST['alarm_nada']);

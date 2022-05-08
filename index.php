@@ -39,22 +39,22 @@ $batch45 = $ambil_total_jadwal_akt45['batch'];
 $minggumax45 = $ambil_total_jadwal_akt45['totalweek45'];
 
 // cek jadwal apakah ada
-// $cek_jadwal_ =  mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and  date='$hari_ini' "));
-// if ($cek_jadwal_ > 0) {
-// eksekusi
-if ($hari_ini  && $time == 21) {
-  $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
-  $id_maxtarget = $max_idtarget['id'] + 1;
-  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch1','$nama_hari','$data_semester ','$minggumax1','$akt1') ");
-};
+$cek_jadwal_ =  mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and  date='$hari_ini' "));
+if ($cek_jadwal_ > 0) {
+  // eksekusi
+  if ($hari_ini  && $time == 21) {
+    $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
+    $id_maxtarget = $max_idtarget['id'] + 1;
+    mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch1','$nama_hari','$data_semester ','$minggumax1','$akt1') ");
+  };
 
-if ($hari_ini  && $time == 21) {
-  $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
-  $id_maxtarget = $max_idtarget['id'] + 1;
-  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch45','$nama_hari','$data_semester ','$minggumax45','$akt45') ");
-};
-// akhir input target otomatis
-
+  if ($hari_ini  && $time == 21) {
+    $max_idtarget = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_tabel_presence`) As id FROM `tb_target_presensi`"));
+    $id_maxtarget = $max_idtarget['id'] + 1;
+    mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$batch45','$nama_hari','$data_semester ','$minggumax45','$akt45') ");
+  };
+  // akhir input target otomatis
+}
 
 // set alarm
 $alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE status='Aktif' and  `date`='$hari_ini' and `presensi_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
