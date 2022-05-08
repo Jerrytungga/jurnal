@@ -289,6 +289,8 @@ include 'template/head.php'
                                                 } else {
                                                     $total5 =  $cek_total_jadwal['total_jadwal'] - $points;
                                                 }
+                                            } else {
+                                                $total5 = $cek_total_jadwal['total_jadwal'];
                                             }
 
                                             ?>
