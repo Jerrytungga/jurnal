@@ -290,7 +290,7 @@ include 'template/head.php'
                                                     $total5 =  $cek_total_jadwal['total_jadwal'] - $points;
                                                 }
                                             } else {
-                                                $total5 = $cek_total_jadwal['total_jadwal'];
+                                                $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
                                             }
 
                                             ?>
