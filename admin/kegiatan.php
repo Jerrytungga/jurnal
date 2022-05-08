@@ -108,7 +108,7 @@ if (isset($_POST['insert_shedule'])) {
   $status = htmlspecialchars($_POST['status']);
   $timer = htmlspecialchars($_POST['txtAbsentTimer']);
   $alrm_nada = htmlspecialchars($_POST['alarm_nada']);
-  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`absent_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
+  $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`presensi_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
   if ($input_schedule) {
     $notif = $_SESSION['sukses'] = 'Schedule added successfully!';
   } else {
@@ -130,7 +130,7 @@ if (isset($_POST['updateschedule'])) {
   $edit_status = htmlspecialchars($_POST['keterangan']);
   $edit_timer_absen = htmlspecialchars($_POST['timerabsen']);
   $nama_alarm_edit = htmlspecialchars($_POST['nada']);
-  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`absent_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
+  $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`presensi_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
     $notif = $_SESSION['sukses'] = 'Schedule has been successfully changed!';
