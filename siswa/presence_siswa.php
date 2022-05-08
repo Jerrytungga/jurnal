@@ -281,15 +281,15 @@ include 'template/head.php'
                                             <?php
 
                                             $cek_total_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(id_activity) total_jadwal FROM `schedule` WHERE week='$week'"));
-
                                             if ($week != null) {
                                                 $total5 = $cek_total_jadwal['total_jadwal'];
-                                            } else if ($week == '%') {
+                                            }
+
+                                            if ($week == '%') {
                                                 $total5 = $cek_total_jadwal['total_jadwal'];
                                             } else {
                                                 $total5 =  $cek_total_jadwal['total_jadwal'] - $points;
                                             }
-
 
                                             ?>
                                             <center>
