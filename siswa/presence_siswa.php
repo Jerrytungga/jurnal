@@ -1,6 +1,6 @@
 <?php
 include '../database.php';
-
+$hari_ini = date('Y-m-d');
 // cek apakah yang mengakses halaman ini sudah login
 session_start();
 include 'template/session.php';
@@ -285,9 +285,10 @@ include 'template/head.php'
                                             if ($week) {
 
                                                 if ($week == '%') {
-                                                    $total5 = $cek_total_jadwal['total_jadwal'];
+                                                    $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
                                                 } else {
-                                                    $total5 =  $cek_total_jadwal['total_jadwal'] - $points;
+                                                    $cek_total_target = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(target) as total FROM `tb_target_presensi` WHERE week='$week' and batch='$angkatan'"));
+                                                    $total5 =  $cek_total_target['total'] - $points;
                                                 }
                                             } else {
                                                 $total5 = $Sqli_target['target'] - $points - $arraytampil_mark_I['total'] - $arraytampil_mark_S['total'] - $arraytampil_mark_O['total'];
