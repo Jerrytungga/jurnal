@@ -281,9 +281,7 @@ include 'template/head.php'
                                             <?php
 
                                             $cek_total_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(id_activity) total_jadwal FROM `schedule` WHERE week='$week'"));
-                                            if ($week != null) {
-                                                $total5 = $cek_total_jadwal['total_jadwal'];
-                                            }
+
 
                                             if ($week == '%') {
                                                 $total5 = $cek_total_jadwal['total_jadwal'];
@@ -296,7 +294,14 @@ include 'template/head.php'
                                                 <div class="text-m font-weight-bold text-danger text-uppercase mb-1">
                                                     NOT PRESENT</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    <?= $total5; ?>
+                                                    <?php
+                                                    if ($week != null) { ?>
+                                                        <?= $cek_total_jadwal['total_jadwal']; ?>
+                                                    <?php     } else { ?>
+                                                        <?= $total5; ?>
+
+                                                    <?php    }
+                                                    ?>
                                                 </div>
                                             </center>
                                         </div>
