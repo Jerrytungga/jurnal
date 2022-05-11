@@ -159,9 +159,10 @@ if (isset($_POST['reset'])) {
                                         //     global $conn;
                                         //     $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_categori_doa WHERE id='$doa'"));
                                         //     return $sqly['categori_doa'];
-                                        // } 
+                                        // }
                                         ?>
-                                        <?php foreach ($jurnal as $row) : ?>
+                                        <?php foreach ($jurnal as $row) :
+                                        ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $row['kategori']; ?></td>
@@ -204,7 +205,7 @@ if (isset($_POST['reset'])) {
                                                 </td>
                                             </tr>
                                             <?php
-                                            $total = $row['point'] + $row['point1']; ?>
+                                            $total = $total + $row['point1'] + $row['point']; ?>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>

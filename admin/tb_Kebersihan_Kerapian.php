@@ -11,18 +11,24 @@ if (isset($_POST['insert'])) {
   $sms = $_POST['semester'];
   $tbl = $_POST['tabel'];
   $bobot = 4;
-  if ($materi == 'Penyegaran Pagi (saat teduh)' && $tbl == 'tb_revival_note' || $materi == 'Alkitab' && $tbl == 'tb_bible_reading' || $materi == 'Doa' && $tbl == 'tb_prayer_note') {
+  $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_kebersihan_kerapian`) As id FROM `tb_kebersihan_kerapian`"));
+  $id_max = $max_id['id'] + 1;
+
+  if (
+    $materi == 'Lemari' && $tbl == 'Lemari' || $materi == 'Ranjang' && $tbl == 'Ranjang' ||
+    $materi == 'Rak Sepatu' && $tbl == 'Rak_Sepatu'
+  ) {
     if ($sms == 'NULL') {
       echo "<script>alert('Semester belum di isi!');</script>";
     } else {
-      $sqli_ = mysqli_query($conn, "INSERT INTO `tb_pengembangan_diri`(`nama_pembelajaran`, `target`,`semester`, `catatan`,`bobot`) VALUES ('$materi','$target','$sms','$tbl','$bobot')");
+      $sqli_ = mysqli_query($conn, "INSERT INTO `tb_kebersihan_kerapian`(`id_kebersihan_kerapian`,`nama_kebersihan_kerapian`, `target`,`semester`, `catatan`,`bobot`) VALUES ('$id_max','$materi','$target','$sms','$tbl','$bobot')");
     }
   } else {
     echo "<script>alert('Materi dan tabel tidak sama!');</script>";
   }
 }
-$sqli_pembelajaran = mysqli_query($conn, "SELECT * FROM `tb_pengembangan_diri` order by date DESC ");
-$pembelajaran = mysqli_fetch_array($sqli_pembelajaran);
+$sqli_kebersihan = mysqli_query($conn, "SELECT * FROM `tb_kebersihan_kerapian` order by date DESC ");
+$kebersihan = mysqli_fetch_array($sqli_kebersihan);
 function semester($semester)
 {
   global $conn;
@@ -74,7 +80,7 @@ function semester($semester)
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Pengembangan Diri (Kerohanian)</h1>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Kebersihan dan Kerapian</h1>
             </div>
           </div>
           <!-- DataTales Example -->
@@ -91,7 +97,7 @@ function semester($semester)
                   <thead class=" text-md-center">
                     <tr>
                       <th width="10">Kode</th>
-                      <th>Materi Pembelajaran</th>
+                      <th>Kebersihan dan Kerapian</th>
                       <th>Target</th>
                       <th>Bobot</th>
                       <th>Semester</th>
@@ -102,10 +108,10 @@ function semester($semester)
                   </thead>
                   <tbody class=" text-md-center">
                     <?php $i = 1; ?>
-                    <?php foreach ($sqli_pembelajaran  as $row) : ?>
+                    <?php foreach ($sqli_kebersihan  as $row) : ?>
                       <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row['nama_pembelajaran'] ?></td>
+                        <td><?= $row['nama_kebersihan_kerapian'] ?></td>
                         <td><?= $row['target'] ?></td>
                         <td><?= $row['bobot'] ?></td>
                         <td><?= semester($row['semester']); ?></td>
@@ -115,7 +121,7 @@ function semester($semester)
                           <?php
                           $hari_ini = date('Y-m-d');
                           if ($hari_ini == $row['date']) { ?>
-                            <a href="models/proses_delete.php?id=<?= $row['id_pembelajaran'] ?>" type="button" class="btn btn-danger">Delete</a>
+                            <a href="models/proses_delete.php?kebersihan=<?= $row['id_kebersihan_kerapian'] ?>" type="button" class="btn btn-danger">Delete</a>
                           <?php    }
                           ?>
 
@@ -130,12 +136,12 @@ function semester($semester)
               </div>
             </div>
 
-            <!-- Tambah materi pembelajaran -->
+            <!-- modal tambah data-->
             <div class="modal fade" id="pembelajaran" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pengembangan Diri (Kerohanian)</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Kebersihan dan Kerapian</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -143,11 +149,11 @@ function semester($semester)
                   <form action="" method="POST">
                     <div class="modal-body">
                       <div>
-                        <label for="Learning materials">Materi Pembelajaran</label>
+                        <label for="Learning materials">Kebersihan dan Kerapian</label>
                         <select name="learning" id="" class="form-control" required>
-                          <option value="Penyegaran Pagi (saat teduh)">Penyegaran Pagi (saat teduh)</option>
-                          <option value="Alkitab">Alkitab</option>
-                          <option value="Doa">Doa</option>
+                          <option value="Lemari">Lemari</option>
+                          <option value="Ranjang">Ranjang</option>
+                          <option value="Rak Sepatu">Rak Sepatu</option>
                         </select>
                       </div>
                       <div class="mt-2">
@@ -171,9 +177,9 @@ function semester($semester)
                       <div>
                         <label for="select table">Select Table</label>
                         <select name="tabel" class="form-control" required>
-                          <option value="tb_revival_note">Penyegaran Pagi (saat teduh)</option>
-                          <option value="tb_bible_reading">Alkitab</option>
-                          <option value="tb_prayer_note">Doa</option>
+                          <option value="Lemari">Lemari</option>
+                          <option value="Ranjang">Ranjang</option>
+                          <option value="Rak_Sepatu">Rak Sepatu</option>
                         </select>
                       </div>
                     </div>
@@ -186,7 +192,7 @@ function semester($semester)
                 </div>
               </div>
             </div>
-
+            <!-- modal akhir tambah data-->
 
           </div>
         </div>

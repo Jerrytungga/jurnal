@@ -6,23 +6,21 @@ date_default_timezone_set('Asia/Jakarta');
 
 $waktu_sekarang = date('H:i:s');
 if (isset($_POST['insert'])) {
-  $materi = $_POST['learning'];
-  $target = $_POST['target'];
+  $t_kelas_karakter = $_POST['target_kelas_karakter'];
+  $t_karakter_tokoh = $_POST['target_kelas_tokoh_karakter'];
+  $t_evaluasi_karakter = $_POST['target_kelas_evaluasi_karakter'];
   $sms = $_POST['semester'];
-  $tbl = $_POST['tabel'];
-  $bobot = 4;
-  if ($materi == 'Penyegaran Pagi (saat teduh)' && $tbl == 'tb_revival_note' || $materi == 'Alkitab' && $tbl == 'tb_bible_reading' || $materi == 'Doa' && $tbl == 'tb_prayer_note') {
-    if ($sms == 'NULL') {
-      echo "<script>alert('Semester belum di isi!');</script>";
-    } else {
-      $sqli_ = mysqli_query($conn, "INSERT INTO `tb_pengembangan_diri`(`nama_pembelajaran`, `target`,`semester`, `catatan`,`bobot`) VALUES ('$materi','$target','$sms','$tbl','$bobot')");
-    }
+  $bobot = 3 * 4;
+  $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_kelas_karakter`) As id FROM `tb_karakter`"));
+  $id_max = $max_id['id'] + 1;
+  if ($sms == 'NULL') {
+    echo "<script>alert('Semester belum di isi!');</script>";
   } else {
-    echo "<script>alert('Materi dan tabel tidak sama!');</script>";
+    $sqli_ = mysqli_query($conn, "INSERT INTO `tb_karakter`(`id_kelas_karakter`, `target_kelas_karakter`, `target_karakter_tokoh`, `target_evaluasi_karakter`, `semester`, `bobot`) VALUES ('$id_max','$t_kelas_karakter','$t_karakter_tokoh','$t_evaluasi_karakter','$sms','$bobot')");
   }
 }
-$sqli_pembelajaran = mysqli_query($conn, "SELECT * FROM `tb_pengembangan_diri` order by date DESC ");
-$pembelajaran = mysqli_fetch_array($sqli_pembelajaran);
+$sqli_karakter = mysqli_query($conn, "SELECT * FROM `tb_karakter` order by date DESC ");
+$karakter = mysqli_fetch_array($sqli_karakter);
 function semester($semester)
 {
   global $conn;
@@ -74,15 +72,15 @@ function semester($semester)
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Pengembangan Diri (Kerohanian)</h1>
+              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Kelas Karakter</h1>
             </div>
           </div>
           <!-- DataTales Example -->
 
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pembelajaran">
-                Tambah Item
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Penetapan">
+                Tambah Target
               </button>
             </div>
             <div class="card-body">
@@ -90,32 +88,32 @@ function semester($semester)
                 <table class="table table-bordered table-hover mydatatable" id="dataTable" width="100%">
                   <thead class=" text-md-center">
                     <tr>
-                      <th width="10">Kode</th>
-                      <th>Materi Pembelajaran</th>
-                      <th>Target</th>
-                      <th>Bobot</th>
+                      <th width="10">No</th>
+                      <th>Target Kelas Karakter (benar,ketat dan tepat)</th>
+                      <th>Target Kelas Karakter (tokoh)</th>
+                      <th>Target Kelas Evaluasi Karakter</th>
                       <th>Semester</th>
-                      <!-- <th>Tabel DB</th> -->
+                      <th>Bobot</th>
                       <th>Date</th>
                       <th>Option</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
                     <?php $i = 1; ?>
-                    <?php foreach ($sqli_pembelajaran  as $row) : ?>
+                    <?php foreach ($sqli_karakter  as $row) : ?>
                       <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row['nama_pembelajaran'] ?></td>
-                        <td><?= $row['target'] ?></td>
-                        <td><?= $row['bobot'] ?></td>
+                        <td><?= $row['target_kelas_karakter'] ?></td>
+                        <td><?= $row['target_karakter_tokoh'] ?></td>
+                        <td><?= $row['target_evaluasi_karakter'] ?></td>
                         <td><?= semester($row['semester']); ?></td>
-                        <!-- <td><?= $row['catatan'] ?></td> -->
+                        <td><?= $row['bobot'] ?></td>
                         <td><?= $row['date'] ?></td>
                         <td>
                           <?php
                           $hari_ini = date('Y-m-d');
                           if ($hari_ini == $row['date']) { ?>
-                            <a href="models/proses_delete.php?id=<?= $row['id_pembelajaran'] ?>" type="button" class="btn btn-danger">Delete</a>
+                            <a href="models/proses_delete.php?kelas_karakter=<?= $row['id_kelas_karakter'] ?>" type="button" class="btn btn-danger">Delete</a>
                           <?php    }
                           ?>
 
@@ -131,11 +129,11 @@ function semester($semester)
             </div>
 
             <!-- Tambah materi pembelajaran -->
-            <div class="modal fade" id="pembelajaran" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="Penetapan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pengembangan Diri (Kerohanian)</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Kelas Karakter</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -143,19 +141,22 @@ function semester($semester)
                   <form action="" method="POST">
                     <div class="modal-body">
                       <div>
-                        <label for="Learning materials">Materi Pembelajaran</label>
-                        <select name="learning" id="" class="form-control" required>
-                          <option value="Penyegaran Pagi (saat teduh)">Penyegaran Pagi (saat teduh)</option>
-                          <option value="Alkitab">Alkitab</option>
-                          <option value="Doa">Doa</option>
-                        </select>
+                        <label for="Target Karakter">Target Kelas Karakter (benar,ketat dan tepat)</label>
+                        <input type="number" name="target_kelas_karakter" class="form-control mb-1" required>
                       </div>
-                      <div class="mt-2">
-                        <label for="Target">Target</label>
-                        <input type="number" class="form-control mb-2" name="target" required>
-                        <!-- <label for="Target">Bobot</label>
-                        <input type="number" class="form-control" name="bobot" required> -->
+                      <div>
+                        <label for="Target karakter Tokoh">Target Kelas Karakter (tokoh)</label>
+                        <input type="number" name="target_kelas_tokoh_karakter" class="form-control mb-1" required>
                       </div>
+                      <div>
+                        <label for="Target karakter evaluasi">Target Kelas Evaluasi Karakter</label>
+                        <input type="number" name="target_kelas_evaluasi_karakter" class="form-control mb-1" required>
+                      </div>
+
+                      <!-- <div class="mt-2">
+                        <label for="Target">Bobot</label>
+                        <input type="number" class="form-control" name="bobot" required>
+                      </div> -->
                       <div class="form-group mt-2">
                         <label for="semester">Semester :</label>
                         <select class="form-control" name="semester" id="semester" required>
@@ -166,14 +167,6 @@ function semester($semester)
                             echo '<option value="' . $data_semester['thn_semester'] . '">' . $data_semester['keterangan'] . '</option>';
                           }
                           ?>
-                        </select>
-                      </div>
-                      <div>
-                        <label for="select table">Select Table</label>
-                        <select name="tabel" class="form-control" required>
-                          <option value="tb_revival_note">Penyegaran Pagi (saat teduh)</option>
-                          <option value="tb_bible_reading">Alkitab</option>
-                          <option value="tb_prayer_note">Doa</option>
                         </select>
                       </div>
                     </div>

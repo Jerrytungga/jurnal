@@ -59,32 +59,32 @@
      </li>
 
 
-     <!-- <li class="nav-item active">
+     <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Additional" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
-             <span>Semester report items</span>
+             <span>Aspek <br> Pembelajaran</span>
          </a>
          <div id="Additional" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <h6 class="collapse-header">Item:</h6>
-                 <a class="collapse-item" href="tb_pengembangan_diri.php">Pengembangan Diri <br> (Kerohanian)</a>
-                 <a class="collapse-item" href="#">Penetapan Tujuan Belajar</a>
-                 <a class="collapse-item" href="#">Keterampilan</a>
-                 <a class="collapse-item" href="#">Kehadiran Kelas</a>
-                 <a class="collapse-item" href="#">Jurnal</a>
-                 <a class="collapse-item" href="#">Kebajikan dan Karakter <br>
+                 <a class="collapse-item" href="tb_pengembangan_diri.php">Pengembangan Diri <br>(Kerohanian)</a>
+                 <a class="collapse-item" href="tb_penetapan_tujuan_belajar.php">Penetapan Tujuan Belajar</a>
+                 <a class="collapse-item" href="tb_keterampilan.php">Keterampilan</a>
+                 <a class="collapse-item" href="tb_kehadiran_kelas.php">Kehadiran Kelas</a>
+                 <a class="collapse-item" href="tb_jurnal.php">Jurnal</a>
+                 <a class="collapse-item" href="tb_pengamatan_mentor.php">Kebajikan dan Karakter <br>
                      (Pengamatan Mentor)</a>
-                 <a class="collapse-item" href="#">Kebersihan dan Kerapian</a>
-                 <a class="collapse-item" href="#">Akademik <br>
-                     (Persiapan SBMPTN)</a>
+                 <a class="collapse-item" href="tb_Kebersihan_Kerapian.php">Kebersihan dan Kerapian</a>
+                 <!-- <a class="collapse-item" href="#">Akademik <br>
+                     (Persiapan SBMPTN)</a> -->
                  <h6 class="collapse-header">Pengetahuan:</h6>
-                 <a class="collapse-item" href="#">Kelas Visi</a>
-                 <a class="collapse-item" href="#">Kelas Hayat</a>
-                 <a class="collapse-item" href="#">Kelas Karakter</a>
-                 <a class="collapse-item" href="#">Kelas Konsititusi</a>
+                 <a class="collapse-item" href="tb_kelas_visi.php">Kelas Visi</a>
+                 <a class="collapse-item" href="tb_kelas_hayat.php">Kelas Hayat</a>
+                 <a class="collapse-item" href="tb_kelas_karakter.php">Kelas Karakter</a>
+                 <a class="collapse-item" href="tb_kelas_konstitusi.php">Kelas Konsititusi</a>
              </div>
          </div>
-     </li> -->
+     </li>
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

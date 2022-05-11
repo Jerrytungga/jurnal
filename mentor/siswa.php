@@ -80,6 +80,7 @@ $s = mysqli_fetch_array($siswa);
                                             <th>Status</th>
                                             <th>Jurnal</th>
                                             <th>Penilaian</th>
+
                                         </tr>
                                     </thead>
 
@@ -162,6 +163,12 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
                                                         Dairy Siswa
                                                     </a>
+                                                    <a href="aspek_pembelajaran_pengetahuan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
+                                                        Aspek Pembelajaran Pengetahuan
+                                                    </a>
+                                                    <a href="kelas_keterampilan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
+                                                        Kelas Keterampilan
+                                                    </a>
 
 
                                                     <!-- <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
@@ -189,9 +196,6 @@ $s = mysqli_fetch_array($siswa);
                                                     <a href="living_ranjang.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
                                                         RANJANG
                                                     </a>
-
-
-
                                                 </td>
 
                                             </tr>
