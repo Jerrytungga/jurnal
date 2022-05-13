@@ -44,7 +44,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report</h1>
+                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report Weekly</h1>
                     </div>
                     <div class="row mt-2 mb-4">
                         <div class="col">

@@ -39,10 +39,24 @@
             <span>Presence</span></a>
     </li>
     <!-- Nav Item - final report -->
-    <li class="nav-item active">
+    <!-- <li class="nav-item active">
         <a class="nav-link" href="reportweekly_siswa.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Report Weekly</span></a>
+    </li> -->
+
+    <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Report</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Category:</h6>
+                <a class="collapse-item" href="reportweekly_siswa.php">Weekly</a>
+                <a class="collapse-item" href="report_semester.php">Semester</a>
+            </div>
+        </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
