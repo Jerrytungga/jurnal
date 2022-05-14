@@ -1698,9 +1698,11 @@ include 'template/head.php'
                                         $persentase = $bobot_pencapaian
                                             / $Total_bobot * 100;
                                         $bulatkan_persentase = round($persentase);
-                                        if ($persentase >= 90) {
+                                        if ($persentase >= 100) {
                                             $deskripsi_akhir = 'A';
                                             $bulatkan_persentase = 100;
+                                        } else if ($persentase >= 90) {
+                                            $deskripsi_akhir = 'A';
                                         } elseif ($persentase >= 80) {
                                             $deskripsi_akhir = 'B';
                                         } elseif ($persentase >= 75) {
