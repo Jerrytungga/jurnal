@@ -1641,13 +1641,14 @@ include 'template/head.php'
                                                 $deskripsi = 'Kurang Baik';
                                                 $bobot_ = '2';
                                                 $keterangan_ = 'C';
-                                            } elseif ($bulatkan <= 50) {
+                                            } elseif ($bulatkan >= 70) {
                                                 $deskripsi = 'Kurang Baik';
                                                 $bobot_ = '1';
                                                 $keterangan_ = 'D';
-                                            }
-
-                                            if ($bulatkan == 0) {
+                                            } elseif (
+                                                $bulatkan <= 50 ||
+                                                $bulatkan >= 50
+                                            ) {
                                                 $deskripsi = 'Tidak Baik';
                                                 $bobot_ = '0';
                                                 $keterangan_ = 'E';
