@@ -1700,6 +1700,7 @@ include 'template/head.php'
                                         $bulatkan_persentase = round($persentase);
                                         if ($persentase >= 90) {
                                             $deskripsi_akhir = 'A';
+                                            $bulatkan_persentase = 100;
                                         } elseif ($persentase >= 80) {
                                             $deskripsi_akhir = 'B';
                                         } elseif ($persentase >= 75) {
@@ -1708,9 +1709,6 @@ include 'template/head.php'
                                             $deskripsi_akhir = 'D';
                                         } elseif ($persentase < 50) {
                                             $deskripsi_akhir = 'E';
-                                        } elseif ($persentase > 100) {
-                                            $bulatkan_persentase = 100;
-                                            $deskripsi_akhir = 'A';
                                         }
                                         ?>
 
