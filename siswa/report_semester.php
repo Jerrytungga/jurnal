@@ -40,16 +40,26 @@ include 'template/head.php'
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- 404 Error Text -->
-                    <div class="text-center">
-                        <div class="error mx-auto" data-text="13008">13008</div> <br>
-                        <p class="lead text-gray-800 mb-5">Mohon Maaf Saat ini Halaman Rapor Akhir Semester Sedang Mengalami Proses Migrasi Ke Sistem Semi Otomatis <br>
-                            Proses Migrasi Akan Memakan Waktu 3x24 Jam.</p>
-                        <h4 class="text-gray-500 mb-0 mt-2">Fokus dan Tetaplah Mengerjakan Jurnal dengan Baik...</h4> <br><br>
+                    <form action="./report__semester.php">
+                        <div class="container-fluid">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-mb-4 text-gray-800">Please select semester</h1>
+                            </div>
+                            <select class="form-control col-2 m-2" required name="filter" id="filter" aria-label="Default select example">
+                                <option value="">Select Semester</option>
+                                <?php
 
+                                $semester = mysqli_query($conn, "SELECT * FROM tb_semester");
+                                while ($thn = mysqli_fetch_array($semester)) {
+                                    echo '<option value="' . $thn['thn_semester'] . '">' . $thn['keterangan'] . '</option>';
+                                }
+                                ?>
+                                <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
+                            </select>
+                            <button class="btn btn-primary mt-2 m-2" type="submit">Show</button>
 
-
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
 

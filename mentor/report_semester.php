@@ -70,6 +70,7 @@ include 'template/session.php';
                                 <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
                             </select>
                             <button class="btn btn-dark mt-2 m-2" type="submit">Show</button>
+
                         </div>
                     </form>
 

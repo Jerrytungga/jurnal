@@ -1,20 +1,11 @@
 <?php
 include '../database.php';
+// cek apakah yang mengakses halaman ini sudah login
 session_start();
+// // cek apakah yang mengakses halaman ini sudah login
 include 'template/session.php';
-$nis = $_GET['nis'];
+$nis = $id;
 $fil = $_GET['filter'];
-error_reporting(E_ALL ^ E_NOTICE);
-if (isset($_POST['simpan'])) {
-    $catatan_laporan_semester = $_POST['catatan'];
-    $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_catatan`) As id FROM `tb_catatan_lp_semester`"));
-    $id_max = $max_id['id'] + 1;
-    $query = mysqli_query($conn, "INSERT INTO `tb_catatan_lp_semester`(`id_catatan`, `catatan`, `nis_siswa`, `efata_mentor`,`semester`) VALUES ('$id_max','$catatan_laporan_semester','$nis','$id','$fil')");
-}
-if (isset($_POST['edit'])) {
-    $editcatatan_laporan_semester = $_POST['editcatatan'];
-    $query = mysqli_query($conn, "UPDATE `tb_catatan_lp_semester` SET `catatan`='$editcatatan_laporan_semester' WHERE `nis_siswa`='$nis' and `semester`='$fil' and `efata_mentor`='$id'");
-}
 $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' ");
 $s = mysqli_fetch_array($siswa);
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
@@ -23,47 +14,50 @@ $s2 = mysqli_fetch_array($semes);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Siswa</title>
-    <!-- Custom fonts for this template-->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <style>
-        .catatan1 {
-            font-size: 12pt;
-            text-align: justify;
-            font-weight: 500;
-        }
-    </style>
-</head>
+<?php
+include 'template/head.php'
+?>
+<style>
+    .catatan1 {
+        font-size: 12pt;
+        text-align: justify;
+        font-weight: 500;
+    }
+
+    .ukuran {
+        margin: 100px;
+    }
+</style>
 
 <body id="page-top">
+
     <!-- Page Wrapper -->
     <div id="wrapper">
+
+        <!-- Sidebar -->
         <?php
         include 'template/sidebar_menu.php';
         ?>
+        <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
+
             <!-- Main Content -->
             <div id="content">
+
                 <!-- Topbar -->
+
+
+                <!-- Topbar Navbar -->
                 <?php
                 include 'template/topbar_menu.php';
                 ?>
+
                 <!-- End of Topbar -->
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <a href="download_laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-dark mt-2 m-2">Download Report Semester</a>
+
                     <div class="card shadow">
                         <br>
                         <!-- isi konten -->
@@ -1775,24 +1769,15 @@ $s2 = mysqli_fetch_array($semes);
 
                                         <tr>
                                             <?php
-                                            $tampilkan_catatan = mysqli_query($conn, "SELECT * FROM `tb_catatan_lp_semester` WHERE efata_mentor='$id' and nis_siswa='$nis' and semester='$fil'");
+                                            $tampilkan_catatan = mysqli_query($conn, "SELECT * FROM `tb_catatan_lp_semester` WHERE  nis_siswa='$nis' and semester='$fil'");
                                             $data_catatan = mysqli_fetch_array($tampilkan_catatan);
                                             $cekdata = mysqli_num_rows($tampilkan_catatan);
+                                            $get_mentor_siswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mentor where efata='" . $data['mentor'] . "'"));
+                                            $get_mentor_siswa['name'];
+                                            $get_mentor_siswa['image'];
                                             ?>
                                             <th colspan="10" class="border-dark">
                                                 Catatan:
-                                                <?php
-                                                if ($cekdata > 0) { ?>
-                                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit">
-                                                        Edit
-                                                    </button>
-                                                <?php   } else { ?>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop">
-                                                        Tambahkan
-                                                    </button>
-                                                <?php }
-                                                ?>
 
                                             </th>
                                         </tr>
@@ -1807,62 +1792,10 @@ $s2 = mysqli_fetch_array($semes);
                                                 Mentor
                                                 <br><br><br><br>
 
-                                                <br><br><br><br><?= $data['name']; ?>
+                                                <br><br><br><br><?= $get_mentor_siswa['name']; ?>
                                             </td>
                                         </tr>
                                     </tbody>
-
-
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Catatan</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="" method="POST">
-                                                    <div class="modal-body">
-                                                        <textarea name="catatan" id="" cols="30" rows="10" class="form-control"></textarea>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="edit" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Catatan</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="" method="POST">
-                                                    <div class="modal-body">
-                                                        <textarea name="editcatatan" id="" cols="30" rows="10" class="form-control"><?= $data_catatan['catatan']; ?></textarea>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                        <button type="submit" name="edit" class="btn btn-primary">Simpan</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
 
 
 
@@ -1884,23 +1817,28 @@ $s2 = mysqli_fetch_array($semes);
 
                 </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
+
             <!-- Footer -->
+
             <?php
-            include 'template/footer_menu.php';
+            include 'template/footer.php';
             ?>
-            <!-- End of Footer -->
+
+
         </div>
         <!-- End of Content Wrapper -->
+
     </div>
     <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
+
+    <!-- Modal Log Out -->
     <?php
     include 'modal/modal_logout.php';
     include 'template/script.php';
     ?>
-
 
 
 </body>

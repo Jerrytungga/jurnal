@@ -83,7 +83,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">kategori:</h6>
                 <a class="collapse-item" href="reportweekly.php">Weekly</a>
-                <a class="collapse-item" href="pengembangan.php">Semester</a>
+                <a class="collapse-item" href="report_semester.php">Semester</a>
             </div>
         </div>
     </li>
