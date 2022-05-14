@@ -1708,7 +1708,8 @@ include 'template/head.php'
                                             $deskripsi_akhir = 'D';
                                         } elseif ($persentase < 50) {
                                             $deskripsi_akhir = 'E';
-                                        } elseif ($persentase >= 100) {
+                                        } elseif ($persentase > 100) {
+                                            $persentase = 100;
                                             $deskripsi_akhir = 'A';
                                         }
                                         ?>
