@@ -1427,7 +1427,8 @@ $s2 = mysqli_fetch_array($semes);
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '0';
                             $keterangan_ = 'E';
-                        } elseif ($bobot_ == 0) {
+                        }
+                        if ($bobot_ == 0) {
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '0';
                             $keterangan_ = 'E';
