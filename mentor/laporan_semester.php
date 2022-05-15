@@ -1334,7 +1334,7 @@ $s2 = mysqli_fetch_array($semes);
                         if ($bulatkan == 0) {
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '0';
-                            $keterangan_ = 'C';
+                            $keterangan_ = 'E';
                         }
                         $jumlah_presensi[] = $bobot_;
                         $total_presensi = array_sum($jumlah_presensi);
@@ -1426,8 +1426,13 @@ $s2 = mysqli_fetch_array($semes);
                         } elseif ($bulatkan == 0) {
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '0';
-                            $keterangan_ = 'C';
+                            $keterangan_ = 'E';
+                        } elseif ($bobot_ == 0) {
+                            $deskripsi = 'Tidak Mencapai Target';
+                            $bobot_ = '0';
+                            $keterangan_ = 'E';
                         }
+
                         $jumlah_jurnal[] = $bobot_;
                         $total_jurnal = array_sum($jumlah_jurnal);
                     ?>
