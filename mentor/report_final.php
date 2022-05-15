@@ -19,6 +19,9 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa  WHERE nis='$nis' ");
 $s = mysqli_fetch_array($siswa);
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
+$tampilkan_catatan = mysqli_query($conn, "SELECT * FROM `tb_catatan_lp_semester` WHERE efata_mentor='$id' and nis_siswa='$nis' and semester='$fil'");
+$data_catatan = mysqli_fetch_array($tampilkan_catatan);
+$cekdata = mysqli_num_rows($tampilkan_catatan);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +66,11 @@ $s2 = mysqli_fetch_array($semes);
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <a href="download_laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-dark mt-2 m-2">Download Report Semester</a>
+                    <?php
+                    if ($cekdata > 0) { ?>
+                        <a href="laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-dark mt-2 m-2">Download Report Semester</a>
+                    <?php }
+                    ?>
                     <div class="card shadow">
                         <br>
                         <!-- isi konten -->
@@ -197,12 +204,6 @@ $s2 = mysqli_fetch_array($semes);
                                         <?php        }
 
                                         ?>
-
-                                        <!-- akhir script pembelajaran ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
-
-                                        <!-- Awal script Tujuan belajar ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
                                         <tr>
                                             <?php
@@ -1859,19 +1860,6 @@ $s2 = mysqli_fetch_array($semes);
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 </table>
 

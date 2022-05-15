@@ -24,8 +24,9 @@ include 'template/head.php'
         font-weight: 500;
     }
 
-    .ukuran {
-        margin: 100px;
+    .tabel {
+        width: 70%;
+        height: 300px;
     }
 </style>
 
@@ -84,7 +85,7 @@ include 'template/head.php'
                                     </tbody>
                                 </table>
                                 <!-- <p align="center"> -->
-                                <table class="table table-sm table-bordered " style="width: 70%" cellspacing="0">
+                                <table class="table table-sm table-bordered tabel " cellspacing="0">
                                     <thead class=" table-secondary border-dark">
                                         <tr class="border-dark text-center">
                                             <th class="border-dark" rowspan="2" colspan="2" width="200">ASPEK PEMBELAJARAN</th>
@@ -164,8 +165,7 @@ include 'template/head.php'
                                                 $deskripsi = 'Tidak Mencapai Target';
                                                 $bobot_ = '1';
                                                 $keterangan_ = 'D';
-                                            }
-                                            if ($bulatkan == 0) {
+                                            } elseif ($bulatkan == 0) {
                                                 $keterangan_ = 'E';
                                                 $bobot_ = '0';
                                                 $deskripsi = 'Tidak Mencapai Target';
@@ -1717,10 +1717,6 @@ include 'template/head.php'
 
 
 
-
-
-
-
                                         <tr class="text-center">
                                             <th rowspan="2" colspan="6" class="table-secondary border-dark mb-md-3">
                                                 Bobot (<?= $Total_bobot ?>)
@@ -1800,15 +1796,6 @@ include 'template/head.php'
                                             </td>
                                         </tr>
                                     </tbody>
-
-
-
-
-
-
-
-
-
 
                                 </table>
 

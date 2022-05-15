@@ -9,18 +9,6 @@ $s = mysqli_fetch_array($siswa);
 $semes = mysqli_query($conn, "SELECT * FROM tb_semester where thn_semester='$fil' ");
 $s2 = mysqli_fetch_array($semes);
 
-// $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$nis' AND semester='$fil' ");
-// $pembacaanalkitab = mysqli_fetch_array($alkitab);
-// $doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$nis' AND semester='$fil' ");
-// $bebandoa = mysqli_fetch_array($doa);
-// $presensi = mysqli_query($conn, "SELECT SUM(`presensi`) as jumlah FROM tb_presensi WHERE nis='$nis' AND semester='$fil' ");
-// $kehadiran = mysqli_fetch_array($presensi);
-// $homemeeting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$nis' AND semester='$fil'  ");
-// $catatanberkat = mysqli_fetch_array($homemeeting);
-// $ask = mysqli_query($conn, "SELECT SUM(`point7`) as jumlah FROM tb_blessings WHERE nis='$nis' AND semester='$fil' ");
-// $konseling = mysqli_fetch_array($ask);
-
-
 
 
 include 'template/Session.php';
@@ -73,7 +61,6 @@ include 'template/Session.php';
                             <table style="width: 70%">
                                 <tbody>
                                     <tr>
-
                                         <th class="text-left">
                                             <h6>Nama : <?= $s['name']; ?> </h6>
                                             <h6>Nis : <?= $s['nis']; ?></h6>
@@ -83,7 +70,6 @@ include 'template/Session.php';
                                             <h6>Periode : <?= $s2['keterangan']; ?></h6>
                                         </th>
                                     </tr>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -98,7 +84,6 @@ include 'template/Session.php';
                                         <th class="border-dark" rowspan="2">Bobot</th>
                                         <th class="border-dark" rowspan="2" width="270">Deskripsi Pelaksanaan</th>
                                         <th class="border-dark" rowspan="2" width="250">Ket.</th>
-
                                     </tr>
                                     <tr class=" text-center">
                                         <th class="border-dark" width="130">Nilai Akhir</th>
@@ -119,7 +104,6 @@ include 'template/Session.php';
                                             Pengembangan Diri (Kerohanian)
                                         </th>
                                     </tr>
-
                                     <?php
                                     while ($data_pembelajaran = mysqli_fetch_array($fokus_pembelajaran)) {
                                         $namapembelajaran
@@ -168,6 +152,11 @@ include 'template/Session.php';
                                             $deskripsi = 'Tidak Mencapai Target';
                                             $bobot_ = '1';
                                             $keterangan_ = 'D';
+                                        }
+                                        if ($bobot_ == 0) {
+                                            $deskripsi = 'Tidak Mencapai Target';
+                                            $bobot_ = '0';
+                                            $keterangan_ = 'E';
                                         }
                                         $jumlah_pengembangan_diri[] = $bobot_;
                                         $total_pengembangan_diri = array_sum($jumlah_pengembangan_diri);
