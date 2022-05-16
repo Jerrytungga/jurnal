@@ -1705,7 +1705,11 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         $persentase = $bobot_pencapaian
                                             / $Total_bobot * 100;
                                         $bulatkan_persentase = round($persentase);
-                                        if ($persentase >= 90) {
+
+                                        if ($persentase >= 100) {
+                                            $deskripsi_akhir = 'A';
+                                            $bulatkan_persentase = 100;
+                                        } else if ($persentase >= 90) {
                                             $deskripsi_akhir = 'A';
                                         } elseif ($persentase >= 80) {
                                             $deskripsi_akhir = 'B';
@@ -1715,9 +1719,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $deskripsi_akhir = 'D';
                                         } elseif ($persentase < 50) {
                                             $deskripsi_akhir = 'E';
-                                        } elseif ($bulatkan_persentase > 100) {
-                                            $deskripsi_akhir = 'A';
-                                            $bulatkan_persentase = 100;
                                         }
                                         ?>
 
