@@ -1715,6 +1715,9 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $deskripsi_akhir = 'D';
                                         } elseif ($persentase < 50) {
                                             $deskripsi_akhir = 'E';
+                                        } elseif ($persentase > 100) {
+                                            $deskripsi_akhir = 'A';
+                                            $persentase = 100;
                                         }
                                         ?>
 
