@@ -1360,11 +1360,6 @@ $s2 = mysqli_fetch_array($semes);
                     }
                     ?>
 
-                    <!-- Akhir script Tujuan belajar ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
-
-
                     <tr>
                         <?php
                         $tb_jurnal = mysqli_query($conn, "SELECT * FROM `tb_jurnal` WHERE semester='$fil'");
@@ -1423,7 +1418,8 @@ $s2 = mysqli_fetch_array($semes);
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '1';
                             $keterangan_ = 'D';
-                        } elseif ($bulatkan == 0) {
+                        }
+                        if ($bulatkan == 0) {
                             $deskripsi = 'Tidak Mencapai Target';
                             $bobot_ = '0';
                             $keterangan_ = 'E';
@@ -1729,7 +1725,10 @@ $s2 = mysqli_fetch_array($semes);
                     $persentase = $bobot_pencapaian
                         / $Total_bobot * 100;
                     $bulatkan_persentase = round($persentase);
-                    if ($persentase >= 90) {
+                    if ($persentase >= 100) {
+                        $deskripsi_akhir = 'A';
+                        $bulatkan_persentase = 100;
+                    } else if ($persentase >= 90) {
                         $deskripsi_akhir = 'A';
                     } elseif ($persentase >= 80) {
                         $deskripsi_akhir = 'B';

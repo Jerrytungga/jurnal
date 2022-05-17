@@ -3,14 +3,14 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title">Add Presence</h5>
+        <h5 class="modal-title">Tambah Presensi</h5>
         <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>
       </div>
       <form method="post" action="">
         <div class="modal-body">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="batch">Student</label>
+              <label for="batch">Siswa</label>
               <select class="form-control" required name="nis" aria-label="Default select example">
                 <option selected>Pilih Siswa</option>
                 <?php
@@ -22,9 +22,9 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label>Select Schedule</label>
+              <label>Pilih Kegiatan</label>
               <select class="form-control" name="item_schedule" aria-label="Default select example" required>
-                <option selected>Select</option>
+                <option selected>Pilih Kegiatan</option>
                 <?php
                 //ambil angktan siswa
                 $ambil_AKT = mysqli_fetch_array(mysqli_query($conn, "SELECT angkatan FROM `siswa` WHERE mentor='$id'"));
@@ -42,7 +42,7 @@
 
             <div class="form-group col">
 
-              <label>Mark Presence (V or O or X or I or S)</label>
+              <label>Tandai Kehadiran (V or O or X or I or S)</label>
               <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
               <select class="form-control" name="mark">
                 <option value="V">V (Hadir)</option>
@@ -53,19 +53,19 @@
               </select>
             </div>
             <div class="col">
-              <label>Presence Date</label>
+              <label>Tanggal</label>
               <input type="date" name="date" class="form-control" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="col">
-              <label for="start_time">Presence Time (hh:mm:ss)</label>
+              <label for="start_time">Waktu Presensi (hh:mm:ss)</label>
               <input type="time" name="start_time" class="time form-control" required>
             </div>
 
             <div class="col">
-              <label>Agreement</label>
+              <label>Persetujuan</label>
               <select class="form-control" name="agreement">
                 <option value="approved">Approved (Di setujui)</option>
                 <option value="not approved">Not Approved (Tidak di setujui)</option>
@@ -77,11 +77,11 @@
 
           <div class="form-row">
             <div class="col">
-              <label>Suggestion (Catatan Mentor)</label>
+              <label>Catatan Mentor</label>
               <textarea rows="3" type="text" name="catatan" class="form-control"></textarea>
             </div>
           </div><br />
-          <button type="submit" name="insert_presence" class="btn btn-success">Insert</button>
+          <button type="submit" name="insert_presence" class="btn btn-success">Tambahkan</button>
         </div>
       </form>
     </div>
@@ -96,7 +96,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" id="modal-edit_shedule">
     <div class="modal-content">
       <div class="modal-header bg-warning ">
-        <h5 class="modal-title">Edit Presence</h5>
+        <h5 class="modal-title">Edit Presensi</h5>
         <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button>
       </div>
       <form method="post" action="">
@@ -104,7 +104,7 @@
           <input type="hidden" name="id1" id="id1">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="batch">Student</label>
+              <label for="batch">Siswa</label>
               <select class="form-control" name="nis1" id="nis1" disabled>
                 <option selected>Pilih Siswa</option>
                 <?php
@@ -118,9 +118,9 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label>Select Schedule</label>
+              <label>Kegiatan</label>
               <select class="form-control" name="item_schedule1" id="item_schedule1" aria-label="Default select example" required>
-                <option selected>Select</option>
+                <option selected>Pilih Kegiatan</option>
                 <?php
                 date_default_timezone_set('Asia/Jakarta');
                 $hari_ini = date('Y-m-d');
@@ -139,7 +139,7 @@
 
             <div class="form-group col">
 
-              <label>Mark Presence (V or O or X or I or S)</label>
+              <label>Tandai Kehadiran (V or O or X or I or S)</label>
               <!--<input type="text" name="participant" id="participant" class="form-control" /> -->
               <select class="form-control" name="mark1" id="mark1">
                 <option value="V">V (Hadir)</option>
@@ -150,19 +150,19 @@
               </select>
             </div>
             <div class="col">
-              <label>Presence Date</label>
+              <label>Tanggal</label>
               <input type="date" name="date1" id="date1" class="form-control" readonly />
             </div>
           </div>
 
           <div class="form-row">
             <div class="col">
-              <label for="time1">Presence Time (hh:mm:ss)</label>
+              <label for="time1">Waktu Presensi (hh:mm:ss)</label>
               <input type="time" name="time1" id="time1" class="time form-control" readonly>
             </div>
 
             <div class="col">
-              <label>Agreement</label>
+              <label>Persetujuan</label>
               <select class="form-control" name="agreement1" id="agreement1">
                 <option value="approved">Approved (Di setujui)</option>
                 <option value="not approved">Not Approved (Tidak di setujui)</option>
@@ -174,11 +174,11 @@
 
           <div class="form-row">
             <div class="col">
-              <label>Suggestion (Catatan Mentor)</label>
+              <label>Catatan Mentor </label>
               <textarea rows="3" type="text" name="catatan1" id="catatan1" class="form-control"></textarea>
             </div>
           </div><br />
-          <button type="submit" name="insert_Edit_presence" class="btn btn-danger">Update</button>
+          <button type="submit" name="insert_Edit_presence" class="btn btn-danger">Simpan Perubahan</button>
         </div>
       </form>
     </div>

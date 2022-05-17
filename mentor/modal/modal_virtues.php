@@ -3,7 +3,7 @@
       <div class="modal-dialog" id="modal-edit">
           <div class="modal-content">
               <div class="modal-header">
-                  <label class=" font-weight-bold">Changes Virtues</label>
+                  <label class=" font-weight-bold">Edit Kebajikan</label>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -17,7 +17,7 @@
                       <label class=" font-weight-bold">Ramah & Sopan :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapramahsopan" id="sikapramahsopan">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -26,7 +26,7 @@
                       <label class="font-weight-bold">Berkordinasi :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapberkordinasi" id="sikapberkordinasi">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -36,7 +36,7 @@
                       <label class="font-weight-bold">Tolong Menolong :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikaptolongmenolong" id="sikaptolongmenolong">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -45,7 +45,7 @@
                       <label class="font-weight-bold">See & Do :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapseedo" id="sikapseedo">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -53,14 +53,14 @@
                       </div>
 
                       <div class="form-group">
-                          <label class="font-weight-bold">Mentor Notes :</label>
+                          <label class="font-weight-bold">Catatan Mentor :</label>
                           <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                       </div>
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-warning" name="btn_virtue">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-warning" name="btn_virtue">Simpan Perubahan</button>
                   </div>
               </form>
           </div>
@@ -75,7 +75,7 @@
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title font-weight-bold" id="virtues">Virtues</h5>
+                  <h5 class="modal-title font-weight-bold" id="virtues">Kebajikan</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -91,7 +91,7 @@
                       <label class=" font-weight-bold">Ramah & Sopan :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapramahsopan" id="sikapramahsopan">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -101,7 +101,7 @@
                       <label class="font-weight-bold">Berkordinasi :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapberkordinasi" id="sikapberkordinasi">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -110,7 +110,7 @@
                       <label class="font-weight-bold">Tolong Menolong :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikaptolongmenolong" id="sikaptolongmenolong">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -120,7 +120,7 @@
                       <label class="font-weight-bold">See & Do :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapseedo" id="sikapseedo">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -128,14 +128,14 @@
                       </div>
 
                       <div class="form-group">
-                          <label class="font-weight-bold">Mentor Notes :</label>
+                          <label class="font-weight-bold">Catatan Mentor :</label>
                           <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                       </div>
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-success" name="btn_submit_virtues">Submit</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-success" name="btn_submit_virtues">Simpan</button>
                   </div>
               </form>
 

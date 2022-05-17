@@ -16,17 +16,17 @@ if (isset($_POST['btn_input'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $input =  mysqli_query($conn, "INSERT INTO `tb_living_seprei`(`nis`, `rapi`, `bersih`, `raib`, `benda_asing`, `image`, `catatan`, `efata`, `semester`) VALUES ('$nis','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata','$smt') ");
             if ($input) {
-                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+                $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
             } else {
-                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+                $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
             }
         }
     } else {
         $input =  mysqli_query($conn, "INSERT INTO `tb_living_seprei`(`nis`, `rapi`, `bersih`, `raib`, `benda_asing`, `catatan`, `efata`, `semester`) VALUES ('$nis','$rp','$br','$rb','$brs','$notes','$efata','$smt') ");
         if ($input) {
-            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
         } else {
-            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
         }
     }
 }
@@ -48,17 +48,17 @@ if (isset($_POST['btn_update'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $edit =  mysqli_query($conn, "UPDATE `tb_living_seprei` SET `nis`='$nis',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`benda_asing`='$brs',`image`='$nama_gambar',`catatan`='$notes',`efata`='$efata',`date`='$date',`semester`='$smt' WHERE `tb_living_seprei`.`nis`='$nis' AND `tb_living_seprei`.`date`='$date' ");
             if ($edit) {
-                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+                $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
             } else {
-                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+                $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
             }
         }
     } else {
         $edit =  mysqli_query($conn, "UPDATE `tb_living_seprei` SET `nis`='$nis',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`benda_asing`='$brs',`catatan`='$notes',`efata`='$efata',`date`='$date',`semester`='$smt' WHERE `tb_living_seprei`.`nis`='$nis' AND `tb_living_seprei`.`date`='$date' ");
         if ($edit) {
-            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         } else {
-            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         }
     }
 }
@@ -68,9 +68,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_living_seprei`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Di Hapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Di Hapus!';
     }
 }
 session_start();
@@ -123,7 +123,7 @@ include 'template/head.php';
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <h6 class=" font-weight-bold text-success">Seprei</h6>
-                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#livingseprei">Input</a>
+                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#livingseprei">Masukan Penilaian</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -137,9 +137,8 @@ include 'template/head.php';
                                             <th width="100">Benda Asing</th>
                                             <th width="150">foto</th>
                                             <th width="200">Catatan Mentor</th>
-                                            <th width="100">Date</th>
-                                            <th width="100">Option</th>
-
+                                            <th width="100">Tanggal</th>
+                                            <th width="100">Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -172,7 +171,7 @@ include 'template/head.php';
                                                 <td>
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
@@ -181,7 +180,7 @@ include 'template/head.php';
                                                             </a>
 
                                                             <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
 
                                                         </div>
@@ -196,7 +195,7 @@ include 'template/head.php';
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="7"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>
@@ -230,7 +229,7 @@ include 'template/head.php';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title font-weight-bold" id="livingseprei">Living Seprei</label>
+                    <label class="modal-title font-weight-bold" id="livingseprei">Seprei</label>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -246,7 +245,7 @@ include 'template/head.php';
                         <label class="text-reset">Rapi</label>
                         <div class="form-group">
                             <select class="form-control" name="rapi" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -257,7 +256,7 @@ include 'template/head.php';
                         <label class="text-reset">Bersih</label>
                         <div class="form-group">
                             <select class="form-control" name="bersih" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -268,7 +267,7 @@ include 'template/head.php';
                         <label class="text-reset">Raib</label>
                         <div class="form-group">
                             <select class="form-control" name="raib" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -278,7 +277,7 @@ include 'template/head.php';
                         <label>Benda asing </label>
                         <div class="form-group">
                             <select class="form-control" name="brngasing" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
                                 <option value="-2">-2</option>
@@ -299,15 +298,15 @@ include 'template/head.php';
                         </div>
 
                         <div class="form-group">
-                            <label>Mentor Notes </label>
+                            <label>Catatan Mentor</label>
                             <textarea rows="5" type="text" class="form-control" id="cttn" name="cttn"></textarea>
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_input" class="btn btn-success ">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" name="btn_input" class="btn btn-success ">Simpan</button>
                     </div>
                 </form>
 
@@ -327,7 +326,7 @@ include 'template/head.php';
         <div class="modal-dialog" id="modal-edit">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title font-weight-bold" id="livingseprei">Change Living Seprei</label>
+                    <label class="modal-title font-weight-bold" id="livingseprei">Edit Penilaian Seprei</label>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -344,7 +343,7 @@ include 'template/head.php';
                         <label class="text-reset">Rapi</label>
                         <div class="form-group">
                             <select class="form-control" id="rapi" name="rapi" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -355,7 +354,7 @@ include 'template/head.php';
                         <label class="text-reset">Bersih</label>
                         <div class="form-group">
                             <select class="form-control" id="bersih" name="bersih" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -366,7 +365,7 @@ include 'template/head.php';
                         <label class="text-reset">Raib</label>
                         <div class="form-group">
                             <select class="form-control" id="raib" name="raib" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -376,7 +375,7 @@ include 'template/head.php';
                         <label>Benda asing </label>
                         <div class="form-group">
                             <select class="form-control" id="brngasing" name="brngasing" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
                                 <option value="-2">-2</option>
@@ -400,15 +399,15 @@ include 'template/head.php';
                         </div>
 
                         <div class="form-group">
-                            <label>Mentor Notes </label>
+                            <label>Catatan Mentor </label>
                             <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_update" class="btn btn-warning ">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" name="btn_update" class="btn btn-warning ">Simpan Perubahan</button>
                     </div>
                 </form>
 

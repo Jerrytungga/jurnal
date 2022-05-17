@@ -20,22 +20,19 @@ $count4 = mysqli_num_rows($get4);
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Jurnal PKA</title>
-
+    <title>Dasbor</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="../vendor/datatables/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -63,7 +60,7 @@ $count4 = mysqli_num_rows($get4);
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Dasbor</h1>
 
                     </div>
 
@@ -78,7 +75,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                My Student</div>
+                                                Siswa Saya</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count1; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -96,7 +93,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Student</div>
+                                                total Siswa</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count2; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -115,7 +112,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Active Mentor</div>
+                                                Mentor Aktif</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count3; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -151,7 +148,7 @@ $count4 = mysqli_num_rows($get4);
                         <!-- Bar Chart -->
                         <div class="card shadow  w-100 m-lg-2">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary mb-2">Progress Journal</h6>
+                                <h6 class="m-0 font-weight-bold text-primary mb-2">Jurnal Kemajuan</h6>
                                 <div class="select_ form-inline ">
                                     <form action="" method="POST">
                                         <select class="form-control mb-2 " required name="nis" aria-label="Default select example">
@@ -162,7 +159,7 @@ $count4 = mysqli_num_rows($get4);
 
                                                 <option value="<?= $daftarsiswa['nis']; ?>"><?= $daftarsiswa['name']; ?></option>
                                             <?php } else {
-                                                echo "<option selected>Select student</option>";
+                                                echo "<option selected>Pilih Siswa</option>";
                                             }
                                             $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id'");
                                             while ($data1 = mysqli_fetch_array($daftarsiswa)) { ?>
@@ -171,7 +168,7 @@ $count4 = mysqli_num_rows($get4);
                                             <?php }
                                             ?>
                                         </select>
-                                        <button type="submit" name="cari" class="btn btn-info ml-1 mb-2">View</button>
+                                        <button type="submit" name="cari" class="btn btn-info ml-1 mb-2">Tampilkan</button>
                                         <a href="index.php" class="btn btn-danger ml-1 mb-2">Reset</a>
                                     </form>
                                 </div>
@@ -348,7 +345,7 @@ $count4 = mysqli_num_rows($get4);
                 type: 'column'
             },
             title: {
-                text: 'Jurnal PKA'
+                text: 'Semester <?= $semester_keterangan ?>'
             },
             subtitle: {
                 text: ''
@@ -363,7 +360,7 @@ $count4 = mysqli_num_rows($get4);
             },
             yAxis: {
                 title: {
-                    text: 'Total persentase jurnal'
+                    text: 'Tingkat Kemajuan Siswa'
                 }
 
             },
@@ -392,63 +389,58 @@ $count4 = mysqli_num_rows($get4);
                     // id: "Gracio",
                     data: [
                         [
-                            "Presence",
+                            "🟢Presensi",
                             <?= $pointpresensi; ?>
 
                         ],
                         [
-                            "Prayer Note",
+                            "🟢Prayer Note",
                             <?= $prayer_note['prayernote']; ?>
 
                         ],
                         [
-                            "Bible Reading",
+                            "🟢Bible Reading",
                             <?= $bible_reading['biblereading']; ?>
 
                         ],
                         [
-                            "Exhibition",
+                            "🔵Exhibition",
                             <?= $exhibition['exhibition']; ?>
 
                         ],
                         [
-                            "Personal Goal",
+                            "🔵Personal Goal",
                             <?= $personalgoal['personalgoal']; ?>
 
                         ],
                         [
-                            "Home Metting",
+                            "🔵Home Metting",
                             <?= $homemeeting['homemeeting']; ?>
 
                         ],
                         [
-                            "Blessings",
+                            "🟡Blessings",
                             <?= $blessings['blessings']; ?>
 
                         ],
                         [
-                            "Virtue & Character",
+                            "🔵Virtue & Character",
                             <?= $virtue_character; ?>
 
                         ],
                         [
-                            "Living Lemari",
+                            "🔵Poin Pemeriksaan Lemari",
                             <?= $totallivinglemari; ?>
 
                         ],
                         [
-                            "Living Ranjang",
+                            "🔵Poin Pemeriksaan Ranjang",
                             <?= $totallivingranjang; ?>
 
                         ],
                         [
-                            "Living Rak Sepatu & Handuk",
+                            "🔵Poin Pemeriksaan Rak Sepatu & Handuk",
                             <?= $totallivingraksepatu; ?>
-
-                        ],
-                        [
-                            "Total Point",
-                            <?= $totaljurnal + $pointpresensi; ?>
 
                         ]
                     ]

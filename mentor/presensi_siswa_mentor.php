@@ -20,9 +20,9 @@ if (isset($_POST['insert_Edit_presence'])) {
     $catatan_1 = htmlspecialchars($_POST['catatan1']);
     $sqli_absent2 = mysqli_query($conn, "UPDATE `presensi` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_presensi`='$id_1'");
     if ($sqli_absent2) {
-        $_SESSION['alert_edit_absent_berhasil'] = 'changed successfully';
+        $_SESSION['alert_edit_absent_berhasil'] = 'Berhasil diubah';
     } else {
-        $_SESSION['alert_edit_absent_gagal'] = 'changed ';
+        $_SESSION['alert_edit_absent_gagal'] = 'Tidak berhasil diubah';
         # code...
     }
 }
@@ -72,7 +72,7 @@ if (isset($_POST['insert_presence'])) {
     if (mysqli_num_rows($cek_data) > 0) {
 
         // alert jika data nya ada
-        $cek_data_presensi = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
+        $cek_data_presensi = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Kehadiran hanya bisa 1 kali!</strong></p>';
         // sound notifikasi
         echo notice(0);
     } else {
@@ -133,7 +133,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Presence Siswa</title>
+    <title>Presensi Siswa</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -167,16 +167,16 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Presence Student</h1>
+                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Presensi Siswa</h1>
 
-                            <a href="presensi_siswa_mentor.php" type="button" class="btn mt-2 btn-outline-success active">Presence</a>
-                            <a href="report_presence.php" type="button" class="btn mt-2 btn-outline-danger">Report</a>
+                            <a href="presensi_siswa_mentor.php" type="button" class="btn mt-2 btn-outline-success active">Presensi</a>
+                            <a href="report_presence.php" type="button" class="btn mt-2 btn-outline-danger">Laporan Mingguan</a>
 
                         </div>
                         <?php
                         if (isset($_SESSION['alert_edit_absent_berhasil'])) { ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Attendance!</strong> <?php echo $_SESSION['alert_edit_absent_berhasil']; ?>
+                                <strong>Kehadiran!</strong> <?php echo $_SESSION['alert_edit_absent_berhasil']; ?>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -186,7 +186,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                         } else if (isset($_SESSION['alert_approved'])) { ?>
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Successfully!</strong> <?php echo $_SESSION['alert_approved']; ?>
+                                <strong>Berhasil!</strong> <?php echo $_SESSION['alert_approved']; ?>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -196,7 +196,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                         } else if (isset($_SESSION['alert_not_approved'])) { ?>
 
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Successfully!</strong> <?php echo $_SESSION['alert_not_approved']; ?>
+                                <strong>Berhasil!</strong> <?php echo $_SESSION['alert_not_approved']; ?>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -212,7 +212,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add_presensi_siswa">
-                                Add Presence
+                                Tambah Presensi
                             </button>
                         </div>
                         <div class="card-body">
@@ -221,18 +221,18 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                     <thead class="text-md-center">
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Verification step 2</th>
-                                            <th>Student's Name</th>
-                                            <th>Schedule</th>
-                                            <th>Start Time</th>
-                                            <th>Absent Time</th>
-                                            <th>Presence Time</th>
-                                            <th>Week</th>
+                                            <th>Foto presensi</th>
+                                            <th>Nama</th>
+                                            <th>Kegiatan</th>
+                                            <th>Waktu kegiatan</th>
+                                            <th>Waktu mulai presensi</th>
+                                            <th>Waktu presensi</th>
+                                            <th>Minggu</th>
                                             <th>Status</th>
-                                            <th>Agreement</th>
-                                            <th>Absent Date</th>
-                                            <th>Suggestion</th>
-                                            <th>Options</th>
+                                            <th>Persetujuan</th>
+                                            <th>Date</th>
+                                            <th>Catatan Mentor</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 

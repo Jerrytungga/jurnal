@@ -12,9 +12,9 @@ if (isset($_POST['btn_submit_virtues'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $input = mysqli_query($conn, "INSERT INTO `tb_virtues`(`nis`, `efata`, `sikapramahsopan`, `sikapberkordinasi`, `sikaptolongmenolong`, `sikapseedo`,`catatan`,`semester`) VALUES ('$nis','$efata','$sikapramahsopan','$sikapberkordinasi','$sikaptolongmenolong','$sikapseedo','$catatan','$smt')");
     if ($input) {
-        $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+        $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
     } else {
-        $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+        $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
     }
 }
 //sistem edit penilaian virtues
@@ -29,9 +29,9 @@ if (isset($_POST['btn_virtue'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan',`semester`='$smt' WHERE  `tb_virtues`.`nis`='$nis' ");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
 
@@ -40,9 +40,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_virtues`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Di Hapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Di Hapus!';
     }
 }
 
@@ -54,7 +54,7 @@ $nis = $_GET['nis'];
 $siswa2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa WHERE mentor ='$id' AND nis='$nis' ORDER BY date DESC"));
 $nama = $siswa2['name'];
 $semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status= '1'") or die(mysqli_error($conn));
-// flter tanggal 
+// flter tanggal
 if (isset($_POST['filter_tanggal'])) {
     $mulai = $_POST['tanggal_mulai'];
     $selesai = $_POST['tanggal_akhir'];
@@ -131,8 +131,8 @@ if (isset($_POST['reset'])) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <h6 class=" font-weight-bold text-success">Virtues</h6>
-                            <a href="" class="btn btn-success mt-2" data-toggle="modal" data-target="#virtues">Input</a>
+                            <h6 class=" font-weight-bold text-success">Kebajikan</h6>
+                            <a href="" class="btn btn-success mt-2" data-toggle="modal" data-target="#virtues">Masukan Penilaian</a>
                             <div class="row mt-2">
                                 <div class="col">
                                     <form action="" method="POST" class="form-inline">
@@ -149,7 +149,7 @@ if (isset($_POST['reset'])) {
                                             <input type="date" name="tanggal_mulai" class="form-control">
                                             <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                         <?php } ?>
-                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Tampilkan</button>
                                         <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                     </form>
                                 </div>
@@ -166,9 +166,9 @@ if (isset($_POST['reset'])) {
                                             <th width="50">Berkordinasi</th>
                                             <th width="50">Tolong Menolong</th>
                                             <th width="50">See & Do</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th width="200">Options</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="250">Catatan Mentor</th>
+                                            <th width="200">Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -189,7 +189,7 @@ if (isset($_POST['reset'])) {
 
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
@@ -199,7 +199,7 @@ if (isset($_POST['reset'])) {
                                                             </a>
 
                                                             <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
 
                                                         </div>
@@ -213,7 +213,7 @@ if (isset($_POST['reset'])) {
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="7"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

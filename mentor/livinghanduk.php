@@ -23,17 +23,17 @@ if (isset($_POST['btn_input'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $input = mysqli_query($conn, "INSERT INTO `tb_living_handuk`(`nis`, `jarak`, `posisi`, `rapi`, `bersih`, `raib`, `image`, `efata`, `catatan`, `semester`) VALUES ('$nis','$jrk','$pss','$rp','$br','$rb','$nama_gambar','$efata','$notes','$smt')");
             if ($input) {
-                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+                $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
             } else {
-                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+                $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
             }
         }
     } else {
         $input = mysqli_query($conn, "INSERT INTO `tb_living_handuk`(`nis`, `jarak`, `posisi`, `rapi`, `bersih`, `raib`, `efata`, `catatan`, `semester`) VALUES ('$nis','$jrk','$pss','$rp','$br','$rb','$efata','$notes','$smt')");
         if ($input) {
-            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
         } else {
-            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
         }
     }
 }
@@ -57,17 +57,17 @@ if (isset($_POST['btn_update'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $edit = mysqli_query($conn, "UPDATE `tb_living_handuk` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`image`='$nama_gambar',`date`='$date',`efata`='$efata',`catatan`='$notes',`semester`='$smt' WHERE `tb_living_handuk`.`nis`='$nis' AND `tb_living_handuk`.`date`='$date'");
             if ($edit) {
-                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+                $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
             } else {
-                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+                $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
             }
         }
     } else {
         $edit =  mysqli_query($conn, "UPDATE `tb_living_handuk` SET `nis`='$nis',`jarak`='$jrk',`posisi`='$pss',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`date`='$date',`efata`='$efata',`catatan`='$notes',`semester`='$smt' WHERE `tb_living_handuk`.`nis`='$nis' AND `tb_living_handuk`.`date`='$date'");
         if ($edit) {
-            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         } else {
-            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         }
     }
 }
@@ -77,9 +77,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_living_handuk`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Di Hapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Di Hapus!';
     }
 }
 $penilaian = mysqli_query($conn, "SELECT * FROM tb_living_handuk WHERE nis='$nis' ORDER BY date DESC");
@@ -122,7 +122,7 @@ include 'template/head.php';
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <h6 class=" font-weight-bold text-success ">Handuk</h6>
-                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#livinghanduk">Input</a>
+                            <a href="" class="btn btn-success" data-toggle="modal" data-target="#livinghanduk">Masukan Penilaian</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -137,9 +137,9 @@ include 'template/head.php';
                                             <th width="40">Bersih</th>
                                             <th width="40">Raib</th>
                                             <th width="40">Image</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th width="100">Option</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="250">Catatan Mentor</th>
+                                            <th width="100">Aksi</th>
 
                                         </tr>
                                     </thead>
@@ -177,7 +177,7 @@ include 'template/head.php';
 
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                             <!-- Button trigger modal -->
@@ -186,7 +186,7 @@ include 'template/head.php';
                                                             </a>
 
                                                             <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
 
                                                         </div>
@@ -199,7 +199,7 @@ include 'template/head.php';
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="9"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

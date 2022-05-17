@@ -15,5 +15,6 @@ if (!isset($_SESSION['role'])) {
   $get_semester = mysqli_query($conn, "SELECT * FROM tb_semester WHERE status='Aktif'");
   $data1 = mysqli_fetch_array($get_semester);
   $data_semester = $_SESSION['smt'] =  $data1['thn_semester'];
+  $semester_keterangan = $_SESSION['smt'] =  $data1['keterangan'];
   // echo "else";
 }

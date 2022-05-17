@@ -72,8 +72,8 @@ $s = mysqli_fetch_array($siswa);
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th>Foto</th>
-                                            <th>Nis Siswa</th>
-                                            <th>Nama Siswa</th>
+                                            <th>Nis</th>
+                                            <th>Nama</th>
                                             <th>Angkatan</th>
                                             <th>Gender</th>
                                             <th>Bimbel</th>
@@ -149,19 +149,19 @@ $s = mysqli_fetch_array($siswa);
                                                 <td>
 
                                                     <a href="revivalnote.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-primary btn-sm  form-group">
-                                                        Daily
+                                                        Harian
                                                     </a>
                                                     <a href="personalgoal.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
-                                                        Weekly
+                                                        Mingguan
                                                     </a>
                                                     <a href="blessings.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
-                                                        Monthly
+                                                        Bulanan
                                                     </a><br>
                                                     <a href="reportweekly.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
-                                                        Report Weekly
+                                                        Laporan mingguan
                                                     </a>
                                                     <a href="catatan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
-                                                        Dairy Siswa
+                                                        Catatan Harian
                                                     </a>
                                                     <a href="aspek_pembelajaran_pengetahuan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
                                                         Aspek Pembelajaran Pengetahuan
@@ -184,17 +184,18 @@ $s = mysqli_fetch_array($siswa);
                                                 <td>
 
                                                     <a href="virtues & Character.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-warning btn-sm  form-group">
-                                                        VIRTUES & CHARACTER
+                                                        Kebajikan dan Karakter
                                                     </a>
                                                     <a href="livinglemari.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-success btn-sm  form-group">
-                                                        LIVING LEMARI
+                                                        Pemeriksaan lemari
                                                     </a>
                                                     <a href="livingraksepatudanhanduk.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-info btn-sm  form-group">
-                                                        RAK SEPATU & HANDUK
+
+                                                        Pemeriksaan rak sepatu dan handuk
                                                     </a>
 
                                                     <a href="living_ranjang.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
-                                                        RANJANG
+                                                        Pemeriksaan ranjang
                                                     </a>
                                                 </td>
 

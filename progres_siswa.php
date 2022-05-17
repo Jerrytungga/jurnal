@@ -107,7 +107,7 @@ function activity($activity)
             <select name="siswa" id="" class="form-control col-3 ml-3">
               <option selected>Select Student</option>
               <?php
-              $siswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif'");
+              $siswa = mysqli_query($conn, "SELECT * FROM siswa ");
               while ($data_siswa = mysqli_fetch_array($siswa)) {  ?>
                 <option value="<?= $data_siswa['nis']; ?>"><?= $data_siswa['name']; ?></option>
               <?php
@@ -274,7 +274,7 @@ function activity($activity)
         text: ''
       },
       xAxis: {
-        categories: ['Revival Note', 'Prayer Note', 'Bible Reading', 'Exhibition', 'Personal Goal', 'Home Meeting', 'Blessings']
+        categories: ['🟢Revival Note', '🟢Prayer Note', '🟢Bible Reading', '🔵Exhibition', '🔵Personal Goal', '🔵Home Meeting', '🔴Blessings']
       },
       credits: {
         enabled: false

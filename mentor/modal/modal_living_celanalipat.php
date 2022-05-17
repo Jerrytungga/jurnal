@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="Buku">Living Celana Lipat DLL</h5>
+        <h5 class="modal-title font-weight-bold" id="Buku">Celana Lipat DLL</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -18,7 +18,7 @@
           <label class="font-weight-bold">Posisi :</label>
           <div class="form-group">
             <select class="form-control" name="posisi" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -30,7 +30,7 @@
           <label class="font-weight-bold">Rapi :</label>
           <div class="form-group">
             <select class="form-control" name="rapi" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -41,7 +41,7 @@
           <label class="font-weight-bold">Bersih :</label>
           <div class="form-group">
             <select class="form-control" name="bersih" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -52,7 +52,7 @@
           <label class="font-weight-bold">Raib :</label>
           <div class="form-group">
             <select class="form-control" name="raib" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -62,7 +62,7 @@
           <label class="font-weight-bold">Benda Asing :</label>
           <div class="form-group">
             <select class="form-control" name="barangasing" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
               <option value="-2">-2</option>
@@ -84,14 +84,14 @@
           </div>
 
           <div class="form-group">
-            <label class="font-weight-bold">Mentor Notes :</label>
+            <label class="font-weight-bold">Catatan Mentor :</label>
             <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="btn_input" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" name="btn_input" class="btn btn-primary">Simpan</button>
         </div>
       </form>
 
@@ -105,7 +105,7 @@
   <div class="modal-dialog" id="modal-edit">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="Buku">Change Living Buku</h5>
+        <h5 class="modal-title font-weight-bold" id="Buku">Edit Penilaian Living Buku</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -123,7 +123,7 @@
           <label class="font-weight-bold">Posisi :</label>
           <div class="form-group">
             <select class="form-control" name="posisi" id="posisi" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -134,7 +134,7 @@
           <label class="font-weight-bold">Rapi :</label>
           <div class="form-group">
             <select class="form-control" name="rapi" id="rapi" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -145,7 +145,7 @@
           <label class="font-weight-bold">Bersih :</label>
           <div class="form-group">
             <select class="form-control" name="bersih" id="bersih" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -156,7 +156,7 @@
           <label class="font-weight-bold">Raib :</label>
           <div class="form-group">
             <select class="form-control" name="raib" id="raib" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="1">1</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
@@ -166,7 +166,7 @@
           <label class="font-weight-bold">Benda Asing :</label>
           <div class="form-group">
             <select class="form-control" id="brngasing" name="brngasing" aria-label="Default select example">
-              <option selected>Select</option>
+              <option selected>Pilih Poin</option>
               <option value="0">0</option>
               <option value="-1">-1</option>
               <option value="-2">-2</option>
@@ -192,14 +192,14 @@
 
 
           <div class="form-group">
-            <label class="font-weight-bold">Mentor Notes :</label>
+            <label class="font-weight-bold">Catatan Mentor :</label>
             <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="btn_update" class="btn btn-warning">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" name="btn_update" class="btn btn-warning">Simpan Perubahan </button>
         </div>
       </form>
 

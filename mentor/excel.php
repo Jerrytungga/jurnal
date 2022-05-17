@@ -5,8 +5,8 @@ include 'template/session.php';
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Report Presence.xls");
+// header("Content-type: application/vnd-ms-excel");
+// header("Content-Disposition: attachment; filename=Report Presence.xls");
 $nis = $_GET['nis'];
 $week = $_GET['week'];
 $target = $_GET['target'];
@@ -34,7 +34,7 @@ function kegiatan($name_kegiatan)
 <html>
 
 <head>
-  <title>Jurnal PKA</title>
+  <title>Cetak Laporan</title>
 </head>
 
 <body>
@@ -112,12 +112,12 @@ function kegiatan($name_kegiatan)
   <center>
     <img src="../img/logo/Edit Logo PKA-DP_v1.png" height="200" width="230">
     <p class=" text-dark text-center font-monospace">PELATIHAN PELAYANAN ROHANI “KEBENARAN ALKITAB” <br> Jalan Ngamarto 2, Lawang 65211; Telpon 0341 4301212, Fax 0341 426639 <br>Email address : pka.lawang@gmail.com <br> Keputusan Dirjen Bimas Kristen (Protestan)<br>Kementrian Agama nomor F/Kep/HK 00579/22377/99, Tgl 20-7-1999</p>
-    <h3>Report Presence Jurnal PKA <br> <?= $data_siswa['name']; ?><br>[<?= $data_siswa['nis']; ?>]</h3>
+    <h3>Laporan Presensi Mingguan PKA<br> <?= $data_siswa['name']; ?><br>[<?= $data_siswa['nis']; ?>]</h3>
   </center>
   <center>
     <div class="card">
-      Target : <?= $target; ?> Points <br>
-      Week : <?= $week; ?>
+      Target : <?= $target; ?> Point <br>
+      Minggu : <?= $week; ?>
     </div>
 
     <table class="tgl_cetak">
@@ -132,16 +132,16 @@ function kegiatan($name_kegiatan)
 
       <tr>
         <th>No</th>
-        <th>Name</th>
-        <th>Schedule</th>
-        <th>Schedule Time</th>
-        <th>Presence Time</th>
-        <th>Batch</th>
-        <th>Mark</th>
+        <th>Nama</th>
+        <th>Kegiatan</th>
+        <th>Waktu Kegiatan</th>
+        <th>Waktu Presensi</th>
+        <th>Angkatan</th>
+        <th>Poin</th>
         <!-- <th>Week</th> -->
         <th>Status</th>
-        <th>Suggestion Mentor</th>
-        <th>Date</th>
+        <th>Catatan Mentor</th>
+        <th>Tanggal</th>
       </tr>
       <tr>
         <?php $i = 1;
@@ -207,14 +207,14 @@ function kegiatan($name_kegiatan)
     <tfoot>
 
       <tr>
-        <td colspan="8" align="right"><text>Total Point Presence : <?= $jumlah ?> </text>
+        <td colspan="8" align="right"><text>Total Poin : <?= $jumlah ?> </text>
 
         <td colspan="2" align="center">
           <?php
           if ($total < $target) { ?>
-            <b> Did not meet the weekly target</b>
+            <b> Tidak memenuhi target mingguan</b>
           <?php } else {  ?>
-            <b1>Target met</b1>
+            <b1>Target terpenuhi</b1>
 
           <?php        }
 

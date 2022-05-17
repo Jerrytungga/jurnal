@@ -31,7 +31,7 @@ if (isset($_POST['btn_blessings'])) {
     $point8 = htmlspecialchars($_POST['point8']);
     $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`efata`='$efata',`date`='$date',`point1`='$point1',`point2`='$point2',`point3`='$point3',`point4`='$point4',`point5`='$point5',`point6`='$point6',`point7`='$point7',`point8`='$point8',`what_i_gain_on_god`='$god',`cttn1`='$cttn1',`what_i_learn_on_education`='$edu',`cttn2`='$cttn2',`what_i_learn_on_character_and_virtue`='$chracter',`cttn3`='$cttn3',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`cttn4`='$cttn4',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`cttn5`='$cttn5',`what_l_appreciate_toward_saints`='$apresiasi3',`cttn6`='$cttn6',`what_I_want_to_ask`='$ask',`cttn7`='$cttn7',`what_i_learn_the_most_this_month`='$berkat',`cttn8`='$cttn8' WHERE `tb_blessings`.`nis` ='$nis' AND `tb_blessings`.`date`='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
@@ -42,9 +42,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_blessings`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Dihapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Dihapus!';
     }
 }
 session_start();
@@ -92,7 +92,7 @@ if (isset($_POST['reset'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Jurnal Monthly</title>
+    <title>Jurnal Bulanan</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -123,7 +123,7 @@ if (isset($_POST['reset'])) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Monthly <?= $siswa2['name']; ?></h1>
+                        <h1 class="h3 mb-mb-4 text-uppercase">Jurnal Bulanan <?= $siswa2['name']; ?></h1>
                     </div>
 
                     <div class="btn-group mb-4" role="group" aria-label="Basic outlined example">
@@ -161,16 +161,16 @@ if (isset($_POST['reset'])) {
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="150">What I Gain On God</th>
-                                            <th width="100">What I Learn On Education</th>
-                                            <th width="100">What I learn On Character & Virtue</th>
-                                            <th width="100">What I Appreciate Toward Brother & Sister</th>
-                                            <th width="100">What l Appreciate Toward My Trainers/Mentors</th>
-                                            <th width="100">What I Appreciate Toward Saints</th>
-                                            <th width="100">What I Want To Ask</th>
-                                            <th width="100">What I Learn the most This Month</th>
-                                            <th width="100">Date</th>
-                                            <th width="200">Option</th>
+                                            <th width="150">Apa yang saya dapatkan dari Tuhan</th>
+                                            <th width="100">Apa yang saya pelajari tentang pendidikan</th>
+                                            <th width="100">Apa yang saya pelajari tentang karakter dan kebajikan</th>
+                                            <th width="100">Apa yang saya apresiasi untuk kakak & adik</th>
+                                            <th width="100">Apa yang saya apresiasi terhadap pelatih/mentor Saya</th>
+                                            <th width="100">Apa yang saya apresiasi terhadap orang </th>
+                                            <th width="100">Apa yang Ingin saya tanyakan</th>
+                                            <th width="100">Apa yang paling saya pelajari bulan ini</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="200">Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -186,7 +186,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_i_gain_on_god']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn1']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point1']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point1']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-whatigod="<?= $row['what_i_gain_on_god']; ?>" data-cttn="<?= $row['cttn1']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_gain_on_god">
 
                                                         </a>
@@ -198,7 +198,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_i_learn_on_education']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn2']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point2']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point2']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-whateducation="<?= $row['what_i_learn_on_education']; ?>" data-cttn="<?= $row['cttn2']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_on_education">
                                                         </a>
                                                     </span>
@@ -208,7 +208,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_i_learn_on_character_and_virtue']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn3']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point3']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point3']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-learn="<?= $row['what_i_learn_on_character_and_virtue']; ?>" data-cttn="<?= $row['cttn3']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_on_character_and_virtue">
                                                         </a>
                                                     </span>
@@ -218,7 +218,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_l_appreciate_toward_brother_sister']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn4']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point4']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point4']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-appreciate="<?= $row['what_l_appreciate_toward_brother_sister']; ?>" data-cttn="<?= $row['cttn4']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_l_appreciate_toward_brother_sister">
                                                         </a>
                                                     </span>
@@ -228,7 +228,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_l_appreciate_toward_my_trainers']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn5']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point5']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point5']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-appreciate1="<?= $row['what_l_appreciate_toward_my_trainers']; ?>" data-cttn="<?= $row['cttn5']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIAppreciateTowardMyTrainers">
                                                         </a>
                                                     </span>
@@ -239,7 +239,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_l_appreciate_toward_saints']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn6']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point6']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point6']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-appreciate2="<?= $row['what_l_appreciate_toward_saints']; ?>" data-cttn="<?= $row['cttn6']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIAppreciateTowardSaints">
                                                         </a>
                                                     </span>
@@ -249,7 +249,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_I_want_to_ask']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn7']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point7']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point7']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-ask="<?= $row['what_I_want_to_ask']; ?>" data-cttn="<?= $row['cttn7']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#WhatIWantToAsk">
                                                         </a>
                                                     </span>
@@ -259,7 +259,7 @@ if (isset($_POST['reset'])) {
                                                     <span class="d-inline-block text-truncate text-justify" style="max-width: 200px;">
                                                         <?= $row['what_i_learn_the_most_this_month']; ?><br>
                                                         <a class="font-weight-bold text-primary font-italic"><?= $row['cttn8']; ?></a><br>
-                                                        <a class="font-weight-bold text-danger font-italic">Point : <?= $row['point8']; ?></a>
+                                                        <a class="font-weight-bold text-danger font-italic">Poin : <?= $row['point8']; ?></a>
                                                         <a type="button" class="fas fa-eye" id="detail" data-whatlearnthismonht="<?= $row['what_i_learn_the_most_this_month']; ?>" data-cttn="<?= $row['cttn8']; ?>" data-nis="<?= $row['nis']; ?>" data-date="<?= $row['date']; ?>" data-toggle="modal" data-target="#what_i_learn_the_most_this_month">
                                                         </a>
                                                     </span>
@@ -272,7 +272,7 @@ if (isset($_POST['reset'])) {
 
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
@@ -282,7 +282,7 @@ if (isset($_POST['reset'])) {
                                                                 Edit</a>
                                                             <!-- btn hapus data -->
                                                             <a type="button" id="edit_blessings" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
 
                                                         </div>
@@ -299,7 +299,7 @@ if (isset($_POST['reset'])) {
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="10"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="10"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

@@ -12,9 +12,9 @@ if (isset($_POST['edit'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $edit = mysqli_query($conn, "UPDATE `tb_presensi` SET `nis`='$nis',`presensi`='$presensi',`status`='$status',`date`='$date',`semester`='$smt',`week`='$week',`grace`='$grace',`punisment`='$punisment' WHERE `tb_presensi`.`nis`='$nis' AND `tb_presensi`.`date`='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
 }
 
@@ -34,7 +34,7 @@ $murid = mysqli_fetch_array($siswa);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Report Weekly</title>
+    <title>Laporan Mingguan</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -63,7 +63,7 @@ $murid = mysqli_fetch_array($siswa);
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report <?= $murid['name']; ?></h1>
+                        <h1 class="h3 mb-mb-4 text-uppercase">Laporan Mingguan <?= $murid['name']; ?></h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -74,21 +74,21 @@ $murid = mysqli_fetch_array($siswa);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="250">Name</th>
+                                            <th width="250">Nama</th>
                                             <th>Presensi</th>
-                                            <th>Jurnal Daily</th>
-                                            <th>Jurnal Weekly</th>
-                                            <th>Jurnal Monthly</th>
-                                            <th>Virtue</th>
-                                            <th>Living Lemari</th>
-                                            <th>Living Rak Sepatu dan Handuk</th>
-                                            <th>Living Ranjang</th>
+                                            <th>Jurnal Harian</th>
+                                            <th>Jurnal Mingguan</th>
+                                            <th>Jurnal Bulanan</th>
+                                            <th>Kebajikan</th>
+                                            <th>Penilaian Lemari</th>
+                                            <th>Penilaian Rak Sepatu dan Handuk</th>
+                                            <th>Penilaian Ranjang</th>
                                             <th>Total</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
-                                            <th width="200">Date</th>
+                                            <th width="200">Tanggal</th>
                                             <th width="400">Sanksi</th>
-                                            <th width="200">Option</th>
+                                            <th width="200">Aksi</th>
 
                                         </tr>
                                     </thead>
@@ -103,30 +103,6 @@ $murid = mysqli_fetch_array($siswa);
                                         $sampai = date('Y-m-d'); // tanggal akhir
 
                                         while (strtotime($dari) <= strtotime($sampai)) {
-                                            // echo "$dari<br/>";
-                                            // $presensi = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `absent` WHERE nis='$nis'"));
-                                            // $mark_V = $presensi['mark'] = 'V';
-                                            // $mark_O = $presensi['mark'] = 'O';
-                                            // $mark_X = $presensi['mark'] = 'X';
-                                            // $mark_I = $presensi['mark'] = 'I';
-                                            // $mark_S = $presensi['mark'] = 'S';
-
-                                            // $tampil_mark_V = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_V' and  absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-
-                                            // $tampil_mark_O = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_O' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-
-                                            // $tampil_mark_X = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_X' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-
-                                            // $tampil_mark_I = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis' and ACC_Mentor='approved' and mark='$mark_I' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-
-                                            // $tampil_mark_S = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
-                                            // // $Pres = mysqli_query($conn, "SELECT nis, count(mark) as total FROM absent where nis='$nis'  and ACC_Mentor='approved' and mark='$mark_S' and absent_date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "'");
-
 
 
                                             // pembacaan alkitab
@@ -238,12 +214,6 @@ $murid = mysqli_fetch_array($siswa);
                                                 $living_seprei = mysqli_fetch_array($seprei);
                                                 $living_selimut = mysqli_fetch_array($selimut);
 
-                                                // $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
-                                                // $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
-                                                // $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
-                                                // $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
-                                                // $arraytampil_mark_S = mysqli_fetch_array($tampil_mark_S);
-                                                // $total_presensix = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
 
                                                 $total_living_ranjang = $living_ranjang['jumlah'] + $living_bantal['jumlah'] + $living_seprei['jumlah'] + $living_selimut['jumlah'];
                                                 // $totalpresensi = $row['presensi'];
@@ -256,9 +226,7 @@ $murid = mysqli_fetch_array($siswa);
 
                                                 $totalsemua = $total + $total_1 + $total_2 + $totalpeniliansikap + $total_livinglemari + $total_livingraksepatudanhanduk + $total_living_ranjang + $presensiWeekly['presensi'];
 
-                                                // if ($total_presensix > $dari) {
-                                                //     $totalpresensi;
-                                                // }
+
 
                                             ?>
                                                 <tr>
@@ -279,7 +247,7 @@ $murid = mysqli_fetch_array($siswa);
                                                     <td>
                                                         <?= $row['status']; ?>
                                                     </td>
-                                                    <td>Week <?= $row['week']; ?></td>
+                                                    <td>Minggu <?= $row['week']; ?></td>
                                                     <td>
                                                         <?= $row['date']; ?>
                                                     </td>
@@ -337,13 +305,13 @@ $murid = mysqli_fetch_array($siswa);
                         <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
 
                         <div class="form-group">
-                            <label for="text">Week :</label>
+                            <label for="text">Minggu :</label>
                             <input type="number" class="form-control" id="week" name="Minggu" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="text">Presensi :</label>
-                            <input type="text" class="form-control" id="absen" name="absen">
+                            <input type="text" class="form-control" id="absen" name="absen" readonly>
                         </div>
 
 
@@ -351,7 +319,7 @@ $murid = mysqli_fetch_array($siswa);
                         <div class="form-group">
                             <label for="text">Status :</label>
                             <select class="form-control" name="status" id="status" aria-label="Default select example">
-                                <option value="">Select</option>
+                                <option value="">Pilih Status</option>
                                 <option value="Complete">Complete</option>
                                 <option value="Punishment">Punishment</option>
                                 <option value="Grace">Grace</option>
@@ -363,7 +331,7 @@ $murid = mysqli_fetch_array($siswa);
                         <div class="form-group">
                             <h7 class="text-reset">Grace :</h7>
                             <select class="form-control" id="graces" name="graces">
-                                <option value="">Select</option>
+                                <option value="">Pilih Grace</option>
                                 <?php
                                 $grace = mysqli_query($conn, "SELECT * FROM tb_grace");
                                 while ($datagrace = mysqli_fetch_array($grace)) {
@@ -375,7 +343,7 @@ $murid = mysqli_fetch_array($siswa);
                         <div class="form-group">
                             <h7 class="text-reset">Punishment :</h7>
                             <select class="form-control" name="ps" id="ps">
-                                <option value="">Select</option>
+                                <option value="">Pilih Punishment</option>
                                 <?php
                                 $Punishment = mysqli_query($conn, "SELECT * FROM tb_punishment");
                                 while ($dataPunishment = mysqli_fetch_array($Punishment)) {
@@ -386,8 +354,8 @@ $murid = mysqli_fetch_array($siswa);
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="edit" name="edit">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary" id="edit" name="edit">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

@@ -5,13 +5,13 @@
 
       <form method="POST">
         <div class="modal-body">
-          <h5>Are you sure you want to delete the data ?</h5>
+          <h5>Apakah Anda yakin ingin menghapus data ?</h5>
           <input type="hidden" class="form-control" id="nis" name="nis">
           <input type="text" readonly class="form-control" id="date" name="date">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <button type="submit" name="hapus" class="btn btn-danger">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+          <button type="submit" name="hapus" class="btn btn-danger">Ya</button>
         </div>
       </form>
     </div>

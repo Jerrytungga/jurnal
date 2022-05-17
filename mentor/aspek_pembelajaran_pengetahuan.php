@@ -17,6 +17,11 @@ if (isset($_POST['input_tb_visi'])) {
         $notifgagaledit = $_SESSION['gagal'] = 'Semester belum di isi!';
     } else {
         $input_data_visi =  mysqli_query($conn, "INSERT INTO `tb_poin_kelas_visi`(`id_kelas_visi`, `poin_kelas_pelatihan`, `poin_kelas_penyegaran_pagi`, `poin_kelas_alkitab`, `poin_kelas_pendidikan`, `nis_siswa`, `efata_mentor`, `semester`,`poin_kelas_karakter`) VALUES ('$id_max','$pelatihan','$penyegaran_pagi','$alkitab','$pendidikan','$data_siswa','$data_efata','$semester','$karakter')");
+        if ($input_data_visi) {
+            $notifinput = $_SESSION['sukses'] = 'Poin Berhasil Di Masukan!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Poin Gagal Di Masukan!';
+        }
     }
 
     // if ($edit) {
@@ -81,10 +86,10 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <div class="h3 mb-mb-2 text-gray-800">Aspek Pembelajaran Pengetahuan
-                            <a class="h5">
-                                <?= $siswa2['name']; ?>
-                            </a>
+                        <div class="h3 mb-mb-2 text-uppercase">Aspek Pembelajaran Pengetahuan
+                            <?= $siswa2['name']; ?>
+                            <!-- <a class="h5">
+                            </a> -->
 
                         </div>
                     </div>
@@ -99,7 +104,7 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelas_visi">
-                                input points
+                                Masukan Poin
                             </button>
                         </div>
                         <div class="card-body">
@@ -114,8 +119,8 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                                             <th>Poin Pendidikan</th>
                                             <th>Poin Karakter</th>
                                             <th>Semester</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th>Tanggal</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -131,7 +136,7 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                                                 <td><?= $row['poin_kelas_karakter'] ?></td>
                                                 <td><?= $row['semester'] ?></td>
                                                 <td><?= $row['date'] ?></td>
-                                                <td><a href="proses_delete.php?id_kelas_visi=<?= $row['id_kelas_visi'] ?>&&nis=<?= $nis ?>" type="button" class="btn btn-danger">Delete</a></td>
+                                                <td><a href="proses_delete.php?id_kelas_visi=<?= $row['id_kelas_visi'] ?>&&nis=<?= $nis ?>" type="button" class="btn btn-danger">Hapus</a></td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>
@@ -179,7 +184,7 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                                         <div class="mt-2">
                                             <label for="semester">Semester :</label>
                                             <select class="form-control" name="semester" id="semester" required>
-                                                <option value="NULL">Select</option>
+                                                <option value="NULL">Pilih Semester</option>
                                                 <?php
                                                 $sql_semester = mysqli_query($conn, "SELECT * FROM tb_semester");
                                                 while ($data_semester = mysqli_fetch_array($sql_semester)) {
@@ -190,8 +195,8 @@ $data_kelas_visi = mysqli_fetch_array($poin_kelas_visi);
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="input_tb_visi" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" name="input_tb_visi" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form>
                             </div>

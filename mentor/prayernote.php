@@ -12,7 +12,7 @@ if (isset($_POST['btn_prayernote'])) {
     $catatan = htmlspecialchars($_POST['catatan']);
     $edit = mysqli_query($conn, "UPDATE `tb_prayer_note` SET `nis`='$nis',`point`='$point',`efata`='$efata',`point1`='$point1',`kategori`='$judul',`burden_inward_sense`='$beban',`catatan_mentor`='$catatan',`date`='$date' WHERE `tb_prayer_note`.`nis` ='$nis' AND `tb_prayer_note`.`date` ='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
@@ -23,9 +23,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_prayer_note`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Dihapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Dihapus!';
     }
 }
 
@@ -72,7 +72,7 @@ if (isset($_POST['reset'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Jurnal Daily</title>
+    <title>Jurnal Harian</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -103,7 +103,7 @@ if (isset($_POST['reset'])) {
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Jurnal Daily <?= $siswa2['name']; ?></h1>
+                            <h1 class="h3 mb-mb-4 embed-responsive text-uppercase">Jurnal Harian <?= $siswa2['name']; ?></h1>
                             <a href="revivalnote.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-success">Revival Note</a>
                             <a href="prayernote.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-warning active">Prayer Note</a>
                             <a href="biblereading.php?nis=<?= $nis; ?>" type="button" class="btn mt-2 btn-outline-danger">Bible Reading</a>
@@ -129,7 +129,7 @@ if (isset($_POST['reset'])) {
                                             <input type="date" name="tanggal_mulai" class="form-control">
                                             <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                         <?php } ?>
-                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Tampilkan</button>
                                         <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                     </form>
                                 </div>
@@ -143,12 +143,12 @@ if (isset($_POST['reset'])) {
                                         <tr class="bg-info">
                                             <th width="10">No</th>
                                             <th width="250">Kategori</th>
-                                            <th width="10" class="bg-warning">Point</th>
-                                            <th>Burden & Inward Sense</th>
-                                            <th width="10" class="bg-warning">Point</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th width="150">Options</th>
+                                            <th width="10" class="bg-warning">Poin</th>
+                                            <th>Beban & Perasaan Batin</th>
+                                            <th width="10" class="bg-warning">Poin</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="250">Catatan Mentor</th>
+                                            <th width="150">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -182,13 +182,13 @@ if (isset($_POST['reset'])) {
                                                 <td>
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                                                             <!-- Button trigger modal -->
                                                             <a type="button" id="detail" class="dropdown-item" data-toggle="modal" data-target="#modal_detail" data-nis="<?= $row['nis']; ?>" data-category="<?= $row['kategori']; ?>" data-inward="<?= $row['burden_inward_sense']; ?>" data-date="<?= $row['date']; ?>" data-mentor="<?= $row['catatan_mentor']; ?>">
-                                                                View more
+                                                                Lihat selengkapnya
                                                             </a>
 
                                                             <!-- Get data personal siswa -->
@@ -197,7 +197,7 @@ if (isset($_POST['reset'])) {
                                                             </a>
 
                                                             <a type="button" id="edit_prayer_note" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
                                                         </div>
                                                     </div>

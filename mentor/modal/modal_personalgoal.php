@@ -3,7 +3,7 @@
      <div class="modal-dialog" id="modal-edit">
          <div class="modal-content">
              <div class="modal-header">
-                 <h5 class="modal-title" id="personalgoal">Change Personal Goal</h5>
+                 <h5 class="modal-title" id="personalgoal">Edit Personal Goal</h5>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -14,13 +14,13 @@
                      <input type="hidden" class="form-control" id="nis" name="nis">
                      <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                      <div class="form-group">
-                         <label for="character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
+                         <label for="character-text" class="col-form-label font-weight-bold">Kebajikan Karakter :</label>
                          <textarea rows="5" type="text" class="form-control" id="character" name="character"></textarea>
                      </div>
                      <div class="form-group">
-                         <label for="point-text" class="col-form-label font-weight-bold">Point :</label>
+                         <label for="point-text" class="col-form-label font-weight-bold">Poin :</label>
                          <select class="form-control" aria-label="Default select example" name="point1" id="point1">
-                             <option value="">Silahkan Pilih Point</option>
+                             <option value="">Silahkan Pilih Poin</option>
                              <option value="1">1</option>
                              <option value="0">0</option>
                              <option value="-1">-1</option>
@@ -28,13 +28,13 @@
                      </div>
 
                      <div class="form-group">
-                         <label for="prayer-text" class="col-form-label font-weight-bold">Prayer :</label>
+                         <label for="prayer-text" class="col-form-label font-weight-bold">Doa :</label>
                          <textarea rows="5" type="text" class="form-control" id="prayer" name="prayer"></textarea>
                      </div>
                      <div class="form-group">
-                         <label for="point-text" class="col-form-label font-weight-bold">Point :</label>
+                         <label for="point-text" class="col-form-label font-weight-bold">Poin :</label>
                          <select class="form-control" aria-label="Default select example" name="point2" id="point2">
-                             <option value="">Silahkan Pilih Point</option>
+                             <option value="">Silahkan Pilih Poin</option>
                              <option value="1">1</option>
                              <option value="0">0</option>
                              <option value="-1">-1</option>
@@ -46,9 +46,9 @@
                          <textarea rows="5" type="text" class="form-control" id="neutron" name="neutron"></textarea>
                      </div>
                      <div class="form-group">
-                         <label for="point-text" class="col-form-label font-weight-bold">Point :</label>
+                         <label for="point-text" class="col-form-label font-weight-bold">Poin :</label>
                          <select class="form-control" aria-label="Default select example" name="point3" id="point3">
-                             <option value="">Silahkan Pilih Point</option>
+                             <option value="">Silahkan Pilih Poin</option>
                              <option value="1">1</option>
                              <option value="0">0</option>
                              <option value="-1">-1</option>
@@ -56,17 +56,17 @@
                      </div>
 
                      <div class="form-group">
-                         <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                         <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                          <input type="text" class="form-control" id="date" name="date"></input>
                      </div>
                      <div class="form-group">
-                         <label for="catatan-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                         <label for="catatan-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                          <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                      </div>
                  </div>
                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="submit" onclick="fireSweetAlert()" name="update" class="btn btn-primary">Save</button>
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                     <button type="submit" onclick="fireSweetAlert()" name="update" class="btn btn-primary">Simpan Perubahan</button>
                  </div>
              </form>
          </div>
@@ -87,16 +87,16 @@
              <div class="modal-body table-responsive">
 
                  <div class="form-group">
-                     <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                     <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                      <input type="text" class="form-control" id="date" name="date" readonly></input>
                  </div>
                  <div class="form-group">
-                     <label for="Character-text" class="col-form-label font-weight-bold">Character Virtue :</label>
+                     <label for="Character-text" class="col-form-label font-weight-bold">Kebajikan Karakter :</label>
                      <textarea rows="5" type="text" class="form-control" id="karakter" readonly>
                             </textarea>
                  </div>
                  <div class="form-group">
-                     <label for="doa-text" class="col-form-label font-weight-bold">Prayer :</label>
+                     <label for="doa-text" class="col-form-label font-weight-bold">Doa :</label>
                      <textarea rows="5" type="text" class="form-control" id="doa" readonly>
                             </textarea>
                  </div>
@@ -106,7 +106,7 @@
                             </textarea>
                  </div>
                  <div class="form-group">
-                     <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                     <label for="notes-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                      <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
                             </textarea>
                  </div>

@@ -15,7 +15,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Report Weekly</title>
+    <title>Laporan Mingguan</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -44,7 +44,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Jurnal Report Weekly</h1>
+                        <h1 class="h3 mb-mb-4 text-gray-800">Laporan Mingguan Jurnal PKA</h1>
                     </div>
                     <div class="row mt-2 mb-4">
                         <div class="col">
@@ -100,19 +100,19 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th width="700">Name</th>
+                                            <th width="700">Nama</th>
                                             <th width="50">Presensi</th>
-                                            <th width="50">Jurnal Daily</th>
-                                            <th width="50">Jurnal Weekly</th>
-                                            <th width="70">Jurnal Monthly</th>
-                                            <th width="50">Virtue</th>
-                                            <th width="50">Living Lemari</th>
-                                            <th width="50">Living Rak Sepatu dan Handuk</th>
-                                            <th width="50">Living Ranjang</th>
+                                            <th width="50">Jurnal Harian</th>
+                                            <th width="50">Jurnal Mingguan</th>
+                                            <th width="70">Jurnal Bulanan</th>
+                                            <th width="50">Kebajikan</th>
+                                            <th width="50">Pemeriksaan Lemari</th>
+                                            <th width="50">Pemeriksaan Rak Sepatu dan Handuk</th>
+                                            <th width="50">Pemeriksaan Ranjang</th>
                                             <th width="50">Total</th>
                                             <th width="50">Status</th>
                                             <th width="50">Keterangan</th>
-                                            <th width="200">Date</th>
+                                            <th width="200">Tanggal</th>
                                             <th width="800">Sanksi</th>
                                         </tr>
                                     </thead>
@@ -285,7 +285,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                                             <?= $row['status']; ?>
 
                                                         </td>
-                                                        <td>Week <?= $row['week']; ?></td>
+                                                        <td>Minggu <?= $row['week']; ?></td>
                                                         <td><?= $row['date']; ?></td>
                                                         <td>
                                                             <a class="font-weight-bold text-danger font-italic"><?= $row['grace']; ?> <?= $row['punisment']; ?> </a>

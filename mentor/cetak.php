@@ -11,7 +11,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 <html>
 
 <head>
-
+  <title>Cetak Laporan</title>
   <style>
     text {
       font-size: 15pt;
@@ -79,7 +79,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
     <img src="../img/logo/Edit Logo PKA-DP.png">
   </center>
-  <p>Name : <?= $data['name']; ?></p>
+  <p>Nama : <?= $data['name']; ?></p>
   <p>Efata : <?= $data['efata']; ?></p>
 
   <div class=" border-primary">
@@ -88,7 +88,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
         <th bgcolor="#000957" colspan="15">
           <text>
-            Report Weekly
+            Laporan Mingguan
             <?php
             $tanggal = date('d M Y');
             echo $tanggal;
@@ -100,15 +100,15 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
 
       <tr>
         <th bgcolor="#6998AB" width="10">No</th>
-        <th bgcolor="#6998AB" width="400">Name</th>
+        <th bgcolor="#6998AB" width="400">Nama</th>
         <th bgcolor="#6998AB" width="90">Presensi</th>
-        <th bgcolor="#6998AB" width="150">Jurnal Daily</th>
-        <th bgcolor="#6998AB" width="200">Jurnal Weekly</th>
-        <th bgcolor="#6998AB" width="200">Jurnal Monthly</th>
-        <th bgcolor="#6998AB" width="150">Virtue</th>
-        <th bgcolor="#6998AB" width="300">Living Lemari</th>
-        <th bgcolor="#6998AB" width="360">Living Rak Sepatu dan Handuk</th>
-        <th bgcolor="#6998AB" width="150">Living Ranjang</th>
+        <th bgcolor="#6998AB" width="150">Jurnal Harian</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Mingguan</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Bulanan</th>
+        <th bgcolor="#6998AB" width="150">Kebajikan</th>
+        <th bgcolor="#6998AB" width="300">Pemeriksaan Lemari</th>
+        <th bgcolor="#6998AB" width="360">Pemeriksaan Rak Sepatu dan Handuk</th>
+        <th bgcolor="#6998AB" width="150">Pemeriksaan Ranjang</th>
         <th bgcolor="#6998AB" width="150">Total</th>
         <th bgcolor="#6998AB" width="100">Status</th>
         <th bgcolor="#6998AB" width="100">Keterangan</th>
@@ -169,7 +169,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
             // character
             $character = mysqli_query($conn, "SELECT SUM(`benar`)+SUM(`tepat`)+SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
-            // living lemari 
+            // living lemari
             $buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
             $pakaianlipat = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaianlipat WHERE nis='$nis' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
@@ -282,7 +282,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
           <?= $row['status']; ?>
 
         </td>
-        <td>Week <?= $row['week']; ?></td>
+        <td>Minggu <?= $row['week']; ?></td>
         <td><?= $row['date']; ?></td>
         <td>
           <a class="font-weight-bold text-danger font-italic"><?= $row['grace']; ?> <?= $row['punisment']; ?> </a>

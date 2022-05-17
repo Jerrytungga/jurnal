@@ -32,7 +32,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Siswa</title>
+    <title>Laporan Semester</title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -66,9 +66,10 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
                     <?php
                     if ($cekdata > 0) { ?>
-                        <a href="laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-dark mt-2 m-2">Download Report Semester</a>
+                        <a href="laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-success mt-2 m-2">Download Laporan Semester</a>
                     <?php }
                     ?>
                     <div class="card shadow">
@@ -1194,12 +1195,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
 
 
 
-
-
-
-
-
-
                                         ?>
 
                                         <tr class="text-center">
@@ -1254,12 +1249,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             <td class="border-dark"></td>
                                         </tr>
 
-
-
-
-
-
-                                        <!-- Awal script kehadiran kelas///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
                                         <tr>
                                             <?php
@@ -1316,7 +1305,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             if ($bulatkan == 0) {
                                                 $deskripsi = 'Tidak Mencapai Target';
                                                 $bobot_ = '0';
-                                                $keterangan_ = 'C';
+                                                $keterangan_ = 'E';
                                             }
                                             $jumlah_presensi[] = $bobot_;
                                             $total_presensi = array_sum($jumlah_presensi);
@@ -1341,10 +1330,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         <?php
                                         }
                                         ?>
-
-                                        <!-- Akhir script Tujuan belajar ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
 
 
                                         <tr>
@@ -1405,11 +1390,15 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                                 $deskripsi = 'Tidak Mencapai Target';
                                                 $bobot_ = '1';
                                                 $keterangan_ = 'D';
-                                            } elseif ($bulatkan == 0) {
+                                            }
+                                            if ($bulatkan == 0) {
                                                 $deskripsi = 'Tidak Mencapai Target';
                                                 $bobot_ = '0';
-                                                $keterangan_ = 'C';
+                                                $keterangan_ = 'E';
                                             }
+
+
+
                                             $jumlah_jurnal[] = $bobot_;
                                             $total_jurnal = array_sum($jumlah_jurnal);
                                         ?>

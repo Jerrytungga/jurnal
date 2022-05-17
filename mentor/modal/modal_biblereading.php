@@ -3,7 +3,7 @@
       <div class="modal-dialog" id="modal-edit">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="biblereading">Change Bible Reading</h5>
+                  <h5 class="modal-title" id="biblereading">Edit Bible Reading</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -14,18 +14,18 @@
                       <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                       <input type="hidden" class="form-control" id="nis" name="nis">
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold">Bible :</label>
+                          <label class="text-reset font-weight-bold">Alkitab :</label>
                           <select class="form-control" name="bible" id="bible" aria-label="Default select example" required>
-                              <option value="">Select Bible</option>
+                              <option value="">Pilih Alkitab</option>
                               <option value="OTNT">OTNT</option>
                               <option value="OT">OT</option>
                               <option value="NT">NT</option>
                           </select>
                       </div>
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                          <label class="text-reset font-weight-bold" for="beban">Poin :</label>
                           <select class="form-control" aria-label="Default select example" name="point1" id="point1">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -36,7 +36,7 @@
 
                       <div class="form-group">
                           <select class="form-control" name="ot" id="ot" aria-label="Default select example" required>
-                              <option value="">Select Total OT Chapter(s)</option>
+                              <option value="">Pilih Total Pembacaan (OT) </option>
                               <option value="Tidak Baca">Tidak Baca</option>
                               <option value="1 Pasal">1 Pasal</option>
                               <option value="2 Pasal">2 Pasal</option>
@@ -63,7 +63,7 @@
                       </div>
 
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                          <label class="text-reset font-weight-bold" for="beban">Poin:</label>
                           <select class="form-control" aria-label="Default select example" name="point2" id="point2">
                               <option selected>Select</option>
                               <option value="1">1</option>
@@ -101,9 +101,9 @@
                       </div>
 
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                          <label class="text-reset font-weight-bold" for="beban">Poin :</label>
                           <select class="form-control" aria-label="Default select example" name="point" id="point">
-                              <option selected>Select</option>
+                              <option selected>Pilih Poin</option>
                               <option value="1">1</option>
                               <option value="0">0</option>
                               <option value="-1">-1</option>
@@ -112,17 +112,17 @@
                       <hr>
 
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="mentor">Date :</label>
+                          <label class="text-reset font-weight-bold" for="mentor">Tanggal :</label>
                           <input type="text" class="form-control" id="date" name="date" placeholder="date">
                       </div>
                       <div class="form-group">
-                          <label class="text-reset font-weight-bold" for="catatan4">Mentor Notes :</label>
+                          <label class="text-reset font-weight-bold" for="catatan4">Catatan Mentor :</label>
                           <textarea rows="5" type="text" class="form-control" id="catatan4" name="catatan4"></textarea>
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" name="btn_bible" class="btn btn-danger">Save</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="submit" name="btn_bible" class="btn btn-danger">Simpan Perubahan</button>
                   </div>
               </form>
 

@@ -3,7 +3,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="prayer_note">Change Prayer Note</h5>
+                <h5 class="modal-title" id="prayer_note">Edit Prayer Note</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,9 +14,9 @@
                     <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <div class="form-group">
-                        <label for="kategori-text" class="col-form-label font-weight-bold">Category :</label>
+                        <label for="kategori-text" class="col-form-label font-weight-bold">Kategori :</label>
                         <select class="form-control" name="judul" id="judul" aria-label="Default select example">
-                            <option value="">Select</option>
+                            <option value="">Pilih Ketegori Doa</option>
                             <?php
                             $sql_categoridoa = mysqli_query($conn, "SELECT * FROM tb_categori_doa");
                             while ($categoridoa = mysqli_fetch_array($sql_categoridoa)) {
@@ -26,9 +26,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                        <label class="text-reset font-weight-bold" for="beban">Poin :</label>
                         <select class="form-control" aria-label="Default select example" name="point1" id="point1">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -36,13 +36,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-reset font-weight-bold" for="beban">Burden & Inward Sense :</label>
+                        <label class="text-reset font-weight-bold" for="beban">Beban & Perasaan Batin :</label>
                         <textarea rows="5" type="text" class="form-control" id="beban" name="beban" placeholder="Burden & inward sense"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                        <label class="text-reset font-weight-bold" for="beban">Poin :</label>
                         <select class="form-control" aria-label="Default select example" name="point" id="point">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -50,17 +50,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-reset font-weight-bold" for="catatan">Date :</label>
+                        <label class="text-reset font-weight-bold" for="catatan">Tanggal :</label>
                         <input type="text" class="form-control" id="date" name="date">
                     </div>
                     <div class="form-group">
-                        <label class="text-reset font-weight-bold" for="catatan">Mentor Notes :</label>
+                        <label class="text-reset font-weight-bold" for="catatan">Catatan Mentor :</label>
                         <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btn_prayernote" class="btn btn-warning">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="btn_prayernote" class="btn btn-warning">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -80,23 +80,23 @@
             <div class="modal-body table-responsive">
 
                 <div class="form-group">
-                    <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                    <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                     <p type="text" class="form-control" id="date" readonly></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="category-text" class="col-form-label font-weight-bold">Category :</label>
+                    <label for="category-text" class="col-form-label font-weight-bold">Kategori :</label>
                     <p type="text" class="form-control" id="category" readonly></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="inward-text" class="col-form-label font-weight-bold">Burden & Inward Sense :</label>
+                    <label for="inward-text" class="col-form-label font-weight-bold">Beban & Perasaan Batin :</label>
                     <textarea rows="5" type="text" class="form-control" id="inward" readonly>
                      </textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="notes-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
                             </textarea>
                 </div>

@@ -8,7 +8,7 @@ if (isset($_POST['btn_catatan'])) {
     $catatan = htmlspecialchars($_POST['catatan']);
     $edit =  mysqli_query($conn, "UPDATE `tb_catatan` SET `nis`='$nis',`judul`='$title',`deskripsi`='$deskripsi',`cttn_mentor`='$catatan'WHERE `tb_catatan`.`nis` ='$nis'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
         $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
     }
@@ -32,7 +32,7 @@ $catatan = mysqli_fetch_array($notes);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Dairy</title>
+    <title>Catatan <?= $siswa2['name']; ?></title>
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -69,7 +69,7 @@ $catatan = mysqli_fetch_array($notes);
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Dairy <?= $siswa2['name']; ?></h1>
+                        <h1 class="h3 mb-mb-4 text-uppercase">Catatan <?= $siswa2['name']; ?></h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
@@ -80,10 +80,10 @@ $catatan = mysqli_fetch_array($notes);
                                     <thead>
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Date</th>
-                                            <th>Options</th>
+                                            <th>Judul</th>
+                                            <th>Keterangan</th>
+                                            <th>Tanggal</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 

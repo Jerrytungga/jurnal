@@ -1,7 +1,7 @@
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
    <div class="group">
-     <h1 class="h3 mb-mb-4  embed-responsive text-gray-800">LIVING RAK SEPATU & HANDUK <?= $siswa2['name']; ?></h1>
+     <h1 class="h3 mb-mb-4  embed-responsive text-uppercase">Pemeriksaan RAK SEPATU & HANDUK <?= $siswa2['name']; ?></h1>
      <a href="livingraksepatudanhanduk.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-primary active mt-2">Rak Sepatu</a>
      <a href="livingsepatusidang.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-success active mt-2">Sepatu Sidang</a>
      <a href="livingsepatuor.php?nis=<?= $nis; ?>" type=" button" class="btn btn-outline-warning active mt-2">Sepatu Or</a>

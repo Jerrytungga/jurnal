@@ -59,7 +59,7 @@ function kegiatan($name_kegiatan)
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Presence Siswa</title>
+  <title>Laporan Mingguan</title>
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -112,19 +112,19 @@ function kegiatan($name_kegiatan)
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Presence Siswa</h1>
-              <a href="presensi_siswa_mentor.php" type="button" class="btn mt-2 btn-outline-success ">Presence</a>
-              <a href="report_presence.php" type="button" class="btn mt-2 btn-outline-danger active">Report</a>
+              <h1 class="h3 mb-mb-4 embed-responsive text-gray-800">Laporan Mingguan</h1>
+              <a href="presensi_siswa_mentor.php" type="button" class="btn mt-2 btn-outline-success ">Presensi</a>
+              <a href="report_presence.php" type="button" class="btn mt-2 btn-outline-danger active">Laporan Mingguan</a>
             </div>
           </div>
           <div class="select_ form-inline ">
             <form action="" method="POST">
-              <b class="font-weight-normal">Week :</b>&nbsp;&nbsp;
+              <b class="font-weight-normal">Minggu :</b>&nbsp;&nbsp;
               <?php
               if (isset($_POST['week'])) {
                 $week = $_POST['week']; ?>
                 <select id="" class="form-control col-10" name="week" onChange="document.getElementById('form_id').submit();">
-                  <option selected>Select Week</option>
+                  <option selected>Pilih Minggu</option>
                   <option value="1" <?php if ($week == "1") { ?> selected <?php } ?>>01</option>
                   <option value="2" <?php if ($week == "2") { ?> selected <?php } ?>>02</option>
                   <option value="3" <?php if ($week == "3") { ?> selected <?php } ?>>03</option>
@@ -183,7 +183,7 @@ function kegiatan($name_kegiatan)
               } else {
               ?>
                 <select id="" class="form-control col-10" name="week" onChange="document.getElementById('form_id').submit();">
-                  <option selected>Select Week</option>
+                  <option selected>Pilih Minggu</option>
                   <option value="1">01</option>
                   <option value="2">02</option>
                   <option value="3">03</option>
@@ -245,7 +245,7 @@ function kegiatan($name_kegiatan)
 
                   <option value="<?= $daftarsiswa['nis']; ?>"><?= $daftarsiswa['name']; ?></option>
                 <?php } else {
-                  echo "<option selected>Select student</option>";
+                  echo "<option selected>Pilih Siswa</option>";
                 }
                 $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and mentor='$id'");
                 while ($data1 = mysqli_fetch_array($daftarsiswa)) { ?>
@@ -254,7 +254,7 @@ function kegiatan($name_kegiatan)
                 <?php }
                 ?>
               </select>
-              <button type="submit" name="cari" class="btn btn-info ml-2">View</button>
+              <button type="submit" name="cari" class="btn btn-info ml-2">Tampilkan</button>
               <a href="report_presence.php" class="btn btn-danger ml-3">Reset</a>
             </form>
           </div>
@@ -268,9 +268,9 @@ function kegiatan($name_kegiatan)
 
             <div class="card shadow data ">
               <div class="card-header py-3 form-inline">
-                <a href="./excel.php?nis=<?= $nis; ?>&week=<?= $week; ?>&target=<?= $Sqli_target['total_target']; ?> " target=" blank" type="button" class="btn btn-success ">Download Report</a>
+                <a href="./excel.php?nis=<?= $nis; ?>&week=<?= $week; ?>&target=<?= $Sqli_target['total_target']; ?> " target=" blank" type="button" class="btn btn-success ">Download Laporan</a>
                 <button type="button" class="btn btn-primary ml-3">
-                  Target <span class="badge bg-danger"> <?= $Sqli_target['total_target']; ?> Points</span>
+                  Target <span class="badge bg-danger"> <?= $Sqli_target['total_target']; ?> Poin</span>
                 </button>
               </div>
 
@@ -281,13 +281,13 @@ function kegiatan($name_kegiatan)
                     <thead class="text-md-center">
                       <tr class="bg-info">
                         <th width="10">No</th>
-                        <th>Name Siswa</th>
-                        <th>Schedule</th>
-                        <th>Schedule Time</th>
-                        <th>Presence Time</th>
+                        <th>Nama</th>
+                        <th>Kegiatan</th>
+                        <th>Waktu Kegiatan</th>
+                        <th>Waktu Presensi</th>
                         <th>Status</th>
-                        <th>Mentor Suggestion</th>
-                        <th>Presence date</th>
+                        <th>Catatan Mentor</th>
+                        <th>Tanggal</th>
                       </tr>
                     </thead>
 
@@ -365,7 +365,7 @@ function kegiatan($name_kegiatan)
                         $total = $arraytampil_mark_V['total'] + $arraytampil_mark_O['total'] - $arraytampil_mark_X['total'] + $arraytampil_mark_I['total'] + $arraytampil_mark_S['total'];
                       }
                       ?>
-                      <th class="bg-warning text-right" colspan="7"> Total Point : </th>
+                      <th class="bg-warning text-right" colspan="7"> Total Poin : </th>
                       <th class="text-center"><?= $total; ?></th>
                     </tfoot>
                   </table>
@@ -378,8 +378,8 @@ function kegiatan($name_kegiatan)
               <script>
                 Swal.fire({
                   icon: 'info',
-                  title: '<strong>Announcement!</strong>',
-                  text: 'Student points less than the target!'
+                  title: '<strong class="text-danger">Peringatan!</strong>',
+                  text: 'Poin siswa kurang dari target!'
                 })
               </script>
               <audio src="../music/error.wav" autoplay="autoplay" hidden="hidden"></audio>
@@ -391,8 +391,8 @@ function kegiatan($name_kegiatan)
             <script>
               Swal.fire({
                 icon: 'info',
-                title: '<strong>Announcement!</strong>',
-                text: 'Please select the student and week to view the report!'
+                title: '<strong class="text-danger">Peringatan!</strong>',
+                text: 'Silakan pilih siswa dan minggu untuk melihat laporan!'
               })
             </script>
             <audio src="../music/error.wav" autoplay="autoplay" hidden="hidden"></audio>

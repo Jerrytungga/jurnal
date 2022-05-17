@@ -20,17 +20,17 @@ if (isset($_POST['btn_input'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $input =  mysqli_query($conn, "INSERT INTO `tb_living_logistik`(`nis`,`jarak`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `image`, `catatan`, `efata`,`semester`) VALUES ('$nis','$jrk','$pss','$tr','$rp','$br','$rb','$brs','$nama_gambar','$notes','$efata','$smt')");
             if ($input) {
-                $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+                $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
             } else {
-                $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+                $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
             }
         }
     } else {
         $input =  mysqli_query($conn, "INSERT INTO `tb_living_logistik`(`nis`,`jarak`, `posisi`, `tinggi/rendah`, `rapi`, `bersih`, `raib`,`barang_asing`, `catatan`, `efata`,`semester`) VALUES ('$nis','$jrk','$pss','$tr','$rp','$br','$rb','$brs','$notes','$efata','$smt')");
         if ($input) {
-            $notifinput = $_SESSION['sukses'] = 'Data entered successfully!';
+            $notifinput = $_SESSION['sukses'] = 'Data Berhasil Di Masukan!';
         } else {
-            $notifgagalinput = $_SESSION['gagal'] = 'Data not entered successfully!';
+            $notifgagalinput = $_SESSION['gagal'] = 'Data Gagal Di Masukan!';
         }
     }
 }
@@ -55,17 +55,17 @@ if (isset($_POST['btn_update'])) {
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $edit =  mysqli_query($conn, "UPDATE `tb_living_logistik` SET `nis`='$nis',`jarak`='$jarak',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`image`='$nama_gambar',`catatan`='$notes',`date`='$date',`semester`='$smt' WHERE `tb_living_logistik`.`nis`='$nis' AND `tb_living_logistik`.`date`='$date'");
             if ($edit) {
-                $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+                $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
             } else {
-                $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+                $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
             }
         }
     } else {
         $edit =  mysqli_query($conn, "UPDATE `tb_living_logistik` SET `nis`='$nis',`jarak`='$jarak',`posisi`='$pss',`tinggi/rendah`='$tr',`rapi`='$rp',`bersih`='$br',`raib`='$rb',`barang_asing`='$barangasing',`catatan`='$notes',`date`='$date',`semester`='$smt' WHERE `tb_living_logistik`.`nis`='$nis' AND `tb_living_logistik`.`date`='$date'");
         if ($edit) {
-            $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+            $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         } else {
-            $notifgagaledit = $_SESSION['gagal'] = 'Sorry, the data was not edited successfully!';
+            $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         }
     }
 }
@@ -77,9 +77,9 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_living_logistik`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Di Hapus!';
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data Gagal Di Hapus!';
     }
 }
 
@@ -156,7 +156,7 @@ include 'template/head.php';
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <h6 class=" font-weight-bold text-primary">Logistik & Make Up</h6>
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#livinglogistik">Input</a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#livinglogistik">Masukan Penilaian</a>
                             <div class="row mt-2">
                                 <div class="col">
                                     <form action="" method="POST" class="form-inline">
@@ -173,7 +173,7 @@ include 'template/head.php';
                                             <input type="date" name="tanggal_mulai" class="form-control">
                                             <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                         <?php } ?>
-                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                        <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Tampilkan</button>
                                         <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                     </form>
                                 </div>
@@ -193,9 +193,9 @@ include 'template/head.php';
                                             <th width="50">Raib</th>
                                             <th width="150">Benda Asing</th>
                                             <th width="150">Foto</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th width="200">Option</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="250">Catatan Mentor</th>
+                                            <th width="200">Aksi</th>
                                         </tr>
                                     </thead>
 
@@ -233,7 +233,7 @@ include 'template/head.php';
 
                                                     <div class="btn-group" role="group">
                                                         <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
-                                                            Choice
+                                                            Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                             <!-- Button trigger modal -->
@@ -242,7 +242,7 @@ include 'template/head.php';
                                                             </a>
 
                                                             <a type="button" id="editpenilaian" class="dropdown-item text-danger" data-date="<?= $row["date"]; ?>" data-nis="<?= $row["nis"]; ?>" data-toggle="modal" data-target="#hapus">
-                                                                Delete
+                                                                Hapus
                                                             </a>
 
                                                         </div>
@@ -256,7 +256,7 @@ include 'template/head.php';
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="11"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="11"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

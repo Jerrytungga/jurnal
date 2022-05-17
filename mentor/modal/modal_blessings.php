@@ -3,7 +3,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="blessings">Change Blessings</h5>
+                <h5 class="modal-title" id="blessings">Edit Blessings</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,18 +16,18 @@
                     <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <div class="form-group">
-                        <label class="text-reset" for="date">Date :</label>
+                        <label class="text-reset" for="date">Tanggal :</label>
                         <input type="text" class="form-control" id="date" name="date" placeholder="date">
                     </div>
 
                     <div class="form-group">
-                        <label class="text-reset" for="god">What I Gain On God :</label>
+                        <label class="text-reset" for="god">Apa yang saya dapatkan dari Tuhan :</label>
                         <textarea rows="5" type="text" class="form-control" id="god" name="god" placeholder="What I Gain On God"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point1 :</label>
+                    <label class=" font-weight-bold">Poin1 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point1" id="point1">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -38,13 +38,13 @@
                         <textarea rows="5" type="text" class="form-control" id="cttn1" name="cttn1" placeholder="cttn1"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset" for="edu">What I Learn On Education :</label>
+                        <label class="text-reset" for="edu">Apa yang saya pelajari tentang pendidikan :</label>
                         <textarea rows="5" type="text" class="form-control" id="edu" name="edu" placeholder="What I Learn On Education"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point2 :</label>
+                    <label class=" font-weight-bold">Poin2 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point2" id="point2">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -56,13 +56,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-reset" for="chracter">What L learn On Character & Virtue :</label>
+                        <label class="text-reset" for="chracter">Apa yang saya pelajari tentang karakter dan kebajikan :</label>
                         <textarea rows="5" type="text" class="form-control" id="chracter" name="chracter" placeholder="What L learn On Character & Virtue"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point3 :</label>
+                    <label class=" font-weight-bold">Poin3 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point3" id="point3">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -74,13 +74,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-reset" for="apresiasi1">What L Appreciate Toward Brother & Sister :</label>
+                        <label class="text-reset" for="apresiasi1">Apa yang saya apresiasi untuk kakak & adik :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi1" name="apresiasi1" placeholder="What L Appreciate Toward Brother & Sister"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point4 :</label>
+                    <label class=" font-weight-bold">Poin4 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point4" id="point4">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -91,13 +91,13 @@
                         <textarea rows="5" type="text" class="form-control" id="cttn4" name="cttn4" placeholder="cttn4"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset" for="apresiasi2">What l Appreciate Toward My Trainers/Mentors :</label>
+                        <label class="text-reset" for="apresiasi2">Apa yang saya apresiasi terhadap pelatih/mentor Saya :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi2" name="apresiasi2" placeholder="What l Appreciate Toward My Trainers/Mentors"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point5 :</label>
+                    <label class=" font-weight-bold">Poin5 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point5" id="point5">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -108,13 +108,13 @@
                         <textarea rows="5" type="text" class="form-control" id="cttn5" name="cttn5" placeholder="cttn5"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset" for="apresiasi3">What I Appreciate Toward Saints :</label>
+                        <label class="text-reset" for="apresiasi3">Apa yang saya apresiasi terhadap orang :</label>
                         <textarea rows="5" type="text" class="form-control" id="apresiasi3" name="apresiasi3" placeholder="What I Appreciate Toward Saints"></textarea>
                     </div>
-                    <label class="font-weight-bold">Point6 :</label>
+                    <label class="font-weight-bold">Poin6 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point6" id="point6">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -125,13 +125,13 @@
                         <textarea rows="5" type="text" class="form-control" id="cttn6" name="cttn6" placeholder="cttn6"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset" for="ask">What I Want To Ask :</label>
+                        <label class="text-reset" for="ask">Apa yang Ingin saya tanyakan :</label>
                         <textarea rows="5" type="text" class="form-control" id="ask" name="ask" placeholder="What I Want To Ask"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point7 :</label>
+                    <label class=" font-weight-bold">Poin7 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point7" id="point7">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -142,13 +142,13 @@
                         <textarea rows="5" type="text" class="form-control" id="cttn7" name="cttn7" placeholder="cttn7"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-reset" for="berkat">What I Learn the most This Month :</label>
+                        <label class="text-reset" for="berkat">Apa yang paling saya pelajari bulan ini :</label>
                         <textarea rows="5" type="text" class="form-control" id="berkat" name="berkat" placeholder="What I Learn the most This Month"></textarea>
                     </div>
-                    <label class=" font-weight-bold">Point8 :</label>
+                    <label class=" font-weight-bold">Poin8 :</label>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="point8" id="point8">
-                            <option selected>Select</option>
+                            <option selected>Pilih Poin</option>
                             <option value="1">1</option>
                             <option value="0">0</option>
                             <option value="-1">-1</option>
@@ -161,8 +161,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btn_blessings" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="btn_blessings" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
 
@@ -177,7 +177,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,11 +185,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class=" modal-body">
                 <div class=" form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I gain on God : </label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya dapatkan dari Tuhan : </label>
                     <textarea rows="5" type="text" class="form-control" id="god" name="god" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -203,7 +203,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -211,11 +211,11 @@
             <!-- <input type="text" class="form-control" id="nis" name="nis" value="w"> -->
             <div class=" modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I learn on Education :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya pelajari tentang pendidikan :</label>
                     <textarea rows="5" type="text" class="form-control" id="edu" name="edu" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -228,7 +228,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -236,11 +236,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class=" modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I learn on character & Virtue :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya pelajari tentang karakter dan kebajikan :</label>
                     <textarea rows="5" type="text" class="form-control" id="learnoncharacter" name="learnoncharacter" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -254,7 +254,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -262,11 +262,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class=" modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward Brother & Sisters :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya apresiasi untuk kakak & adik :</label>
                     <textarea rows="5" type="text" class="form-control" id="appreciate" name="appreciate" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor:</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -279,7 +279,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -287,11 +287,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class=" modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward My Trainers/Mentors :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya apresiasi terhadap pelatih/mentor Saya :</label>
                     <textarea rows="5" type="text" class="form-control" id="appreciate1" name="appreciate1" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -304,7 +304,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -312,11 +312,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class=" modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Appreciate Toward Saints :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang saya apresiasi terhadap orang :</label>
                     <textarea rows="5" type="text" class="form-control" id="appreciate2" name="appreciate2" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -329,7 +329,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -337,11 +337,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Want To Ask :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang Ingin saya tanyakan :</label>
                     <textarea rows="5" type="text" class="form-control" id="ask" name="ask" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>
@@ -354,7 +354,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Detail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -362,11 +362,11 @@
             <!-- <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>"> -->
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">What I Learn the most This Month :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Apa yang paling saya pelajari bulan ini :</label>
                     <textarea rows="5" type="text" class="form-control" id="whatlearnthismonht" name="whatlearnthismonht" disabled></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="god-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="god-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control" id="catatan" name="catatan" disabled></textarea>
                 </div>
             </div>

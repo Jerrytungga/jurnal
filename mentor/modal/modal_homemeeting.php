@@ -3,7 +3,7 @@
         <div class="modal-dialog " id="modal-edit">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="home_meeting">Change Home Meeting</h5>
+                    <h5 class="modal-title" id="home_meeting">Edit Home Meeting</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -13,14 +13,14 @@
                         <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                         <input type="hidden" class="form-control" id="nis" name="nis">
                         <div class="form-group">
-                            <label class="message-text font-weight-bold" for="berkat">What I get and learn</label> <br>
+                            <label class="message-text font-weight-bold" for="berkat">Apa yang saya dapatkan dan pelajari</label> <br>
                             <textarea rows="5" type="text" class="form-control" id="berkat" name="berkat">
                             </textarea>
                         </div>
                         <div class="form-group">
-                            <label class="text-reset font-weight-bold" for="beban">Point :</label>
+                            <label class="text-reset font-weight-bold" for="beban">Poin :</label>
                             <select class="form-control" aria-label="Default select example" name="point" id="point">
-                                <option selected>Select</option>
+                                <option selected>Pilih Poin</option>
                                 <option value="1">1</option>
                                 <option value="0">0</option>
                                 <option value="-1">-1</option>
@@ -28,21 +28,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="text-date font-weight-bold" for="date">Date :</label>
+                            <label class="text-date font-weight-bold" for="date">Tanggal :</label>
                             <input type="text" class="form-control" id="date" name="date" placeholder="date">
                         </div>
 
                         <div class="form-group">
 
-                            <label class="text-reset font-weight-bold" for="catatan8">Mentor Notes :</label>
+                            <label class="text-reset font-weight-bold" for="catatan8">Catatan Mentor :</label>
                             <textarea rows="5" type="text" class="form-control" id="catatan8" name="catatan8"></textarea>
-
                             </textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_homemeeting" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" name="btn_homemeeting" class="btn btn-success">Simpan Perubahan</button>
                     </div>
                 </form>
 
@@ -64,16 +63,16 @@
                 <div class="modal-body table-responsive">
 
                     <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                        <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                         <input type="text" class="form-control" id="date" name="date" readonly></input>
                     </div>
                     <div class="form-group">
-                        <label for="learn-text" class="col-form-label font-weight-bold">What I get and learn :</label>
+                        <label for="learn-text" class="col-form-label font-weight-bold">Apa yang saya dapatkan dan pelajari :</label>
                         <textarea rows="5" type="text" class="form-control" id="learn" readonly>
                             </textarea>
                     </div>
                     <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                        <label for="notes-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                         <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
                             </textarea>
                     </div>
