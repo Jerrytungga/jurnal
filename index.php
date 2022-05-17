@@ -115,21 +115,21 @@ if ($angkatan == $batch) {
           $percobaan = $_SESSION['camera'] = '<div id="my_camera"></div>';
           echo notice(2);
         } else {
-          $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Presence can only be 1 time!</strong></p>';
+          $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
           echo notice(3);
         }
       }
     }
   }
 } else if ($cek == 0) {
-  $Announcement = $_SESSION['Announcement'] = 'No Schedule';
+  $Announcement = $_SESSION['Announcement'] = 'Tidak Ada Jadwal';
   echo notice(0);
 } else if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-  $Announcement = $_SESSION['Announcement'] = 'Its Not Time To Presence!';
+  $Announcement = $_SESSION['Announcement'] = 'Belum Saatnya Untuk Presensi!';
   echo notice(0);
 } else {
 
-  $Announcement = $_SESSION['Announcement'] = 'Not Your Class Schedule!';
+  $Announcement = $_SESSION['Announcement'] = 'Bukan Jadwal Kelas Anda!';
   echo notice(0);
 }
 
@@ -219,7 +219,7 @@ $list = mysqli_fetch_array($jadwal);
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Scanner
+              Scanner Qr Code
             </h4>
           </center>
         </div>
@@ -242,7 +242,7 @@ $list = mysqli_fetch_array($jadwal);
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Daily Presence
+              Presensi Harian
             </h4>
           </center>
         </div>
@@ -250,13 +250,13 @@ $list = mysqli_fetch_array($jadwal);
           <table>
             <tr>
               <th width="150">&nbsp;&nbsp;&nbsp;&nbsp;No</th>
-              <th width="220">Name</th>
+              <th width="220">Nama</th>
               <th width="120"><span class="badge badge-pill badge-success">V</span></th>
               <th width="110"><span class="badge badge-pill badge-warning">O</span></th>
               <th width="110"><span class="badge badge-pill badge-danger">X</span></th>
               <th width="100"><span class="badge badge-pill badge-primary">I</span></th>
               <th width="100"><span class="badge badge-pill badge-dark">S</span></th>
-              <th width="100">Point</th>
+              <th width="100">Poin</th>
             </tr>
           </table>
           <?php
@@ -362,8 +362,8 @@ $list = mysqli_fetch_array($jadwal);
 
           <tr>
             <th width="170">&nbsp;&nbsp;No</th>
-            <th width="290">Today's Schedule</th>
-            <th width="120">Start Time</th>
+            <th width="290">Jadwal hari ini</th>
+            <th width="120">Waktu mulai</th>
           </tr>
 
         </table>
@@ -388,7 +388,7 @@ $list = mysqli_fetch_array($jadwal);
                     if ($row["info"] != NULL) { ?>
                       <br>
                       <div class="alert alert-success mt-2" role="alert">
-                        <h6 class="alert-heading">Message!</h6>
+                        <h6 class="alert-heading">Pesan!</h6>
                         <p><?= $row["info"]; ?></p>
                       </div>
                     <?php    }
@@ -491,7 +491,7 @@ if (isset($percobaan)) { ?>
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-danger text-light">
-          <h5 class="modal-title" id="staticBackdropLabel">Verification Presence</h5>
+          <h5 class="modal-title" id="staticBackdropLabel"> Verifikasi Kehadiran</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
