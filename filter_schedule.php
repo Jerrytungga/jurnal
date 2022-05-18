@@ -117,12 +117,11 @@ function activity($activity)
   } // akhir function data kegiatan
 
   if (isset($_POST['angkatan'])) {
-    $angkatan = $_POST['angkatan'];
+    $angkatan1 = $_POST['angkatan'];
     $week = $_POST['week'];
-    $tamplkan_data = mysqli_query($conn, "SELECT * FROM schedule where batch='$angkatan' || week='$week' ORDER BY date DESC");
+    $tamplkan_data = mysqli_query($conn, "SELECT * FROM schedule where batch='$angkatan1' and week='$week' ORDER BY date DESC");
     $list = mysqli_fetch_array($tamplkan_data);
   }
-
   ?>
 
   <div class="card_2 shadow  ">
@@ -134,28 +133,42 @@ function activity($activity)
       <form action="" method="POST" id="form_id">
 
         <div class="form-inline">
-          <select class="form-control" name="angkatan" id="angkatan" aria-label="Default select example" onChange="document.getElementById('form_id').submit();">
-            <option selected>Pilih Angkatan</option>
+          <select class="form-control m-2" name="angkatan" id="angkatan" aria-label="Default select example" onChange="document.getElementById('form_id').submit();">
             <?php
+            if (isset($_POST['angkatan'])) {
+              $angkatan = mysqli_fetch_array(mysqli_query($conn, "SELECT angkatan FROM tb_angkatan where angkatan='" . $_POST['angkatan'] . "'")); ?>
+
+              <option value=" <?= $angkatan['angkatan'] ?> "><?= $angkatan['angkatan'] ?></option>';
+            <?php    } else {
+              echo  '<option selected>Pilih Angkatan</option>';
+            }
             $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan ") or die(mysqli_error($conn));
             while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
               echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
             }
-
             ?>
           </select>
 
-          <select class="form-control m-2" name="week" id="angkatan" aria-label="Default select example" onChange="document.getElementById('form_id').submit();">
-            <option selected>Pilih Minggu</option>
-            <?php
-            $sql_week = mysqli_query($conn, "SELECT * FROM schedule where batch='$angkatan' GROUP By week") or die(mysqli_error($conn));
-            while ($data_week = mysqli_fetch_array($sql_week)) {
-              echo '<option value="' . $data_week['week'] . '">' . $data_week['week'] . '</option>';
-            }
-            ?>
-          </select>
-
-          <button type="submit" name="reset" value="reset" class="btn btn-danger ">Reset</button>
+          <?php
+          if ($_POST['angkatan']) { ?>
+            <select class="form-control m-2" name="week" id="angkatan" aria-label="Default select example" onChange="document.getElementById('form_id').submit();">
+              <?php
+              if (isset($_POST['week'])) {
+                $minggu = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM schedule where week='" . $_POST['week'] . "'")); ?>
+                <option value=" <?= $minggu['week'] ?> "><?= $minggu['week'] ?></option>';
+              <?php    } else {
+                echo  '<option selected>Pilih Minggu</option>';
+              }
+              $sql_week = mysqli_query($conn, "SELECT * FROM schedule where batch='$angkatan1' GROUP By week") or die(mysqli_error($conn));
+              while ($data_week = mysqli_fetch_array($sql_week)) {
+                echo '<option value="' . $data_week['week'] . '">' . $data_week['week'] . '</option>';
+              }
+              ?>
+            </select>
+          <?php
+          }
+          ?>
+          <a href="filter_schedule.php" class="btn btn-danger ">Reset</a>
         </div>
       </form>
 
