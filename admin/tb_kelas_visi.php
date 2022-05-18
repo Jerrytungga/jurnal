@@ -12,7 +12,7 @@ if (isset($_POST['insert'])) {
   $t_karakter = $_POST['target_karakter'];
   $t_pendidikan = $_POST['target_pendidikan'];
   $sms = $_POST['semester'];
-  $bobot = 4 * 5;
+  $bobot = 5 * 5;
   $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_kelas_visi`) As id FROM `tb_visi`"));
   $id_max = $max_id['id'] + 1;
   if ($sms == 'NULL') {

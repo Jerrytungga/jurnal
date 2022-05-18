@@ -402,7 +402,7 @@ function activity($activity)
         },
         {
           name: 'Target',
-          data: [<?= $target_presensi['target'] ?>, 777, 800],
+          data: [<?= $target_presensi['target'] ?>, 564, 800],
           stack: 'male'
         }, {
           name: '<?= $nama_siswa; ?>',
