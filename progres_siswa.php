@@ -3,6 +3,7 @@ include 'database.php';
 session_start();
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
+error_reporting(E_ALL ^ E_NOTICE);
 $waktu_sekarang = date('H-i-s');
 // $id = $_GET['id'];
 
@@ -71,7 +72,7 @@ function activity($activity)
       background-color: #dddddd;
     } */
   </style>
-  <title>Chart Student</title>
+  <title>Bagan Siswa</title>
 </head>
 
 <body>
@@ -102,22 +103,18 @@ function activity($activity)
     <div class="col-sm-6">
       <div class=" ml-2 shadow">
         <div class="card-header  bg-primary text-light">
-          <form action="" method="Post" class="form-inline">
-            <h5>Student Progress Details</h5>
-            <select name="siswa" id="" class="form-control col-3 ml-3">
-              <option selected>Select Student</option>
-              <?php
-              $siswa = mysqli_query($conn, "SELECT * FROM siswa ");
-              while ($data_siswa = mysqli_fetch_array($siswa)) {  ?>
-                <option value="<?= $data_siswa['nis']; ?>"><?= $data_siswa['name']; ?></option>
-              <?php
-              }
-              ?>
-            </select>
+          <form action="" method="Post" class="form-inline" id="form_id">
+            <h5>Kemajuan Siswa</h5>
 
-            <select name="sms" id="" class="form-control col-3 ml-3">
-              <option selected>Select Semester</option>
+
+            <select name="sms" class="form-control col-3 ml-3" onChange="document.getElementById('form_id').submit();">
               <?php
+              if (isset($_POST['sms'])) {
+                $value_semester = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_semester` where thn_semester='" . $_POST['sms'] . "'")); ?>
+                <option value="<?= $value_semester['thn_semester']; ?>"><?= $value_semester['keterangan']; ?></option>
+              <?php    } else {
+                echo  '<option selected>Pilih Semester</option>';
+              }
               $sqlisemester = mysqli_query($conn, "SELECT * FROM `tb_semester` ");
               while ($data_semester1 = mysqli_fetch_array($sqlisemester)) {  ?>
                 <option value="<?= $data_semester1['thn_semester']; ?>"><?= $data_semester1['keterangan']; ?></option>
@@ -125,10 +122,52 @@ function activity($activity)
               }
               ?>
             </select>
-            <button type="submit" name="cari" class="btn btn-success ml-2">View</button>
+
+            <?php
+            if (isset($_POST['sms'])) { ?>
+              <select class="form-control m-2" name="angkatan" id="angkatan" aria-label="Default select example" onChange="document.getElementById('form_id').submit();">
+                <?php
+                if (isset($_POST['angkatan'])) {
+                  $angkatan = mysqli_fetch_array(mysqli_query($conn, "SELECT angkatan FROM tb_angkatan where angkatan='" . $_POST['angkatan'] . "'")); ?>
+
+                  <option value=" <?= $angkatan['angkatan'] ?> "><?= $angkatan['angkatan'] ?></option>';
+                <?php    } else {
+                  echo  '<option selected>Pilih Angkatan</option>';
+                }
+                $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan where semester='" . $_POST['sms'] . "'") or die(mysqli_error($conn));
+                while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
+                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
+                }
+                ?>
+              </select>
+
+            <?php     }
+            if (isset($_POST['angkatan'])) { ?>
+              <select name="siswa" id="" class="form-control col-3 ml-1" onChange="document.getElementById('form_id').submit();">
+                <!-- <option selected>Select Student</option> -->
+                <?php
+                if (isset($_POST['siswa'])) {
+                  $datasiswa1 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa where nis='" . $_POST['siswa'] . "'"));  ?>
+                  <option value="<?= $datasiswa1['nis']; ?>"><?= $datasiswa1['name']; ?></option>
+                <?php    } else {
+                  echo  '<option selected>Pilih Siswa</option>';
+                }
+                $siswa = mysqli_query($conn, "SELECT * FROM siswa where angkatan='" . $_POST['angkatan'] . "'");
+                while ($data_siswa = mysqli_fetch_array($siswa)) {  ?>
+                  <option value="<?= $data_siswa['nis']; ?>"><?= $data_siswa['name']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
+
+            <?php    }
+
+            ?>
+
+            <a href="progres_siswa.php" class="btn btn-danger ml-2">Reset</a>
           </form>
           <?php
-          if (isset($_POST['cari'])) {
+          if (isset($_POST['siswa'])) {
             $selectsiswa = $_POST['siswa'];
             $data_semester = $_POST['sms'];
             $sms = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_semester` where thn_semester='$data_semester '"));
@@ -138,6 +177,8 @@ function activity($activity)
               $nama_siswa = $siswa['name'];
 
               $tampilan_presensi21 = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(presensi) as totalpresensi FROM tb_presensi where nis='$id' and semester='$data_semester'  group by nis"));
+
+              $target_presensi = mysqli_fetch_array(mysqli_query($conn, "SELECT target FROM `tb_kehadiran_kelas` where semester='$data_semester'"));
 
               $revival_note = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(point1)+SUM(point2) as revivalnote FROM `tb_revival_note` where nis='$id' and semester='$data_semester' "));
 
@@ -221,7 +262,7 @@ function activity($activity)
     <div class="col-sm-6">
       <div class="mr-4  shadow">
         <div class="card-header h-60  bg-primary text-light">
-          <h5>Student Progress Whole</h5>
+          <h5>Kemajuan Siswa Secara Keseluruhan</h5>
         </div>
         <div class="card-body">
           <div id="container2"></div>
@@ -262,6 +303,7 @@ function activity($activity)
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -294,65 +336,81 @@ function activity($activity)
     });
   </script>
 
+  <?php
+  $persen = $tampilan_presensi21['totalpresensi'] /  $target_presensi['target'] * 100;
+  $bulatkan = round($persen);
+  if ($bulatkan > 100) {
+    $bulatkan = 100;
+  }
 
-
-
-
-
-
-
-
-
+  ?>
 
 
   <script type="text/javascript">
     Highcharts.chart('container2', {
       chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: 0,
-        plotShadow: false
-      },
-      title: {
-        text: 'Semester <br><?= $sms['keterangan']; ?>',
-        align: 'center',
-        verticalAlign: 'middle',
-        y: 60
-      },
-      tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      accessibility: {
-        point: {
-          valueSuffix: '%'
+        type: 'column',
+        options3d: {
+          enabled: true,
+          alpha: 15,
+          beta: 15,
+          viewDistance: 25,
+          depth: 40
         }
       },
-      plotOptions: {
-        pie: {
-          dataLabels: {
-            enabled: true,
-            distance: -50,
-            style: {
-              fontWeight: 'bold',
-              color: 'white'
-            }
-          },
-          startAngle: -90,
-          endAngle: 90,
-          center: ['50%', '75%'],
-          size: '110%'
-        }
-      },
-      series: [{
-        type: 'pie',
-        name: '<?= $nama_siswa; ?>',
-        innerSize: '50%',
-        data: [
-          ['Presence', <?= $tampilan_presensi21['totalpresensi']; ?>],
-          ['Jurnal PKA', <?= $totaljurnal; ?>],
-          ['Living', <?= $total_living; ?>],
 
-        ]
-      }]
+      title: {
+        text: '<?= $nama_siswa; ?>'
+      },
+
+      xAxis: {
+        categories: ['Presensi', 'Jurnal PKA', 'Pemeriksaan'],
+        labels: {
+          skew3d: true,
+          style: {
+            fontSize: '16px'
+          }
+        }
+      },
+
+      yAxis: {
+        allowDecimals: false,
+        min: 0,
+        title: {
+          text: 'Nomor Bagan',
+          skew3d: true
+        }
+      },
+
+      tooltip: {
+        headerFormat: '<b>{point.key}</b><br>',
+        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y}'
+      },
+
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          depth: 40
+        }
+      },
+
+      series: [{
+
+          name: 'Persentase',
+          data: [<?= $bulatkan ?>, 90, 80],
+          stack: 'male'
+        },
+        {
+          name: 'Target',
+          data: [<?= $target_presensi['target'] ?>, 777, 800],
+          stack: 'male'
+        }, {
+          name: '<?= $nama_siswa; ?>',
+          data: [<?= $tampilan_presensi21['totalpresensi']; ?>, <?= $totaljurnal; ?>, <?= $total_living; ?>],
+          stack: 'male'
+        }
+
+      ]
     });
   </script>
 </body>
