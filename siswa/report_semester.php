@@ -43,10 +43,10 @@ include 'template/head.php'
                     <form action="./report__semester.php">
                         <div class="container-fluid">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-mb-4 text-gray-800">Please select semester</h1>
+                                <h1 class="h3 mb-mb-4 text-uppercase">Silahkan pilih Semester</h1>
                             </div>
                             <select class="form-control col-2 m-2" required name="filter" id="filter" aria-label="Default select example">
-                                <option value="">Select Semester</option>
+                                <option selected>Pilih Semester</option>
                                 <?php
 
                                 $semester = mysqli_query($conn, "SELECT * FROM tb_semester");
@@ -56,7 +56,7 @@ include 'template/head.php'
                                 ?>
                                 <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
                             </select>
-                            <button class="btn btn-primary mt-2 m-2" type="submit">Show</button>
+                            <button class="btn btn-primary mt-2 m-2" type="submit">Tampilkan</button>
 
                         </div>
                     </form>

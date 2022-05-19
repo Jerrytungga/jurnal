@@ -22,10 +22,10 @@ if (isset($_POST['perubahan'])) {
     $id = htmlspecialchars($_POST['id']);
     $edit =  mysqli_query($conn, "UPDATE `tb_catatan` SET `judul`='$judul',`deskripsi`='$deskripsi' WHERE `tb_catatan`.`id_catatan`='$id'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsukses = $_SESSION['sukses'] = 'Berhasil Disimpan';
         echo notice(1);
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        $notifgagal = $_SESSION['gagal'] = 'Mohon Maaf Pengisian jurnal Hanya Sekali Saja';
         echo notice(0);
     }
 }
@@ -35,10 +35,10 @@ if (isset($_POST['hapus'])) {
     $date = htmlspecialchars($_POST['date']);
     $hapus =  mysqli_query($conn, "DELETE FROM `tb_catatan`  WHERE `nis` ='$nis' AND `date`='$date'");
     if ($hapus) {
-        $notifdelete = $_SESSION['sukses'] = 'Data Successfully Deleted!';
+        $notifdelete = $_SESSION['sukses'] = 'Data Berhasil Dihapus!';
         echo notice(1);
     } else {
-        $notifgagal = $_SESSION['sukses'] = 'Data failed to delete!';
+        $notifgagal = $_SESSION['sukses'] = 'Data gagal dihapus!';
         echo notice(0);
     }
 }
@@ -84,23 +84,23 @@ include 'template/head.php'
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-mb-4 text-gray-800">Diary</h1>
+                        <h1 class="h3 mb-mb-4 text-uppercase">Catatan Harian</h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#notes">Add New Diary</a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#notes">Tambah Catatan</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="table-primary">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Date</th>
-                                            <th>Option</th>
+                                            <th>Judul</th>
+                                            <th>Keterangan</th>
+                                            <th>Tanggal</th>
+                                            <th>Aksi</th>
 
                                         </tr>
                                     </thead>

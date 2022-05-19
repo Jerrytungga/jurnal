@@ -49,13 +49,13 @@ include 'template/head.php'
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <h6 class=" font-weight-bold text-primary">Logistik & Make Up</h6>
+                            <h6 class=" font-weight-bold text-dark">Logistik & Make Up</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="bg-info">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
                                             <th width="50">Jarak</th>
                                             <th width="50">Posisi</th>
@@ -64,8 +64,8 @@ include 'template/head.php'
                                             <th width="50">Bersih</th>
                                             <th width="50">Raib</th>
                                             <th width="150">Foto</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="100">Catatan Mentor</th>
 
                                         </tr>
                                     </thead>
@@ -106,7 +106,7 @@ include 'template/head.php'
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="9"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="9"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

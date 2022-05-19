@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="notes">New Diary </h5>
+                <h5 class="modal-title" id="notes">Catatan Harian</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,17 +12,17 @@
                 <div class="modal-body">
                     <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
                     <div class="form-group">
-                        <label for="title">Title :</label>
+                        <label for="title">Judul :</label>
                         <input type="text" class="form-control" id="jd_diary" name="jd_diary" placeholder="Title">
                     </div>
                     <div class="form-group">
-                        <label for="descrition">Description :</label>
+                        <label for="descrition">Keterangan :</label>
                         <textarea rows="5" type="text" class="form-control" id="isi_diary" name="isi_diary" placeholder="Description"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="catatan" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="catatan" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -34,7 +34,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="notes">Edit Diary </h5>
+                <h5 class="modal-title" id="notes">Edit Catatan Harian </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,17 +44,17 @@
                 <div class="modal-body" id="modal-edit">
                     <input type="hidden" class="form-control" id="id" name="id">
                     <div class="form-group">
-                        <label for="judul-text" class="col-form-label font-weight-bold">Title :</label>
+                        <label for="judul-text" class="col-form-label font-weight-bold">Judul :</label>
                         <textarea rows="5" type="text" class="form-control" id="judul" name="judul"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="deskripsi-text" class="col-form-label font-weight-bold">Description :</label>
+                        <label for="deskripsi-text" class="col-form-label font-weight-bold">Keterangan :</label>
                         <textarea rows="5" type="text" class="form-control" id="deskripsi" name="deskripsi"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="perubahan" id="perubahan" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="perubahan" id="perubahan" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -70,13 +70,13 @@
 
             <form method="POST">
                 <div class="modal-body">
-                    <h5>Are you sure you want to delete the data ?</h5>
+                    <h5>Apakah Anda yakin ingin menghapus data ?</h5>
                     <input type="hidden" class="form-control" id="id" name="id">
                     <input type="text" readonly class="form-control" id="date" name="date">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="submit" name="hapus" class="btn btn-danger">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TIDAK</button>
+                    <button type="submit" name="hapus" class="btn btn-danger">IYA</button>
                 </div>
             </form>
         </div>

@@ -70,6 +70,7 @@ $weekl = mysqli_fetch_array($report);
       color: white;
     }
   </style>
+  <title>Cetak</title>
 </head>
 
 <body>
@@ -107,17 +108,17 @@ $weekl = mysqli_fetch_array($report);
       <tr>
         <th bgcolor="#6998AB" width="10">No</th>
         <th bgcolor="#6998AB" width="90">Presensi</th>
-        <th bgcolor="#6998AB" width="150">Jurnal Daily</th>
-        <th bgcolor="#6998AB" width="200">Jurnal Weekly</th>
-        <th bgcolor="#6998AB" width="200">Jurnal Monthly</th>
-        <th bgcolor="#6998AB" width="150">Virtue</th>
-        <th bgcolor="#6998AB" width="300">Living Lemari</th>
-        <th bgcolor="#6998AB" width="360">Living Rak Sepatu dan Handuk</th>
-        <th bgcolor="#6998AB" width="150">Living Ranjang</th>
+        <th bgcolor="#6998AB" width="150">Jurnal Harian</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Mingguan</th>
+        <th bgcolor="#6998AB" width="200">Jurnal Bulanan</th>
+        <th bgcolor="#6998AB" width="150">Kebajikan</th>
+        <th bgcolor="#6998AB" width="300">Pemeriksaan Lemari</th>
+        <th bgcolor="#6998AB" width="360">Pemeriksaan Rak Sepatu dan Handuk</th>
+        <th bgcolor="#6998AB" width="150">Pemeriksaan Ranjang</th>
         <th bgcolor="#6998AB" width="150">Total</th>
         <th bgcolor="#6998AB" width="100">Status</th>
         <th bgcolor="#6998AB" width="100">Keterangan</th>
-        <th bgcolor="#6998AB" width="370">Date</th>
+        <th bgcolor="#6998AB" width="370">Tanggal</th>
         <th bgcolor="#6998AB" width="800">Sanksi</th>
       </tr>
       <tr>
@@ -164,7 +165,7 @@ $weekl = mysqli_fetch_array($report);
           $character = mysqli_query($conn, "SELECT SUM(`benar`)+SUM(`tepat`)+SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
-          // living lemari 
+          // living lemari
           $buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
           $pakaianlipat = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaianlipat WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
@@ -272,7 +273,7 @@ $weekl = mysqli_fetch_array($report);
           <?= $row['status']; ?>
 
         </td>
-        <td>Week <?= $row['week']; ?></td>
+        <td>Tanggal <?= $row['week']; ?></td>
         <td><?= $row['date']; ?></td>
         <td>
           <a class="font-weight-bold text-danger font-italic">

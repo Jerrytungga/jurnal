@@ -1,5 +1,5 @@
  <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-     <marquee class="font-weight-bold text-danger">
+     <marquee class="font-weight-bold text-primary">
          <h5> Roma 12:11 Janganlah hendaknya kerajinanmu kendor, biarlah rohmu menyala-nyala dan layanilah Tuhan. </h5>
      </marquee>
      <!-- Sidebar Toggle (Topbar) -->

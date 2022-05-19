@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -16,7 +16,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard </span></a>
+            <span>Dasbor</span></a>
     </li>
 
     <!-- Divider -->
@@ -24,14 +24,14 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface User
+        Tampilan Siswa
     </div>
 
     <!-- Nav Item - Profile -->
     <li class="nav-item active">
         <a class="nav-link" href="profile.php">
             <i class="fas fa-fw fa-user"></i>
-            <span>My Profile</span></a>
+            <span>Profil Saya</span></a>
     </li>
 
 
@@ -44,9 +44,9 @@
         <div id="jurnal" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">kategori:</h6>
-                <a class="collapse-item" href="revivalnote.php">Daily</a>
-                <a class="collapse-item" href="Weekly.php">Weekly</a>
-                <a class="collapse-item" href="Monthly.php">Monthly</a>
+                <a class="collapse-item" href="revivalnote.php">Harian</a>
+                <a class="collapse-item" href="Weekly.php">Mingguan</a>
+                <a class="collapse-item" href="Monthly.php">Bulanan</a>
             </div>
         </div>
     </li>
@@ -56,7 +56,7 @@
     <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#living" aria-expanded="true" aria-controls="living">
             <i class="far fa-clipboard"></i>
-            <span>Living</span>
+            <span>Pemeriksaan</span>
         </a>
         <div id="living" class="collapse" aria-labelledby="living" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -71,18 +71,18 @@
     <li class="nav-item active">
         <a class="nav-link" href="presence_siswa.php" aria-expanded="true" aria-controls="presence">
             <i class="fas fa-fw fa-table"></i>
-            <span>Presence PKA</span></a>
+            <span>Presensi</span></a>
     </li>
 
     <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pka" aria-expanded="true" aria-controls="pka">
             <i class="far fa-clipboard"></i>
-            <span>Report Jurnal PKA</span>
+            <span>Laporan</span>
         </a>
         <div id="pka" class="collapse" aria-labelledby="pka" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">kategori:</h6>
-                <a class="collapse-item" href="reportweekly.php">Weekly</a>
+                <a class="collapse-item" href="reportweekly.php">Mingguan</a>
                 <a class="collapse-item" href="report_semester.php">Semester</a>
             </div>
         </div>
@@ -117,7 +117,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="notes.php">
             <i class="fas fa-fw fa-file"></i>
-            <span>Diary</span></a>
+            <span>Catatan Harian</span></a>
     </li>
 
     <!-- Divider -->

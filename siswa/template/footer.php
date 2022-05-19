@@ -2,7 +2,7 @@
 
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Jurnal PKA &copy; 2021 by Flats 41</span>
+            <span>Jurnal PKA. V.2 &copy; 2021 by Jerry Christian</span>
         </div>
     </div>
 </footer>

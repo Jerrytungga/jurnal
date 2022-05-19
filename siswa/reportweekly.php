@@ -43,35 +43,35 @@ include 'template/head.php'
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Jurnal Report</h1>
-                            <a href="cetak.php" target="blank" class="btn btn-primary mt-2" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Download Report</a>
+                            <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Laporan Mingguan</h1>
+                            <a href="cetak.php" target="blank" class="btn btn-primary mt-2" type="button"><i class="fas fa-download fa-sm text-white-50"></i> Unduh Laporan</a>
 
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <h6 class=" font-weight-bold text-primary">Report Weekly</h6>
+                            <h6 class=" font-weight-bold text-dark">Laporan Mingguan</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead class="text-center">
-                                        <tr class="table-warning">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
-                                            <th width="450">Name</th>
+                                            <th width="450">Nama</th>
                                             <th>Presensi</th>
-                                            <th>Jurnal Daily</th>
-                                            <th>Jurnal Weekly</th>
-                                            <th>Jurnal Monthly</th>
-                                            <th>Virtue</th>
-                                            <th>Living Lemari</th>
-                                            <th>Living Rak Sepatu dan Handuk</th>
-                                            <th>Living Ranjang</th>
+                                            <th>Jurnal Harian</th>
+                                            <th>Jurnal Mingguan</th>
+                                            <th>Jurnal Bulanan</th>
+                                            <th>Kebajikan</th>
+                                            <th>Pemeriksaan Lemari</th>
+                                            <th>Pemeriksaan Rak Sepatu dan Handuk</th>
+                                            <th>Pemeriksaan Ranjang</th>
                                             <th>Total</th>
                                             <th width="200">Status</th>
                                             <th width="200">Keterangan</th>
-                                            <th width="200">Date</th>
+                                            <th width="200">Tanggal</th>
                                             <th width="350">Sanksi</th>
 
                                         </tr>
@@ -122,7 +122,7 @@ include 'template/head.php'
                                             $character = mysqli_query($conn, "SELECT SUM(`benar`)+SUM(`tepat`)+SUM(`ketat`) as jumlah FROM tb_character WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
 
-                                            // living lemari 
+                                            // living lemari
                                             $buku = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`tinggi/rendah`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_buku WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
 
                                             $pakaianlipat = mysqli_query($conn, "SELECT SUM(`posisi`)+SUM(`rapi`)+SUM(`bersih`)+SUM(`raib`)+SUM(`barang_asing`) as jumlah FROM tb_living_pakaianlipat WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
@@ -232,7 +232,7 @@ include 'template/head.php'
                                                         <?= $row['status']; ?>
 
                                                     </td>
-                                                    <td>Week <?= $row['week']; ?></td>
+                                                    <td>Minggu <?= $row['week']; ?></td>
                                                     <td><?= $row['date']; ?></td>
                                                     <td>
                                                         <a class="font-weight-bold text-danger font-italic">

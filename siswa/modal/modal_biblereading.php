@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="biblereading">Bible Reading</h5>
+                <h5 class="modal-title" id="biblereading">Pembacaan Alkitab</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,7 +16,7 @@
                     <div class="form-group">
 
                         <select class="form-control" name="kitab" id="kitab" aria-label="Default select example" required>
-                            <option value="">Select Bible</option>
+                            <option selected>Pilih Kitab</option>
                             <option value="OTNT">OTNT</option>
                             <option value="OT">OT</option>
                             <option value="NT">NT</option>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="OT" id="OT" aria-label="Default select example" required>
-                            <option value="">Select Total OT Chapter(s)</option>
+                            <option selected>Pilih Total Pasal OT</option>
                             <option value="Tidak Baca">Tidak Baca</option>
                             <option value="1 Pasal">1 Pasal</option>
                             <option value="2 Pasal">2 Pasal</option>
@@ -53,7 +53,7 @@
 
                     <div class="form-group">
                         <select class="form-control" name="NT" id="NT" aria-label="Default select example" required>
-                            <option value="">Select Total NT Chapter(s)</option>
+                            <option selected>Pilih Total Pasal NT</option>
                             <option value="Tidak Baca">Tidak Baca</option>
                             <option value="1 Pasal">1 Pasal</option>
                             <option value="2 Pasal">2 Pasal</option>
@@ -80,8 +80,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="bible_reading" class="btn btn-danger">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="bible_reading" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
 
@@ -94,7 +94,7 @@
     <div class="modal-dialog" id="modal-edit">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="biblereading">Change Bible Reading</h5>
+                <h5 class="modal-title" id="biblereading">Edit Pembacaan Alkitab</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -105,12 +105,12 @@
                     <input type="hidden" class="form-control" id="nis" name="nis">
                     <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                     <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                        <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                         <input type="text" class="form-control" id="date" name="date" readonly></input>
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="bible" id="bible" aria-label="Default select example" required>
-                            <option value="">Select Bible</option>
+                            <option selected>Pilih Kitab</option>
                             <option value="OTNT">OTNT</option>
                             <option value="OT">OT</option>
                             <option value="NT">NT</option>
@@ -121,7 +121,7 @@
 
                     <div class="form-group">
                         <select class="form-control" name="ot" id="ot" aria-label="Default select example" required>
-                            <option value="">Select Total OT Chapter(s)</option>
+                            <option selected>Pilih Total Pasal OT</option>
                             <option value="Tidak Baca">Tidak Baca</option>
                             <option value="1 Pasal">1 Pasal</option>
                             <option value="2 Pasal">2 Pasal</option>
@@ -150,7 +150,7 @@
 
                     <div class="form-group">
                         <select class="form-control" name="nt" id="nt" aria-label="Default select example" required>
-                            <option value="">Select Total NT Chapter(s)</option>
+                            <option selected>Pilih Total Pasal NT</option>
                             <option value="Tidak Baca">Tidak Baca</option>
                             <option value="1 Pasal">1 Pasal</option>
                             <option value="2 Pasal">2 Pasal</option>
@@ -177,8 +177,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btn_editbible" class="btn btn-danger">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="btn_editbible" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
 
@@ -193,7 +193,7 @@
     <div class="modal-dialog" id="modal-detail">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Bible Reading Detail </h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Lihat Pembacaan Alkitab</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -201,24 +201,24 @@
             <div class="modal-body table-responsive">
 
                 <div class="form-group">
-                    <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                    <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                     <p type="text" class="form-control" id="date" readonly></p>
                 </div>
                 <div class="form-group">
-                    <label for="date-text" class="col-form-label font-weight-bold">Bible :</label>
+                    <label for="date-text" class="col-form-label font-weight-bold">Kitab :</label>
                     <p type="text" class="form-control" id="bible" readonly></p>
                 </div>
                 <div class="form-group">
-                    <label for="date-text" class="col-form-label font-weight-bold">Total OT Chapter(s) :</label>
+                    <label for="date-text" class="col-form-label font-weight-bold">Total Pasal OT :</label>
                     <p type="text" class="form-control" id="ot" readonly></p>
                 </div>
                 <div class="form-group">
-                    <label for="date-text" class="col-form-label font-weight-bold">Total NT Chapter(s) :</label>
+                    <label for="date-text" class="col-form-label font-weight-bold">Total Pasal NT :</label>
                     <p type="text" class="form-control" id="nt" readonly></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                    <label for="notes-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                     <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
                             </textarea>
                 </div>

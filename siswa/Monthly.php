@@ -37,10 +37,10 @@ if (isset($_POST['btn_blessings'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $edit = mysqli_query($conn, "UPDATE `tb_blessings` SET `nis`='$nis',`what_i_gain_on_god`='$god',`what_i_learn_on_education`='$edu',`what_i_learn_on_character_and_virtue`='$chracter',`what_l_appreciate_toward_brother_sister`='$apresiasi1',`what_l_appreciate_toward_my_trainers`='$apresiasi2',`what_l_appreciate_toward_saints`='$apresiasi3',`what_I_want_to_ask`='$ask',`what_i_learn_the_most_this_month`='$berkat',`semester`='$smt' WHERE `tb_blessings`.`nis`='$nis' AND `tb_blessings`.`date`='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         echo notice(1);
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         echo notice(0);
     }
 }
@@ -84,34 +84,34 @@ include 'template/head.php'
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Monthly</h1>
+                            <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Bulanan</h1>
                             <p class=" mt embed-responsive">pengisian minimal 1x/bulan per item, <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
-                            <a href="Monthly.php" type="button" class="btn btn-outline-primary active mt-2">Blessings</a>
+                            <a href="Monthly.php" type="button" class="btn btn-primary active mt-2">Berkat</a>
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <a href="" class="btn btn-primary float-right" data-toggle="modal" data-target="#Blessings">Isi Jurnal</a>
-                            <h5 class=" font-weight-bold text-primary">Blessings</h5>
-                            <p>adalah catatan berkat-berkat yang di dapatkan selama 1 bulan</p>
+                            <h5 class=" font-weight-bold text-dark">Berkat</h5>
+                            <p>Catatan berkat-berkat yang di dapatkan selama 1 bulan</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="table-primary">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
-                                            <th width="150">What I gain on God</th>
-                                            <th width="150">What I learn on Education</th>
-                                            <th width="150">What I learn on character & Virtue</th>
-                                            <th width="150">What I Appreciate Toward Brother & Sisters</th>
-                                            <th width="150">What I Appreciate Toward My Trainers/Mentors</th>
-                                            <th width="150">What I Appreciate Toward Saints</th>
-                                            <th width="150">What I Want To Ask</th>
-                                            <th width="150">What I Learn the most This Month</th>
-                                            <th width="150">Date</th>
-                                            <th width="150">Options</th>
+                                            <th width="150">Apa yang saya dapatkan dari Tuhan</th>
+                                            <th width="150">Apa yang saya pelajari di Pendidikan</th>
+                                            <th width="150">Apa yang saya pelajari tentang karakter dan Kebajikan</th>
+                                            <th width="150">Apa yang Saya Apresiasi Terhadap Kakak & Adik</th>
+                                            <th width="150">Apa yang Saya Apresiasi Terhadap Pelatih/Mentor Saya</th>
+                                            <th width="150">Apa yang Saya Apresiasi Terhadap Orang</th>
+                                            <th width="150">Yang Ingin Saya Tanyakan</th>
+                                            <th width="150">Apa yang aling Saya pelajari bulan ini</th>
+                                            <th width="150">Tanggal</th>
+                                            <th width="150">Aksi</th>
                                         </tr>
                                     </thead>
 

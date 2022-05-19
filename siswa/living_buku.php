@@ -45,13 +45,13 @@ include 'template/head.php'
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <h6 class=" font-weight-bold text-primary">Buku</h6>
+                            <h6 class=" font-weight-bold text-dark">Buku</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="bg-info">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
                                             <th width="50">Posisi</th>
                                             <th width="50">Tinggi/ Rendah</th>
@@ -59,8 +59,8 @@ include 'template/head.php'
                                             <th width="50">Bersih</th>
                                             <th width="50">Raib</th>
                                             <th width="150">Foto</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="150">Catatan Mentor</th>
                                         </tr>
                                     </thead>
 
@@ -93,7 +93,11 @@ include 'template/head.php'
                                                     ?>
                                                 </td>
                                                 <td><?= $row['date']; ?></td>
-                                                <td><a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a></td>
+                                                <td>
+
+                                                    <a class="font-weight-bold text-primary font-italic"><?= $row['catatan']; ?></a>
+
+                                                </td>
 
                                             </tr>
                                             <?php
@@ -102,7 +106,7 @@ include 'template/head.php'
                                         <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
-                                        <th class="bg-warning text-right" colspan="8"> Total Point : </th>
+                                        <th class="bg-warning text-right" colspan="8"> Total Poin : </th>
                                         <th class="text-center"><?= $total; ?></th>
                                     </tfoot>
                                 </table>

@@ -18,22 +18,9 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>My Profile</title>
-  <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-  <!-- Custom styles for this page -->
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-</head>
+<?php
+include 'template/head.php'
+?>
 
 <body id="page-top">
   <!-- Page Wrapper -->
@@ -58,11 +45,11 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">My Profile</h1>
+            <h1 class="h3 mb-0 text-uppercase">Profil saya</h1>
           </div>
           <div class="row">
             <!-- Content Column -->
-            <div class="card mb-4 shadow-lg p-3 bg-body rounded" style="max-width: 700px;">
+            <div class="card mb-4 shadow-lg p-3 m-3 bg-body rounded" style="max-width: 700px;">
               <div class="card" style="width: 18rem;">
                 <img src="../img/fotosiswa/<?= $data['image']; ?>" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -70,7 +57,7 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
                   <h6 class="card-title">Username : <?= $data['username']; ?></h6>
                   <h6 class="card-title">Password : <?= $data['password']; ?></h6>
                   <a id="edit_siswa" data-toggle="modal" data-target="#edit" data-foto="<?= $data["image"]; ?>" data-nis="<?= $data["nis"]; ?>" data-nama="<?= $data["name"]; ?>" data-username="<?= $data["username"]; ?>" data-password="<?= $data["password"]; ?>">
-                    <button class="btn btn-info btn-warning">Ganti Password</button></a>
+                    <button class="btn  btn-primary">Ganti Password</button></a>
                 </div>
               </div>
             </div>
@@ -96,16 +83,9 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
   <?php
   include 'modal/modal_profile.php';
   include 'modal/modal_logout.php';
+  include 'template/script.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
 
   <script>
     $(document).on("click", "#edit_siswa", function() {
@@ -121,21 +101,7 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
       $(" #modal-edit #image").attr("src", "../img/fotosiswa/" + image);
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      var living = document.getElementById('living');
-      var waktu = new Date();
-      var hari = waktu.getDay();
-      var bulan = waktu.getMonth();
 
-
-      if (hari == 0) {
-        living.style.display = 'blok';
-      } else {
-        living.style.display = 'none';
-      }
-    });
-  </script>
   <!-- <script>
     $(document).ready(function() {
       var living = document.getElementById('jurnal');
@@ -170,7 +136,7 @@ $pesan = $_SESSION['gagal'] = 'Gagal!';
 
     });
   </script> -->
-  <!--   
+  <!--
   <script>
     Swal.fire({
       title: '<strong>Maintenance </strong> ',

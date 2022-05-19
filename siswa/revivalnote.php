@@ -24,10 +24,10 @@ if (isset($_POST['btn_editrevivalnote'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $edit = mysqli_query($conn, "UPDATE `tb_revival_note` SET `nis`='$nis',`verse`='$verse',`blessing`='$blessing',`semester`='$smt' WHERE `tb_revival_note`.`nis` ='$nis' AND `tb_revival_note`.`date`='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         echo notice(1);
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         echo notice(0);
     }
 }
@@ -72,32 +72,32 @@ include 'template/head.php'
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Daily</h1>
+                            <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Harian</h1>
                             <p class=" mt embed-responsive">ini adalah jurnal yang harus diisi setiap hari, 7 hari/minggu, <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
                             <!-- <a href="Daily.php" type="button" class="btn btn-outline-primary mt-2">Pesonal Goal</a> -->
-                            <a href="revivalnote.php" type="button" class="btn btn-success active mt-2">Revival Note</a>
-                            <a href="prayernote.php" type="button" class="btn btn-outline-warning mt-2">Prayer Note</a>
-                            <a href="biblereading.php" type="button" class="btn btn-outline-danger mt-2">Bible Reading</a>
+                            <a href="revivalnote.php" type="button" class="btn btn-primary active mt-2">Penyegaran Pagi</a>
+                            <a href="prayernote.php" type="button" class="btn btn-outline-primary mt-2">Catatan Doa</a>
+                            <a href="biblereading.php" type="button" class="btn btn-outline-primary mt-2">Pembacaan Alkitab</a>
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-success float-right" data-toggle="modal" data-target="#Revivalnote">Isi Jurnal</a>
-                            <h5 class=" font-weight-bold text-success">Revival Note</h5>
-                            <p>adalah catatan saat teduh (penyegaran pagi)</p>
+                            <a href="" class="btn btn-primary float-right" data-toggle="modal" data-target="#Revivalnote">Isi Jurnal</a>
+                            <h5 class=" font-weight-bold text-dark ">Penyegaran Pagi</h5>
+                            <p>adalah catatan saat teduh </p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="table-success">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
-                                            <th>Verse</th>
-                                            <th>Blessing</th>
-                                            <th width="100">Date</th>
-                                            <th width="250">Mentor Notes</th>
-                                            <th>Options</th>
+                                            <th>Ayat Alkitab</th>
+                                            <th>Berkat</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="250">Catatan Mentor</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
 

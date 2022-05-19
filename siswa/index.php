@@ -60,7 +60,7 @@ include 'template/head.php'
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-uppercase">Dasbor</h1>
 
                     </div>
 
@@ -75,7 +75,7 @@ include 'template/head.php'
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Active Student</div>
+                                                Siswa Aktif</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count1; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -93,7 +93,7 @@ include 'template/head.php'
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Student</div>
+                                                Total Siswa</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count2; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -112,7 +112,7 @@ include 'template/head.php'
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                My Mentor</div>
+                                                Mentor Saya</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $get_mentor_siswa['name']; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -127,7 +127,7 @@ include 'template/head.php'
                         <!-- Bar Chart -->
                         <div class="card shadow  w-100 m-lg-2">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary mb-2">Progress Journal</h6>
+                                <h6 class="m-0 font-weight-bold text-dark mb-2">Kemajuan Jurnal</h6>
                                 <form action="" method="POST" class="form-inline">
 
 
@@ -144,7 +144,7 @@ include 'template/head.php'
                                         <input type="date" name="tanggal_mulai" class="form-control">
                                         <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                     <?php } ?>
-                                    <button type="submit" name="filter_tanggal" class="btn btn-info ml-3">Filter</button>
+                                    <button type="submit" name="filter_tanggal" class="btn btn-primary ml-3">Tampilkan</button>
                                     <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button>
                                 </form>
                                 <?php
@@ -405,20 +405,14 @@ include 'template/head.php'
     <!-- Logout Modal-->
     <?php
     include 'modal/modal_logout.php';
+    include 'template/script.php';
     ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
+
 
     <!-- Page level plugins -->
     <script src="../vendor/chart.js/Chart.min.js"></script>
-
     <!-- <script src="js/Chart.js"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -426,21 +420,7 @@ include 'template/head.php'
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-    <script>
-        $(document).ready(function() {
-            var living = document.getElementById('living');
-            var waktu = new Date();
-            var hari = waktu.getDay();
-            var bulan = waktu.getMonth();
 
-
-            if (hari == 0) {
-                living.style.display = 'blok';
-            } else {
-                living.style.display = 'none';
-            }
-        });
-    </script>
     <!-- contoh bar chart -->
     <script type="text/javascript">
         // Create the chart
@@ -494,61 +474,61 @@ include 'template/head.php'
                     data: [
 
                         [
-                            "Presence",
+                            "Presensi",
                             <?= $pointpresensi; ?>
                         ],
                         [
-                            "Revival Note",
+                            "Penyegaran Pagi",
                             <?= $revival_note['revivalnote']; ?>
 
                         ],
                         [
-                            "Prayer Note",
+                            "Catatan Doa",
                             <?= $prayer_note['prayernote']; ?>
 
                         ],
                         [
-                            "Bible Reading",
+                            "Pembacaan Alkitab",
                             <?= $bible_reading['biblereading']; ?>
 
                         ],
                         [
-                            "Exhibition",
+                            "Pameran",
                             <?= $exhibition['exhibition']; ?>
 
                         ],
                         [
-                            "Personal Goal",
+                            "Tujuan Pribadi",
                             <?= $personalgoal['personalgoal']; ?>
 
                         ],
                         [
-                            "Home Metting",
+                            "Persekutuan Mentor",
                             <?= $homemeeting['homemeeting']; ?>
 
                         ],
                         [
-                            "Blessings",
+                            "Berkat",
                             <?= $blessings['blessings']; ?>
 
                         ],
                         [
-                            "Virtue & Character",
+                            "Kebajikan & Karakter",
                             <?= $virtue_character; ?>
 
                         ],
                         [
-                            "Living Lemari",
+                            "Penilaian Lemari",
                             <?= $totallivinglemari; ?>
 
                         ],
                         [
-                            "Living Ranjang",
+                            "Penilaian Ranjang",
                             <?= $totallivingranjang; ?>
 
                         ],
                         [
-                            "Living Rak Sepatu & Handuk",
+                            "Penilaian Rak Sepatu & Handuk",
                             <?= $totallivingraksepatu; ?>
 
                         ],

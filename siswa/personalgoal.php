@@ -28,10 +28,10 @@ if (isset($_POST['btn_update_personalgoal'])) {
     $smt = htmlspecialchars($_POST['smt']);
     $edit = mysqli_query($conn, "UPDATE `tb_personal_goal` SET `nis`='$nis',`character_virtue`='$character',`prayer`='$prayer',`date`='$date',`neutron`='$Neutron',`semester`='$smt' WHERE `tb_personal_goal`.`nis` ='$nis' AND `tb_personal_goal`.`date`='$date'");
     if ($edit) {
-        $notifsuksesedit = $_SESSION['sukses'] = 'Saved!';
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
         echo notice(1);
     } else {
-        $notifgagaledit = $_SESSION['gagal'] = 'Gagal!';
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
         echo notice(0);
     }
 }
@@ -72,32 +72,32 @@ include 'template/head.php'
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Weekly</h1>
-                            <p class=" mt embed-responsive">adalah jurnal mingguan. Setiap item dapat diisi >1x dalam seminggu sesuai permintaan minimalnya. <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
-                            <a href="Weekly.php" type="button" class="btn btn-outline-primary mt-2">Exhibition</a>
-                            <a href="personalgoal.php" type="button" class="btn btn-outline-warning active mt-2">Personal Goal</a>
-                            <a href="homemeeting.php" type="button" class="btn btn-outline-success mt-2">Home Meeting</a>
+                            <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Mingguan</h1>
+                            <p class=" mt embed-responsive">Setiap item dapat diisi >1x dalam seminggu sesuai permintaan minimalnya. <span class="text-danger font-weight-bold">pengisian harus singkat dan jelas !</span></p>
+                            <a href="Weekly.php" type="button" class="btn btn-outline-primary mt-2">Pameran</a>
+                            <a href="personalgoal.php" type="button" class="btn btn-primary active mt-2 ">Tujuan Pribadi</a>
+                            <a href="homemeeting.php" type="button" class="btn btn-outline-primary mt-2">Persekutuan Mentor</a>
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
                             <a href="" class="btn btn-primary float-right" data-toggle="modal" data-target="#PGSJ">Isi Jurnal</a>
-                            <h5 class=" font-weight-bold text-primary">Personal Goal Setting</h5>
+                            <h5 class=" font-weight-bold text-dark">Pengaturan Tujuan Pribadi</h5>
                             <!-- <p>adalah goal setting setiap hari berdasarkan arahan trainer menurut mapelnya. Isian dibawah ini adalah resume dari goal yang ditetapkan</p> -->
                         </div>
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr class="table-warning">
+                                        <tr class="bg-primary text-light">
                                             <th width="10">No</th>
-                                            <th>Character Virtue</th>
-                                            <th>Prayer</th>
-                                            <th>Bimbel</th>
-                                            <th width="100">Date</th>
-                                            <th width="150">Mentor Notes</th>
-                                            <th>Options</th>
+                                            <th>Kelas Kebajikan Karakter</th>
+                                            <th>Kelas Doa</th>
+                                            <th>Kelas Bimbel</th>
+                                            <th width="100">Tanggal</th>
+                                            <th width="150">Catatan Mentor</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

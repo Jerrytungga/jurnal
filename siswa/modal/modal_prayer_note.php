@@ -3,7 +3,7 @@
         <div class="modal-dialog" id="modal-detail">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Prayer Note Detail</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Lihat Catatan Doa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -11,22 +11,22 @@
                 <div class="modal-body table-responsive">
 
                     <div class="form-group">
-                        <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                        <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                         <p type="text" class="form-control" id="date" readonly></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="category-text" class="col-form-label font-weight-bold">Category :</label>
+                        <label for="category-text" class="col-form-label font-weight-bold">Kategori :</label>
                         <p type="text" class="form-control" id="category" readonly></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="inward-text" class="col-form-label font-weight-bold">Burden & Inward Sense :</label>
+                        <label for="inward-text" class="col-form-label font-weight-bold">Beban & Perasaan Batin :</label>
                         <textarea rows="5" type="text" class="form-control" id="inward" readonly>
                             </textarea>
                     </div>
                     <div class="form-group">
-                        <label for="notes-text" class="col-form-label font-weight-bold">Mentor Notes :</label>
+                        <label for="notes-text" class="col-form-label font-weight-bold">Catatan Mentor :</label>
                         <textarea rows="5" type="text" class="form-control font-weight-bold text-primary font-italic" id="mentor" readonly>
                             </textarea>
                     </div>
@@ -43,7 +43,7 @@
         <div class="modal-dialog" id="modal-edit">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="prayer_note">Change Prayer Note</h5>
+                    <h5 class="modal-title" id="prayer_note">Edit Catatan Doa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -55,10 +55,10 @@
                         <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                         <div class="form-group">
                             <div class="form-group">
-                                <label for="date-text" class="col-form-label font-weight-bold">Date :</label>
+                                <label for="date-text" class="col-form-label font-weight-bold">Tanggal :</label>
                                 <input type="text" class="form-control" id="date" name="date" readonly></input>
                             </div>
-                            <label for="kategori-text" class="col-form-label font-weight-bold">Category :</label>
+                            <label for="kategori-text" class="col-form-label font-weight-bold">Kategori :</label>
                             <select class="form-control" name="judul" id="judul" aria-label="Default select example">
                                 <option value="">Select</option>
                                 <?php
@@ -70,15 +70,15 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label font-weight-bold" for="beban">Burden & Inward Sense :</label>
+                            <label class="col-form-label font-weight-bold" for="beban">Beban & Perasaan Batin :</label>
                             <textarea rows="5" type="text" class="form-control" id="beban" name="beban"></textarea>
                         </div>
 
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="btn_edit_prayernote" class="btn btn-warning">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" name="btn_edit_prayernote" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>
@@ -93,7 +93,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="prayernote">Prayer Note</h5>
+                    <h5 class="modal-title" id="prayernote">Catatan Doa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -104,9 +104,9 @@
                         <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $_SESSION['id_Siswa']; ?>">
                         <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
                         <div class="form-group">
-                            <label for="kategori-text" class="col-form-label font-weight-bold">Category :</label>
+                            <label for="kategori-text" class="col-form-label font-weight-bold">Kategori :</label>
                             <select class="form-control" name="kategori" id="kategori" aria-label="Default select example">
-                                <option selected>Select</option>
+                                <option selected>Silahkan Pilih</option>
                                 <?php
                                 $sql_categoridoa = mysqli_query($conn, "SELECT * FROM tb_categori_doa");
                                 while ($categoridoa = mysqli_fetch_array($sql_categoridoa)) {
@@ -117,14 +117,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="verse-text" class="col-form-label font-weight-bold">Burden & Inward Sense :</label>
+                            <label for="verse-text" class="col-form-label font-weight-bold">Beban & Perasaan Batin :</label>
                             <textarea rows="5" type="text" class="form-control" id="burden_inward_sense" name="burden_inward_sense">
                             </textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="prayer_note" class="btn btn-warning">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" name="prayer_note" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

@@ -50,22 +50,24 @@ if (!isset($_SESSION['role'])) {
   include 'modal.php';
   ?>
 
+
   <main class="form-signin">
-    <img style="float:center;width:300px;height:300px;" src="img/logo/Edit Logo PKA-DP.png">
-    <h1 class="h3 mb-3 fw-normal">Silahkan Login</h1>
+    <img style="float:center;width:200px;height:200px;" src="img/logo/Edit Logo PKA-DP.png">
+    <h1 class="h3 mb-3 fw-normal mb-5">Silahkan Login</h1>
     <label for="username" class="visually-hidden">Username</label>
     <input type="text" id="username" class="form-control my-2" placeholder="Username" autocomplete="off">
     <label for="password" class="visually-hidden ">Password</label>
     <input type="password" id="password" class="form-control mt-md-2" placeholder="Password">
-    <button class="w-100 btn btn-lg btn-primary btn-login" type="button">Sign in</button>
+    <button class="w-100 btn btn-lg btn-primary btn-login" type="button">Login</button>
     <footer class="sticky-footer mt-3">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Jurnal PKA &copy; 2021 by Flats 41</span>
+          <span>Jurnal PKA &copy; 2021 by Jerry Christian</span>
         </div>
       </div>
     </footer>
   </main>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="assets/alert/sweetalert2.min.js"></script>
