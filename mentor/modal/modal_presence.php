@@ -105,7 +105,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="batch">Siswa</label>
-              <select class="form-control" name="nis1" id="nis1" disabled>
+              <select class="form-control" name="nis1" id="nis1" readonly>
                 <option selected>Pilih Siswa</option>
                 <?php
 

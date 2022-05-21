@@ -9,7 +9,6 @@ include 'template/session.php';
 if (isset($_POST['save_pesan'])) {
     $id_jadwal = htmlspecialchars($_POST['id_absent1']);
     $Pesan_Mentor = htmlspecialchars($_POST['pesan_mentor']);
-
     $sqli_Catatan = mysqli_query($conn, "UPDATE `presensi` SET `catatan`='$Pesan_Mentor' where id_presensi='$id_jadwal'");
 }
 if (isset($_POST['insert_Edit_presence'])) {
