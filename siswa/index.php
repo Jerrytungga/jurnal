@@ -16,7 +16,12 @@ $mentor = $getmentor['mentor'];
 $get_mentor_siswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM mentor where efata='$mentor'"));
 $get_mentor_siswa['name'];
 $get_mentor_siswa['image'];
+$presensi = mysqli_query($conn, "SELECT * FROM `tb_presensi` where nis='$id' and semester='$data_semester'");
+$presensisum = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(presensi) AS hasil FROM `tb_presensi` where nis='$id' and semester='$data_semester'"));
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -360,6 +365,7 @@ include 'template/head.php'
                                             $tampilan_presensi21['totalpresensi'];
                                     }
                                 }
+
                                 ?>
 
 
@@ -412,18 +418,15 @@ include 'template/head.php'
 
 
     <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
-    <!-- <script src="js/Chart.js"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
     <!-- contoh bar chart -->
-    <script type="text/javascript">
-        // Create the chart
+    <!-- <script type="text/javascript">
         Highcharts.chart('chart', {
             chart: {
                 type: 'column'
@@ -469,85 +472,204 @@ include 'template/head.php'
 
 
             series: [{
-                    name: "<?= $data['name']; ?>",
-                    // id: "Gracio",
-                    data: [
+                name: "<?= $data['name']; ?>",
+                // id: "Gracio",
+                data: [
 
-                        [
-                            "Presensi",
-                            <?= $pointpresensi; ?>
-                        ],
-                        [
-                            "Penyegaran Pagi",
-                            <?= $revival_note['revivalnote']; ?>
+                    [
+                        "Presensi",
+                        <?= $pointpresensi; ?>
+                    ],
+                    [
+                        "Penyegaran Pagi",
+                        <?= $revival_note['revivalnote']; ?>
 
-                        ],
-                        [
-                            "Catatan Doa",
-                            <?= $prayer_note['prayernote']; ?>
+                    ],
+                    [
+                        "Catatan Doa",
+                        <?= $prayer_note['prayernote']; ?>
 
-                        ],
-                        [
-                            "Pembacaan Alkitab",
-                            <?= $bible_reading['biblereading']; ?>
+                    ],
+                    [
+                        "Pembacaan Alkitab",
+                        <?= $bible_reading['biblereading']; ?>
 
-                        ],
-                        [
-                            "Pameran",
-                            <?= $exhibition['exhibition']; ?>
+                    ],
+                    [
+                        "Pameran",
+                        <?= $exhibition['exhibition']; ?>
 
-                        ],
-                        [
-                            "Tujuan Pribadi",
-                            <?= $personalgoal['personalgoal']; ?>
+                    ],
+                    [
+                        "Tujuan Pribadi",
+                        <?= $personalgoal['personalgoal']; ?>
 
-                        ],
-                        [
-                            "Persekutuan Mentor",
-                            <?= $homemeeting['homemeeting']; ?>
+                    ],
+                    [
+                        "Persekutuan Mentor",
+                        <?= $homemeeting['homemeeting']; ?>
 
-                        ],
-                        [
-                            "Berkat",
-                            <?= $blessings['blessings']; ?>
+                    ],
+                    [
+                        "Berkat",
+                        <?= $blessings['blessings']; ?>
 
-                        ],
-                        [
-                            "Kebajikan & Karakter",
-                            <?= $virtue_character; ?>
+                    ],
+                    [
+                        "Kebajikan & Karakter",
+                        <?= $virtue_character; ?>
 
-                        ],
-                        [
-                            "Penilaian Lemari",
-                            <?= $totallivinglemari; ?>
+                    ],
+                    [
+                        "Penilaian Lemari",
+                        <?= $totallivinglemari; ?>
 
-                        ],
-                        [
-                            "Penilaian Ranjang",
-                            <?= $totallivingranjang; ?>
+                    ],
+                    [
+                        "Penilaian Ranjang",
+                        <?= $totallivingranjang; ?>
 
-                        ],
-                        [
-                            "Penilaian Rak Sepatu & Handuk",
-                            <?= $totallivingraksepatu; ?>
+                    ],
+                    [
+                        "Penilaian Rak Sepatu & Handuk",
+                        <?= $totallivingraksepatu; ?>
 
-                        ],
-                        [
-                            "Total Poin",
-                            <?= $totaljurnal + $pointpresensi; ?>
+                    ],
+                    [
+                        "Total Poin",
+                        <?= $totaljurnal + $pointpresensi; ?>
 
-                        ]
                     ]
-                },
+                ]
+            }],
 
 
-
-
-            ]
 
         });
-    </script>
+    </script> -->
 
+
+    <script>
+        // Create the chart
+        Highcharts.chart('chart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Jurnal PKA'
+            },
+            // subtitle: {
+            //     align: 'left',
+            //     text: ''
+            // },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total persentase jurnal'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:1f} Poin'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f} Poin </b> of total<br/>'
+            },
+
+            series: [{
+                name: "<?= $data['name']; ?>",
+                colorByPoint: true,
+                data: [{
+
+                        name: "Presensi",
+                        y: <?= $presensisum['hasil'] ?>,
+                        drilldown: "Presensi"
+
+                    },
+                    {
+                        name: "Penyegaran Pagi",
+                        y: <?= $revival_note['revivalnote']; ?>,
+                        drilldown: "Penyegaran Pagi"
+                    }
+
+                ]
+            }],
+            drilldown: {
+                breadcrumbs: {
+                    position: {
+                        align: 'right'
+                    }
+                },
+                series: [{
+
+
+                        name: "<?= $data['name']; ?>",
+                        id: "Presensi",
+
+                        data: [
+                            <?php
+                            while ($data_presensi2 = mysqli_fetch_array($presensi)) {
+
+                                $ambil_data =  $data_presensi2['presensi'];
+                                $week =  $data_presensi2['week'];
+                                echo "['week" .  $week . "', " . $ambil_data . "],";
+                            }
+                            ?>
+
+                        ]
+
+                    },
+                    {
+                        name: "Penyegaran Pagi",
+                        id: "Penyegaran Pagi",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            // while ($data_presensi2 = mysqli_fetch_array($presensi)) {
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $pp = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`) as jumlah FROM tb_revival_note WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $week =  $data_presensi2['week'];
+                                foreach ($presensi as $row) :
+                                    $revivalnote = mysqli_fetch_array($pp);
+                                    $ambil_datarv =  $revivalnote['jumlah'];
+                                    $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+
+                                    echo "['week" .  $week . "', " . $ambil_datarv . "],";
+                                endforeach;
+                            }
+                            // }
+                            ?>
+
+                        ]
+                    },
+
+                ]
+            }
+        });
+    </script>
+    <?php
+    var_dump($ambil_datarv);
+    ?>
 
 </body>
 
