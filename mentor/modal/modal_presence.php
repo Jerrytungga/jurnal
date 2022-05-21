@@ -101,7 +101,7 @@
       </div>
       <form method="post" action="">
         <div class="modal-body">
-          <input type="text" name="id1" id="id1">
+          <input type="hidden" name="id1" id="id1">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="batch">Siswa</label>
