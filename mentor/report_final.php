@@ -180,6 +180,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             }
                                             $jumlah_pengembangan_diri[] = $bobotjurnalharian;
                                             $total_pengembangan_diri = array_sum($jumlah_pengembangan_diri);
+
                                         ?>
                                             <tr class="border-dark text-center">
                                                 <td class="border-dark"><?= $namapembelajaran; ?></td>
@@ -195,7 +196,10 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                                 <!-- keterangan -->
                                                 <td class="border-dark"></td>
                                             </tr>
-                                        <?php        }  ?>
+                                        <?php        }
+
+                                        ?>
+
 
                                         <tr>
                                             <?php
@@ -279,6 +283,8 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                                 <td class="border-dark"></td>
                                             </tr>
                                         <?php        }
+
+
                                         ?>
 
                                         <!-- Akhir Script Tujuan belajar ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -332,8 +338,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
 
                                         $jumlah_Kelas_pelatihan[] = $bobot_kalas_visi;
                                         $total_pelatihan = array_sum($jumlah_Kelas_pelatihan);
-
-
 
 
                                         $Hasil_persen1 = $poin_kelas_visi['poin_kelas_penyegaran_pagi'] / $kelas_visi['target_penyegaran_pagi'] * 100;
@@ -445,8 +449,8 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $deskripsi3 = 'Tidak Mencapai Target';
                                         }
 
-                                        $jumlah_Kelas_karakter[] = $bobot_kalas_visi3;
-                                        $total_karakter = array_sum($jumlah_Kelas_karakter);
+                                        $jumlah_class_karakter[] = $bobot_kalas_visi3;
+                                        $total_karakter = array_sum($jumlah_class_karakter);
 
 
 
@@ -483,10 +487,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
 
                                         $jumlah_Kelas_pendidikan[] = $bobot_kalas_visi4;
                                         $total_pendidikan = array_sum($jumlah_Kelas_pendidikan);
-                                        $total_semua_kelas_visi = $total_pendidikan
-                                            + $total_karakter
-                                            + $total_alkitab + $total_pp
-                                            + $total_pelatihan;
 
                                         ?>
 
@@ -651,8 +651,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
 
                                         $jumlah_Kelas_pengalaman_pdth[] =  $bobot_kalas_hayat6;
                                         $total_pengalaman_pdth = array_sum($jumlah_Kelas_pengalaman_pdth);
-                                        $total_kelas_hayat = $total_pdth + $total_pengalaman_pdth;
-
+                                        // $total_kelas_hayat = $total_pdth + $total_pengalaman_pdth;
 
 
                                         ?>
@@ -709,34 +708,33 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $bulatkan_nilai7 = 100;
                                             $huruf7 = 'A';
                                             $ambil_poin_kelas_karakter['poin_kelas_karakter'] = $t_kelas_karakter['target_kelas_karakter'];
-                                            $bobot_kalas_karakter7 = '4';
+                                            $bobot_kelas_karakter = '4';
                                             $deskripsi7 = 'Mencapai Target';
                                         } elseif ($bulatkan_nilai7 >= 90) {
                                             $huruf7 = 'A';
-                                            $bobot_kalas_karakter7 = '4';
+                                            $bobot_kelas_karakter = '4';
                                             $deskripsi7 = 'Mencapai Target';
                                         } elseif ($bulatkan_nilai7 >= 80) {
                                             $huruf7 = 'B';
-                                            $bobot_kalas_karakter7 = '3';
+                                            $bobot_kelas_karakter = '3';
                                             $deskripsi7 = 'Mencapai Target';
                                         } elseif ($bulatkan_nilai7 >= 75) {
                                             $huruf7 = 'C';
-                                            $bobot_kalas_karakter7 = '2';
+                                            $bobot_kelas_karakter = '2';
                                             $deskripsi7 = 'Tidak Mencapai Target';
                                         } elseif ($bulatkan_nilai7 >= 50) {
                                             $huruf7 = 'D';
-                                            $bobot_kalas_karakter7 = '1';
+                                            $bobot_kelas_karakter = '1';
                                             $deskripsi7 = 'Tidak Mencapai Target';
                                         }
                                         if ($bulatkan_nilai7 == 0) {
                                             $huruf7 = 'E';
-                                            $bobot_kalas_karakter7 = '0';
+                                            $bobot_kelas_karakter = '0';
                                             $deskripsi7 = 'Tidak Mencapai Target';
                                         }
-
-
-                                        $jumlah_Kelas_karakter[] =  $bobot_kalas_karakter7;
+                                        $jumlah_Kelas_karakter[] =  $bobot_kelas_karakter;
                                         $total_kelas_karakter = array_sum($jumlah_Kelas_karakter);
+
 
 
                                         $Hasil_persen8 = $ambil_poin_kelas_karakter['poin_kelas_karakter_tokoh'] /
@@ -772,7 +770,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         }
 
                                         $jumlah_Kelas_karakter1[] =  $bobot_kalas_karakter_tokoh;
-                                        $total_kelas_karakter1 = array_sum($jumlah_Kelas_karakter1);
+                                        $total_kelas_tokohkarakter = array_sum($jumlah_Kelas_karakter1);
 
                                         $Hasil_persen9 = $ambil_poin_kelas_karakter['poin_evaluasi_karakter'] /
                                             $t_kelas_karakter['target_evaluasi_karakter'] * 100;
@@ -806,11 +804,8 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $deskripsi9 = 'Tidak Mencapai Target';
                                         }
                                         $jumlah_Kelas_karakter2[] =  $bobot_kalas_karakter_evaluasi;
-                                        $total_kelas_karakter2 = array_sum($jumlah_Kelas_karakter2);
-                                        $total_semua_kelas_karakter =
-                                            $total_kelas_karakter2 +
-                                            $total_kelas_karakter1
-                                            + $total_kelas_karakter
+                                        $total_kelas_evaluasikarakter = array_sum($jumlah_Kelas_karakter2);
+
                                         ?>
 
 
@@ -828,7 +823,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             <!-- persen -->
                                             <td class="border-dark"><?= $bulatkan_nilai7 ?></td>
                                             <td class="border-dark"><?= $huruf7 ?></td>
-                                            <td class="border-dark"><?= $bobot_kalas_karakter7 ?></td>
+                                            <td class="border-dark"><?= $bobot_kelas_karakter ?></td>
                                             <td class="border-dark"><?= $deskripsi7 ?></td>
                                             <!-- keterangan -->
                                             <td class="border-dark"></td>
@@ -908,6 +903,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         }
                                         $jumlah_konsititusi[] =  $bobot_poin_kelas_alkitab;
                                         $total_kelas_konsititusi = array_sum($jumlah_konsititusi);
+
                                         ?>
                                         <tr class="text-center">
                                             <th class="border-dark">
@@ -940,8 +936,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         $ambil_poin_keterampilan['poin_kelas_entrepreunership'];
                                         $ambil_poin_keterampilan['poin_kelas_komunikasi'];
                                         $ambil_poin_keterampilan['poin_kelas_gitar'];
-
-
 
                                         $Hasil_persen11 =
                                             $ambil_poin_keterampilan['poin_kelas_entrepreunership'] /
@@ -982,6 +976,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         $jumlah_unership[] =  $bobot_poin_kelas_unership;
                                         $total_kelas_entrepreunership = array_sum($jumlah_unership);
 
+
                                         $Hasil_persen12 =
                                             $ambil_poin_keterampilan['poin_kelas_komunikasi'] /
                                             $t_komunikasi  * 100;
@@ -1021,8 +1016,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         $total_kelas_komunikasi = array_sum($jumlah_komunikasi);
 
 
-                                        $Hasil_persen13 =
-                                            $ambil_poin_keterampilan['poin_kelas_gitar'] /  $t_gitar  * 100;
+                                        $Hasil_persen13 = $ambil_poin_keterampilan['poin_kelas_gitar'] /  $t_gitar  * 100;
                                         $bulatkan_nilai13 = round($Hasil_persen13);
 
                                         if ($bulatkan_nilai13 >= 100) {
@@ -1054,13 +1048,8 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $deskripsi13 = 'Tidak Mencapai Target';
                                         }
 
-
                                         $jumlah_gitar[] =  $bobot_poin_kelas_gitar;
                                         $total_kelas_gitar = array_sum($jumlah_gitar);
-
-                                        $jumlah_total_kelas_keterampilan =
-                                            $total_kelas_gitar
-                                            + $total_kelas_komunikasi + $total_kelas_entrepreunership;
 
 
 
@@ -1262,8 +1251,8 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                                 $botobl = '0';
                                             }
 
-                                            // $jumlah_jurnal[] = $bobotjurnalbl;
-                                            // $total_jurnal = array_sum($jumlah_jurnal);
+                                            $jumlah_jurnal[] = $botobl;
+                                            $total_jurnal = array_sum($jumlah_jurnal);
                                         ?>
                                             <tr class="text-center">
                                                 <td class="border-dark"><?= $keteranganjurnal ?></td>
@@ -1488,20 +1477,26 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         <?php  } ?>
 
                                         <?php
-                                        $ambil_bobot_kebersihan = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_kebersihan_kerapian` WHERE semester='$fil'"));
-                                        $ambil_bobot_pengamatan = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_pengamatan_mentor` WHERE semester='$fil'"));
-                                        $ambil_bobot_Jurnal = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_jurnal` WHERE semester='$fil'"));
-                                        $ambil_bobot_Kehadiran = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_kehadiran_kelas` WHERE semester='$fil'"));
-                                        $ambil_bobot_penetapan_tujuan_belajar = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_penetapan_tujuan_belajar` WHERE semester='$fil'"));
                                         $ambil_bobot_pengembangan_diri = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_pengembangan_diri` WHERE semester='$fil'"));
+                                        $ambil_bobot_penetapan_tujuan_belajar = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_penetapan_tujuan_belajar` WHERE semester='$fil'"));
+                                        $ambil_bobot_keterampilan = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_keterampilan` WHERE semester='$fil'"));
+                                        $ambil_bobot_Kehadiran = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_kehadiran_kelas` WHERE semester='$fil'"));
+                                        $ambil_bobot_Jurnal = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_jurnal` WHERE semester='$fil'"));
+                                        $ambil_bobot_pengamatan = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_pengamatan_mentor` WHERE semester='$fil'"));
+                                        $ambil_bobot_kebersihan = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_kebersihan_kerapian` WHERE semester='$fil'"));
+                                        $ambil_bobot_kelas_visi = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_visi` WHERE semester='$fil'"));
+                                        $ambil_bobot_kelas_hayat = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_hayat` WHERE semester='$fil'"));
+                                        $ambil_bobot_kelas_karakter = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_karakter` WHERE semester='$fil'"));
+                                        $ambil_bobot_kelas_konstitusi = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(bobot) as Total FROM `tb_kelas_konstitusi` WHERE semester='$fil'"));
 
-                                        $Total_bobot = $ambil_bobot_pengembangan_diri['Total'] + $ambil_bobot_penetapan_tujuan_belajar['Total'] + $ambil_bobot_Kehadiran['Total'] + $ambil_bobot_Jurnal['Total'] + $ambil_bobot_pengamatan['Total'] + $ambil_bobot_kebersihan['Total'] + $bobot_keterampilan + $kelas_visi['bobot']  + $kelas_hayat['bobot'] +
-                                            $t_kelas_karakter['bobot']
-                                            + $kelas_konsititusi['bobot'];
 
-                                        $bobot_pencapaian = $total_pengembangan_diri + $total_kerohanian + $total_presensi + $total_jurnal + $total_sikapberbagi + $total_totalliving + $total_semua_kelas_visi + $total_kelas_hayat
-                                            + $total_semua_kelas_karakter + $total_kelas_konsititusi
-                                            + $jumlah_total_kelas_keterampilan;
+
+
+
+                                        $Total_bobot = $ambil_bobot_pengembangan_diri['Total'] + $ambil_bobot_penetapan_tujuan_belajar['Total'] + $ambil_bobot_Kehadiran['Total'] + $ambil_bobot_Jurnal['Total'] + $ambil_bobot_pengamatan['Total'] + $ambil_bobot_kebersihan['Total'] + $ambil_bobot_keterampilan['Total'] + $ambil_bobot_kelas_visi['Total'] + $ambil_bobot_kelas_hayat['Total'] + $ambil_bobot_kelas_karakter['Total'] + $ambil_bobot_kelas_konstitusi['Total'];
+
+
+                                        $bobot_pencapaian = $total_pengembangan_diri + $total_kerohanian + $total_pelatihan + $total_pp + $total_alkitab + $total_karakter + $total_pendidikan + $total_pdth + $total_pengalaman_pdth + $total_kelas_karakter + $total_kelas_tokohkarakter + $total_kelas_evaluasikarakter + $total_kelas_konsititusi + $total_kelas_entrepreunership + $total_kelas_komunikasi + $total_kelas_gitar + $total_presensi + $total_jurnal + $total_totalliving;
 
                                         $persentase = $bobot_pencapaian
                                             / $Total_bobot * 100;
