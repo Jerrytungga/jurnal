@@ -19,6 +19,20 @@ $get_mentor_siswa['image'];
 $presensi = mysqli_query($conn, "SELECT * FROM `tb_presensi` where nis='$id' and semester='$data_semester'");
 $presensisum = mysqli_fetch_array(mysqli_query($conn, "SELECT SUM(presensi) AS hasil FROM `tb_presensi` where nis='$id' and semester='$data_semester'"));
 
+// date_default_timezone_set('Asia/Jakarta'); // Set timezone
+// $dari = "2021-11-15"; // tanggal mulai
+// $sampai = date('Y-m-d');
+// while (strtotime($dari) <= strtotime($sampai)) {
+//     $pp = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`) as jumlah FROM tb_revival_note WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+//     $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+//     $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari)));
+//     foreach ($presensi as $row) :
+//         $revivalnote = mysqli_fetch_array($pp);
+//         $presensiWeekly = mysqli_fetch_array($presensi);
+//         echo  $revivalnote['totalpoin'];
+//     endforeach;
+// }
+// var_dump($revivalnote['totalpoin']);
 ?>
 
 
@@ -371,7 +385,7 @@ include 'template/head.php'
 
                             </div>
                             <div class="card-body">
-                                <div id="chart"></div>
+                                <!-- <div id="chart"></div> -->
                             </div>
 
                         </div>
@@ -607,7 +621,22 @@ include 'template/head.php'
                         name: "Penyegaran Pagi",
                         y: <?= $revival_note['revivalnote']; ?>,
                         drilldown: "Penyegaran Pagi"
-                    }
+                    },
+                    {
+                        name: "Catatan Doa",
+                        y: <?= $prayer_note['prayernote']; ?>,
+                        drilldown: "Catatan Doa"
+                    },
+                    {
+                        name: "Pembacaan Alkitab",
+                        y: <?= $bible_reading['biblereading']; ?>,
+                        drilldown: "Pembacaan Alkitab"
+                    },
+                    {
+                        name: "Pameran",
+                        y: <?= $exhibition['exhibition']; ?>,
+                        drilldown: "Pameran"
+                    },
 
                 ]
             }],
@@ -640,25 +669,10 @@ include 'template/head.php'
                         name: "Penyegaran Pagi",
                         id: "Penyegaran Pagi",
                         data: [
-                            <?php
-                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
-                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
-                            $dari = "2021-11-15"; // tanggal mulai
-                            $sampai = date('Y-m-d'); // tanggal akhir
-                            // while ($data_presensi2 = mysqli_fetch_array($presensi)) {
-                            while (strtotime($dari) <= strtotime($sampai)) {
-                                $pp = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`) as jumlah FROM tb_revival_note WHERE nis='$id' AND date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
-                                $week =  $data_presensi2['week'];
-                                foreach ($presensi as $row) :
-                                    $revivalnote = mysqli_fetch_array($pp);
-                                    $ambil_datarv =  $revivalnote['jumlah'];
-                                    $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
 
-                                    echo "['week" .  $week . "', " . $ambil_datarv . "],";
-                                endforeach;
-                            }
-                            // }
-                            ?>
+
+
+
 
                         ]
                     },
