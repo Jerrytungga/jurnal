@@ -316,7 +316,9 @@ function activity($activity)
         text: ''
       },
       xAxis: {
-        categories: ['🟢Revival Note', '🟢Prayer Note', '🟢Bible Reading', '🔵Exhibition', '🔵Personal Goal', '🔵Home Meeting', '🔴Blessings']
+        categories: ['🔴Blessings', '🔵Exhibition', '🔵Home Meeting', '🔵Personal Goal',
+          '🟢Revival Note', '🟢Prayer Note', '🟢Bible Reading'
+        ]
       },
       credits: {
         enabled: false
@@ -324,13 +326,13 @@ function activity($activity)
       series: [{
         name: '<?= $nama_siswa; ?>',
         data: [
+          <?= $blessings['blessings']; ?>,
+          <?= $exhibition['exhibition']; ?>,
+          <?= $homemeeting['homemeeting']; ?>,
+          <?= $personalgoal['personalgoal']; ?>,
           <?= $revival_note['revivalnote']; ?>,
           <?= $prayer_note['prayernote']; ?>,
-          <?= $bible_reading['biblereading']; ?>,
-          <?= $exhibition['exhibition']; ?>,
-          <?= $personalgoal['personalgoal']; ?>,
-          <?= $homemeeting['homemeeting']; ?>,
-          <?= $blessings['blessings']; ?>
+          <?= $bible_reading['biblereading']; ?>
         ]
       }]
     });
