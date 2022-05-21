@@ -17,7 +17,7 @@ if (isset($_POST['insert_Edit_presence'])) {
     $mark_1 = htmlspecialchars($_POST['mark1']);
     $Acc_1 = htmlspecialchars($_POST['agreement1']);
     $catatan_1 = htmlspecialchars($_POST['catatan1']);
-    $sqli_absent2 = mysqli_query($conn, "UPDATE `presensi` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `id_presensi`='$id_1'");
+    $sqli_absent2 = mysqli_query($conn, "UPDATE `presensi` SET `mark`='$mark_1',`schedule_id`='$Schedule',`ACC_Mentor`='$Acc_1',`catatan`='$catatan_1' WHERE `schedule_id`='$id_1'");
     if ($sqli_absent2) {
         $_SESSION['alert_edit_absent_berhasil'] = 'Berhasil diubah';
     } else {
@@ -317,7 +317,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                                         <a href="proses_approve.php?id=<?= $row["id_presensi"]; ?>&approved=approved" type="button" class="btn btn-info m-2">Approved</a>
                                                     <?php   } else { ?>
 
-                                                        <button type="button" class="btn btn-warning m-2" data-nis1="<?= $row["nis"]; ?>" data-item_schedule1="<?= $row['schedule_id']; ?>" data-mark1="<?= $row['mark']; ?>" data-date1="<?= $row['presensi_date']; ?>" data-catatan1="<?= $row['catatan']; ?>" data-time1="<?= $row['presensi_time']; ?>" data-agreement1="<?= $row['ACC_Mentor']; ?>" data-id1="<?= $row['id_presensi']; ?>" id="edit_schedule" data-toggle="modal" data-target="#Edit_presensi_siswa">
+                                                        <button type="button" class="btn btn-warning m-2" data-nis1="<?= $row["nis"]; ?>" data-item_schedule1="<?= $row['schedule_id']; ?>" data-mark1="<?= $row['mark']; ?>" data-date1="<?= $row['presensi_date']; ?>" data-catatan1="<?= $row['catatan']; ?>" data-time1="<?= $row['presensi_time']; ?>" data-agreement1="<?= $row['ACC_Mentor']; ?>" data-id1="<?= $row['schedule_id']; ?>" id="edit_schedule" data-toggle="modal" data-target="#Edit_presensi_siswa">
                                                             Edit
                                                         </button>
                                                     <?php   } ?>
