@@ -17,14 +17,24 @@ if (isset($_POST['btn_tambah_siswa'])) {
   $status = htmlspecialchars($_POST['status']);
   $cek_username = mysqli_query($conn, "SELECT * FROM siswa WHERE username = '$username'") or die($conn->error);
   if (mysqli_num_rows($cek_username) > 0) {
-    echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Username yang Anda pilih sudah ada';
   } else {
     if ($nama_gambar != '') {
       if (move_uploaded_file($sumber, $target . $nama_gambar)) {
         $addtotable = mysqli_query($conn, "INSERT INTO `siswa`(`image`, `nis`, `name`, `angkatan`, `gender`, `jurusan`, `bimbel`, `mentor`, `username`, `password`, `status`) VALUES ('$nama_gambar','$nis','$name','$angkatan','$gender','$jurusan','$bimbel','$mentor','$username','$password','$status')");
+        if ($addtotable) {
+          $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+        } else {
+          $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+        }
       }
     } else {
       $addtotable = mysqli_query($conn, "INSERT INTO `siswa`(`nis`, `name`, `angkatan`, `gender`, `jurusan`, `bimbel`, `mentor`, `username`, `password`, `status`) VALUES ('$nis','$name','$angkatan','$gender','$jurusan','$bimbel','$mentor','$username','$password','$status')");
+      if ($addtotable) {
+        $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+      } else {
+        $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+      }
     }
   }
 }
@@ -49,10 +59,20 @@ if (isset($_POST['btn_edit_siswa'])) {
 
       // jika ingin mengganti gambar profile
       $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `image`='$nama_gambar',`nis`='$nis',`name`='$name',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`mentor`='$mentor',`username`='$username',`password`='$password',`status`='$status' WHERE `siswa`.`nis` = '$nis'");
+      if ($editsiswa) {
+        $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+      } else {
+        $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+      }
     }
   } else {
     // jika tidak mengganti gambar profile
     $editsiswa = mysqli_query($conn, "UPDATE `siswa` SET `nis`='$nis',`name`='$name',`mentor`='$mentor',`angkatan`='$angkatan',`gender`='$gender',`jurusan`='$jurusan',`bimbel`='$bimbel',`username`='$username',`password`='$password',`status`='$status' WHERE `siswa`.`nis` = '$nis'");
+    if ($editsiswa) {
+      $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+    } else {
+      $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+    }
   }
 }
 
@@ -60,6 +80,11 @@ if (isset($_POST['simpan'])) {
   $angkatansiswa = htmlspecialchars($_POST['angkatan']);
   $statusangkatan = htmlspecialchars($_POST['status']);
   $updateangkatan = mysqli_query($conn, "UPDATE siswa SET status='$statusangkatan' WHERE angkatan='$angkatansiswa'");
+  if ($updateangkatan) {
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+  } else {
+    $notifgagaledit = $_SESSION['gagal'] = 'Data Angkatan Gagal di Update!';
+  }
 }
 $siswa = mysqli_query($conn, "SELECT * FROM siswa ORDER BY date DESC");
 $s = mysqli_fetch_array($siswa);
@@ -111,42 +136,42 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
         ?>
         <!-- End of Topbar -->
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid ">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Student Data</h1>
+              <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Data Siswa</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
-            <div class="card-header py-3">
-              <button href="" class="btn btn-primary mt-2 " data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i> Add Student</button>
+            <div class="card-header py-3 ">
+              <button href="" class="btn btn-primary mt-2 " data-toggle="modal" data-target="#siswa"><i class="fas fa-user-plus"></i> Tambah Siswa</button>
               <button type="button" class="btn btn-danger d-inline mt-2" data-toggle="modal" data-target="#exampleModal">
-                Enable And Disable Student Batch
+                Aktifkan Dan Nonaktifkan Angkatan Siswa
               </button>
               <button type="button" target-blank class="btn btn-success d-inline mt-2" data-toggle="modal" data-target="#QR">
-                Download QR Code Student
+                Cetak Qr Code Siswa
               </button>
 
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th>No</th>
-                      <th width="90">Image</th>
-                      <th>ID</th>
-                      <th witdh="50">Name</th>
-                      <th>Batch</th>
+                      <th width="90">Gambar</th>
+                      <th>Nis</th>
+                      <th witdh="50">Nama</th>
+                      <th>Angkatan</th>
                       <th>Gender</th>
-                      <th>Department</th>
-                      <th>Tutoring</th>
+                      <th>Jurusan</th>
+                      <th>Bimbel</th>
                       <th>Mentor</th>
                       <th>Username</th>
                       <th>Password</th>
                       <th>Status</th>
-                      <th>Options</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -213,17 +238,11 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   include 'models/m_siswa.php';
   include 'models/menonaktifkansiswa.php';
   include 'models/download_qrcode.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
   <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
   <!-- script dataTable mentor -->
   <script>
     $(document).ready(function() {

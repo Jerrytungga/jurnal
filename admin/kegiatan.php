@@ -13,9 +13,9 @@ if (isset($_POST['btn_tambah_item'])) {
   $idbr = $max['id'] + 1;
   $dataactivity = mysqli_query($conn, "INSERT INTO `activity`(`items`,`id_activity`) VALUES ('$item',$idbr)");
   if ($dataactivity) {
-    $notif = $_SESSION['sukses'] = 'Activity Items Saved Successfully';
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Activity Items Failed to Save';
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 
@@ -29,6 +29,11 @@ if (isset($_POST['addringtones'])) {
   if ($ringtones != '') {
     if (move_uploaded_file($sumber, $target . $ringtones)) {
       $addnadaalarm =  mysqli_query($conn, "INSERT INTO `ringtones`(`id_alarm`, `Ringtones`) VALUES ('$id_max','$ringtones')");
+      if ($addnadaalarm) {
+        $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+      } else {
+        $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+      }
     }
   }
 }
@@ -39,9 +44,9 @@ if (isset($_POST['btn_edit_activity'])) {
   $kode = htmlspecialchars($_POST['kode']);
   $data_activity = mysqli_query($conn, "UPDATE `activity` SET `items`='$activity',`id_activity`='$kode' WHERE `activity`.`id_activity` = '$kode'");
   if ($data_activity) {
-    $notif = $_SESSION['sukses'] = 'Items Activity successfully changed';
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Activity Items Failed to Change';
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -55,9 +60,9 @@ if (isset($_POST['addtarget'])) {
   $id_maxtarget = $max_idtarget['id'] + 1;
   $tambahdatatarget =  mysqli_query($conn, "INSERT INTO `tb_target_presensi`(`id_tabel_presence`, `target`, `Day`,`semester`,`week`,`batch`) VALUES ('$id_maxtarget ','$datatarget','$hari','$data_semester ','$minggu','$angkatan1') ");
   if ($tambahdatatarget) {
-    $notif = $_SESSION['sukses'] = 'Target added successfully';
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Target failed to add';
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 
@@ -70,9 +75,9 @@ if (isset($_POST['updatetarget'])) {
   $angkatan2 = htmlspecialchars($_POST['angkatan2']);
   $eitdatatarget =  mysqli_query($conn, "UPDATE `tb_target_presensi` SET `target`=' $edit_target ',`Day`='$edit_hari',`week`='$edit_minggu',`batch`='$angkatan2' WHERE `id_tabel_presence`='$id_target'");
   if ($eitdatatarget) {
-    $notif = $_SESSION['sukses'] = 'Target successfully changed';
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Target failed to change';
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -83,7 +88,7 @@ if (isset($_POST['hapus'])) {
   $scheduledata = htmlspecialchars($_POST['aktivitas']);
   $hapus =  mysqli_query($conn, "DELETE FROM `schedule`  WHERE `id` ='$idschedule' AND `id_activity`='$scheduledata'");
   if ($hapus) {
-    $notif = $_SESSION['sukses'] = 'Successfully deleted';
+    $notifsuksesedit = $_SESSION['sukses'] = 'Berhasil di Hapus!';
   }
 }
 
@@ -92,6 +97,9 @@ if (isset($_POST['offallschedule'])) {
   $angkatansiswa1 = htmlspecialchars($_POST['angkatan']);
   $statusangkatan = htmlspecialchars($_POST['status']);
   $updateangkatan = mysqli_query($conn, "UPDATE `schedule` SET status='$statusangkatan' WHERE batch='$angkatansiswa1'");
+  if ($updateangkatan) {
+    $notifsuksesedit = $_SESSION['sukses'] = 'Jadwal Berhasil di Update!';
+  }
 }
 
 
@@ -110,9 +118,9 @@ if (isset($_POST['insert_shedule'])) {
   $alrm_nada = htmlspecialchars($_POST['alarm_nada']);
   $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`presensi_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
   if ($input_schedule) {
-    $notif = $_SESSION['sukses'] = 'Schedule added successfully!';
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Schedule failed to add!';
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 
@@ -133,9 +141,9 @@ if (isset($_POST['updateschedule'])) {
   $edit_scheduledata = mysqli_query($conn, "UPDATE `schedule` SET `batch`='$edit_angkatan',`week`='$edit_week',`id_activity`='$edit_schedule',`info`='$edit_pesan',`start_time`='$edit_waktu_mulai',`end_time`='$edit_waktu_akhir',`presensi_time`='$edit_waktu_absensi',`status`='$edit_status',`date`='$edit_tanggal',`timer`='$edit_timer_absen',`nada_alarm`='$nama_alarm_edit' WHERE `schedule`.`id`='$id_schedule' ");
 
   if ($edit_scheduledata) {
-    $notif = $_SESSION['sukses'] = 'Schedule has been successfully changed!';
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Schedule failed to change!';
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -192,26 +200,26 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Activity List</h1>
+              <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Kegiatan Presensi </h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#activity">Add Items</button>
-              <button class="btn btn-success" data-toggle="modal" data-target="#schedule">Today's Schedule</button>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#activity">Tambah Kegiatan</button>
+              <button class="btn btn-success" data-toggle="modal" data-target="#schedule">Buat Jadwal</button>
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#targetpoin">
-                Target Points
+                Target Poin Presensi
               </button>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
-                      <th>Name Activity</th>
-                      <th>Options</th>
+                      <th>Kegiatan Presensi</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -258,19 +266,10 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
   include 'models/m_kegiatan.php';
   include 'models/m_schedule.php';
   include 'models/m_target_schedule.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
-  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
   <!-- script dataTable jurusan -->
   <script>
     $(document).ready(function() {
@@ -310,35 +309,6 @@ $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_e
     });
   </script>
 
-  <?php if (isset($notif)) { ?>
-    <script>
-      Swal.fire({
-        position: 'top-end',
-        size: '20px',
-        icon: 'success',
-        title: '<?php echo $notif; ?>',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    </script>
-
-    <!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
-  <?php unset($notif);
-  } else if (isset($notifgagal)) { ?>
-
-    <script>
-      Swal.fire({
-        position: 'top-end',
-        size: '20px',
-        icon: 'error',
-        title: '<?php echo $notifgagal; ?>',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    </script>
-
-  <?php session_destroy();
-  } ?>
 
   <script>
     $(document).on("click", "#edit_schedule", function() {

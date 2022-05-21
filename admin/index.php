@@ -68,7 +68,7 @@ $count4 = mysqli_num_rows($get4);
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-uppercase">Dasbor</h1>
 
                     </div>
 
@@ -83,7 +83,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Student Active</div>
+                                                Siswa Aktif</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count1; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -101,7 +101,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Student</div>
+                                                Total Siswa</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count2; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -120,7 +120,7 @@ $count4 = mysqli_num_rows($get4);
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Mentor Active</div>
+                                                Mentor Aktif</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count3; ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -154,11 +154,11 @@ $count4 = mysqli_num_rows($get4);
                         <!-- Bar Chart -->
                         <div class="card shadow  w-100 m-lg-2">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary mb-2">Progress Journal</h6>
+                                <h6 class="m-0 font-weight-bold text-dark mb-2">Kemajuan Jurnal Siswa</h6>
                                 <div class="select_ form-inline ">
                                     <form action="" method="POST">
                                         <select class="form-control mb-2" name="semester" id="semester">
-                                            <option selected>Select Semester</option>
+                                            <option selected>Pilih Semester</option>
                                             <?php
                                             $sql_semester = mysqli_query($conn, "SELECT * FROM tb_semester");
                                             while ($data_semester = mysqli_fetch_array($sql_semester)) {
@@ -169,21 +169,21 @@ $count4 = mysqli_num_rows($get4);
                                         <select class="form-control mb-2" required name="nis" aria-label="Default select example">
                                             <?php
                                             if (isset($_POST['nis'])) {
-                                                $daftarsiswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' and nis='" . $_POST['nis'] . "'"));
+                                                $daftarsiswa = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM siswa where nis='" . $_POST['nis'] . "'"));
                                             ?>
 
                                                 <option value="<?= $daftarsiswa['nis']; ?>"><?= $daftarsiswa['name']; ?></option>
                                             <?php } else {
-                                                echo "<option selected>Select student</option>";
+                                                echo "<option selected>Pilih Siswa</option>";
                                             }
-                                            $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' ");
+                                            $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa  ");
                                             while ($data1 = mysqli_fetch_array($daftarsiswa)) { ?>
                                                 <option value="<?= $data1['nis']; ?>"><?= $data1['name']; ?></option>
 
                                             <?php }
                                             ?>
                                         </select>
-                                        <button type="submit" name="cari" class="btn btn-info ml-1 mb-2">View</button>
+                                        <button type="submit" name="cari" class="btn btn-dark ml-1 mb-2">Tampilkan</button>
                                         <a href="index.php" class="btn btn-danger ml-1 mb-2">Reset</a>
                                     </form>
 
@@ -319,7 +319,7 @@ $count4 = mysqli_num_rows($get4);
                                         }
                                     }
                                 } else {
-                                    echo 'No Data';
+                                    echo 'Tidak Ada Data';
                                 }
 
                                 ?>

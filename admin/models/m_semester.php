@@ -3,7 +3,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="angkatan">New Semester</h5>
+         <h5 class="modal-title" id="angkatan">Tambah Data Semester</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -24,8 +24,8 @@
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="tambah_semester" id="tambah_semester" class="btn btn-primary ">Add</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="tambah_semester" id="tambah_semester" class="btn btn-primary ">Simpan</button>
          </div>
        </form>
      </div>
@@ -37,7 +37,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_semester">Change Semester</h5>
+         <h5 class="modal-title" id="edit_semester">Edit Data Semester</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -62,8 +62,8 @@
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="edit_semester" id="btn_edit_angkatan" class="btn btn-warning">Update</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="edit_semester" id="btn_edit_angkatan" class="btn btn-warning">Simpan Perubahan</button>
          </div>
        </form>
      </div>

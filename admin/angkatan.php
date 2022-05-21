@@ -5,11 +5,11 @@ if (isset($_POST['btn_tambah_angkatan'])) {
   $angkatan = htmlspecialchars($_POST['angkatan']);
   $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_angkatan`"));
   $idbr = $max['id'] + 1;
-  $t = mysqli_query($conn, "INSERT INTO `tb_angkatan`(`angkatan`, `id`) VALUES ('$angkatan',$idbr)");
-  if ($t) {
-    echo "<script>alert('Angkatan Berhasil ditambahkan!');</script>";
+  $angkatan = mysqli_query($conn, "INSERT INTO `tb_angkatan`(`angkatan`, `id`) VALUES ('$angkatan',$idbr)");
+  if ($angkatan) {
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    echo "<script>alert('Angkatan gagal ditambahkan');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 //edit data angkatan
@@ -18,7 +18,9 @@ if (isset($_POST['btn_edit_angkatan'])) {
   $id = htmlspecialchars($_POST['id']);
   $editangkatan = mysqli_query($conn, "UPDATE `tb_angkatan` SET `angkatan`='$angkatan' WHERE `tb_angkatan`.`id` = '$id'");
   if ($editangkatan) {
-    echo "<script>alert('Angkatan Berhasil di Edit!');</script>";
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+  } else {
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -69,23 +71,22 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-3">
             <div class="group">
-              <h1 class="h3 mb-2 text-gray-800">Batch Data</h1>
+              <h1 class="h3 mb-2 text-uppercase">Data Angkatan</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#angkatan"><i class="fas fa-plus-square"></i> Add Batch</a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#angkatan"><i class="fas fa-plus-square"></i> Tambah Data Angkatan</a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
-                      <th>Batch</th>
-
-                      <th>Option</th>
+                      <th>Angkatan</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -129,18 +130,10 @@ include 'template/Session.php';
   <?php
   include 'models/m_logout.php';
   include 'models/m_angkatan.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="../assets/alert/sweetalert2.min.js"></script>
-  <!-- script dataTable jurusan -->
+
   <script>
     $(document).ready(function() {
       $('#dataTable').DataTable({

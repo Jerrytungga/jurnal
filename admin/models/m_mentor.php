@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="edi_mentor">Change Mentor </h5>
+                <h5 class="modal-title" id="edi_mentor">Edit Mentor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,7 +12,7 @@
                 <div class="modal-body" id="modal-edit">
 
                     <div class="form-group">
-                        <label for="image">Image</label>
+                        <label for="image">Gambar</label>
                         <div class="padding-bottom:5px">
                             <img src="" width="120px" id="pict">
                         </div>
@@ -22,14 +22,14 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="efata" name="efata" readonly>
                     </div>
-                    <h7 class="text-reset">Name :</h7>
+                    <h7 class="text-reset">Nama :</h7>
                     <div class="form-group">
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <h7 class="text-reset">Gender :</h7>
                     <div class="form-group">
                         <select class="form-control" name="gender" id="gender">
-                            <option selected>Select</option>
+                            <option selected>Pilih Siswa</option>
                             <option value="P">P</option>
                             <option value="L">L</option>
                         </select>
@@ -47,15 +47,15 @@
                     <h7 class="text-reset">Status :</h7>
                     <div class="form-group">
                         <select class="form-control" name="status" id="status">
-                            <option selected>Select</option>
+
                             <option value="Aktif">Aktif</option>
                             <option value="Tidak Aktif">Tidak Aktif</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btn_edit_mentor" id="btn_edit_mentor" class="btn btn-warning">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="btn_edit_mentor" id="btn_edit_mentor" class="btn btn-warning">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -68,7 +68,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Mentor">New Mentor </h5>
+                <h5 class="modal-title" id="Mentor">Tambah Mentor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,21 +77,21 @@
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="image">Image</label>
+                        <label for="image">Gambar </label>
                         <input type="file" name="image" class="form-control-file" id="image">
                     </div>
                     <h7 class="text-reset">Efata :</h7>
                     <div class="form-group">
                         <input type="text" class="form-control" id="efata" name="efata" required>
                     </div>
-                    <h7 class="text-reset">Name :</h7>
+                    <h7 class="text-reset">Nama :</h7>
                     <div class="form-group">
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <h7 class="text-reset">Gender :</h7>
                     <div class="form-group">
                         <select class="form-control" aria-label="Default select example" name="gender" id="gender">
-                            <option selected>Select</option>
+                            <option selected>Pilih Mentor</option>
                             <option value="P">P</option>
                             <option value="L">L</option>
                         </select>
@@ -107,15 +107,15 @@
                     <h7 class="text-reset">Status :</h7>
                     <div class="form-group">
                         <select class="form-control" name="status" id="status" aria-label="Default select example">
-                            <option selected>Select</option>
+                            <option selected>Pilih Status</option>
                             <option value="Aktif">Aktif</option>
                             <option value="Tidak Aktif">Tidak Aktif</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="btn_tambah_mentor" id="btn_tambah_mentor" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="btn_tambah_mentor" id="btn_tambah_mentor" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

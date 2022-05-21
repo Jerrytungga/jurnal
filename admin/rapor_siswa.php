@@ -42,10 +42,10 @@ $s = mysqli_fetch_array($siswa);
                 <form action="./report_final.php">
                     <div class="container-fluid">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-mb-4 text-gray-800">SEMESTER REPORT OF PKA LAWANG STUDENTS' LEARNING PROGRESS</h1>
+                            <h1 class="h3 mb-mb-4 text-uppercase">LAPORAN SEMESTER KEMAJUAN BELAJAR SISWA PKA LAWANG</h1>
                         </div>
                         <select class="form-control col-2 m-2" required name="filter" id="filter" aria-label="Default select example">
-                            <option value="">Select Semester</option>
+                            <option value="">Pilih Semester</option>
                             <?php
 
                             $semester = mysqli_query($conn, "SELECT * FROM tb_semester ");
@@ -56,7 +56,7 @@ $s = mysqli_fetch_array($siswa);
                             <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
                         </select>
                         <select class="form-control col-2 m-2" required name="nis" id="nis" aria-label="Default select example">
-                            <option value="">Select Student</option>
+                            <option value="">Pilih Student</option>
                             <?php
 
                             $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' ");
@@ -66,7 +66,7 @@ $s = mysqli_fetch_array($siswa);
                             ?>
                             <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
                         </select>
-                        <button class="btn btn-dark mt-2 m-2" type="submit">Show</button>
+                        <button class="btn btn-dark mt-2 m-2" type="submit">Tampilkan</button>
                     </div>
                 </form>
                 <!-- End of Topbar -->

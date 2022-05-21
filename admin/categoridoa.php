@@ -5,16 +5,26 @@ if (isset($_POST['btn_tbh_categori_doa'])) {
   $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `tb_categori_doa`"));
   $idbr = $max['id'] + 1;
   $categoridoa = mysqli_query($conn, "INSERT INTO `tb_categori_doa`(`categori_doa`, `id`) VALUES ('$categori',$idbr)");
+  if ($categoridoa) {
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+  } else {
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+  }
 }
 
 if (isset($_POST['btn_edit_categori'])) {
   $categori = htmlspecialchars($_POST['categori']);
   $kode = htmlspecialchars($_POST['kode']);
-  $editangkatan = mysqli_query($conn, "UPDATE `tb_categori_doa` SET `categori_doa`=' $categori' WHERE `tb_categori_doa`.`id`='$kode'");
-  header('location:categoridoa.php');
+  $editdoa = mysqli_query($conn, "UPDATE `tb_categori_doa` SET `categori_doa`=' $categori' WHERE `tb_categori_doa`.`id`='$kode'");
+  // header('location:categoridoa.php');
+  if ($editdoa) {
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+  } else {
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
+  }
 }
 
-$categori_doa = mysqli_query($conn, "SELECT * FROM tb_categori_doa ORDER BY id");
+$categori_doa = mysqli_query($conn, "SELECT * FROM tb_categori_doa ORDER BY id DESC");
 $doa = mysqli_fetch_array($categori_doa);
 session_start();
 include 'template/Session.php';
@@ -60,22 +70,22 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800">Prayer Category</h1>
+              <h1 class="h3 mb-mb-4 text-uppercase">Kategori Doa</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#categorydoa"><i class="fas fa-plus-square"> Add Category</i></a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#categorydoa"><i class="fas fa-plus-square"> Tambah Kategori Doa</i></a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
-                      <th>Prayer Category</th>
-                      <th>Option</th>
+                      <th>Kategori Doa</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -120,16 +130,10 @@ include 'template/Session.php';
   <?php
   include 'models/m_logout.php';
   include 'models/m_categoridoa.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
   <!-- script dataTable jurusan -->
   <script>
     $(document).ready(function() {

@@ -8,9 +8,9 @@ if (isset($_POST['btn_tambah_punishment'])) {
   $idbr = $max['id'] + 1;
   $datapunishment = mysqli_query($conn, "INSERT INTO `tb_punishment`(`punishment`,`id`) VALUES ('$punishment',$idbr)");
   if ($datapunishment) {
-    echo "<script>alert('punishment Berhasil ditambahkan!');</script>";
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    echo "<script>alert('punishment gagal ditambahkan');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 
@@ -20,9 +20,9 @@ if (isset($_POST['btn_edit_punishment'])) {
   $kode = htmlspecialchars($_POST['kode']);
   $data_punishment = mysqli_query($conn, "UPDATE `tb_punishment` SET `punishment`='$punishment',`id`='$kode' WHERE `tb_punishment`.`id` = '$kode'");
   if ($data_punishment) {
-    echo "<script>alert('punishment Berhasil di Edit!');</script>";
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
   } else {
-    echo "<script>alert('punishment gagal di Edit!');</script>";
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -72,22 +72,22 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Punishment Category </h1>
+              <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Kategori Punishment </h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#punishment"><i class="fas fa-plus-square"></i> Add Category</a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#punishment"><i class="fas fa-plus-square"></i> Tambah Kategori Punishment</a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
-                      <th>Punishment Category</th>
-                      <th>Option</th>
+                      <th>Kategori Punishment </th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -132,16 +132,10 @@ include 'template/Session.php';
   <?php
   include 'models/m_logout.php';
   include 'models/m_punishment.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
   <!-- script dataTable jurusan -->
   <script>
     $(document).ready(function() {

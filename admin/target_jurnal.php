@@ -6,35 +6,35 @@ include 'template/Session.php';
 
 //input data jurusan
 if (isset($_POST['btn_tambah_target'])) {
-  $activity = htmlspecialchars($_POST['kegiatan']);
-  $target_pka = htmlspecialchars($_POST['target']);
+  $presensi = htmlspecialchars($_POST['presensi']);
+  $jurnal = htmlspecialchars($_POST['jurnal']);
   $sms = htmlspecialchars($_POST['semester']);
-  $akt = htmlspecialchars($_POST['angkatan']);
+  $pemeriksaan = htmlspecialchars($_POST['pemeriksaan']);
   $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_target`) As id FROM `tb_target_jurnal`"));
   $idbr = $max['id'] + 1;
-  $datatarget_jurnal = mysqli_query($conn, "INSERT INTO `tb_target_jurnal`(`id_target`, `target`, `semester`, `kegiatan`, `angkatan`) VALUES ('$idbr ','$target_pka','$sms','$activity','$akt')");
+  $datatarget_jurnal = mysqli_query($conn, "INSERT INTO `tb_target_jurnal`(`id_target`, `presensi`, `semester`, `jurnal_pka`, `pemeriksaan`) VALUES ('$idbr','$presensi','$sms','$jurnal','$pemeriksaan')");
   if ($datatarget_jurnal) {
-    $notif = $_SESSION['sukses'] = 'Target Berhasil Disimpan';
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    $notifgagal = $_SESSION['gagal'] = 'Target Gagal Disimpan';
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 
 
 //edit data jurusan
 if (isset($_POST['btn_edit_target'])) {
-  $activity1 = htmlspecialchars($_POST['kegiatan']);
-  $target_pka = htmlspecialchars($_POST['target']);
+  $id_kode = htmlspecialchars($_POST['kode']);
+  $presensi1 = htmlspecialchars($_POST['presensi']);
+  $jurnal1 = htmlspecialchars($_POST['jurnal']);
   $sms1 = htmlspecialchars($_POST['semester']);
-  $akt1 = htmlspecialchars($_POST['angkatan']);
-  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_target`) As id FROM `tb_target_jurnal`"));
-  $idbr1 = $max['id'] + 1;
-  $kode_id = htmlspecialchars($_POST['kode']);
-  $data_edit = mysqli_query($conn, "UPDATE `tb_target_jurnal` SET `target`='$target_pka',`semester`='$sms1',`kegiatan`='$activity1',`angkatan`='$akt1' WHERE `id_target`='$kode_id'");
+  $pemeriksaan1 = htmlspecialchars($_POST['pemeriksaan']);
+  $max1 = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_target`) As id FROM `tb_target_jurnal`"));
+  $idbr1 = $max1['id'] + 1;
+  $data_edit = mysqli_query($conn, "UPDATE `tb_target_jurnal` SET `id_target`='$idbr1',`presensi`='$presensi1',`semester`='$sms1',`jurnal_pka`='$jurnal1',`pemeriksaan`='$pemeriksaan1' WHERE `id_target`='$id_kode'");
   if ($data_edit) {
-    echo "<script>alert('Target Berhasil di Edit!');</script>";
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
   } else {
-    echo "<script>alert('Target gagal di Edit!');</script>";
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -85,25 +85,25 @@ $array_jurnal = mysqli_fetch_array($target_jurnal);
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Target Jurnal PKA</h1>
+              <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Target Jurnal PKA</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-6 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary " data-toggle="modal" data-target="#target"><i class="fas fa-plus-square"></i> Add Target</a>
+              <a href="" class="btn btn-primary " data-toggle="modal" data-target="#target"><i class="fas fa-plus-square"></i> Tambah Target </a>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
-                      <th>Activity</th>
-                      <th>Target</th>
+                      <th>Presensi</th>
+                      <th>Jurnal</th>
+                      <th>Pemerikasaan</th>
                       <th>Semester</th>
-                      <th>Batch</th>
-                      <th>Option</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -111,13 +111,13 @@ $array_jurnal = mysqli_fetch_array($target_jurnal);
                     <?php foreach ($target_jurnal  as $row) : ?>
                       <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row['kegiatan']; ?></td>
-                        <td><?= $row['target']; ?></td>
+                        <td><?= $row['presensi']; ?></td>
+                        <td><?= $row['jurnal_pka']; ?></td>
+                        <td><?= $row['pemeriksaan']; ?></td>
                         <td><?= $row['semester']; ?></td>
-                        <td><?= $row['angkatan']; ?></td>
                         <td width="50">
                           <!-- Get data jurusan -->
-                          <a id="edit_target" data-toggle="modal" data-target="#edit" data-kegiatanjurnal="<?= $row["kegiatan"]; ?>" data-kode="<?= $row["id_target"]; ?>" data-targettargetjurnal="<?= $row['target']; ?>" data-semesterjurnal="<?= $row['semester']; ?>" data-batch="<?= $row['angkatan']; ?>">
+                          <a id="edit_target" data-toggle="modal" data-target="#edit" data-presensi1="<?= $row["presensi"]; ?>" data-kode="<?= $row["id_target"]; ?>" data-jurnal1="<?= $row['jurnal_pka']; ?>" data-semesterjurnal="<?= $row['semester']; ?>" data-pemeriksaan1="<?= $row['pemeriksaan']; ?>">
                             <button class="btn btn-info btn-warning"><i class="fa fa-edit"></i></button></a>
                         </td>
                       </tr>
@@ -151,20 +151,10 @@ $array_jurnal = mysqli_fetch_array($target_jurnal);
   <?php
   include 'models/m_logout.php';
   include 'models/m_target_jurnal_pka.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
-  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-  <!-- script dataTable jurusan -->
+
   <script>
     $(document).ready(function() {
       $('#dataTable').DataTable({
@@ -183,16 +173,16 @@ $array_jurnal = mysqli_fetch_array($target_jurnal);
 
 
     $(document).on("click", "#edit_target", function() {
-      let kegiatanjurnal = $(this).data('kegiatanjurnal');
+      let presensi1 = $(this).data('presensi1');
       let kode = $(this).data('kode');
-      let targettargetjurnal = $(this).data('targettargetjurnal');
+      let jurnal1 = $(this).data('jurnal1');
       let semesterjurnal = $(this).data('semesterjurnal');
-      let batch = $(this).data('batch');
-      $(" #modal-edit #kegiatanjurnal").val(kegiatanjurnal);
+      let pemeriksaan1 = $(this).data('pemeriksaan1');
+      $(" #modal-edit #presensi1").val(presensi1);
       $(" #modal-edit #kode").val(kode);
-      $(" #modal-edit #targettargetjurnal").val(targettargetjurnal);
+      $(" #modal-edit #jurnal1").val(jurnal1);
       $(" #modal-edit #semesterjurnal").val(semesterjurnal);
-      $(" #modal-edit #batch").val(batch);
+      $(" #modal-edit #pemeriksaan1").val(pemeriksaan1);
 
     });
   </script>

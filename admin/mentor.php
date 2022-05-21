@@ -14,16 +14,24 @@ if (isset($_POST['btn_tambah_mentor'])) {
     $efata = htmlspecialchars($_POST['efata']);
     $cek_username = mysqli_query($conn, "SELECT * FROM mentor WHERE efata = '$efata'") or die($conn->error);
     if (mysqli_num_rows($cek_username) > 0) {
-        echo "<script>alert('Username yang Anda pilih sudah ada, silahkan ganti yang lain');</script>";
+        $notifgagal = $_SESSION['gagal'] = 'Username yang Anda pilih sudah ada';
     } else {
         if ($nama_gambar != '') {
             if (move_uploaded_file($sumber, $target . $nama_gambar)) {
                 $addmentor = mysqli_query($conn, "INSERT INTO mentor (image,name,gender,username,password,status,efata) value ('$nama_gambar','$name','$gender','$username','$password','$status','$efata')");
-                echo "<script>alert('Data berhasil ditambahkan!');</script>";
+                if ($addmentor) {
+                    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+                } else {
+                    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+                }
             }
         } else {
             $addmentor = mysqli_query($conn, "INSERT INTO mentor (name,gender,username,password,status,efata) value ('$name','$gender','$username','$password','$status','$efata')");
-            echo "<script>alert('Data berhasil ditambahkan!');</script>";
+            if ($addmentor) {
+                $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+            } else {
+                $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+            }
         }
     }
 }
@@ -44,12 +52,20 @@ if (isset($_POST['btn_edit_mentor'])) {
 
         if (move_uploaded_file($sumber, $target . $nama_gambar)) {
             $update = mysqli_query($conn, "UPDATE `mentor` SET `image`='$nama_gambar',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status',`efata`='$efata', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
-            echo "<script>alert('Data berhasil di Edit!');</script>";
+            if ($update) {
+                $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+            } else {
+                $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+            }
         }
     } else {
         // jika tidak mengganti gambar profile
         $update = mysqli_query($conn, "UPDATE `mentor` SET `efata`='$efata',`name`='$name',`gender`='$gender',`username`='$username',`password`='$password',`status`='$status', `date` = current_timestamp WHERE `mentor`.`efata` = '$efata'");
-        echo "<script>alert('Data berhasil di Edit!');</script>";
+        if ($update) {
+            $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+        } else {
+            $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil Di Edit!';
+        }
     }
 }
 
@@ -96,28 +112,28 @@ include 'template/Session.php';
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="group">
-                            <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Mentor Data </h1>
+                            <h1 class="h3 mb-mb-4 text-uppercase  embed-responsive">Data Mentor </h1>
                         </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 ">
                         <div class="card-header py-3">
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Mentor"><i class="fas fa-user-plus"> Add Mentor</i></a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#Mentor"><i class="fas fa-user-plus"> Tambah Mentor</i></a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                                    <thead class=" text-md-center">
+                                    <thead class=" text-md-center bg-dark text-light">
                                         <tr>
                                             <th width="10">No</th>
-                                            <th width="90">Image</th>
+                                            <th width="90">Gambar</th>
                                             <th>Efata</th>
-                                            <th width="150">Name</th>
+                                            <th width="150">Nama</th>
                                             <th>Gender</th>
                                             <th>Username</th>
                                             <th>Password</th>
                                             <th>Status</th>
-                                            <th>Option</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" text-md-center">
@@ -171,16 +187,10 @@ include 'template/Session.php';
     <?php
     include 'models/m_logout.php';
     include 'models/m_mentor.php';
+    include 'template/script.php';
+    include 'template/alert.php';
     ?>
-    <script src="../vendor/jquery/jquery.min.js">
-    </script>
-    <!-- Core plugin JavaScript-->
-    <script src=" ../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
     <!-- script dataTable mentor -->
     <script>
         $(document).ready(function() {

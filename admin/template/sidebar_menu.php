@@ -1,5 +1,26 @@
  <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+ <style type="text/css">
+     .sidebar {
+         background-color: black;
+     }
+
+     li:hover,
+     li:active {
+         background-color: #007BFF;
+         color: white;
+     }
+
+
+
+     .nama {
+         color: black;
+     }
+
+     .nama:hover {
+         color: white;
+     }
+ </style>
+ <ul class="navbar-nav hitam sidebar sidebar-dark accordion" id="accordionSidebar">
 
      <!-- Sidebar - Brand -->
      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -16,7 +37,7 @@
      <li class="nav-item active">
          <a class="nav-link" href="index.php">
              <i class="fas fa-fw fa-tachometer-alt"></i>
-             <span>Dashboard </span></a>
+             <span>Dasbor</span></a>
      </li>
 
      <!-- Divider -->
@@ -27,33 +48,33 @@
      <li class="nav-item active">
          <a class="nav-link" href="siswa.php">
              <i class="fas fa-fw fa-users"></i>
-             <span>Student Data</span></a>
+             <span>Data Siswa</span></a>
      </li>
 
      <!-- Data Mentor -->
      <li class="nav-item active">
          <a class="nav-link" href="mentor.php">
              <i class="fas fa-fw fa-users"></i>
-             <span>Mentor Data</span></a>
+             <span>Data Mentor</span></a>
      </li>
 
 
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kategori" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-plus-square"></i>
-             <span>Category</span>
+             <span>Kategori</span>
          </a>
          <div id="kategori" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="categoridoa.php">Prayer</a>
-                 <a class="collapse-item" href="categori_exhibition.php">Exhibition</a>
+                 <a class="collapse-item" href="categoridoa.php">Doa</a>
+                 <a class="collapse-item" href="categori_exhibition.php">Pameran</a>
                  <a class="collapse-item" href="Punishment.php">Punishment</a>
                  <a class="collapse-item" href="grace.php">Grace</a>
-                 <a class="collapse-item" href="jurusan.php">Department</a>
-                 <a class="collapse-item" href="angkatan.php">Batch</a>
+                 <a class="collapse-item" href="jurusan.php">Jurusan</a>
+                 <a class="collapse-item" href="angkatan.php">Angkatan</a>
                  <a class="collapse-item" href="semester.php">Semester</a>
                  <a class="collapse-item" href="target_jurnal.php">Target Junal PKA</a>
-                 <a class="collapse-item" href="kegiatan.php">Activity List</a>
+                 <a class="collapse-item" href="kegiatan.php">Kegiatan Presensi</a>
              </div>
          </div>
      </li>
@@ -89,23 +110,23 @@
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
-             <span>Report</span>
+             <span>Laporan</span>
          </a>
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <h6 class="collapse-header">Category:</h6>
-                 <a class="collapse-item" href="reportweekly.php">Weekly</a>
-                 <a class="collapse-item" href="rapor_siswa.php">Final</a>
+                 <h6 class="collapse-header">Kategori:</h6>
+                 <a class="collapse-item" href="reportweekly.php">Mingguan</a>
+                 <a class="collapse-item" href="rapor_siswa.php">Semester</a>
              </div>
          </div>
      </li>
 
 
-     <li class="nav-item active">
+     <!-- <li class="nav-item active">
          <a class="nav-link" href="backupdatabase.php">
              <i class="fas fa-database"></i>
              <span>Database</span></a>
-     </li>
+     </li> -->
 
      <!-- Divider -->
      <hr class="sidebar-divider d-none d-md-block">
@@ -114,7 +135,7 @@
      <li class="nav-item active">
          <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
              <i class="fas fa-sign-out-alt"></i>
-             <span>Log Out</span></a>
+             <span>Keluar</span></a>
      </li>
 
      <!-- Sidebar Toggler (Sidebar) -->

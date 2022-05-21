@@ -14,9 +14,14 @@ if (isset($_POST['insert'])) {
   $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_keterampilan`) As id FROM `tb_keterampilan`"));
   $id_max = $max_id['id'] + 1;
   if ($sms == 'NULL') {
-    echo "<script>alert('Semester belum di isi!');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Semester belum di isi!';
   } else {
     $sqli_ = mysqli_query($conn, "INSERT INTO `tb_keterampilan`(`id_keterampilan`, `target_entrepreunership`, `target_komunikasi`, `target_gitar`, `semester`, `bobot`) VALUES ('$id_max','$t_entre','$t_kom','$t_git','$sms','$bobot')");
+    if ($sqli_) {
+      $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+    } else {
+      $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+    }
   }
 }
 $sqli_pembelajaran = mysqli_query($conn, "SELECT * FROM `tb_keterampilan` order by date DESC ");
@@ -72,7 +77,7 @@ function semester($semester)
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="group">
-              <h1 class="h3 mb-mb-4 text-gray-800 embed-responsive">Keterampilan</h1>
+              <h1 class="h3 mb-mb-4 text-uppercase embed-responsive">Keterampilan</h1>
             </div>
           </div>
           <!-- DataTales Example -->
@@ -86,7 +91,7 @@ function semester($semester)
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered table-hover mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
                       <th>Target Entrepreunership</th>
@@ -94,8 +99,8 @@ function semester($semester)
                       <th>Target Gitar</th>
                       <th>Semester</th>
                       <th>Bobot</th>
-                      <th>Date</th>
-                      <th>Option</th>
+                      <th>Tanggal</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -113,7 +118,7 @@ function semester($semester)
                           <?php
                           $hari_ini = date('Y-m-d');
                           if ($hari_ini == $row['date']) { ?>
-                            <a href="models/proses_delete.php?keterampilan=<?= $row['id_keterampilan'] ?>" type="button" class="btn btn-danger">Delete</a>
+                            <a href="models/proses_delete.php?keterampilan=<?= $row['id_keterampilan'] ?>" type="button" class="btn btn-danger">Hapus</a>
                           <?php    }
                           ?>
 
@@ -159,7 +164,7 @@ function semester($semester)
                       <div class="form-group mt-2">
                         <label for="semester">Semester :</label>
                         <select class="form-control" name="semester" id="semester" required>
-                          <option value="NULL">Select</option>
+                          <option value="NULL">Pilih Semester</option>
                           <?php
                           $sql_semester = mysqli_query($conn, "SELECT * FROM tb_semester");
                           while ($data_semester = mysqli_fetch_array($sql_semester)) {
@@ -171,8 +176,8 @@ function semester($semester)
                     </div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" name="insert" class="btn btn-primary">insert</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="submit" name="insert" class="btn btn-primary">Simpan</button>
                     </div>
                   </form>
                 </div>
@@ -203,17 +208,10 @@ function semester($semester)
 
   <?php
   include 'models/m_logout.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+
 
   <!-- script dataTable jurusan -->
   <script>

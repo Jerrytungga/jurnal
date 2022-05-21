@@ -3,7 +3,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="angkatan">New Batch</h5>
+         <h5 class="modal-title" id="angkatan">Tambah Data Angkatan</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -14,13 +14,13 @@
            <div class="form-group">
            </div>
            <div class="form-group">
-             <label for="angkatan-text" class="col-form-label font-weight-bold">Batch :</label>
+             <label for="angkatan-text" class="col-form-label font-weight-bold">Angkatan :</label>
              <input type="text" class="form-control" id="angkatan" name="angkatan" required>
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="btn_tambah_angkatan" id="btn_tambah_angkatan" class="btn btn-primary ">Add</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="btn_tambah_angkatan" id="btn_tambah_angkatan" class="btn btn-primary ">Simpan</button>
          </div>
        </form>
      </div>
@@ -31,7 +31,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_angkatan">Change Batch Data</h5>
+         <h5 class="modal-title" id="edit_angkatan">Edit Data Angkatan</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -41,14 +41,14 @@
          <div class="modal-body" id="modal-edit">
            <input type="hidden" class="form-control" id="id" name="id">
            <div class="form-group">
-             <h7 class="text-reset" for="username">Batch :</h7>
+             <h7 class="text-reset" for="username">Angkatan :</h7>
              <p>
                <input type="text" class="form-control" id="angkatan" name="angkatan">
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="btn_edit_angkatan" id="btn_edit_angkatan" class="btn btn-warning">Update</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="btn_edit_angkatan" id="btn_edit_angkatan" class="btn btn-warning">Simpan Perubahan</button>
          </div>
        </form>
      </div>

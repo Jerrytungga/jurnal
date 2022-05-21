@@ -4,11 +4,11 @@ include '../database.php';
 if (isset($_POST['tambah_semester'])) {
   $id = htmlspecialchars($_POST['idsemester']);
   $keterangan = htmlspecialchars($_POST['semester']);
-  $t = mysqli_query($conn, "INSERT INTO `tb_semester`(`thn_semester`, `keterangan`) VALUES ('$id','$keterangan')");
-  if ($t) {
-    echo "<script>alert('Semester Berhasil ditambahkan!');</script>";
+  $datasemester = mysqli_query($conn, "INSERT INTO `tb_semester`(`thn_semester`, `keterangan`) VALUES ('$id','$keterangan')");
+  if ($datasemester) {
+    $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
   } else {
-    echo "<script>alert('Semester gagal ditambahkan');</script>";
+    $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
   }
 }
 //edit data angkatan
@@ -18,7 +18,9 @@ if (isset($_POST['edit_semester'])) {
   $status = htmlspecialchars($_POST['status']);
   $edit_data = mysqli_query($conn, "UPDATE `tb_semester` SET `thn_semester`='$id',`keterangan`='$keterangansmt',`status`='$status' WHERE `thn_semester`='$id'");
   if ($edit_data) {
-    echo "<script>alert('Semester Berhasil di Edit!');</script>";
+    $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
+  } else {
+    $notifgagaledit = $_SESSION['gagal'] = 'Mohon Maaf Data Tidak Berhasil di Edit!';
   }
 }
 
@@ -69,27 +71,27 @@ include 'template/Session.php';
         <div class="container-fluid">
           <div class="d-sm-flex align-items-center justify-content-between mb-3">
             <div class="group">
-              <h1 class="h3 mb-2 text-gray-800">Semester</h1>
+              <h1 class="h3 mb-2 text-uppercase">Data Semester</h1>
             </div>
           </div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4 ">
             <div class="card-header py-3">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#semester">Add Semester</a>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#semester">Tambah Data Semester</a>
               <div class="alert alert-danger mt-2 col-4" role="alert">
-                Semester Not allowed to be deleted!
+                Semester dapat diaktifkan salah satu!
               </div>
             </div>
             <div class="card-body">
               <div class="table-responsive overflow-hidden">
                 <table class="table table-bordered mydatatable" id="dataTable" width="100%">
-                  <thead class=" text-md-center">
+                  <thead class=" text-md-center bg-dark text-light">
                     <tr>
                       <th width="10">No</th>
                       <th>Semester</th>
                       <th>Status</th>
-                      <th>Date</th>
-                      <th>Option</th>
+                      <th>Tanggal</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody class=" text-md-center">
@@ -135,17 +137,10 @@ include 'template/Session.php';
   <?php
   include 'models/m_logout.php';
   include 'models/m_semester.php';
+  include 'template/script.php';
+  include 'template/alert.php';
   ?>
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="../assets/alert/sweetalert2.min.js"></script>
+
   <!-- script dataTable jurusan -->
   <script>
     $(document).ready(function() {

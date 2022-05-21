@@ -1,9 +1,9 @@
 <!-- Modal Menampilkan data target -->
 <div class="modal fade" id="targetpoin" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Target Points</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Target Poin Presensi</h5>
         <?php
         date_default_timezone_set('Asia/Jakarta');
         $hari_ini = date('Y-m-d');
@@ -12,7 +12,7 @@
         $cektarget = mysqli_num_rows($cek_target);
         if ($cektarget < 2) { ?>
           <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#targettambah">
-            Add Target
+            Tambah Target Presensi
           </button>
         <?php    }
         ?>
@@ -30,15 +30,15 @@
       <div class="modal-body">
 
         <table class="table table-striped">
-          <thead>
+          <thead class="bg-dark text-light">
             <tr>
               <th scope="col">No</th>
-              <th scope="col">Batch</th>
-              <th scope="col">Day</th>
+              <th scope="col">Angkatan</th>
+              <th scope="col">Hari</th>
               <th scope="col">Target</th>
-              <th scope="col">Week</th>
-              <th scope="col">Date</th>
-              <th scope="col">Option</th>
+              <th scope="col">Minggu</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Add Target</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Tambah Target</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         </button>
         <span aria-hidden="true">&times;</span>
@@ -91,15 +91,15 @@
         <div class="modal-body">
           <div class="form-row">
             <div class="col">
-              <label for="Day">Day</label>
+              <label for="Day">Hari</label>
               <select class="form-control" name="Day" required>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+                <option value="Senin">Senin</option>
+                <option value="Selasa">Selasa</option>
+                <option value="Rabu">Rabu</option>
+                <option value="Kamis">Kamis</option>
+                <option value="Jumat">Jumat</option>
+                <option value="Sabtu">Sabtu</option>
+                <option value="Minggu">Minggu</option>
               </select>
             </div>
             <div class="col">
@@ -110,9 +110,9 @@
 
           <div class="form-row">
             <div class="col">
-              <label for="angkatan1">Batch</label>
+              <label for="angkatan1">Angkatan</label>
               <select class="form-control" name="angkatan1" required>
-                <option selected>Select</option>
+                <option selected>Pilih Angkatan</option>
                 <?php
                 // looping data ankatan
                 $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
@@ -123,15 +123,15 @@
               </select>
             </div>
             <div class="col">
-              <label for="target">Week</label>
+              <label for="target">Minggu</label>
               <input type="number" name="week" class="form-control" required>
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="addtarget" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" name="addtarget" class="btn btn-primary">Simpan</button>
         </div>
       </form>
     </div>
@@ -154,15 +154,15 @@
           <input type="hidden" name="id_taget_presensi" id="id_taget_presensi" class="form-control">
           <div class="form-row">
             <div class="col">
-              <label for="Day">Day</label>
+              <label for="Day">Hari</label>
               <select class="form-control" name="hari" id="hari">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+                <option value="Senin">Senin</option>
+                <option value="Selasa">Selasa</option>
+                <option value="Rabu">Rabu</option>
+                <option value="Kamis">Kamis</option>
+                <option value="Jumat">Jumat</option>
+                <option value="Sabtu">Sabtu</option>
+                <option value="Minggu">Minggu</option>
               </select>
             </div>
 
@@ -174,9 +174,9 @@
 
           <div class="form-row">
             <div class="col">
-              <label for="angkatan1">Batch</label>
+              <label for="angkatan1">Angkatan</label>
               <select class="form-control" id="angkatan2" name="angkatan2" required>
-                <option selected>Select</option>
+                <option selected>Pilih Angkatan</option>
                 <?php
                 // looping data ankatan
                 $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
@@ -187,14 +187,14 @@
               </select>
             </div>
             <div class="col">
-              <label for="target">Week</label>
+              <label for="target">Minggu</label>
               <input type="number" name="week" id="week" class="form-control">
             </div>
           </div><br>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="updatetarget" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="submit" name="updatetarget" class="btn btn-primary">Simpan Perubahan</button>
           </div>
         </form>
       </div>

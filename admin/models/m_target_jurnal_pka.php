@@ -3,7 +3,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="jurusan">New Target</h5>
+         <h5 class="modal-title" id="jurusan">Tambah Target jurnal</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -13,10 +13,10 @@
          <div class="modal-body">
            <div class="form-group">
 
-             <label for="name">Activity :</label>
-             <input type="text" class="form-control mb-2" name="kegiatan" required>
-             <label for="target">Target :</label>
-             <input type="text" class="form-control mb-2" name="target" required>
+             <label for="name">Presensi :</label>
+             <input type="text" class="form-control mb-2" name="presensi" required>
+             <label for="target">Jurnal :</label>
+             <input type="text" class="form-control mb-2" name="jurnal" required>
              <label for="semester">Semester:</label>
              <select class="form-control mb-2" name="semester" aria-label="Default select example">
                <option selected>Select</option>
@@ -28,22 +28,13 @@
                 }
                 ?>
              </select>
-             <label class="text-reset" for="angkatan">Batch :</label>
-             <select class="form-control" name="angkatan" id="angkatan" aria-label="Default select example">
-               <option selected>Select</option>
-               <?php
-                // looping data ankatan
-                $sql_angkatan = mysqli_query($conn, "SELECT * FROM `tb_angkatan`");
-                while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
-                }
-                ?>
-             </select>
+             <label class="text-reset" for="angkatan">Pemerikasaan :</label>
+             <input type="text" class="form-control" name="pemeriksaan">
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="btn_tambah_target" class="btn btn-primary">Add</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="btn_tambah_target" class="btn btn-primary">Simpan</button>
          </div>
        </form>
      </div>
@@ -55,7 +46,7 @@
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="edit_jurusan">Change Target Jurnal PKA</h5>
+         <h5 class="modal-title" id="edit_jurusan">Edit Target Jurnal</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -65,10 +56,10 @@
          <div class="modal-body" id="modal-edit">
            <input type="hidden" class="form-control" id="kode" name="kode">
            <div class="form-group">
-             <label for="name">Activity :</label>
-             <input type="text" class="form-control mb-2" name="kegiatan" id="kegiatanjurnal" required>
-             <label for="target">Target :</label>
-             <input type="text" class="form-control mb-2" name="target" id="targettargetjurnal" required>
+             <label for="name">Presensi :</label>
+             <input type="text" class="form-control mb-2" name="presensi" id="presensi1" required>
+             <label for="target">Jurnal :</label>
+             <input type="text" class="form-control mb-2" name="jurnal" id="jurnal1" required>
              <label for="semester">Semester:</label>
              <select class="form-control mb-2" name="semester" id="semesterjurnal" aria-label="Default select example">
                <option selected>Select</option>
@@ -80,22 +71,13 @@
                 }
                 ?>
              </select>
-             <label class="text-reset" for="angkatan">Batch :</label>
-             <select class="form-control" name="angkatan" id="batch" aria-label="Default select example">
-               <option selected>Select</option>
-               <?php
-                // looping data ankatan
-                $sql_angkatan = mysqli_query($conn, "SELECT * FROM `tb_angkatan`");
-                while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
-                  echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
-                }
-                ?>
-             </select>
+             <label class="text-reset" for="angkatan">Pemeriksaan :</label>
+             <input type="text" class="form-control" name="pemeriksaan" id="pemeriksaan1">
            </div>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <button type="submit" name="btn_edit_target" class="btn btn-warning">Update</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" name="btn_edit_target" class="btn btn-warning">Simpan Perubahan</button>
          </div>
        </form>
      </div>
