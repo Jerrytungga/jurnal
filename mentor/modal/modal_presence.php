@@ -126,7 +126,7 @@
                 $hari_ini = date('Y-m-d');
                 $waktu_sekarang = date('H:i:s');
                 // looping data ankatan
-                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini' and end_time > '$waktu_sekarang '");
+                $listshedule = mysqli_query($conn, "SELECT * FROM schedule where status='Aktif' and date='$hari_ini'");
                 while ($data_schedule = mysqli_fetch_array($listshedule)) {
                   echo '<option value="' . $data_schedule['id'] . '">' . kegiatan($data_schedule['id_activity']) . '</option>';
                 }
