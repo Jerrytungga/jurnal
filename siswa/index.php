@@ -744,12 +744,12 @@ include 'template/head.php'
                             $dari = "2021-11-15"; // tanggal mulai
                             $sampai = date('Y-m-d'); // tanggal akhir
                             while (strtotime($dari) <= strtotime($sampai)) {
-                                $exhibition = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_exhibition WHERE nis='$id' AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $kelas_pameran = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_exhibition WHERE nis='$id' AND  date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
                                 $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
                                 $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
                                 $presensiWeekly = mysqli_fetch_array($presensi);
                                 foreach ($presensi as $row) :
-                                    $kelasPameran = mysqli_fetch_array($exhibition);
+                                    $kelasPameran = mysqli_fetch_array($kelas_pameran);
                                     echo "['week" . $row['week'] . "', " .
                                         $kelasPameran['jumlah'] . "],";
                                 endforeach;
