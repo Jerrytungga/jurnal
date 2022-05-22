@@ -311,7 +311,7 @@ $murid = mysqli_fetch_array($siswa);
 
                         <div class="form-group">
                             <label for="text">Presensi :</label>
-                            <input type="text" class="form-control" id="absen" name="absen" readonly>
+                            <input type="text" class="form-control" id="absen" name="absen">
                         </div>
 
 
