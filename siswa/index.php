@@ -384,8 +384,9 @@ include 'template/head.php'
 
 
                             </div>
+
                             <div class="card-body">
-                                <!-- <div id="chart"></div> -->
+                                <div id="chart"></div>
                             </div>
 
                         </div>
@@ -564,7 +565,6 @@ include 'template/head.php'
 
 
     <script>
-        // Create the chart
         Highcharts.chart('chart', {
             chart: {
                 type: 'column'
@@ -655,7 +655,6 @@ include 'template/head.php'
                         data: [
                             <?php
                             while ($data_presensi2 = mysqli_fetch_array($presensi)) {
-
                                 $ambil_data =  $data_presensi2['presensi'];
                                 $week =  $data_presensi2['week'];
                                 echo "['week" .  $week . "', " . $ambil_data . "],";
@@ -669,13 +668,96 @@ include 'template/head.php'
                         name: "Penyegaran Pagi",
                         id: "Penyegaran Pagi",
                         data: [
-
-
-
-
-
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $pp = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`) as jumlah FROM tb_revival_note WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $revivalnote = mysqli_fetch_array($pp);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $revivalnote['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
                         ]
                     },
+                    {
+                        name: "Catatan Doa",
+                        id: "Catatan Doa",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $doa = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point`) as jumlah FROM tb_prayer_note WHERE nis='$id' AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $prayernote = mysqli_fetch_array($doa);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $prayernote['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
+                        ]
+                    },
+                    {
+                        name: "Pembacaan Alkitab",
+                        id: "Pembacaan Alkitab",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+
+                                $alkitab = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point`) as jumlah FROM tb_bible_reading WHERE nis='$id' AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $biblereading = mysqli_fetch_array($alkitab);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $biblereading['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
+                        ]
+                    },
+                    {
+                        name: "Pameran",
+                        id: "Pameran",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $exhibition = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_exhibition WHERE nis='$id' AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='$data_semester' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $kelasPameran = mysqli_fetch_array($exhibition);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $kelasPameran['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
+                        ]
+                    }
+
 
                 ]
             }
