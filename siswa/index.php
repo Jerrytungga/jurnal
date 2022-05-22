@@ -479,6 +479,16 @@ include 'template/head.php'
                         y: <?= $personalgoal['personalgoal']; ?>,
                         drilldown: "Tujuan Pribadi"
                     },
+                    {
+                        name: "Persekutuan Mentor",
+                        y: <?= $homemeeting['homemeeting']; ?>,
+                        drilldown: "Persekutuan Mentor"
+                    },
+                    {
+                        name: "Berkat",
+                        y: <?= $blessings['blessings']; ?>,
+                        drilldown: "Berkat"
+                    },
 
                 ]
             }],
@@ -621,7 +631,54 @@ include 'template/head.php'
                             }
                             ?>
                         ]
-                    }
+                    },
+                    {
+                        name: "Persekutuan Mentor",
+                        id: "Persekutuan Mentor",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $homemetting = mysqli_query($conn, "SELECT SUM(`point`) as jumlah FROM tb_home_meeting WHERE nis='$id' AND  semester='" . $_POST['sms'] . "' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='" . $_POST['sms'] . "' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $persekutuan = mysqli_fetch_array($homemetting);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $persekutuan['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
+                        ]
+                    },
+                    {
+                        name: "Berkat",
+                        id: "Berkat",
+                        data: [
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta'); // Set timezone
+                            //variabel ini bisa kita isi dengan tanggal statis misalnya, '2017-05-01"
+                            $dari = "2021-11-15"; // tanggal mulai
+                            $sampai = date('Y-m-d'); // tanggal akhir
+                            while (strtotime($dari) <= strtotime($sampai)) {
+                                $Blessings1 = mysqli_query($conn, "SELECT SUM(`point1`)+SUM(`point2`)+SUM(`point3`)+SUM(`point4`)+SUM(`point5`)+SUM(`point6`)+SUM(`point7`)+SUM(`point8`) as jumlah FROM tb_blessings WHERE nis='$id' AND semester='" . $_POST['sms'] . "' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $presensi = mysqli_query($conn, "SELECT * FROM tb_presensi WHERE nis='$id'  AND semester='" . $_POST['sms'] . "' and date BETWEEN '$dari' AND '" . date("Y-m-d", strtotime("+6 day", strtotime($dari))) . "' ORDER BY date DESC");
+                                $dari = date("Y-m-d", strtotime("+7 day", strtotime($dari))); //looping tambah 7 date
+                                $presensiWeekly = mysqli_fetch_array($presensi);
+                                foreach ($presensi as $row) :
+                                    $berkat = mysqli_fetch_array($Blessings1);
+                                    echo "['week" . $row['week'] . "', " .
+                                        $berkat['jumlah'] . "],";
+                                endforeach;
+                            }
+                            ?>
+                        ]
+                    },
+
 
 
                 ]
