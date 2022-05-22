@@ -27,7 +27,8 @@ if (isset($_POST['btn_virtue'])) {
     $sikapseedo = htmlspecialchars($_POST['sikapseedo']);
     $catatan = htmlspecialchars($_POST['catatan']);
     $smt = htmlspecialchars($_POST['smt']);
-    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan',`semester`='$smt' WHERE  `tb_virtues`.`nis`='$nis' ");
+    $date = htmlspecialchars($_POST['tanggal']);
+    $edit = mysqli_query($conn, "UPDATE `tb_virtues` SET `sikapramahsopan`='$sikapramahsopan',`sikapberkordinasi`='$sikapberkordinasi',`sikaptolongmenolong`='$sikaptolongmenolong',`sikapseedo`='$sikapseedo',`catatan`='$catatan',`semester`='$smt' WHERE  `tb_virtues`.`nis`='$nis' and date='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
@@ -194,7 +195,7 @@ if (isset($_POST['reset'])) {
                                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                                                             <!-- Button trigger modal -->
-                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-sikapramahsopan="<?= $row['sikapramahsopan']; ?>" data-sikapberkordinasi="<?= $row['sikapberkordinasi']; ?>" data-sikaptolongmenolong="<?= $row['sikaptolongmenolong']; ?>" data-sikapseedo="<?= $row['sikapseedo']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" class="dropdown-item">
+                                                            <a id="editpenilaian" type="button" data-toggle="modal" data-target="#edit" data-sikapramahsopan="<?= $row['sikapramahsopan']; ?>" data-sikapberkordinasi="<?= $row['sikapberkordinasi']; ?>" data-sikaptolongmenolong="<?= $row['sikaptolongmenolong']; ?>" data-sikapseedo="<?= $row['sikapseedo']; ?>" data-tanggal="<?= $row['date']; ?>" data-nis="<?= $row['nis']; ?>" data-efata="<?= $row['efata']; ?>" data-cttn="<?= $row['catatan']; ?>" class="dropdown-item">
                                                                 Edit
                                                             </a>
 
@@ -253,6 +254,7 @@ if (isset($_POST['reset'])) {
             let sikapseedo = $(this).data('sikapseedo');
             let catatan = $(this).data('cttn');
             let date = $(this).data('date');
+            let tanggal = $(this).data('tanggal');
             $(" #modal-edit #nis").val(nis);
             $(" #modal-edit #efata").val(efata);
             $(" #modal-edit #sikapramahsopan").val(sikapramahsopan);
@@ -260,6 +262,7 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #sikaptolongmenolong").val(sikaptolongmenolong);
             $(" #modal-edit #sikapseedo").val(sikapseedo);
             $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-edit #tanggal").val(tanggal);
             $(" #modal-hapus #nis").val(nis);
             $(" #modal-hapus #date").val(date);
 

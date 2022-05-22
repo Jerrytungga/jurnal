@@ -27,7 +27,8 @@ if (isset($_POST['btn_virtue_character'])) {
     $hormat = htmlspecialchars($_POST['hormat']);
     $catatan = htmlspecialchars($_POST['catatan']);
     $smt = htmlspecialchars($_POST['smt']);
-    $edit = mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`semester`='$smt',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis'");
+    $date = htmlspecialchars($_POST['tanggal']);
+    $edit = mysqli_query($conn, "UPDATE `tb_vrtues_caharacter` SET `perhatian_berbagi`='$berbagi',`salam_sapa`='$salam',`bersyukur_berterimakasih`='$ucapan',`hormat_taat`='$hormat',`semester`='$smt',`catatan`='$catatan' WHERE `tb_vrtues_caharacter`.`nis`='$nis' and `date`='$date'");
     if ($edit) {
         $notifsuksesedit = $_SESSION['sukses'] = 'Tersimpan!';
     } else {
@@ -262,6 +263,7 @@ if (isset($_POST['reset'])) {
             $(" #modal-edit #ucapan").val(ucapan);
             $(" #modal-edit #hormat").val(hormat);
             $(" #modal-edit #catatan").val(catatan);
+            $(" #modal-edit #date").val(date);
             $(" #modal-hapus #nis").val(nis);
             $(" #modal-hapus #date").val(date);
 

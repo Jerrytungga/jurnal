@@ -14,6 +14,7 @@
                       <input type="hidden" class="form-control" id="efata" name="efata" value="<?= $_SESSION['id_Mentor']; ?>">
                       <input type="hidden" class="form-control" id="nis" name="nis" value="<?= $nis; ?>">
                       <input type="hidden" class="form-control" id="smt" name="smt" value="<?= $data_semester; ?>">
+                      <input type="hidden" name="tanggal" id="tanggal">
                       <label class=" font-weight-bold">Ramah & Sopan :</label>
                       <div class="form-group">
                           <select class="form-control" aria-label="Default select example" name="sikapramahsopan" id="sikapramahsopan">
