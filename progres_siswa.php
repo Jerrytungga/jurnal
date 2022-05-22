@@ -134,7 +134,7 @@ function activity($activity)
                 <?php    } else {
                   echo  '<option selected>Pilih Angkatan</option>';
                 }
-                $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan where semester='" . $_POST['sms'] . "'") or die(mysqli_error($conn));
+                $sql_angkatan = mysqli_query($conn, "SELECT * FROM tb_angkatan") or die(mysqli_error($conn));
                 while ($data_angkatan = mysqli_fetch_array($sql_angkatan)) {
                   echo '<option value="' . $data_angkatan['angkatan'] . '">' . $data_angkatan['angkatan'] . '</option>';
                 }
@@ -339,10 +339,27 @@ function activity($activity)
   </script>
 
   <?php
-  $persen = $tampilan_presensi21['totalpresensi'] /  $target_presensi['target'] * 100;
-  $bulatkan = round($persen);
-  if ($bulatkan > 100) {
-    $bulatkan = 100;
+  $targetjurnal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_target_jurnal` where semester='$data_semester'"));
+  $persen_presensi = $tampilan_presensi21['totalpresensi'] /  $targetjurnal['presensi'] * 100;
+  $bulatkan_presensi = round($persen_presensi);
+
+  $persen_jurnal = $totaljurnal /  $targetjurnal['jurnal_pka'] * 100;
+  $bulatkan_jurnal = round($persen_jurnal);
+
+  $persen_living = $total_living /  $targetjurnal['pemeriksaan'] * 100;
+  $bulatkan_living = round($persen_living);
+
+  if ($bulatkan_presensi >= 100) {
+    $bulatkan_presensi = 100;
+    $tampilan_presensi21['totalpresensi'] = $targetjurnal['presensi'];
+  }
+  if ($bulatkan_jurnal >= 100) {
+    $bulatkan_jurnal = 100;
+    $totaljurnal = $targetjurnal['jurnal_pka'];
+  }
+  if ($bulatkan_living >= 100) {
+    $bulatkan_living = 100;
+    $total_living = $targetjurnal['pemeriksaan'];
   }
 
   ?>
@@ -399,12 +416,12 @@ function activity($activity)
       series: [{
 
           name: 'Persentase',
-          data: [<?= $bulatkan ?>, 90, 80],
+          data: [<?= $bulatkan_presensi ?>, <?= $bulatkan_jurnal ?>, <?= $bulatkan_living ?>],
           stack: 'male'
         },
         {
           name: 'Target',
-          data: [<?= $target_presensi['target'] ?>, 564, 800],
+          data: [<?= $targetjurnal['presensi'] ?>, <?= $targetjurnal['jurnal_pka'] ?>, <?= $targetjurnal['pemeriksaan'] ?>],
           stack: 'male'
         }, {
           name: '<?= $nama_siswa; ?>',

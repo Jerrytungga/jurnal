@@ -487,7 +487,7 @@ include 'template/head.php'
                     {
                         name: "Berkat",
                         y: <?= $blessings['blessings']; ?>,
-                        drilldown: "Berkat"
+                        // drilldown: "Berkat"
                     },
 
                 ]
