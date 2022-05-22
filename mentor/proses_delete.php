@@ -8,6 +8,7 @@ $id_kelas_hayat = $_GET['id_kelas_hayat'];
 $id_kelas_karakter = $_GET['id_kelas_karakter'];
 $id_kelas_konsititusi = $_GET['id_kelas_konsititusi'];
 $id_kelas_keterampilan = $_GET['id_kelas_keterampilan'];
+$id_akademik = $_GET['id_akademik'];
 if ($id_kelas_visi) {
   mysqli_query($conn, "DELETE FROM `tb_poin_kelas_visi` WHERE `id_kelas_visi`='$id_kelas_visi'");
   header("location: aspek_pembelajaran_pengetahuan.php?nis=$nis");
@@ -23,4 +24,7 @@ if ($id_kelas_visi) {
 } elseif ($id_kelas_keterampilan) {
   mysqli_query($conn, "DELETE FROM `tb_kelas_keterampilan` WHERE `id_keterampilan`='$id_kelas_keterampilan'");
   header("location: kelas_keterampilan.php?nis=$nis");
+} elseif ($id_akademik) {
+  mysqli_query($conn, "DELETE FROM `tb_akademik` WHERE  `id_akademik`='$id_akademik'");
+  header("location: Akademik.php?nis=$nis");
 }

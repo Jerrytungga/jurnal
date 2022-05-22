@@ -1558,20 +1558,35 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             </td>
 
                                         </tr>
-
+                                        <?php
+                                        $ambilnilai_akademik_utbk = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_akademik` WHERE nis='$nis' and semester='$fil' and  efata_mentor='$id' and materi='UTBK'"));
+                                        $ambilnilai_akademik_Tryout = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_akademik` WHERE nis='$nis' and semester='$fil' and  efata_mentor='$id' and materi='Tryout'"));
+                                        $total_nilai_Tryout  = $ambilnilai_akademik_Tryout['nilai_tpa'] + $ambilnilai_akademik_Tryout['nilai_tps'];
+                                        $rata_rata_Tryout = $total_nilai_Tryout / 2;
+                                        $total_nilai_utbk  = $ambilnilai_akademik_utbk['nilai_tpa'] + $ambilnilai_akademik_utbk['nilai_tps'];
+                                        $rata_rata_utbk = $total_nilai_utbk / 2;
+                                        if ($total_nilai_utbk == 0 && $rata_rata_utbk == 0) {
+                                            $total_nilai_utbk = '';
+                                            $rata_rata_utbk = '';
+                                        }
+                                        if ($total_nilai_Tryout == 0 && $rata_rata_Tryout == 0) {
+                                            $total_nilai_Tryout = '';
+                                            $rata_rata_Tryout = '';
+                                        }
+                                        ?>
                                         <tr>
-                                            <td class="border-dark">Tryout</td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
+                                            <td class="border-dark ">Tryout</td>
+                                            <td class="border-dark text-center"><?= $ambilnilai_akademik_Tryout['nilai_tpa'] ?></td>
+                                            <td class="border-dark text-center"><?= $ambilnilai_akademik_Tryout['nilai_tps'] ?></td>
+                                            <td class="border-dark text-center"><?= $total_nilai_Tryout ?></td>
+                                            <td class="border-dark text-center"><?= $rata_rata_Tryout ?></td>
                                         </tr>
                                         <tr>
                                             <td class="border-dark">UTBK</td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
-                                            <td class="border-dark"></td>
+                                            <td class="border-dark"><?= $ambilnilai_akademik_utbk['nilai_tpa'] ?></td>
+                                            <td class="border-dark"><?= $ambilnilai_akademik_utbk['nilai_tps'] ?></td>
+                                            <td class="border-dark"><?= $total_nilai_utbk ?></td>
+                                            <td class="border-dark"><?= $rata_rata_utbk  ?></td>
                                         </tr>
 
                                         <tr>

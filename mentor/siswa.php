@@ -165,10 +165,18 @@ $s = mysqli_fetch_array($siswa);
                                                     </a>
                                                     <a href="aspek_pembelajaran_pengetahuan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
                                                         Aspek Pembelajaran Pengetahuan
+                                                        <span class="badge bg-danger">Baru</span>
                                                     </a>
                                                     <a href="kelas_keterampilan.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
                                                         Kelas Keterampilan
+                                                        <span class="badge bg-danger">Baru</span>
                                                     </a>
+                                                    <a href="Akademik.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-dark btn-sm  form-group">
+                                                        Akademik
+                                                        (Persiapan SBMPTN)
+                                                        <span class="badge bg-danger">Baru</span>
+                                                    </a>
+
 
 
                                                     <!-- <a href="report_final.php?nis=<?= $row["nis"]; ?>" type="button" class="btn btn-danger btn-sm  form-group">
