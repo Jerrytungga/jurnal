@@ -685,9 +685,7 @@ include 'template/head.php'
             }
         });
     </script>
-    <?php
-    var_dump($ambil_datarv);
-    ?>
+
 
 </body>
 
