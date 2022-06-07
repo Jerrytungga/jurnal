@@ -5,7 +5,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="activity">Jadwal :
           <button type="button" data-toggle="modal" data-target="#addschedule" class="btn btn-warning">Tambah Jadwal</button>
-          <button type="button" data-toggle="modal" data-target="#offschedule" class="btn btn-danger">Mengaktifkan/menonaktifkan semua jadwal</button>
+          <!-- <button type="button" data-toggle="modal" data-target="#offschedule" class="btn btn-danger">Mengaktifkan/menonaktifkan semua jadwal</button> -->
           <button type="button" data-toggle="modal" data-target="#alarm" class="btn btn-info">🔔 Nada Pengingat</button>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

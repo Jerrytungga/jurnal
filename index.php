@@ -219,7 +219,7 @@ $list = mysqli_fetch_array($jadwal);
         <div class="card-header text-light bg-primary">
           <center>
             <h4>
-              Scanner Qr Code
+              Scan Qr Code
             </h4>
           </center>
         </div>
