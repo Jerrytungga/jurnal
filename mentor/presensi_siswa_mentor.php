@@ -220,7 +220,7 @@ $array_absent = mysqli_fetch_array($Sqli_absent);
                                     <thead class="text-md-center">
                                         <tr class="bg-info">
                                             <th width="10">No</th>
-                                            <th>Foto presensi</th>
+                                            <th>Foto Siswa</th>
                                             <th>Nama</th>
                                             <th>Kegiatan</th>
                                             <th>Waktu kegiatan</th>

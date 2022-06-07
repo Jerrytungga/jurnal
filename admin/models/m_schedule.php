@@ -6,6 +6,7 @@
         <h5 class="modal-title" id="activity">Jadwal :
           <button type="button" data-toggle="modal" data-target="#addschedule" class="btn btn-warning">Tambah Jadwal</button>
           <!-- <button type="button" data-toggle="modal" data-target="#offschedule" class="btn btn-danger">Mengaktifkan/menonaktifkan semua jadwal</button> -->
+          <button type="button" data-toggle="modal" data-target="#histori" class="btn btn-danger">Riwayat Jadwal</button>
           <button type="button" data-toggle="modal" data-target="#alarm" class="btn btn-info">🔔 Nada Pengingat</button>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -106,6 +107,99 @@
     </div>
   </div>
 </div>
+
+
+<!-- Histori jadwal -->
+<div class="modal fade" id="histori" tabindex="-1" aria-labelledby="activity" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Riwayat Jadwal </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table dataTable table-striped" width="70%" id="example2">
+          <thead class="bg-danger text-light">
+            <tr>
+              <th scope="col">Angkatan</th>
+              <th scope="col">Minggu</th>
+              <th scope="col">Kegiatan</th>
+              <th scope="col">Pesan</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Waktu Mulai</th>
+              <th scope="col">Waktu Akhir</th>
+              <th scope="col">Waktu Presensi</th>
+              <th scope="col">Status</th>
+              <th scope="col">Timer</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nada Pengingat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($jadwal2 as $data1) : ?>
+              <tr>
+                <td><?= $data1["batch"]; ?></td>
+                <td><?= $data1["week"]; ?></td>
+                <td><?= activity($data1["id_activity"]); ?></td>
+                <td><?= $data1["info"]; ?></td>
+                <td><?= $data1["date"]; ?></td>
+                <td><?= $data1["start_time"]; ?></td>
+                <td><?= $data1["end_time"]; ?></td>
+                <td><?= $data1["presensi_time"]; ?></td>
+                <td><?= $data1["status"]; ?></td>
+                <td><?= $data1["timer"]; ?></td>
+                <td><?= $data1["id"]; ?></td>
+                <td><?= $data1["nada_alarm"]; ?></td>
+
+
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+          <tfoot>
+            <th width="10"></th>
+            <th width="200"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="70"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+            <th width="50"></th>
+
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
