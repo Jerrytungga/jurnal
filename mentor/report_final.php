@@ -69,7 +69,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
 
                     <?php
                     if ($cekdata > 0) { ?>
-                        <a href="laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-success mt-2 m-2">Download Laporan Semester</a>
+                        <a href="laporan_semester.php?semester=<?= $fil  ?>&nis=<?= $nis ?>" class="btn btn-success mt-2 m-2">Cetak Laporan Semester</a>
                     <?php }
                     ?>
                     <div class="card shadow">
