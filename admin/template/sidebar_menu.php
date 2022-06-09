@@ -106,7 +106,7 @@
              </div>
          </div>
      </li>
-     <!--
+
      <li class="nav-item active">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
              <i class="fas fa-fw fa-table"></i>
@@ -119,7 +119,7 @@
                  <a class="collapse-item" href="rapor_siswa.php">Semester</a>
              </div>
          </div>
-     </li> -->
+     </li>
 
 
      <!-- <li class="nav-item active">
