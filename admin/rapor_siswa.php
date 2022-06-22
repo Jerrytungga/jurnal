@@ -56,7 +56,7 @@ $s = mysqli_fetch_array($siswa);
                             <!-- <input type="text" name="nis" required placeholder="Masukan Nis Siswa" class="form-control col-2 m-2"> -->
                         </select>
                         <select class="form-control col-2 m-2" required name="nis" id="nis" aria-label="Default select example">
-                            <option value="">Pilih Student</option>
+                            <option value="">Pilih Siswa</option>
                             <?php
 
                             $daftarsiswa = mysqli_query($conn, "SELECT * FROM siswa where status='Aktif' ");

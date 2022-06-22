@@ -72,7 +72,7 @@ $siswa = mysqli_query($conn, "SELECT * FROM siswa a JOIN tb_angkatan b ON a.angk
                                     <input type="date" name="tanggal_akhir" class="form-control ml-3">
                                 <?php } ?>
 
-                                <button type="submit" name="filter_tanggal" class="btn btn-dark ml-3">Unduh</button>
+                                <button type="submit" name="filter_tanggal" class="btn btn-dark ml-3">Cetak Laporan</button>
                                 <!-- <button type="submit" name="reset" value="reset" class="btn btn-danger ml-3">Reset</button> -->
                             </form>
                         </div>

@@ -22,6 +22,7 @@ $s2 = mysqli_fetch_array($semes);
 $tampilkan_catatan = mysqli_query($conn, "SELECT * FROM `tb_catatan_lp_semester` WHERE efata_mentor='$id' and nis_siswa='$nis' and semester='$fil'");
 $data_catatan = mysqli_fetch_array($tampilkan_catatan);
 $cekdata = mysqli_num_rows($tampilkan_catatan);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,8 +118,6 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Awal script pembelajaran ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
                                         <tr>
                                             <?php
                                             $fokus_pembelajaran = mysqli_query($conn, "SELECT * FROM `tb_pengembangan_diri` WHERE semester='$fil'");
@@ -155,6 +154,7 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                                 $revivalnote['jumlah'] = $target_pembelajaran;
                                                 $bobotjurnalharian = '4';
                                                 $keterangan_jurnalharian = 'A';
+                                                $bulatkannilaijurnalharian = $target_pembelajaran;
                                             } else if ($bulatkannilaijurnalharian >= 90) {
                                                 $deskripsi_jurnalharian = 'Mencapai Target';
                                                 $bobotjurnalharian = '4';
@@ -182,6 +182,13 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                             $total_pengembangan_diri = array_sum($jumlah_pengembangan_diri);
 
                                         ?>
+
+
+
+
+
+
+
                                             <tr class="border-dark text-center">
                                                 <td class="border-dark"><?= $namapembelajaran; ?></td>
                                                 <!-- target -->
@@ -1496,7 +1503,9 @@ $cekdata = mysqli_num_rows($tampilkan_catatan);
                                         $Total_bobot = $ambil_bobot_pengembangan_diri['Total'] + $ambil_bobot_penetapan_tujuan_belajar['Total'] + $ambil_bobot_Kehadiran['Total'] + $ambil_bobot_Jurnal['Total'] + $ambil_bobot_pengamatan['Total'] + $ambil_bobot_kebersihan['Total'] + $ambil_bobot_keterampilan['Total'] + $ambil_bobot_kelas_visi['Total'] + $ambil_bobot_kelas_hayat['Total'] + $ambil_bobot_kelas_karakter['Total'] + $ambil_bobot_kelas_konstitusi['Total'];
 
 
-                                        $bobot_pencapaian = $total_pengembangan_diri + $total_kerohanian + $total_pelatihan + $total_pp + $total_alkitab + $total_karakter + $total_pendidikan + $total_pdth + $total_pengalaman_pdth + $total_kelas_karakter + $total_kelas_tokohkarakter + $total_kelas_evaluasikarakter + $total_kelas_konsititusi + $total_kelas_entrepreunership + $total_kelas_komunikasi + $total_kelas_gitar + $total_presensi + $total_jurnal + $total_totalliving;
+                                        $bobot_pencapaian = $total_totalliving + $total_sikapberbagi + $total_jurnal +
+                                            $total_presensi + $total_kelas_gitar + $total_kelas_komunikasi +  $total_kelas_entrepreunership + $total_kelas_konsititusi + $total_kelas_evaluasikarakter + $total_kelas_tokohkarakter + $total_kelas_karakter + $total_pengalaman_pdth + $total_pdth + $total_pendidikan + $total_karakter +
+                                            $total_alkitab + $total_pp + $total_pelatihan + $total_kerohanian + $total_pengembangan_diri;
 
                                         $persentase = $bobot_pencapaian
                                             / $Total_bobot * 100;
