@@ -31,7 +31,7 @@
     <script>
       Swal.fire({
         icon: 'error',
-        title: '<p class="text-danger"><strong>Peringantan!</strong></p>',
+        title: '<p class="text-danger"><strong>PERINGATAN!</strong></p>',
         html: '<p class=" text-uppercase"><b><?= name($_POST['nis']) ?></b><br><br> Telah melakukan presensi sebelumnya</p>',
         footer: '<?php echo $cekdata; ?>'
       })
@@ -41,7 +41,7 @@
     <script>
       Swal.fire({
         icon: 'warning',
-        title: '<p class="text-danger"><strong>Peringantan!</strong></p>',
+        title: '<p class="text-danger"><strong>PERINGATAN!</strong></p>',
         html: '<?php echo $Announcement; ?>'
       })
     </script>

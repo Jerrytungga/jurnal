@@ -73,12 +73,18 @@
   <?php } else if (isset($pesan)) { ?>
     <script>
       Swal.fire({
-        title: '<strong>Maintenance</strong>',
-        icon: 'info',
-        html: 'Saudara/i Jurnal akan ditutup pukul 20:00 WIB',
-        showCloseButton: true,
-        focusConfirm: true,
-        confirmButtonAriaLabel: 'Thumbs up, great!',
+        icon: 'error',
+        title: '<?php echo $pesan; ?>',
+        html: '<p class=" text-uppercase"><b>Waktu Akhir <?= $_POST['end_time'] ?></b><br><br>Mohon Maaf <br>Waktu Akhir Harus Lebih Besar Dari <br>Waktu Mulai <?= $_POST['start_time'] ?></p>',
+      })
+    </script>
+  <?php }
+  if (isset($pesan_presensi)) { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: '<?php echo $pesan_presensi; ?>',
+        html: '<p class=" text-uppercase"><b>Waktu Presensi <?= $_POST['presensi_time'] ?></b><br><br>Mohon Maaf <br>Waktu Presensi Harus Lebih Kecil Dari <br>Waktu Mulai <?= $_POST['start_time'] ?></p>',
       })
     </script>
   <?php } ?>

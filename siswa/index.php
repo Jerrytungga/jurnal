@@ -259,7 +259,24 @@ include 'template/head.php'
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Kuesioner Penilaian Fitur Presensi PKA</h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body">
 
+                    <a href="https://forms.gle/vR4Kfw5WSbGn5jxQ7" class="btn btn-warning btn-lg">Isi Kuesioner</a><br><br>
+                    <h6>Pesan : Diharapkan Saudara-Saudari Mengisi Kuesioner Ini Sesuai Dengan Fakta Yang Ada! Terimakasih Tuhan Yesus Memberkati</h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <!-- Logout Modal-->
     <?php
     include 'modal/modal_logout.php';
@@ -267,7 +284,9 @@ include 'template/head.php'
     ?>
 
 
-
+    <script>
+        $('#staticBackdrop').modal('show')
+    </script>
 
     <!-- Page level plugins -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
