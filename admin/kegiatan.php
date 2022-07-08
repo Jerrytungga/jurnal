@@ -119,15 +119,19 @@ if (isset($_POST['insert_shedule'])) {
   if ($_POST['end_time'] < $_POST['start_time']) {
     $pesan = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
   } else {
-    if ($_POST['start_time'] < $_POST['presensi_time']) {
-      $pesan_presensi = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
-    } else {
-      $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`presensi_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
-      if ($input_schedule) {
-        $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+    if ($_POST['start_time'] > $_POST['presensi_time'] || $_POST['start_time'] == $_POST['presensi_time']) {
+      if ($_POST['txtAbsentTimer'] > $_POST['presensi_time']) {
+        $input_schedule = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`,`date`, `start_time`, `end_time`,`presensi_time`,   `status`,  `timer`,`nada_alarm`) VALUES ('$angkatansiswa','$mm','$item_activity','$pesan','$date','$start_Waktu','$end_waktu','$waktu_absent','$status', '$timer', '$alrm_nada')");
+        if ($input_schedule) {
+          $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+        } else {
+          $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+        }
       } else {
-        $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+        $waktu_timer = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
       }
+    } else {
+      $pesan_presensi = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
     }
   }
 }

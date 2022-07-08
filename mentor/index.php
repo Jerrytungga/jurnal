@@ -320,23 +320,7 @@ $count4 = mysqli_num_rows($get4);
     </a>
     <!-- Logout Modal-->
 
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Kuesioner Penilaian Fitur Presensi PKA</h5>
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
-                </div>
-                <div class="modal-body">
-                    <a href="https://forms.gle/eWaGf23iRFNv5J1JA" class="btn btn-warning btn-lg">Isi Kuesioner</a><br><br>
-                    <h6>Pesan : Diharapkan Saudara-Saudari Mengisi Kuesioner Ini Sesuai Dengan Fakta Yang Ada! Terimakasih Tuhan Yesus Memberkati</h6>
-                </div>
 
-            </div>
-        </div>
-    </div>
     <?php
     include 'modal/modal_logout.php';
 
@@ -348,11 +332,6 @@ $count4 = mysqli_num_rows($get4);
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <!-- <script src="js/Chart.js"></script> -->
-    <script>
-        $('#staticBackdrop').modal('show')
-    </script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>

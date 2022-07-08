@@ -363,7 +363,7 @@
             <div class="col">
               <label>Nada Pengingat</label>
               <select class="form-control" name="alarm_nada" aria-label="Default select example" required>
-                <option selected>Pilih Nada Pengingat</option>
+                <option selected value="">Pilih Nada Pengingat</option>
                 <?php
                 // looping data ankatan
                 $nd_alarm = mysqli_query($conn, "SELECT * FROM ringtones");

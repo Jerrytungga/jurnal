@@ -84,7 +84,16 @@
       Swal.fire({
         icon: 'error',
         title: '<?php echo $pesan_presensi; ?>',
-        html: '<p class=" text-uppercase"><b>Waktu Presensi <?= $_POST['presensi_time'] ?></b><br><br>Mohon Maaf <br>Waktu Presensi Harus Lebih Kecil Dari <br>Waktu Mulai <?= $_POST['start_time'] ?></p>',
+        html: '<p class=" text-uppercase"><b>Waktu Presensi <?= $_POST['presensi_time'] ?></b><br><br>Mohon Maaf <br>Waktu Presensi Harus Lebih Kecil Dari <br>Waktu Mulai <?= $_POST['start_time'] ?> <br> Atau Sama Dengan Waktu Mulai</p>',
+      })
+    </script>
+  <?php }
+  if (isset($waktu_timer)) { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: '<?php echo $waktu_timer; ?>',
+        html: '<p class=" text-uppercase"><b>Waktu Timer <?= $_POST['txtAbsentTimer'] ?></b><br><br>Mohon Maaf <br>Waktu Timer Harus Lebih Besar Dari <br>Waktu Presensi <?= $_POST['presensi_time'] ?>',
       })
     </script>
   <?php } ?>
